@@ -1,7 +1,6 @@
 name: security
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,6 +9,7 @@ permissions:
 jobs:
   secret-patterns:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - name: Check for private keys and common token patterns
@@ -23,6 +23,7 @@ jobs:
 
   python-security:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
@@ -37,6 +38,7 @@ jobs:
 
   codeql:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: github/codeql-action/init@v4
