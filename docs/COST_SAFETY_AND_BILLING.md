@@ -33,4 +33,29 @@ Follow the repository's local installation and test instructions. Inspect depend
 ## Change-control rule
 Any change adding an external endpoint, API key, cloud resource, auto-download, telemetry export, or paid service must update this file and explain the service, default state, data leaving the machine, cost limits/disable steps, licence/pricing, and local alternative.
 
+## Zero-cost local mode (default)
+
+Treat this repository as **local-only and no-paid-services-by-default**. This is a development policy, not a technical guarantee that external providers cannot bill an account.
+
+- Do not add API keys, payment methods, paid endpoints, cloud deployments, cloud GPUs, managed databases, paid telemetry, or paid CI as a requirement for the core demo.
+- Do not create cloud resources, subscribe to services, or start remote jobs automatically. No missing credential should trigger account creation or a paid fallback.
+- Keep remote inference, data uploads, live streams, robot hardware, and telemetry disabled unless a maintainer deliberately enables them after reviewing cost, privacy, and safety.
+- Prefer small local models and optional model downloads. Do not automatically download large model weights or datasets during installation or tests. Show download size and license before a user chooses to fetch them.
+- Run tests against synthetic fixtures by default. Tests and CI must not call external paid APIs, upload sensor data, deploy infrastructure, or command physical actuators.
+- Before any optional external service is used, require a deliberate configuration change and document: provider, pricing/quota, data sent, credential setup, shutdown/removal steps, and a free local alternative.
+- Keep secrets out of Git. Use environment variables or a local ignored configuration file; provide a safe example file containing placeholders only.
+- Use finite timeouts, bounded retries, download-size limits where feasible, and explicit error messages. Never retry billable remote calls indefinitely.
+- Keep an independent local clone and backups of source code, documentation, and irreplaceable data. Public hosting, model availability, and third-party policies can change.
+
+### Safe operating checklist
+
+1. Work from a local Git clone and create a virtual environment.
+2. Read dependency manifests before installing; avoid commands that install optional heavy extras unless needed.
+3. Run the documented synthetic demo and unit tests first.
+4. Inspect workflows and scripts before enabling cloud, remote model, streaming, telemetry, or hardware features.
+5. Check GitHub billing/usage and each provider's billing page separately. Alerts may notify without stopping usage; do not assume a budget is a hard spending cap.
+6. If you want a strict no-charge approach, do not configure payment methods or enable any service that requires billing. Existing account balances or provider charges must be handled with that provider.
+
+**Project-specific zero-cost note:** Coconut-specific rule: no automatic downloads of large vision models, datasets, or simulation assets; use synthetic/local orchard samples by default.
+
 **No billing guarantee:** this repository cannot inspect personal billing settings, guarantee that a provider will not apply a later charge, or prevent charges caused by credentials, services, or resources configured outside the repository.
