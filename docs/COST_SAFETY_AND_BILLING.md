@@ -59,3 +59,15 @@ Treat this repository as **local-only and no-paid-services-by-default**. This is
 **Project-specific zero-cost note:** Coconut-specific rule: no automatic downloads of large vision models, datasets, or simulation assets; use synthetic/local orchard samples by default.
 
 **No billing guarantee:** this repository cannot inspect personal billing settings, guarantee that a provider will not apply a later charge, or prevent charges caused by credentials, services, or resources configured outside the repository.
+
+## Hosted CI is opt-in
+
+To reduce surprise usage, repository workflows are configured for manual `workflow_dispatch` runs rather than automatic push, pull-request, or scheduled runs. This prevents routine commits from automatically starting hosted jobs, but it does **not** make a manually launched job free or disable GitHub Actions at the account level.
+
+For a strict $0 operating target:
+- Do not click **Run workflow** and do not enable hosted deployments, cloud jobs, or external integrations.
+- Run tests and demos locally on your own computer.
+- Before enabling any workflow, review its runner time, artifact uploads, external services, and your current GitHub plan/usage.
+- Keep deployments and physical robot/actuator paths disabled unless you deliberately review and approve them.
+
+This repository cannot inspect or change account-level billing settings, disable Actions for the account, or guarantee that third-party pricing stays unchanged.
