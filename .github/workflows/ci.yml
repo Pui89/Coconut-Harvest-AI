@@ -1,8 +1,6 @@
 name: Python tests
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,6 +9,7 @@ permissions:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
