@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 from typing import Any
 
 import numpy as np
@@ -45,7 +46,14 @@ class YOLO26Detector:
         self.imgsz = imgsz
         self.device = device
         self.weights = weights
-        self.weights_path = hf_hub_download(self.HF_REPO, weights)
+        # Cache-only by default. Set PUI89_ALLOW_MODEL_DOWNLOAD=1 only after
+        # reviewing the weight size, license, and network use.
+        allow_download = os.getenv("PUI89_ALLOW_MODEL_DOWNLOAD", "").strip().lower() in {
+            "1", "true", "yes"
+        }
+        self.weights_path = hf_hub_download(
+            self.HF_REPO, weights, local_files_only=not allow_download
+        )
         self.model = YOLO(self.weights_path)
 
     @staticmethod
