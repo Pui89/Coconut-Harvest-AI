@@ -71,3 +71,15 @@ For a strict $0 operating target:
 - Keep deployments and physical robot/actuator paths disabled unless you deliberately review and approve them.
 
 This repository cannot inspect or change account-level billing settings, disable Actions for the account, or guarantee that third-party pricing stays unchanged.
+
+## No third-party online service required
+
+The supported default workflow is local development, local tests, synthetic examples, and local simulation. The project does not require a paid cloud API, hosted AI inference, cloud GPU, managed database, or telemetry vendor to run its basic demos and tests. Optional model weights and optional hardware integrations are separate opt-ins, not prerequisites.
+
+- Do not configure API keys, cloud credentials, remote inference endpoints, hosted databases, or telemetry brokers for the default workflow.
+- Model weights are cache-only by default where the project provides the guarded loader. Do not set `PUI89_ALLOW_MODEL_DOWNLOAD=1` unless you intentionally approve a large download and its license/storage/network requirements.
+- Use local files rather than third-party URLs for evidence inputs.
+- Keep hosted CI, website deployment, and other hosted workflows off unless you intentionally choose to use them and have checked the account's usage limits.
+- Open-source Python packages may still need to be downloaded during initial installation. That is not the same as subscribing to a paid online service; use a local package cache or pre-downloaded wheels if you need installation without network access.
+
+This is a local-only design target, not a guarantee about your GitHub account settings or third-party hosting policies. For a strict zero-spend setup, use the project locally and keep all hosted features disabled.
