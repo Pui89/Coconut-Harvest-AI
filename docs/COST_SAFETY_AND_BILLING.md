@@ -1,6 +1,6 @@
 # Cost Safety, Billing and External-Service Policy
 
-**Purpose:** keep this repository local-first and reduce accidental paid-service use. This document is a policy, not a guarantee that GitHub or third-party providers cannot bill an account.
+**Purpose:** keep this repository local-first and avoid requiring paid services for its basic demos and tests.
 
 ## Defaults
 - Local execution, synthetic/recorded-data tests, and local simulation are the default.
@@ -24,7 +24,7 @@ Large model weights and simulation assets may use significant disk space, bandwi
 - Review GitHub Billing & Licensing, usage, Actions, Codespaces, Packages, and any metered features in account/organization settings.
 - Disable unused features/workflows. Set budgets and alerts where offered, and verify whether they stop usage or only send notifications.
 - Check every separate cloud/AI provider billing dashboard. GitHub settings cannot enforce another provider's spending limits.
-- Review past invoices and usage records. A repository change cannot cancel an existing balance, reverse a retroactive charge, or decide whether a provider may bill for earlier usage.
+- Review past invoices and usage records. Review invoices and usage records directly in the relevant account dashboard.
 - For a suspected incorrect charge, contact the provider's official billing support promptly with invoice references and usage dates.
 
 ## Local-first operation
@@ -54,11 +54,10 @@ Treat this repository as **local-only and no-paid-services-by-default**. This is
 3. Run the documented synthetic demo and unit tests first.
 4. Inspect workflows and scripts before enabling cloud, remote model, streaming, telemetry, or hardware features.
 5. Check GitHub billing/usage and each provider's billing page separately. Alerts may notify without stopping usage; do not assume a budget is a hard spending cap.
-6. If you want a strict no-charge approach, do not configure payment methods or enable any service that requires billing. Existing account balances or provider charges must be handled with that provider.
+6. If you want a strict no-charge approach, do not configure payment methods or enable any service that requires billing. Review account usage directly in the relevant account dashboard.
 
 **Project-specific zero-cost note:** Coconut-specific rule: no automatic downloads of large vision models, datasets, or simulation assets; use synthetic/local orchard samples by default.
 
-**No billing guarantee:** this repository cannot inspect personal billing settings, guarantee that a provider will not apply a later charge, or prevent charges caused by credentials, services, or resources configured outside the repository.
 
 ## Hosted CI is opt-in
 
@@ -70,7 +69,6 @@ For a strict $0 operating target:
 - Before enabling any workflow, review its runner time, artifact uploads, external services, and your current GitHub plan/usage.
 - Keep deployments and physical robot/actuator paths disabled unless you deliberately review and approve them.
 
-This repository cannot inspect or change account-level billing settings, disable Actions for the account, or guarantee that third-party pricing stays unchanged.
 
 ## No third-party online service required
 
@@ -82,4 +80,4 @@ The supported default workflow is local development, local tests, synthetic exam
 - Keep hosted CI, website deployment, and other hosted workflows off unless you intentionally choose to use them and have checked the account's usage limits.
 - Open-source Python packages may still need to be downloaded during initial installation. That is not the same as subscribing to a paid online service; use a local package cache or pre-downloaded wheels if you need installation without network access.
 
-This is a local-only design target, not a guarantee about your GitHub account settings or third-party hosting policies. For a strict zero-spend setup, use the project locally and keep all hosted features disabled.
+For a strict zero-spend setup, use the project locally and keep all hosted features disabled.
