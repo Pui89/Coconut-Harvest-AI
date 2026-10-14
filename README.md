@@ -3,6 +3,99 @@
 
 ## AI Application Overview
 
+## How the AI Application and AI Robot Work Together
+
+Coconut Harvest AI has two connected parts: **the AI application** (the software that interprets orchard data and prepares a harvest proposal) and **the AI robot** (the proposed physical or simulated machine that would sense, move, and harvest only after independent safety checks). The current repository is a simulation-first research prototype, not a validated autonomous harvesting system.
+
+### 1. How the AI application works
+
+The application runs the software pipeline on a computer. It checks incoming data, processes orchard images and any available depth or robot-state inputs, evaluates supplied evidence about candidate coconuts, and creates a reviewable harvest-plan proposal with reasons and a JSON audit report.
+
+```text
+Orchard image / optional depth + robot-state data
+                      |
+                      v
+           Input quality and sensor checks
+                      |
+                      v
+       AI vision / candidate target proposals
+                      |
+                      v
+        Spatial + temporal evidence (3D/4D)
+                      |
+                      v
+  Harvestability, uncertainty and missing-data checks
+                      |
+                      v
+             Candidate plan proposal
+                      |
+                      v
+        Deterministic safety checks + review
+                      |
+                      v
+            Status and JSON audit report
+```
+
+- **Input and quality:** checks whether supplied data are usable and whether sensor health or timing issues need to block a decision.
+- **Perception:** a vision model can process image features and propose candidate targets; coconut-specific accuracy still requires labelled orchard data and held-out evaluation.
+- **Spatial and temporal reasoning:** depth and calibrated sensors may support 3D localization; tracking over time is the intended 4D layer, not a claim of validated real-time orchard tracking.
+- **Harvestability and planning:** the system assesses available evidence and proposes a candidate plan. A proposal is not proof of ripeness, reachability, or collision-free motion.
+- **Safety and reporting:** uncertain or unsafe cases should be held or rejected. The documented demo emits a report and does **not** send actuator commands.
+
+### 2. How the AI robot is intended to work
+
+The robot is the embodied layer that could use the application's proposals. In a future validated deployment, cameras and other calibrated sensors would observe the palm and surrounding workspace; a robot model and planner would estimate reachability and propose a motion; an independent safety supervisor would check collisions, workspace boundaries, joint/force/velocity limits, human-exclusion zones, and emergency-stop state before any authorized controller could execute it.
+
+```text
+RGB / depth / optional LiDAR + robot-state sensors
+                      |
+                      v
+         Perception and target tracking
+                      |
+                      v
+             3D / 4D scene model
+                      |
+                      v
+         Harvest task / motion proposal
+                      |
+                      v
+    Independent collision + safety validation
+                      |
+                      v
+         Authorized controller (future)
+                      |
+                      v
+          Verify result and record evidence
+```
+
+**Current boundary:** the repository includes software prototypes, simulation assets, robot-description files, and concept demonstrations. It does not establish that the robot can safely climb a palm, cut or grasp coconuts, avoid every collision, or harvest autonomously in a real orchard. Do not connect this prototype directly to physical motors, cutters, or manipulators.
+
+### 3. Concept images and real-world reference photographs
+
+**AI application and 3D/4D concept**
+
+![Animated Coconut Harvest AI application concept](docs/images/coconut-harvest-ai-demo.svg)
+
+![Coconut Harvest AI 3D/4D concept visualization](docs/images/coconut-harvest-ai-4d-concept.svg)
+
+*These repository graphics illustrate the proposed software workflow and spatio-temporal concept. They are concept artwork, not live sensor feeds, recorded robot trials, benchmark results, or proof of field performance.*
+
+**Real coconut orchard photograph**
+
+![Real coconut fruits growing on a palm](https://commons.wikimedia.org/wiki/Special:FilePath/Fruiting_Coconut_Palm_Canopy.jpg?width=1100)
+
+*Reference photograph by Paul The Writer, shared under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). [View the original image and licence on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg). This is a visual reference only; it is not evidence that the AI detected or evaluated these coconuts.*
+
+**Real coconut harvesting photograph**
+
+![Real-world coconut harvesting reference](https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG?width=1100)
+
+*Photograph by Rudolph A. Furtado, shared under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). [View the original image and licence on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG). This shows a human harvesting task, not an AI robot trial or training/evaluation result. The linked CC0 terms permit reuse without payment, subject to applicable law.*
+
+**Evidence standard:** keep concept artwork, real reference photographs, synthetic simulation, and measured experiments clearly distinguished. Before physical trials, require representative labelled data, calibrated sensors, independent collision and workspace validation, emergency-stop testing, supervised low-risk testing, and a documented safety review.
+
+---
+
 ## How the Coconut Harvest AI Application Works
 
 Coconut Harvest AI is a **simulation-first research prototype** for exploring how computer vision, spatial reasoning, harvestability assessment, and safety checks could support coconut harvesting. The workflow below explains the intended system and distinguishes existing prototype behavior from work that still needs real-world validation.
