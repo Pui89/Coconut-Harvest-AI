@@ -1,5 +1,19 @@
 # Coconut Harvest AI Application
 
+## Free-first setup (no paid services required)
+
+This project can be explored with a local Python environment and free/open-source tools. **No paid API, Roboflow account, paid dataset subscription, or cloud GPU is required for the basic prototype.** Free hosted services have usage limits and can change their terms; do not enable billing or add a payment method unless you deliberately choose to.
+
+- Start with the lightweight demo and tests before downloading large AI models.
+- Use Python, Git, OpenCV, Jupyter, and PyTorch where needed; install only the dependencies required for the experiment you are running.
+- Use your own orchard photographs or individually verified openly licensed images. Record the source, creator, licence, and any attribution requirements in a dataset manifest.
+- Do not commit large model weights, private photos, credentials, or personal data to the repository.
+- Treat YOLO/Ultralytics and third-party model weights as separate licence decisions. Check the exact code, checkpoint, and intended research/commercial use before adopting them.
+- Keep cloud notebooks and hosted compute optional. Check quotas and account billing settings before use; this repository cannot guarantee that a third-party service will remain free forever.
+
+See [Free-first setup and licence checklist](docs/FREE_FIRST_SETUP.md) for the step-by-step approach.
+
+
 
 ## AI Application Overview
 
