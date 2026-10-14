@@ -3,6 +3,22 @@
 
 ## AI Application Overview
 
+## Try the Interactive AI Application Example
+
+Want to see an example instead of only reading about the concept? The repository includes a small Streamlit demo where you can upload an orchard photo for display, adjust example sensor/coconut evidence, run the decision-support rules, and download a JSON report.
+
+**[Open the web demo source and setup instructions](apps/pui89_app/README.md)** · [View the interactive demo code](apps/pui89_app/web_demo.py)
+
+Run it locally from the repository root:
+
+```bash
+python -m pip install -r apps/pui89_app/requirements.txt
+streamlit run apps/pui89_app/web_demo.py
+```
+
+**Demo limitation:** the uploaded photograph is displayed for context but is not automatically analysed by a trained detector. The output is based on manually entered values and illustrative rules; it is not a real-world harvesting result or robot control system.
+
+
 ## How the AI Application Works
 
 The **AI application** is the software layer that runs on a computer. It takes orchard images and, when available, depth and robot-state data; checks input quality; analyses candidate coconuts; records uncertainty; and produces a reviewable harvest-plan proposal and JSON audit report.
