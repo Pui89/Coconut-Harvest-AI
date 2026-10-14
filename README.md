@@ -9,6 +9,12 @@
 
 *Real photograph showing a cluster of developing green coconuts on a coconut palm. Photograph by Paul The Writer (2026), shared under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/). The CC0 licence permits reuse without payment or required attribution, subject to applicable law. [View the original photograph and licence on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg). This is an illustrative reference image only; it is not a dataset image collected or evaluated by this prototype.*
 
+### Real-world coconut harvesting reference
+
+![Real photograph of a coconut harvester collecting coconuts from a palm tree](https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG?width=1280)
+
+*Photograph of a person harvesting coconuts from a palm tree in Mumbai by Rudolph A. Furtado, dedicated under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). [Original image and licence details on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG). CC0 permits reuse without payment or required attribution, subject to applicable law. This photo is a real-world visual reference for the harvesting task—not training data, a robot test, or evidence that autonomous harvesting has been validated.*
+
 ### Animated Concept Preview
 
 ![Coconut Harvest AI animated concept demo](https://raw.githubusercontent.com/Pui89/Coconut-Harvest-AI/main/docs/images/coconut-harvest-ai-demo.svg)
