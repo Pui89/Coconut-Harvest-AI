@@ -3,11 +3,11 @@
 
 ## AI Application Overview
 
-### Real coconut orchard context
+### Real coconut fruits on the tree
 
-![Real coconut plantation with a walking path in the Mekong Delta](https://commons.wikimedia.org/wiki/Special:FilePath/20190924_coconut_farm_walking_path-1.jpg?width=1280)
+![Real coconut bunch growing beneath the fronds of a coconut palm](https://commons.wikimedia.org/wiki/Special:FilePath/Fruiting_Coconut_Palm_Canopy.jpg?width=1280)
 
-*Real-world context photograph of a coconut plantation beside the Ben Tre River in Vietnam's Mekong Delta. Photograph by Balon Greyjoy (2019). The photographer released this image under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/), permitting reuse without payment or required attribution under that licence. [Original image and licence details on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:20190924_coconut_farm_walking_path-1.jpg). This is an illustrative orchard-context photograph, not data collected for or evaluated by this prototype.*
+*Real photograph showing a cluster of developing green coconuts on a coconut palm. Photograph by Paul The Writer (2026), shared under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/). The CC0 licence permits reuse without payment or required attribution, subject to applicable law. [View the original photograph and licence on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg). This is an illustrative reference image only; it is not a dataset image collected or evaluated by this prototype.*
 
 ### Animated Concept Preview
 
