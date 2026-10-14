@@ -1363,3 +1363,7 @@ See:
 ![Coconut Harvest AI 4D AI concept](docs/images/coconut-harvest-ai-4d-concept.svg)
 
 *Concept artwork only. The visual describes a proposed spatio-temporal AI workflow; it is not evidence of a built robot, measured benchmark performance, or deployment readiness.*
+
+## Optional Local Voice Alerts
+
+This project includes an optional guide for adding local text-to-speech announcements with no hosted inference API required. Start with the [Voice Alerts guide](docs/VOICE_ALERTS.md). This is documentation and a manual smoke test only; voice output is not yet connected to live project events or validated for field use.
