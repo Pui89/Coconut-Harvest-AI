@@ -3,6 +3,88 @@
 
 ## AI Application Overview
 
+## How the Coconut Harvest AI Application Works
+
+Coconut Harvest AI is a **simulation-first research prototype** for exploring how computer vision, spatial reasoning, harvestability assessment, and safety checks could support coconut harvesting. The workflow below explains the intended system and distinguishes existing prototype behavior from work that still needs real-world validation.
+
+### End-to-end workflow
+
+```text
+Orchard RGB image + optional depth / LiDAR / robot-state data
+                         |
+                         v
+              1. Input and sensor checks
+       Check data quality, health, and time alignment
+                         |
+                         v
+              2. Perception proposal
+       Extract visual features and identify candidate targets
+       Coconut-specific detection requires validated model/data
+                         |
+                         v
+              3. Spatial and temporal reasoning
+       Associate depth with targets; estimate 3D position
+       Track target state over time when suitable data are available
+                         |
+                         v
+              4. Harvestability assessment
+       Review ripeness evidence, visibility, confidence,
+       reachability, clearance, and missing/contradictory inputs
+                         |
+                         v
+              5. Plan proposal
+       Generate a candidate approach / waypoint sequence
+                         |
+                         v
+              6. Deterministic safety gate
+       Reject unsafe, incomplete, or unverified proposals;
+       require independent collision and workspace validation
+                         |
+                         v
+              7. Report and operator review
+       Save decision status, reasons, and an auditable JSON report
+```
+
+### What each stage does
+
+1. **Input:** Start with synthetic scenes or recorded orchard images. RGB-D cameras and LiDAR can be integrated, but sensor calibration and timestamp synchronization must be checked before trusting spatial measurements.
+2. **Perception:** A vision model extracts features and may propose coconut/tree targets. A model architecture or a generic pretrained checkpoint alone does not prove accurate coconut detection; this requires labelled, representative orchard data and held-out evaluation.
+3. **3D/4D scene understanding:** Depth and sensor calibration can help estimate target locations in 3D. The 4D layer refers to tracking how targets and the robot scene change over time; it is not a claim that a validated real-time 4D system is already operating in an orchard.
+4. **Harvestability:** The system can consider supplied evidence such as ripeness, occlusion, localization confidence, reachability, clearance, and tracking stability. A score is only as reliable as its inputs and validation.
+5. **Planning:** The planner proposes candidate waypoints or a harvesting sequence. A proposed path must not be described as collision-free unless an independent, validated collision checker has verified it.
+6. **Safety gate:** The prototype can reject proposals and use conservative states such as `SAFE_HOLD`, `BLOCKED`, or `PROPOSAL_APPROVED_NOT_EXECUTED`. Approval means only that configured software checks passed; it is not authorization to move a physical robot.
+7. **Reporting:** The end-to-end demo emits a JSON audit report containing the decision status and reasons. The documented demo does **not** send actuator commands.
+
+### Run the prototype locally
+
+From the repository root:
+
+```bash
+python -m pip install -e ".[dev]"
+python demo_end_to_end.py
+python -m pytest
+```
+
+See the [end-to-end simulation guide](docs/END_TO_END_SIMULATION.md), [pipeline implementation](src/coconut_harvest_robot/end_to_end.py), [demo script](demo_end_to_end.py), and [evaluation benchmark](docs/EVALUATION_BENCHMARK.md).
+
+### Current implementation vs. future validation
+
+| Area | What this repository currently supports | What is still needed |
+|---|---|---|
+| Software workflow | Prototype pipeline, configured checks, and JSON reporting | Reproducible tests across representative scenarios |
+| Vision | Neural feature-processing prototype | Labelled orchard dataset, trained/validated coconut detector, held-out metrics |
+| Harvestability | Assessment of supplied evidence and configured scores | Ground-truth maturity labels and evaluation of decision quality |
+| 3D/4D reasoning | Prototype spatial/temporal architecture | Calibrated sensors, measured localization error, validated target tracking |
+| Motion planning | Candidate trajectory/waypoint proposal | Independent collision checking, robot-kinematics and physics validation |
+| Robot execution | Documented integration path and simulation assets | Validated ROS 2/controller integration, hardware tests, risk assessment |
+| Field harvesting | Not demonstrated by the software demo | Supervised field trials and documented success, failure, and safety results |
+
+### Safety and evidence limits
+
+This is **not yet a validated autonomous harvesting robot**. The demo uses synthetic inputs and/or explicitly supplied evidence rather than proving that a trained model correctly detects and harvests coconuts in real orchards. Concept images and animations illustrate the idea; they are not experimental results. Do not connect this prototype directly to physical motors, cutters, or manipulators. Before any hardware trial, require calibrated sensors, independent collision/workspace checks, emergency-stop verification, supervised low-risk testing, and documented safety review.
+
+
+
 ### Real coconut fruits on the tree
 
 ![Real coconut bunch growing beneath the fronds of a coconut palm](https://commons.wikimedia.org/wiki/Special:FilePath/Fruiting_Coconut_Palm_Canopy.jpg?width=1280)
