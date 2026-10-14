@@ -3,6 +3,12 @@
 
 ## AI Application Overview
 
+### Real coconut orchard context
+
+![Real coconut palm plantation on Koh Mak, Thailand](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Koh_Mak_%28island%29%2C_Thailand%2C_Coconut_palm_plantation.jpg/1280px-Koh_Mak_%28island%29%2C_Thailand%2C_Coconut_palm_plantation.jpg)
+
+*Real-world context photograph: coconut palm plantation on Koh Mak, Thailand. Photograph by Vyacheslav Argenberg, used under [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). [Source and licence details on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Koh_Mak_(island),_Thailand,_Coconut_palm_plantation.jpg). This is an illustrative orchard-context photo, not data collected for or evaluated by this prototype.*
+
 ### Animated Concept Preview
 
 ![Coconut Harvest AI animated concept demo](https://raw.githubusercontent.com/Pui89/Coconut-Harvest-AI/main/docs/images/coconut-harvest-ai-demo.svg)
