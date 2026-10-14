@@ -5,9 +5,9 @@
 
 ### Real coconut orchard context
 
-![Real coconut palm plantation on Koh Mak, Thailand](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Koh_Mak_%28island%29%2C_Thailand%2C_Coconut_palm_plantation.jpg/1280px-Koh_Mak_%28island%29%2C_Thailand%2C_Coconut_palm_plantation.jpg)
+![Real coconut plantation with a walking path in the Mekong Delta](https://commons.wikimedia.org/wiki/Special:FilePath/20190924_coconut_farm_walking_path-1.jpg?width=1280)
 
-*Real-world context photograph: coconut palm plantation on Koh Mak, Thailand. Photograph by Vyacheslav Argenberg, used under [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). [Source and licence details on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Koh_Mak_(island),_Thailand,_Coconut_palm_plantation.jpg). This is an illustrative orchard-context photo, not data collected for or evaluated by this prototype.*
+*Real-world context photograph of a coconut plantation beside the Ben Tre River in Vietnam's Mekong Delta. Photograph by Balon Greyjoy (2019). The photographer released this image under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/), permitting reuse without payment or required attribution under that licence. [Original image and licence details on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:20190924_coconut_farm_walking_path-1.jpg). This is an illustrative orchard-context photograph, not data collected for or evaluated by this prototype.*
 
 ### Animated Concept Preview
 
