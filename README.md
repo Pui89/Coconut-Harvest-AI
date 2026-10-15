@@ -7,6 +7,10 @@ This repository's recommended local model, intended tasks, licence checks, setup
 **Cost boundary:** the plan uses downloaded local weights only; it does not require paid Hugging Face inference, cloud GPUs, paid notebooks, or a subscription. Model integration and performance must be verified by running tests locally.
 
 
+## Local development on an RTX 3050 laptop
+
+The hardware-aware, zero-cost-first plan is in [LOCAL_EXPERIMENT_PLAN_RTX3050.md](docs/LOCAL_EXPERIMENT_PLAN_RTX3050.md). A read-only environment checker is available at [scripts/check_local_environment.py](scripts/check_local_environment.py); it does not install packages, download models, use the network, or change system settings. The plan is tailored to a reported RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. It distinguishes the existing synthetic prototype from future model experiments and measured results.
+
 ## AI Application Overview
 
 ## Try the Interactive AI Application Example
