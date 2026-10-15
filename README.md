@@ -1,5 +1,12 @@
 # Coconut Harvest AI Application
 
+## Free local Hugging Face model plan
+
+This repository's recommended local model, intended tasks, licence checks, setup notes, and no-surprise-billing rules are documented in **[HUGGINGFACE_LOCAL_MODELS.md](docs/HUGGINGFACE_LOCAL_MODELS.md)**.
+
+**Cost boundary:** the plan uses downloaded local weights only; it does not require paid Hugging Face inference, cloud GPUs, paid notebooks, or a subscription. Model integration and performance must be verified by running tests locally.
+
+
 ## AI Application Overview
 
 ## Try the Interactive AI Application Example
