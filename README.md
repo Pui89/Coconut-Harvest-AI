@@ -97,12 +97,6 @@ RGB / depth / optional LiDAR + robot-state sensors
         Verify outcome and record evidence
 ```
 
-**AI robot concept image**
-
-![PUI89 Coconut Harvest AI robot concept visualization](docs/images/pui89-coconut-harvest-robot-concept.svg)
-
-[Open the robot concept image](docs/images/pui89-coconut-harvest-robot-concept.svg). This is a detailed concept illustration, not a photograph or evidence of a built robot.
-
 ![Existing coconut harvesting robot concept illustration](docs/images/coconut_harvest_robot_photo.svg)
 
 ![3D/4D coconut harvesting robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
@@ -196,7 +190,6 @@ See the [end-to-end simulation guide](docs/END_TO_END_SIMULATION.md), [pipeline 
 ### Safety and evidence limits
 
 This is **not yet a validated autonomous harvesting robot**. The demo uses synthetic inputs and/or explicitly supplied evidence rather than proving that a trained model correctly detects and harvests coconuts in real orchards. Concept images and animations illustrate the idea; they are not experimental results. Do not connect this prototype directly to physical motors, cutters, or manipulators. Before any hardware trial, require calibrated sensors, independent collision/workspace checks, emergency-stop verification, supervised low-risk testing, and documented safety review.
-
 
 
 ### Platform scope: AI application + embodied robotics
@@ -397,8 +390,7 @@ Spatial Feature Extractor
 Target Coconut (3D position + ripeness)
     |
     v
-Reachability Analysis
-  - robot workspace check
+Reachability Analysis  - robot workspace check
   - collision detection
   - approach angle planning
     |
