@@ -99,7 +99,11 @@ RGB / depth / optional LiDAR + robot-state sensors
 
 **AI robot concept image**
 
-![Coconut harvesting robot concept illustration](docs/images/coconut_harvest_robot_photo.svg)
+![PUI89 Coconut Harvest AI robot concept visualization](docs/images/pui89-coconut-harvest-robot-concept.svg)
+
+[Open the robot concept image](docs/images/pui89-coconut-harvest-robot-concept.svg). This is a detailed concept illustration, not a photograph or evidence of a built robot.
+
+![Existing coconut harvesting robot concept illustration](docs/images/coconut_harvest_robot_photo.svg)
 
 ![3D/4D coconut harvesting robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
 
