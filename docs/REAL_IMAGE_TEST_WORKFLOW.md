@@ -59,3 +59,16 @@ Once reviewed, report only what was actually recorded:
 - Visual conditions observed: lighting, occlusion, and background clutter noted by the reviewer.
 - AI detector metrics: **not measured by this workflow**.
 - Robot reachability and collision safety: **not measured by this workflow**.
+
+
+## Validate the completed review CSV
+
+After editing the CSV, run this optional local checker from the repository root:
+
+```bat
+python scripts/validate_real_image_review.py
+```
+
+The checker verifies that the expected columns exist, image files are present beside the CSV, and annotation fields are filled. If a count cannot be determined, leave it blank and explicitly explain the uncertainty in `review_notes` (for example, `uncertain count due to occlusion`). It uses Python's standard library only.
+
+A passing result means the annotation CSV passed basic data-quality checks. It does **not** measure AI detection accuracy, infer depth, confirm reachability, or authorize robot motion.
