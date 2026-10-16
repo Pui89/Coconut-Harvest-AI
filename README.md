@@ -584,3 +584,38 @@ The concept below shows one possible **AI-assisted coconut harvesting workflow**
 
 **Safety boundary:** this repository is a research prototype, not a field-ready harvesting robot. Do not connect its current prototype directly to motors, cutters, or manipulators, and do not use it as the sole basis for a real harvest. A human operator, independent safety system, emergency stop, exclusion zone, and documented risk assessment remain necessary for any future physical trial.
 
+
+
+---
+
+## Real Robot References, Movement Example, and Video
+
+This section separates **real third-party coconut-harvesting robot demonstrations** from the **proposed Pui89 AI robot**. The linked videos show other teams' machines; they are not videos of this repository's prototype.
+
+### Robot movement concept for this project
+
+![Four-step movement concept: climb or position, inspect with camera, reach toward a target, then a future guarded harvest and verification step](docs/images/coconut_robot_movement_sequence.svg)
+
+The sequence is a design explanation, not captured robot footage. A future system could use a trunk-climbing platform with a camera and remotely supervised cutting arm, or another mechanically validated platform. The AI software would assist by identifying candidate fruit, estimating uncertainty, checking a proposed reach against a calibrated robot model, and asking for operator approval. Actual climbing, arm motion, cutting, and collection are not implemented or validated by this repository.
+
+### Watch existing real-world robot examples
+
+- **[Coconut Harvesting Robot — YouTube (2011)](https://www.youtube.com/watch?v=CHHuOyXB8iU)** — an older remotely controlled prototype with a retractable arm, described by the uploader as having been tested on trees.
+- **[Coconut Harvesting Machine / Cocobot Project — YouTube (2016)](https://www.youtube.com/watch?v=d6Cl9Pb9Se4)** — another team's coconut-tree-climbing and harvesting robot project.
+- **[Amaran coconut tree-climbing robot — IEEE Spectrum](https://spectrum.ieee.org/amaran-tree-climbing-robot-can-safely-harvest-coconuts)** — article describing a real research robot with a trunk-gripping climbing mechanism, camera, and harvesting arm.
+- **[Kerambot — Amrita Vishwa Vidyapeetham](https://www.amrita.edu/project/kerambot-smart-coconut-harvesting-robot/)** — university project page describing a field-tested climbing and harvesting system.
+
+These are external examples for learning about possible mechanisms. Their performance, safety, availability, and design must not be attributed to Pui89 or assumed to transfer directly to this project.
+
+### How it could reduce dangerous climbing work
+
+1. A worker or operator positions and checks the robot at ground level, following the final system's operating procedure.
+2. The camera provides a live view; the AI proposes which coconut bunch to inspect and explains uncertainty.
+3. The robot's validated climbing mechanism moves to the work height, or a separately engineered platform reaches the bunch. Movement must be monitored by independent safety controls.
+4. A reach planner checks the tool path and nearby branches. The system stops if the target is uncertain, the path is blocked, communication is lost, or a safety check fails.
+5. The operator authorizes the harvest. A guarded end-effector cuts or grasps only after physical validation; a suitable catcher or controlled lowering mechanism prevents the coconut from falling onto people.
+6. The system verifies collection and logs success, failure, or an uncertain outcome.
+
+**Intended benefit:** reduce the need for people to climb tall coconut palms and support harvesting from the ground. This is a future design goal, not a claim that the current project can replace a human harvester today. A person may still be needed to attach the device, supervise it, handle fruit, and maintain the equipment.
+
+**Current project status:** the local planning agent is a software prototype using supplied/synthetic candidate data. Real-image review is manual. There is no demonstrated physical robot movement, live camera integration, autonomous climbing, validated fruit-cutting mechanism, or measured field-harvesting performance. Keep this project simulation-first and do not connect prototype outputs directly to motors or cutters.
