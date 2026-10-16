@@ -2,7 +2,7 @@
 
 ## Purpose and current status
 
-This workflow adds real photographs to the **human review and data-preparation stage**. It does not yet detect coconuts automatically. The existing \`agents/harvest_planning_agent.py\` accepts candidate records; it does not inspect image pixels.
+This workflow adds real photographs to the **human review and data-preparation stage**. It does not yet detect coconuts automatically. The existing `agents/harvest_planning_agent.py` accepts candidate records; it does not inspect image pixels.
 
 The sample photos are fetched from Wikimedia Commons only when you run the download command. They are not committed to this repository. The repository references these images as CC0 1.0; always check the live source page and licence before reusing or redistributing a file.
 
@@ -10,29 +10,29 @@ The sample photos are fetched from Wikimedia Commons only when you run the downl
 
 - Windows 11 and Python already installed (the user's reported Python 3.14.5 is suitable for this standard-library helper).
 - Internet connection only for the optional photo download.
-- No \`pip install\`, API key, model download, paid API, subscription, cloud GPU, or new hardware.
+- No `pip install`, API key, model download, paid API, subscription, cloud GPU, or new hardware.
 
 ## Run it
 
-Open Command Prompt in the repository folder \`Coconut-Harvest-AI-main\` and run:
+Open Command Prompt in the repository folder `Coconut-Harvest-AI-main` and run:
 
-\`\`\`bat
+```bat
 python scripts/prepare_real_image_review.py --download
-\`\`\`
+```
 
 The script creates:
 
-- \`data/real_image_samples/fruiting_coconut_palm_canopy.jpg\`
-- \`data/real_image_samples/coconut_plucker_harvesting.jpg\`
-- \`data/real_image_samples/image_review.csv\`
-- \`data/real_image_samples/SOURCES.md\`
+- `data/real_image_samples/fruiting_coconut_palm_canopy.jpg`
+- `data/real_image_samples/coconut_plucker_harvesting.jpg`
+- `data/real_image_samples/image_review.csv`
+- `data/real_image_samples/SOURCES.md`
 
 The images and review CSV are local working data and are not uploaded to GitHub automatically.
 
 ## Review the real photographs
 
-1. Open the two \`.jpg\` files using Photos or Paint.
-2. For each image, manually record visible coconut count, partly hidden/occluded count, lighting, background clutter, and notes in \`image_review.csv\`.
+1. Open the two `.jpg` files using Photos or Paint.
+2. For each image, manually record visible coconut count, partly hidden/occluded count, lighting, background clutter, and notes in `image_review.csv`.
 3. Do not label a guessed 3D position, robot reachability, or detector confidence from a normal RGB photo. Leave those unknown unless a suitable sensor/model or independent measurement supplies them.
 4. Keep human annotations separate from model predictions. Record uncertain or uncountable targets as uncertain rather than inventing a precise label.
 
