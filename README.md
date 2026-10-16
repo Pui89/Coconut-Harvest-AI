@@ -538,9 +538,9 @@ The repository now includes a **manual real-image review workflow** using openly
 
 From the repository root on Windows, run:
 
-\`\`\`bat
+```bat
 python scripts/prepare_real_image_review.py --download
-\`\`\`
+```
 
 The script downloads two reference photographs from Wikimedia Commons on demand and creates a local review CSV plus source/licence notes. It does not upload images or annotations to GitHub.
 
