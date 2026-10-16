@@ -526,3 +526,22 @@ To try the rule-based planning agent without installing extra Python packages or
 The launcher checks your Python version and reports optional packages without installing anything. Alternatively, run `python scripts\\check_local_agent_environment.py` and then `python agents\\harvest_planning_agent.py` from Command Prompt.
 
 See [Free Windows Setup](docs/FREE_WINDOWS_SETUP.md). This starter run uses synthetic candidate data and is not a real camera, trained detector, or physical robot test.
+
+
+---
+
+## Real Coconut Image Review — Free Local Workflow
+
+The repository now includes a **manual real-image review workflow** using openly referenced coconut photographs. It prepares a local image sample and CSV annotation sheet without installing packages or downloading an AI model.
+
+**[Read the real-image workflow guide](docs/REAL_IMAGE_TEST_WORKFLOW.md)**
+
+From the repository root on Windows, run:
+
+\`\`\`bat
+python scripts/prepare_real_image_review.py --download
+\`\`\`
+
+The script downloads two reference photographs from Wikimedia Commons on demand and creates a local review CSV plus source/licence notes. It does not upload images or annotations to GitHub.
+
+**Important status distinction:** this is a real-image *manual review* workflow, not automatic coconut detection. The current rule-based agent does not analyse image pixels; it consumes candidate fields supplied by another component or a person. A normal RGB photo does not establish calibrated 3D position or robot reachability. No detector accuracy, depth accuracy, or robot safety performance is claimed.
