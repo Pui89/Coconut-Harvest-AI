@@ -513,3 +513,16 @@ python agents/harvest_planning_agent.py --input examples/agent_candidates.exampl
 ```
 
 The baseline uses only Python's standard library; no paid API, hosted inference endpoint, or model download is required. The example inputs are synthetic. The agent does not detect coconuts itself, validate real robot reachability, perform independent collision checking, or control hardware. Its output is for simulation review only; physical robot execution is not authorized.
+
+
+## Free Windows Laptop Quick Start
+
+To try the rule-based planning agent without installing extra Python packages or downloading an AI model:
+
+1. Download the repository ZIP using **Code → Download ZIP**, then extract it.
+2. Open the extracted repository folder.
+3. Double-click `run_free_agent.bat`.
+
+The launcher checks your Python version and reports optional packages without installing anything. Alternatively, run `python scripts\\check_local_agent_environment.py` and then `python agents\\harvest_planning_agent.py` from Command Prompt.
+
+See [Free Windows Setup](docs/FREE_WINDOWS_SETUP.md). This starter run uses synthetic candidate data and is not a real camera, trained detector, or physical robot test.
