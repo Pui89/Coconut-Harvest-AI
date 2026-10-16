@@ -494,3 +494,22 @@ python demo.py
 ```python
 import torch
 from coconut_harvest_robot.pipeline import HarvestPipeline
+
+## Open-source Harvest Planning Agent (new prototype)
+
+A small, local, deterministic decision-support agent is available at
+[`agents/harvest_planning_agent.py`](agents/harvest_planning_agent.py). It evaluates supplied coconut candidates, explains rejected targets, ranks candidates that pass configured checks, and outputs an auditable JSON proposal.
+
+- [Agent setup and limitations](agents/README.md)
+- [Open-source agent development and evaluation plan](docs/OPEN_SOURCE_AGENT_GUIDE.md)
+- [Example candidate input](examples/agent_candidates.example.json)
+- [Agent tests](tests/test_harvest_planning_agent.py)
+
+Run from the repository root with Python 3.10+:
+
+```bash
+python agents/harvest_planning_agent.py
+python agents/harvest_planning_agent.py --input examples/agent_candidates.example.json --output agent_report.json
+```
+
+The baseline uses only Python's standard library; no paid API, hosted inference endpoint, or model download is required. The example inputs are synthetic. The agent does not detect coconuts itself, validate real robot reachability, perform independent collision checking, or control hardware. Its output is for simulation review only; physical robot execution is not authorized.
