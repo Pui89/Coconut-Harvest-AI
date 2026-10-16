@@ -545,3 +545,42 @@ python scripts/prepare_real_image_review.py --download
 The script downloads two reference photographs from Wikimedia Commons on demand and creates a local review CSV plus source/licence notes. It does not upload images or annotations to GitHub.
 
 **Important status distinction:** this is a real-image *manual review* workflow, not automatic coconut detection. The current rule-based agent does not analyse image pixels; it consumes candidate fields supplied by another component or a person. A normal RGB photo does not establish calibrated 3D position or robot reachability. No detector accuracy, depth accuracy, or robot safety performance is claimed.
+
+---
+
+## Example: How a Coconut Harvesting AI Robot Could Help Replace High-Risk Climbing Work
+
+The concept below shows one possible **AI-assisted coconut harvesting workflow**. The aim is to reduce the need for a worker to climb a tall palm to inspect and harvest coconuts. A robot would observe the canopy from a suitable platform, propose a target, check whether a tool can reach it safely, and ask a human operator to approve the task. The robot design and method must be validated before this could be used in a real plantation.
+
+![Illustrated coconut harvesting AI robot workflow showing sensing, target assessment, safety checks and human supervision](docs/images/coconut_harvest_robot_workflow_concept.svg)
+
+*Illustration is a concept visualization, not a photograph of a built robot or evidence of a successful harvest.*
+
+### Example task: from tree to collected coconut
+
+1. **Observe the tree:** a camera and, if available, a calibrated depth sensor capture the tree and coconut cluster. The system checks whether the data are usable.
+2. **Propose a target:** a vision model could identify candidate coconuts and estimate their positions. It must report uncertainty and leave unclear or occluded fruit for human review.
+3. **Check reach and risk:** a planner could propose a tool approach. Independent checks must verify reachability, collisions, branches, people in the work zone, and safe tool operation. If checks fail or data are missing, the robot must hold position and request help.
+4. **Human authorization:** a trained operator reviews the proposed target and plan, and can stop the task at any time. Remote supervision is not a substitute for physical safety controls.
+5. **Harvest and verify (future capability):** only after mechanical design, guarded tooling, safety interlocks, and controlled tests are validated could an approved controller perform a cut or grasp. Sensors would then check whether the coconut was actually collected; uncertain outcomes would be reported rather than guessed.
+
+### What is working now, and what is not
+
+| Capability | Current evidence in this repository |
+|---|---|
+| AI application / decision-support prototype | Code and demo workflows exist; the demo uses supplied or synthetic evidence and does not itself prove accurate coconut detection from uploaded photographs. |
+| Harvest plan proposal and audit report | Prototype software can produce reviewable proposals and reports; these are not commands to physical actuators. |
+| Robot concept illustration and model assets | Design concepts and simulation-related files are included. |
+| Reliable detection of real coconuts, ripeness, and 3D position | **Not yet established.** Requires representative labelled orchard data, calibrated sensors, and measured validation. |
+| Robot physically climbing or reaching a palm, cutting/grasping fruit, and collecting it | **Not demonstrated.** Requires a validated mechanical system, controlled simulation, hardware tests, and risk assessment. |
+| Replacing a worker entirely | **Not a current capability or claim.** The intended benefit is to reduce hazardous climbing and support a human-supervised harvesting workflow. |
+
+### Free, simulation-first development plan
+
+1. Run the existing local software demo and tests.
+2. Create a repeatable simulated palm, robot reach envelope, and guarded tool model; validate the geometry and joint limits.
+3. Test target-location error, reachability, collision rejection, safe-stop behavior, and task completion in simulation. Record results and failures instead of inventing performance numbers.
+4. Only after documented simulation and safety gates pass, consider low-height, tethered, non-cutting hardware trials under supervision.
+
+**Safety boundary:** this repository is a research prototype, not a field-ready harvesting robot. Do not connect its current prototype directly to motors, cutters, or manipulators, and do not use it as the sole basis for a real harvest. A human operator, independent safety system, emergency stop, exclusion zone, and documented risk assessment remain necessary for any future physical trial.
+
