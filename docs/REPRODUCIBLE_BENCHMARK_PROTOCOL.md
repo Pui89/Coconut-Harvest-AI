@@ -34,7 +34,7 @@ Report: test count, pass/fail count, failures, environment, command, and commit 
 
 ## Stage B — coconut detection on real images
 
-Before evaluation, document image provenance, licence/permission, label policy, target definition, and train/validation/test split. Keep images from the same burst, tree, or recording session in one split to reduce leakage.
+Before evaluation, document image provenance, licence/permission, label policy, target definition, and train/validation/test split. Keep images from the same burst, tree, or recording session in one split to reduce leakage. Run `training/audit_dataset_splits.py` to detect exact-image hashes crossing splits; provide a `split,image,group_id` CSV to audit declared tree/session/source groups as well. Preserve the JSON audit report with the experiment.
 
 Report at minimum:
 - Number of images and labelled coconut instances per split.
