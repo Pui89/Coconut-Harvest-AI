@@ -4,7 +4,7 @@ from coconut_harvest_robot.harvestability import HarvestDecision,HarvestEvidence
 from coconut_harvest_robot.safety_gate import ActionCandidate,SafetyDecision,SafetyLimits,validate_action
 
 def test_low_confidence_abstains():
-    r=score_harvestability(HarvestEvidence(.3,.3,.3,.3,.5,sensor_quality=.8))
+    r=score_harvestability(HarvestEvidence(.3,.3,.3,.8,.5,sensor_quality=.8))
     assert r.decision==HarvestDecision.LOW_CONFIDENCE
 
 def test_safety_blocks_human_exclusion():
