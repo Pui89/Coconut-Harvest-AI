@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PUI89 Coconut Image Annotator</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#17212b;background:#f4f7f8}body{margin:0}header{background:#123b36;color:white;padding:1rem 1.25rem}header h1{font-size:1.25rem;margin:0 0 .25rem}header p{margin:0;color:#d9e8e4;font-size:.92rem}.layout{display:grid;grid-template-columns:minmax(230px,300px) 1fr;gap:1rem;padding:1rem;max-width:1500px;margin:auto}.panel{background:white;border:1px solid #d9e2e5;border-radius:12px;padding:1rem;min-width:0}.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.75rem}button,.filebtn{border:1px solid #bdcbd0;border-radius:8px;padding:.55rem .75rem;background:#fff;color:#17212b;font:inherit;cursor:pointer}button.primary{background:#17675b;color:white;border-color:#17675b}button:disabled{opacity:.45;cursor:not-allowed}input[type=file]{max-width:100%}.muted{color:#56666e;font-size:.9rem}.status{font-size:.92rem;margin:.5rem 0}.thumbs{display:flex;flex-direction:column;gap:.35rem;max-height:55vh;overflow:auto}.thumb{display:flex;gap:.5rem;text-align:left;width:100%;align-items:center;overflow:hidden}.thumb.active{border-color:#17675b;background:#e7f4f0}.thumb img{width:52px;height:42px;object-fit:cover;border-radius:4px}.thumb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.85rem}.stage{position:relative;background:#17212b;border-radius:8px;overflow:hidden;min-height:280px;display:flex;align-items:center;justify-content:center}.stage canvas{display:block;max-width:100%;max-height:68vh;touch-action:none;cursor:crosshair}.empty{color:white;padding:2rem;text-align:center}.help{line-height:1.5;font-size:.9rem}.warning{border-left:4px solid #b7791f;padding:.6rem .8rem;background:#fff8e8;font-size:.9rem}.stats{display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem;margin:.5rem 0}kbd{background:#edf1f2;border:1px solid #d1dadd;border-radius:4px;padding:0 .25rem}@media(max-width:760px){.layout{grid-template-columns:1fr;padding:.5rem}.thumbs{max-height:25vh}.stage canvas{max-height:55vh}}
+</style>
+</head>
+<body>
+<header><h1>PUI89 Coconut Harvest AI — Offline Image Annotator</h1><p>Local browser tool · no upload · no external API · one class: coconut</p></header>
+<div class="layout">
+<aside class="panel">
+<h2 style="font-size:1rem;margin-top:0">1. Choose images</h2>
+<input id="files" type="file" accept="image/*" multiple>
+<p class="muted">Choose downloaded image files. Images stay in your browser; nothing is sent to a server.</p>
+<div class="status" id="status">No images loaded.</div>
+<div class="thumbs" id="thumbs"></div>
+<hr style="border:0;border-top:1px solid #e0e6e8;margin:1rem 0">
+<h2 style="font-size:1rem">2. Annotate</h2>
+<p class="help">Drag a rectangle around each visible coconut. Boxes are saved per image. Select a box and press <kbd>Delete</kbd> to remove it. Use <kbd>←</kbd>/<kbd>→</kbd> to change images.</p>
+<div class="toolbar"><button id="undo" disabled>Undo last box</button><button id="clear" disabled>Clear image boxes</button></div>
+<div class="warning">Only label coconuts that are actually visible. Do not label guessed or fully hidden fruit. Review downloaded image licences and provenance separately.</div>
+<hr style="border:0;border-top:1px solid #e0e6e8;margin:1rem 0">
+<h2 style="font-size:1rem">3. Export</h2>
+<button class="primary" id="export" disabled>Export annotations JSON</button>
+<p class="muted">Save the JSON file. Then use <code>tools/convert_annotations_to_yolo.py</code> to create YOLO label files locally.</p>
+</aside>
+<main class="panel">
+<div class="toolbar"><button id="prev" disabled>← Previous</button><button id="next" disabled>Next →</button><span id="counter" class="muted">No image selected</span><span style="flex:1"></span><span id="boxcount" class="muted">0 boxes</span></div>
+<div class="stage" id="stage"><div class="empty">Choose one or more image files to begin.</div></div>
+<p class="muted">Orange outlines are saved boxes; the dashed green outline is the box currently being drawn. This is an annotation aid, not an automatic detector.</p>
+</main>
+</div>
+<script>
+(function(){
+const fileInput=document.getElementById('files'),thumbs=document.getElementById('thumbs'),stage=document.getElementById('stage'),status=document.getElementById('status'),counter=document.getElementById('counter'),boxcount=document.getElementById('boxcount');
+const prev=document.getElementById('prev'),next=document.getElementById('next'),undo=document.getElementById('undo'),clear=document.getElementById('clear'),exportBtn=document.getElementById('export');
+let items=[],active=-1,canvas=null,ctx=null,drag=null,selected=-1;
+function current(){return items[active]}
+function safeName(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function setStatus(){let n=items.reduce((a,x)=>a+x.boxes.length,0);status.textContent=items.length+' image(s) · '+n+' box(es) labelled';counter.textContent=active<0?'No image selected':(active+1)+' / '+items.length+' · '+current().file.name;boxcount.textContent=(active<0?0:current().boxes.length)+' boxes';prev.disabled=active<=0;next.disabled=active<0||active>=items.length-1;undo.disabled=active<0||!current().boxes.length;clear.disabled=active<0||!current().boxes.length;exportBtn.disabled=!items.length}
+function draw(){
+if(active<0)return;let it=current();stage.innerHTML='';canvas=document.createElement('canvas');ctx=canvas.getContext('2d');let maxW=Math.max(320,stage.clientWidth-8),maxH=Math.max(260,window.innerHeight*.68);let scale=Math.min(maxW/it.img.naturalWidth,maxH/it.img.naturalHeight,1);canvas.width=Math.round(it.img.naturalWidth*scale);canvas.height=Math.round(it.img.naturalHeight*scale);canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';stage.appendChild(canvas);ctx.drawImage(it.img,0,0,canvas.width,canvas.height);
+it.boxes.forEach((b,i)=>{let x=b.x*canvas.width,y=b.y*canvas.height,w=b.w*canvas.width,h=b.h*canvas.height;ctx.lineWidth=i===selected?3:2;ctx.strokeStyle='#ff9f1c';ctx.fillStyle='rgba(255,159,28,.12)';ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);ctx.fillStyle='#ff9f1c';ctx.font='bold 13px system-ui';ctx.fillText('coconut '+(i+1),x+3,Math.max(14,y-4))});
+if(drag){let x=Math.min(drag.x,drag.cx),y=Math.min(drag.y,drag.cy),w=Math.abs(drag.cx-drag.x),h=Math.abs(drag.cy-drag.y);ctx.strokeStyle='#7dffb3';ctx.setLineDash([6,4]);ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);ctx.setLineDash([])}
+setStatus()
+}
+function pos(e){let r=canvas.getBoundingClientRect();return {x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))}}
+function renderThumbs(){thumbs.innerHTML='';items.forEach((it,i)=>{let b=document.createElement('button');b.className='thumb'+(i===active?' active':'');let im=document.createElement('img');im.src=it.url;let s=document.createElement('span');s.textContent=it.file.name+' ('+it.boxes.length+')';b.append(im,s);b.onclick=()=>{active=i;selected=-1;draw();renderThumbs()};thumbs.appendChild(b)})}
+fileInput.addEventListener('change',()=>{items.forEach(x=>URL.revokeObjectURL(x.url));items=[];let fs=Array.from(fileInput.files||[]).filter(f=>f.type.startsWith('image/'));let pending=fs.map(file=>new Promise(resolve=>{let url=URL.createObjectURL(file),img=new Image();img.onload=()=>resolve({file,url,img,boxes:[]});img.onerror=()=>{URL.revokeObjectURL(url);resolve(null)};img.src=url}));Promise.all(pending).then(rows=>{items=rows.filter(Boolean);active=items.length?0:-1;selected=-1;renderThumbs();if(active>=0)draw();else stage.innerHTML='<div class="empty">No readable images selected.</div>';setStatus()})});
+stage.addEventListener('pointerdown',e=>{if(!canvas||active<0)return;canvas.setPointerCapture(e.pointerId);let p=pos(e);drag={x:p.x*canvas.width,y:p.y*canvas.height,cx:p.x*canvas.width,cy:p.y*canvas.height};selected=-1;draw()});
+stage.addEventListener('pointermove',e=>{if(!drag||!canvas)return;let p=pos(e);drag.cx=p.x*canvas.width;drag.cy=p.y*canvas.height;draw()});
+stage.addEventListener('pointerup',()=>{if(!drag||!canvas)return;let d=drag;drag=null;let x=Math.min(d.x,d.cx)/canvas.width,y=Math.min(d.y,d.cy)/canvas.height,w=Math.abs(d.cx-d.x)/canvas.width,h=Math.abs(d.cy-d.y)/canvas.height;if(w>.008&&h>.008){current().boxes.push({x,y,w,h});selected=current().boxes.length-1}draw();renderThumbs()});
+canvas;prev.onclick=()=>{if(active>0){active--;selected=-1;draw();renderThumbs()}};next.onclick=()=>{if(active<items.length-1){active++;selected=-1;draw();renderThumbs()}};undo.onclick=()=>{if(active>=0){current().boxes.pop();selected=-1;draw();renderThumbs()}};clear.onclick=()=>{if(active>=0&&confirm('Clear all boxes on this image?')){current().boxes=[];selected=-1;draw();renderThumbs()}};
+canvas;document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'&&active>0){active--;selected=-1;draw();renderThumbs()}else if(e.key==='ArrowRight'&&active<items.length-1){active++;selected=-1;draw();renderThumbs()}else if((e.key==='Delete'||e.key==='Backspace')&&active>=0&&selected>=0){current().boxes.splice(selected,1);selected=-1;draw();renderThumbs()}});
+exportBtn.onclick=()=>{let payload={format:'pui89-coconut-annotations-v1',class_names:['coconut'],created_at:new Date().toISOString(),images:items.map(it=>({filename:it.file.name,width:it.img.naturalWidth,height:it.img.naturalHeight,boxes:it.boxes}))};let blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='coconut-annotations.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+window.addEventListener('resize',()=>{if(active>=0)draw()});
+})();
+</script>
+</body>
+</html>
