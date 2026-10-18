@@ -8,6 +8,10 @@ Other search results included dataset-listing repositories that say full data fi
 
 I did not verify a complete, directly downloadable, clearly licensed, non-Roboflow orchard object-detection dataset. In line with this project's no-Roboflow/no-paid-service rule, no external dataset has been imported and no images have been copied into this repository.
 
+## New free image-collection option
+
+A local Wikimedia Commons collector is now available at [`tools/collect_commons_coconuts.py`](../tools/collect_commons_coconuts.py), with instructions in [`FREE_IMAGE_COLLECTION_GUIDE.md`](FREE_IMAGE_COLLECTION_GUIDE.md). It filters out licences marked non-commercial or no-derivatives and records licence/attribution metadata. **It has not been run in this repository**, so no image collection is claimed to exist yet. Wikimedia results may be out-of-domain and are unlabelled; inspect and annotate them before training.
+
 ## Safest free route
 
 - Collect your own orchard photographs/video frames where you have permission, or obtain written permission from a researcher/farm.
