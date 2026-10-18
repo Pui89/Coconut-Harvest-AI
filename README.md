@@ -587,3 +587,21 @@ The concept below shows one possible **AI-assisted coconut harvesting workflow**
 
 
 ---
+
+
+## Local-first AI application and simulated agricultural robot
+
+The current repository includes an optional local detector adapter, RGB-D camera-frame localization, a simple IoU tracking baseline, and a deterministic simulation-only harvesting workflow. The workflow accepts supplied candidate evidence, applies conservative preflight gates, produces an auditable JSON report, and simulates approach/tool/retract steps. It never sends physical actuator commands.
+
+- [End-to-end workflow guide](docs/END_TO_END_ROBOT_WORKFLOW.md)
+- [Application usage and local detector setup](apps/pui89_app/README.md)
+- [Simulation example input](examples/end_to_end_robot_workflow.example.json)
+- [Run the simulation](apps/pui89_app/run_robot_workflow.py)
+
+From the repository root, run:
+
+```bash
+python -m apps.pui89_app.run_robot_workflow --input examples/end_to_end_robot_workflow.example.json
+```
+
+The example is synthetic evidence for software testing, not a measured field result. Local image inference requires a detector model that you supply and trust; no model weights are bundled or downloaded automatically. The RGB-D estimate is in the camera frame until calibrated transforms are validated. This remains a research prototype, not a physically validated harvesting robot.
