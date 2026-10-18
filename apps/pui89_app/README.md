@@ -110,3 +110,20 @@ Run the workflow without opening the UI:
 python -m apps.pui89_app.run_robot_workflow
 python -m pytest -q apps/pui89_app/test_robot_workflow.py apps/pui89_app/test_spatial_tracking.py
 ```
+
+
+## End-to-end vision-to-simulation smoke test
+
+To test the complete software decision path without a trained model, cloud service or physical robot, run:
+
+```bash
+python -m apps.pui89_app.vision_to_workflow \
+  --proposal examples/coconut_robot_proposal.synthetic.example.json \
+  --evidence examples/coconut_robot_evidence.synthetic.example.json \
+  --human-approved \
+  --output coconut_simulated_workflow_report.json
+```
+
+This uses synthetic example data and an identity transform only for software smoke testing. It is not real camera calibration, a detector result or a field measurement. The report simulates approach/tool/retract steps but always states that no actuator command was sent.
+
+For real inference, use the local-only detector pipeline and provide a validated camera-to-robot-base transform plus independent uncertainty, tracking, obstacle-clearance and reachability evidence. Missing or invalid evidence should cause safe hold, not guessed coordinates.
