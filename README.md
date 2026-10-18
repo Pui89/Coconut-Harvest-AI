@@ -26,7 +26,7 @@ python -m pip install -r apps/pui89_app/requirements.txt
 streamlit run apps/pui89_app/web_demo.py
 ```
 
-**Demo limitation:** the uploaded photograph is displayed for context but is not automatically analysed by a trained detector. The output is based on manually entered values and illustrative rules; it is not a real-world harvesting result or robot control system.
+**Demo limitation:** by default, the uploaded photograph is displayed for context but is not automatically analysed. An optional local detector can be configured using a trusted, existing `.pt` model file whose class labels include coconut; see [local detector setup](apps/pui89_app/README.md#optional-local-coconut-detector). The default manual-evidence workflow remains illustrative and is not a real-world harvesting result or robot control system. No detector accuracy is claimed without evaluation on labelled held-out images.
 
 
 ## How the AI Application Works
