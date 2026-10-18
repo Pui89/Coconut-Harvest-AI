@@ -44,7 +44,7 @@ function setStatus(){let n=items.reduce((a,x)=>a+x.boxes.length,0);status.textCo
 function draw(){
 if(active<0)return;
 let it=current();
-if(!canvas){stage.innerHTML='';canvas=document.createElement('canvas');ctx=canvas.getContext('2d');stage.appendChild(canvas)}
+if(!canvas||!stage.contains(canvas)){stage.innerHTML='';canvas=document.createElement('canvas');ctx=canvas.getContext('2d');stage.appendChild(canvas)}
 let maxW=Math.max(320,stage.clientWidth-8),maxH=Math.max(260,window.innerHeight*.68);
 let scale=Math.min(maxW/it.img.naturalWidth,maxH/it.img.naturalHeight,1);
 let targetW=Math.max(1,Math.round(it.img.naturalWidth*scale)),targetH=Math.max(1,Math.round(it.img.naturalHeight*scale));
