@@ -1,5 +1,56 @@
 # Coconut Harvest AI Application
 
+> **A local-first AI application and simulation-first agricultural robot research project.** The goal is to explore whether computer vision, RGB-D localization, conservative task planning, and human-supervised safety gates can support safer coconut harvesting. This is a research prototype—not a finished or field-validated harvesting robot.
+
+![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
+
+## Project status at a glance
+
+| Status | What it means today |
+|---|---|
+| **Implemented prototype** | Local detector adapter, camera-frame RGB-D localization, simple IoU tracking baseline, configurable decision gates, simulated task workflow, and JSON audit reporting are present in the codebase. |
+| **Testable with synthetic inputs** | A deterministic simulation workflow and clearly labelled synthetic fixtures let developers test decisions without a physical robot or paid cloud inference. |
+| **Still being validated** | The integrated feature branch needs a full CI run and reproducible local checkout test. Local detector accuracy and RGB-D error on real orchard data are not yet established. |
+| **Not demonstrated** | Autonomous physical harvesting, safe palm climbing, real cutting/grasping, field success rate, and production readiness. |
+
+### What has been achieved
+
+- Built separate AI-application and robot-workflow components that can be inspected and tested.
+- Added fail-closed checks so missing or invalid evidence should not be treated as a safe robot target.
+- Connected local vision proposals to a simulation-only workflow through an explicit calibration/evidence interface.
+- Added unit and integration tests, synthetic fixtures, documentation, and a proposed CI test path.
+- Kept the software local-first: no paid inference API, no automatic model-weight download, and no physical actuator commands.
+
+### What is being worked on
+
+- Verifying the complete feature branch with GitHub Actions and resolving any integration failures.
+- Making the demo and local run instructions reproducible from a clean checkout.
+- Separating synthetic examples from measured results and documenting each limitation.
+- Preparing a practical benchmark for detection, localization, tracking, safety rejection, and task simulation.
+
+### What comes next
+
+1. **CI and reproducibility:** pass focused and full repository tests from a clean environment.
+2. **Real-image benchmark:** assemble a permitted, labelled orchard dataset and report held-out detection precision/recall and failure cases.
+3. **Spatial validation:** measure RGB-D localization error and validate camera-to-robot calibration; never use the synthetic identity transform for hardware.
+4. **Physics simulation:** validate robot geometry, joint limits, reachability, collision checking, tool envelope, and safe-stop scenarios in a simulator.
+5. **Controlled prototype:** only after independent risk review, test a guarded, non-cutting rig under qualified supervision.
+6. **Commercial pilot:** compare measured safety, successful collection rate, cycle time, fruit damage, operator intervention, and total cost against the current harvesting process.
+
+## Why a farm or company might evaluate this project
+
+The possible value is a local-first, auditable, human-supervised workflow that can be tested before committing to expensive robot hardware. Its intended direction is to help operators assess targets and plan work while reducing the need for some hazardous climbing tasks. These benefits are hypotheses, not measured outcomes.
+
+**Honest buying position:** this project is not ready to be sold as a functioning autonomous coconut-harvesting robot. A suitable current partner would be a research group, farm, or company interested in a feasibility study, data collaboration, or simulation benchmark. No claim of being better, faster, cheaper, or safer than another robot is justified until an agreed comparison is measured.
+
+- [Buyer value, competitive comparison, and evidence required before a pilot](docs/BUYER_VALUE_AND_COMPETITIVE_POSITIONING.md)
+- [End-to-end workflow and safety limitations](docs/END_TO_END_ROBOT_WORKFLOW.md)
+- [Application setup and local detector requirements](apps/pui89_app/README.md)
+- [Development roadmap](docs/DEVELOPMENT_ROADMAP.md)
+- [Cost and billing policy](docs/COST_SAFETY_AND_BILLING.md)
+
+---
+
 ## Free local Hugging Face model plan
 
 This repository's recommended local model, intended tasks, licence checks, setup notes, and no-surprise-billing rules are documented in **[HUGGINGFACE_LOCAL_MODELS.md](docs/HUGGINGFACE_LOCAL_MODELS.md)**.
@@ -10,8 +61,6 @@ This repository's recommended local model, intended tasks, licence checks, setup
 ## Local development on an RTX 3050 laptop
 
 The hardware-aware, zero-cost-first plan is in [LOCAL_EXPERIMENT_PLAN_RTX3050.md](docs/LOCAL_EXPERIMENT_PLAN_RTX3050.md). A read-only environment checker is available at [scripts/check_local_environment.py](scripts/check_local_environment.py); it does not install packages, download models, use the network, or change system settings. The plan is tailored to a reported RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. It distinguishes the existing synthetic prototype from future model experiments and measured results.
-
-## AI Application Overview
 
 ## Try the Interactive AI Application Example
 
@@ -605,3 +654,17 @@ python -m apps.pui89_app.run_robot_workflow --input examples/end_to_end_robot_wo
 ```
 
 The example is synthetic evidence for software testing, not a measured field result. Local image inference requires a detector model that you supply and trust; no model weights are bundled or downloaded automatically. The RGB-D estimate is in the camera frame until calibrated transforms are validated. This remains a research prototype, not a physically validated harvesting robot.
+
+
+### End-to-end workflow smoke test (synthetic data)
+
+The following command connects a labelled synthetic proposal to the simulation-only task workflow. It is useful for testing the software path, not for measuring real detection or harvesting performance:
+
+```bash
+python -m apps.pui89_app.vision_to_workflow --proposal examples/coconut_robot_proposal.synthetic.example.json --evidence examples/coconut_robot_evidence.synthetic.example.json --human-approved --output coconut_simulated_workflow_report.json
+```
+
+The example uses a synthetic identity transform and synthetic robot evidence. **Do not reuse these values for a physical robot.** The workflow never sends actuator commands.
+
+- [Visual workflow overview](docs/images/coconut-harvest-ai-overview.svg)
+- [Competitive positioning and buyer validation checklist](docs/BUYER_VALUE_AND_COMPETITIVE_POSITIONING.md)
