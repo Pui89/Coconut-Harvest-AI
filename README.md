@@ -803,6 +803,6 @@ The first candidate batch has now been visually triaged across all 30 images. Th
 
 - **Review:** all 30 candidates have a recorded visual decision; most are excluded from attached-fruit detection due to irrelevant context, seedlings, distant fruit, or insufficiently clear targets.
 - **Labels:** 15 first-pass boxes across two close-up images. These labels need independent QA; this is not yet a complete or representative dataset.
-- **First measured baseline:** the fixed OpenCV HSV-contour heuristic returned 0.000 precision, 0.000 recall and 0.000 F1 at IoU ≥ 0.50 across those two images (20 predicted boxes, 15 reference boxes; mean CPU runtime 30.28 ms/image). This is a deliberately simple non-ML smoke test, not a trained detector benchmark.
+- **First measured baseline:** the fixed OpenCV HSV-contour heuristic returned 0.000 precision, 0.000 recall and 0.000 F1 at IoU ≥ 0.50 across those two images (20 predicted boxes, 15 reference boxes; mean CPU runtime 15.12 ms/image). This is a deliberately simple non-ML smoke test, not a trained detector benchmark.
 - **Licensing:** source pages for candidates 0001, 0002 and 0004 were checked; other candidates are not independently cleared for dataset inclusion. Only 0002 and 0004 have first-pass boxes.
 - **Still required:** independent annotation QA, source-page checks for every image proposed for inclusion, more independent orchard scenes, leakage-safe grouped splits, and a trained model with a frozen held-out evaluation. No generalization claim is supported by two images.
