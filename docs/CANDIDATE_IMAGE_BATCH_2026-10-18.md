@@ -73,7 +73,7 @@ These three source pages displayed the stated licences and attribution details w
 This update supersedes the earlier wording that all candidates remained visually unreviewed. The downloaded original-resolution files were inspected as a full 30-image contact sheet, and every candidate now has a conservative triage decision in [the review ledger](../data/review_batch_2026-10-18/candidate_review_2026-10-18.csv). This is a visual triage decision, not a complete licence review.
 
 - First-pass labels were created for IDs 0002 (9 boxes) and 0004 (6 boxes); see [annotations v0.1](../data/review_batch_2026-10-18/annotations_v0.1.json). Labels are single-pass and need independent QA.
-- The fixed OpenCV HSV-contour heuristic was run on these same two images: 20 predictions, 15 reference boxes, 0 matches at IoU ≥ 0.50, precision 0.000, recall 0.000, F1 0.000, mean CPU runtime 30.28 ms/image. This is a failed exploratory heuristic baseline, not a learned AI detector result.
+- The fixed OpenCV HSV-contour heuristic was run on these same two images: 20 predictions, 15 reference boxes, 0 matches at IoU ≥ 0.50, precision 0.000, recall 0.000, F1 0.000, mean CPU runtime 15.12 ms/image. This is a failed exploratory heuristic baseline, not a learned AI detector result.
 - Source pages were checked for IDs 0001, 0002 and 0004 only. The other 27 image pages have not been independently checked in this session and are not cleared for inclusion in a distributable training set.
 - The two labelled images do not form a valid train/validation/test dataset. There is no trained detector benchmark or held-out generalization result yet.
 
