@@ -1,14 +1,29 @@
 from dataclasses import replace
+import importlib.util
 import math
+from pathlib import Path
+import sys
 
 import pytest
 
-from coconut_harvest_robot.safety_gate import (
-    ActionCandidate,
-    SafetyDecision,
-    validate_action,
-)
 
+def load_source_module(name: str, relative_path: str):
+    source = Path(__file__).resolve().parents[1] / relative_path
+    spec = importlib.util.spec_from_file_location(name, source)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+safety_gate = load_source_module(
+    "coconut_harvest_safety_gate_test_module",
+    "src/coconut_harvest_robot/safety_gate.py",
+)
+ActionCandidate = safety_gate.ActionCandidate
+SafetyDecision = safety_gate.SafetyDecision
+validate_action = safety_gate.validate_action
 
 def valid_candidate() -> ActionCandidate:
     return ActionCandidate(
