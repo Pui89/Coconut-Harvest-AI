@@ -74,7 +74,15 @@ This update supersedes the earlier wording that all candidates remained visually
 
 - First-pass labels were created for IDs 0002 (9 boxes) and 0004 (6 boxes); see [annotations v0.1](../data/review_batch_2026-10-18/annotations_v0.1.json). Labels are single-pass and need independent QA.
 - The fixed OpenCV HSV-contour heuristic was run on these same two images: 20 predictions, 15 reference boxes, 0 matches at IoU ≥ 0.50, precision 0.000, recall 0.000, F1 0.000, mean CPU runtime 15.12 ms/image. This is a failed exploratory heuristic baseline, not a learned AI detector result.
-- Source pages were checked for IDs 0001, 0002 and 0004 only. The other 27 image pages have not been independently checked in this session and are not cleared for inclusion in a distributable training set.
+- Source pages were checked for IDs 0001, 0002, 0004 and 0014 only. The other 26 image pages have not been independently checked in this session and are not cleared for inclusion in a distributable training set.
 - The two labelled images do not form a valid train/validation/test dataset. There is no trained detector benchmark or held-out generalization result yet.
 
 See [batch README and reproduction steps](../data/review_batch_2026-10-18/README.md). The temporary source artifact still expires on 25 October 2026.
+
+
+## Additional source-page and full-resolution review — 19 October 2026
+
+- Candidate 0014 source page: [Liberia, Africa - panoramio (272).jpg](https://commons.wikimedia.org/wiki/File:Liberia,_Africa_-_panoramio_(272).jpg). The Commons page identifies author **blk24ga** and **CC BY 3.0**; attribution must credit the author, link the licence, and indicate changes if the image is modified. This source-page check does not mean the image is annotated or approved for training.
+- Candidate 0014 remains a **provisional visual candidate**: the image contains multiple attached coconuts, but they are distant and partly occluded; it needs a careful annotation pass and QA.
+- Candidate 0010 was rechecked at full resolution. The coconuts near the climber are harvested fruit, not confidently visible attached-fruit targets. The review ledger now excludes it from positive attached-coconut detection data. Do not add it as a negative sample without an explicit negative-image policy and review.
+- The independently checked source pages now total four: 0001, 0002, 0004 and 0014. The remaining 26 source pages are not cleared. The source-rights ledger records the current per-image status.
