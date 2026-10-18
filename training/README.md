@@ -122,7 +122,18 @@ python training/check_dataset.py --root "C:\datasets\coconut-v1"
 python training/audit_dataset_splits.py --root "C:\datasets\coconut-v1" --output "C:\datasets\coconut-v1\split_audit.json"
 ~~~
 
-Review the manifest and open sample images with their boxes before training. The builder checks file integrity and metadata consistency, not visual label correctness, true orchard representativeness, or licence compliance. A build summary is not a trained detector result.
+Generate an offline visual label-review gallery before training:
+
+~~~powershell
+python tools/preview_yolo_labels.py --root "C:\datasets\coconut-v1" --split train --out "reports\coconut-label-qa-train"
+Start-Process (Resolve-Path "reports\coconut-label-qa-train\index.html")
+python tools/preview_yolo_labels.py --root "C:\datasets\coconut-v1" --split val --out "reports\coconut-label-qa-val"
+Start-Process (Resolve-Path "reports\coconut-label-qa-val\index.html")
+python tools/preview_yolo_labels.py --root "C:\datasets\coconut-v1" --split test --out "reports\coconut-label-qa-test"
+Start-Process (Resolve-Path "reports\coconut-label-qa-test\index.html")
+~~~
+
+Review the manifest and visually inspect the image/box galleries before training. The builder checks file integrity and metadata consistency, not visual label correctness, true orchard representativeness, or licence compliance. A build summary is not a trained detector result.
 ## Check labels before training
 
 Run this first from the repository root:
