@@ -4,6 +4,46 @@
 
 ![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
 
+## Live project overview — 18 October 2026
+
+This table is the current evidence-based status, not a claim that the full robot is complete.
+
+| Area | Status now | Evidence / boundary |
+|---|---|---|
+| Application and workflow prototype | **Implemented prototype** | Local detector adapter, RGB-D proposal/localization interface, simple IoU tracking baseline, decision gates, simulation workflow and JSON audit reporting are present in the repository. |
+| Software regression checks | **Partly verified by CI** | The recent free-image-candidate workflow and GitHub Pages deployment succeeded. These check those workflows only; check the [Actions page](https://github.com/Pui89/Coconut-Harvest-AI/actions) for the latest application/test workflow status. |
+| Dataset preparation | **Tools implemented; dataset not yet validated** | Free candidate-image collector, licence/provenance gallery, offline bounding-box annotator, YOLO conversion, reviewed dataset builder and split-leakage audit are available. Candidate images still need human review, licence checks and labels. |
+| Trained coconut detector | **Not yet evidenced** | No verified held-out benchmark result is claimed here. Do not treat a model adapter, demo, candidate gallery or synthetic fixture as proof of accurate detection. |
+| RGB-D localization and tracking | **Prototype only** | Interfaces and a simple tracking baseline exist; real camera calibration, depth quality and localization error must be measured independently. |
+| Robot planning and physical harvesting | **Not validated** | No claim of safe autonomous cutting, successful physical harvesting, orchard field trials or production readiness. No actuator commands are authorized by the current software workflow. |
+
+### What has succeeded
+- The repository contains separable application and robot-workflow components, automated tests, synthetic fixtures and audit-oriented reporting.
+- Fail-closed decision gates are intended to reject missing or invalid evidence instead of treating it as a safe target.
+- Free-first dataset preparation and offline annotation tools are in the repository; the workflow does not require a paid inference API.
+- The latest candidate-image collection workflow completed successfully: [view run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196). This means the workflow ran successfully; it does **not** mean images were collected, licensed, labelled or evaluated by this README update.
+
+### What is in progress
+- Turn the candidate-image tools into a human-reviewed, licence-checked, labelled dataset.
+- Create group-separated train/validation/test splits and audit for leakage before model training.
+- Run a reproducible local baseline training and held-out evaluation; save commands, package versions, dataset provenance, checkpoint hash, raw outputs and failure examples.
+- Measure localization/tracking separately from detection, then test the end-to-end workflow in simulation with explicit safety stops.
+
+### Next actions, in order
+1. Run the [free candidate-image collection guide](docs/FREE_IMAGE_COLLECTION_GUIDE.md) locally; inspect each image and its source licence.
+2. Label only relevant, clearly visible coconuts using the [offline annotator](tools/coconut_annotator.html); exclude irrelevant or ambiguous images.
+3. Build and audit dataset splits with the scripts linked in [training documentation](training/README.md). Keep image datasets and model weights out of Git.
+4. Train a local baseline only after checking the base checkpoint licence and available hardware; freeze the test split before tuning.
+5. Publish a results report with dataset size, split counts, precision, recall, mAP where applicable, false positives/negatives, latency, confidence threshold, hardware and known failure cases. If no run has been performed, mark results **not measured** rather than estimating numbers.
+6. Validate RGB-D calibration and localization error; then improve robot-model geometry, reachability, collision checks and stop/fault behaviour in simulation.
+7. Consider a guarded, non-cutting hardware feasibility test only after documented risk review and qualified supervision.
+
+### Future target
+A research-grade, locally runnable agricultural AI system with independently measured perception, localization and simulation performance; transparent safety limits; and a controlled path toward supervised field trials. Commercial claims about speed, safety, cost savings or superiority over other systems must wait for fair, documented comparisons.
+
+**Current honest conclusion:** useful prototype and engineering/test scaffolding are in place. The key missing evidence is a real, reviewed dataset plus a trained detector's held-out results, followed by validated spatial and robot-safety tests.
+
+
 ## Project status at a glance
 
 | Status | What it means today |
