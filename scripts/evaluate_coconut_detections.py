@@ -163,12 +163,18 @@ def evaluate(ground_truth_path: Path, predictions_path: Path, iou_threshold: flo
     precision = _safe_ratio(tp, tp + fp)
     recall = _safe_ratio(tp, tp + fn)
     f1 = _safe_ratio(2 * precision * recall, precision + recall)
-    macro_ap = sum(item["ap_at_iou_threshold"] for item in per_class.values()) / len(per_class)
+    # Macro AP is averaged over classes present in ground truth. Predictions for
+    # unknown classes remain false positives in per-class reporting but do not
+    # create a new ground-truth class in the macro average.
+    gt_classes = sorted({row["class_name"] for row in gt})
+    macro_ap = sum(per_class[name]["ap_at_iou_threshold"] for name in gt_classes) / len(gt_classes)
     return {
         "protocol": "greedy one-to-one bounding-box matching; all-points interpolated AP",
         "iou_threshold": iou_threshold,
         "ground_truth_csv": str(ground_truth_path),
         "predictions_csv": str(predictions_path),
+        "ground_truth_images": len({row["image_file"] for row in gt}),
+        "prediction_images": len({row["image_file"] for row in predictions}),
         "ground_truth_instances": gt_count,
         "predictions": sum(item["predictions"] for item in per_class.values()),
         "true_positives": tp,
