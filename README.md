@@ -93,6 +93,7 @@ The possible value is a local-first, auditable, human-supervised workflow that c
 - [Safety state machine and release gates](docs/SAFETY_STATE_MACHINE.md)
 - [Research evidence matrix: implemented vs. unvalidated](docs/RESEARCH_EVIDENCE_MATRIX.md)
 - [Cost and billing policy](docs/COST_SAFETY_AND_BILLING.md)
+- [First candidate-image batch: provenance, preliminary visual triage, and required review](docs/CANDIDATE_IMAGE_BATCH_2026-10-18.md)
 
 ---
 
