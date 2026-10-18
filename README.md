@@ -92,6 +92,14 @@ Before reporting results, create a reproducibility manifest that records the dat
 python training/create_experiment_manifest.py --data "C:\datasets\coconut\coconut.yaml" --weights "runs\coconut\train\weights\best.pt" --experiment-id "coconut-test-v1" --output "reports\coconut-test-v1-manifest.json"
 ```
 
+After evaluation, cross-check the manifest against the test report with [the provenance audit](training/audit_experiment_report.py):
+
+```powershell
+python training/audit_experiment_report.py --manifest "reports\coconut-test-v1-manifest.json" --report "reports\coconut_test_report.json" --output "reports\provenance_audit.json"
+```
+
+A non-zero exit means one or more provenance checks failed; inspect the JSON and resolve mismatched checksums or missing fields before sharing results. This verifies file identity consistency only, not label correctness or real-world performance.
+
 The manifest is provenance metadata, **not an experiment result**. It does not validate image licences or labels, and it does not run training or evaluation. See [the script](training/create_experiment_manifest.py). The file is generated locally; review it before sharing because it includes local paths and environment details.
 
 ## Train and evaluate a real coconut detector
