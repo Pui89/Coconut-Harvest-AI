@@ -14,6 +14,7 @@ import shutil
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
+from PIL import Image
 
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif", ".tiff"}
 SPLITS = ("train", "val", "test")
@@ -106,10 +107,20 @@ def main() -> int:
 
     groups: dict[str, list[str]] = defaultdict(list)
     validated = {}
+    stems = {}
     for name, item in annotation_by_name.items():
         image = images_dir / name
         if not image.is_file() or image.suffix.lower() not in IMAGE_SUFFIXES:
             raise FileNotFoundError(f"Image is missing or unsupported: {image}")
+        stem = image.stem.lower()
+        if stem in stems:
+            raise ValueError(f"Duplicate image filename stem {stem!r}: {stems[stem]} and {name}; rename files before building.")
+        stems[stem] = name
+        try:
+            with Image.open(image) as im:
+                im.verify()
+        except Exception as exc:
+            raise ValueError(f"{name}: image cannot be decoded: {exc}") from exc
         boxes = item.get("boxes", [])
         if not isinstance(boxes, list):
             raise ValueError(f"{name}: boxes must be a list.")
@@ -127,8 +138,6 @@ def main() -> int:
             if not all(0 <= v <= 1 for v in (x, y, w, h)) or w <= 0 or h <= 0 or x + w > 1.000001 or y + h > 1.000001:
                 raise ValueError(f"{name}: box {idx} is out of bounds.")
             label_lines.append(f"0 {x + w / 2:.6f} {y + h / 2:.6f} {w:.6f} {h:.6f}")
-        with image.open("rb") as _:
-            pass
         group = reviewed[name]["group_id"]
         groups[group].append(name)
         validated[name] = {
