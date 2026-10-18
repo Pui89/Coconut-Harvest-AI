@@ -1,0 +1,5 @@
+# Optional local research dependencies. Review package and checkpoint licences.
+ultralytics>=8.3,<9.0
+PyYAML>=6.0,<7.0
+numpy>=1.26,<3.0
+Pillow>=10.0,<13.0
