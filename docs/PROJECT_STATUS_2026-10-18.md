@@ -1,55 +1,63 @@
-# Project status and verification log — 18 October 2026
+# Project status and verification log — updated 19 October 2026
 
 ## Current state
 
-**Stage:** local-first software prototype, dataset-candidate collection and simulation-oriented workflow. This is not a trained, field-validated autonomous harvesting robot.
+**Stage:** local-first software research prototype with an initial 30-image candidate batch, first-pass labels on two images, and simulation-oriented workflow. This is not a trained, field-validated autonomous harvesting robot.
 
 ## Successful and evidenced
 
-- Latest known Python CI run [39096443251](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39096443251) passed across Python 3.10, 3.11 and 3.12. This is software regression evidence only.
-- The candidate-image workflow [39092214196](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196) collected 30 candidate images and generated provenance/review files. The artifact is temporary and is due to expire on 25 October 2026 unless downloaded earlier.
-- The GitHub Pages deployment [39093607358](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39093607358) passed.
-- Repository tools include candidate collection, provenance capture, offline bounding-box annotation, annotation conversion, dataset building/split auditing, local training/evaluation scaffolding, and a simulation-oriented decision workflow.
+- Python CI run [39096443251](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39096443251) passed across Python 3.10, 3.11 and 3.12. This is software regression evidence only.
+- Candidate-image workflow [39092214196](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196) collected 30 candidate images and generated provenance/review files. The temporary artifact is due to expire on **25 October 2026** unless downloaded earlier.
+- GitHub Pages deployment [39093607358](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39093607358) passed.
+- The 30-image batch was visually triaged; the batch report records readable files (29 JPEG and 1 PNG) and no byte-identical duplicates. This does not rule out visually similar images.
+- First-pass bounding boxes exist for candidates 0002 (9 boxes) and 0004 (6 boxes) in [annotations v0.1](../data/review_batch_2026-10-18/annotations_v0.1.json). They are single-pass labels and still require independent visual QA.
+- A fixed OpenCV HSV-contour heuristic was measured on those same two images: 20 predictions, 15 reference boxes, zero matches at IoU ≥ 0.50, precision 0.000, recall 0.000, F1 0.000, mean CPU runtime 15.12 ms/image. This is a failed exploratory heuristic baseline, **not** a trained AI detector result.
+- Repository tools include provenance capture, offline annotation, annotation conversion, dataset building/split auditing, local training/evaluation scaffolding, and simulation-oriented decision workflow.
 
-## Continuing now
+## Still in progress
 
-- Download and inspect the 30-image artifact; verify every image's relevance and original licence/attribution terms.
-- Exclude irrelevant or ambiguous images; label only clear coconut targets and review labels visually.
-- Build group-separated train/validation/test splits and run manifest, duplicate/leakage and label-quality checks.
-- Check dataset/training script compatibility and run a baseline only after rights, labels, hardware and checkpoint licence are confirmed.
+1. Download the temporary image artifact before 25 October 2026 and preserve the files and provenance locally.
+2. Individually verify original source-page licence, creator credit and reuse conditions for every image intended for training. Only candidates 0001, 0002 and 0004 have had their source pages checked so far; the other 27 are not cleared.
+3. Independently inspect and correct the 15 first-pass boxes on candidates 0002 and 0004; use a consistent annotation policy and keep an audit trail.
+4. Reject irrelevant/ambiguous images, and collect or obtain permission for more varied orchard images.
+5. Create source/tree/session-separated train, validation and test splits; inspect label previews and pass dataset and leakage audits before training.
+6. Review the chosen local checkpoint and framework licences, then run a small local detector experiment only after the dataset is ready.
 
 ## Not yet demonstrated
 
-- A complete, human-reviewed, licence-verified dataset.
-- A trained detector with held-out precision/recall/mAP, latency or independent-orchard generalization.
+- A complete, independently QA'd and licence-verified training dataset.
+- A trained coconut detector with valid held-out precision/recall/mAP, latency, or independent-orchard generalization.
 - Measured RGB-D localization benefit, calibrated camera-to-robot coordinates, validated collision-free motion, or physical harvesting.
-- Any claim that this robot is safer, faster, cheaper or better than alternatives.
+- Any evidence that this robot is safer, faster, cheaper or better than alternatives.
 
-## Next actions
+## Next actions, in order
 
-1. Download the candidate artifact before its stated expiry; inspect images and licences.
-2. Annotate approved images, build the dataset, inspect previews, and pass the leakage/manifest audits.
-3. Run the focused tests and a reproducible local baseline with a frozen held-out test set.
-4. Publish raw results, dataset/split counts, model/checkpoint provenance, hardware, thresholds, latency and failure examples; use **not measured** for missing results.
-5. Validate RGB-D error against reference positions, then test robot geometry, reachability, collisions and stop/fault cases in simulation.
+1. **Preserve the temporary artifact** before its stated expiry.
+2. Finish licence checks and independent QA of the existing labels; do not treat the candidate batch as training-ready.
+3. Expand the dataset with permitted, diverse orchard scenes; split by source/tree/session and run audits.
+4. Run focused tests and a reproducible local detector experiment with a frozen held-out test set only when prerequisites pass.
+5. Publish actual dataset/split counts, model/checkpoint provenance, hardware, thresholds, latency, metrics and failure examples. Keep missing values as **not measured**.
+6. Separately test RGB-D localization against ground-truth positions, then test robot geometry, reachability, collisions and stop/fault cases in simulation.
 
 ## Future
 
-Collect permitted orchard-specific images across occlusion, lighting, distance and viewpoint; compare detector baselines and RGB-only versus RGB-D localization; then progress from simulation to any supervised, non-cutting hardware test only after risk review and independent safety gates.
+Study performance across occlusion, lighting, distance/viewpoint and background clutter. Compare RGB-only with RGB-D localization only when paired depth data and credible ground-truth positions are available. Consider a supervised, non-cutting hardware test only after risk review and independent safety gates.
 
 ## Corrections and boundaries
 
-- Candidate images are not a labelled or validated dataset.
-- A model adapter, demo, synthetic fixture, or passing CI run is not proof of detector accuracy or safe harvesting.
+- Candidate images are not automatically a labelled or legally cleared dataset.
+- A model adapter, synthetic demo, fixture, or passing CI run is not proof of detector accuracy or safe harvesting.
+- The current HSV baseline failed at the stated IoU threshold; do not present it as successful detection.
 - Concept drawings and trajectories are illustrations, not a built robot or measured physical performance.
 - No actuator commands or real harvesting are authorized by the current prototype.
 
-## Cost boundary
+## Cost and data boundary
 
-Free/open-source-first. No paid inference API, cloud GPU or subscription is required by this plan. Do not commit private/copyrighted images or model weights.
+Free/open-source-first. Do not use paid inference APIs, cloud GPUs, hosted endpoints or subscriptions for this plan. Review licences before downloading or redistributing model weights. Do not commit private/copyrighted images or model weights to Git.
 
-### Candidate-image review progress — 18 October 2026
+## Evidence references
 
-- Retrieved and inspected the temporary 30-image candidate artifact; 30 files are readable (29 JPEG, 1 PNG) and no byte-identical duplicates were found.
-- Completed full-resolution visual inspection and checked the source-page licence/credit details for three priority candidates: IDs 0001, 0002 and 0004. The source pages list CC BY-SA licences (0004 also displays GFDL); the credits and URLs are recorded in [the batch report](CANDIDATE_IMAGE_BATCH_2026-10-18.md).
-- **Progress is still preliminary:** the other 27 source pages have not been individually licence-verified; the priority images still need bounding-box annotations and QA; no dataset split or model benchmark has been completed.
+- [Candidate-image batch report](CANDIDATE_IMAGE_BATCH_2026-10-18.md)
+- [Review-batch README and reproduction steps](../data/review_batch_2026-10-18/README.md)
+- [First-pass annotations v0.1](../data/review_batch_2026-10-18/annotations_v0.1.json)
+- [Baseline report v0.1](../data/review_batch_2026-10-18/benchmark_report_v0.1.json)
