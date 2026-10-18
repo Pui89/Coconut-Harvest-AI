@@ -76,6 +76,14 @@ class VisionToWorkflowTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             proposal_to_candidates(PROPOSAL, evidence)
 
+    def test_non_rigid_transform_is_rejected(self):
+        evidence = dict(EVIDENCE)
+        evidence["camera_to_robot_base_4x4"] = [
+            [2,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]
+        ]
+        with self.assertRaises(ValueError):
+            proposal_to_candidates(PROPOSAL, evidence)
+
     def test_untrusted_proposal_mode_is_rejected(self):
         proposal = dict(PROPOSAL)
         proposal["mode"] = "SOME_OTHER_MODE"
