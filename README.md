@@ -19,6 +19,7 @@
 - Added fail-closed checks so missing or invalid evidence should not be treated as a safe robot target.
 - Connected local vision proposals to a simulation-only workflow through an explicit calibration/evidence interface.
 - Added unit and integration tests, synthetic fixtures, documentation, and a proposed CI test path.
+- Added an offline browser-based coconut bounding-box annotator, a JSON-to-YOLO converter, and a train/validation/test leakage audit script.
 - Kept the software local-first: no paid inference API, no automatic model-weight download, and no physical actuator commands.
 
 ### What is being worked on
@@ -67,7 +68,7 @@ Use the free Wikimedia Commons collector to build a candidate image collection w
 
 ## Train and evaluate a real coconut detector
 
-The local training and held-out evaluation scripts are now documented in [training/README.md](training/README.md). Dataset access/licensing and the current free-data search are documented in [FREE_DATASET_AND_TRAINING_WORKFLOW.md](docs/FREE_DATASET_AND_TRAINING_WORKFLOW.md).
+The local training, offline annotation, YOLO conversion, and held-out evaluation workflow is documented in [training/README.md](training/README.md). Tools include the [offline annotator](tools/coconut_annotator.html), [annotation converter](tools/convert_annotations_to_yolo.py), and [dataset split audit](training/audit_dataset_splits.py). Dataset access/licensing and the current free-data search are documented in [FREE_DATASET_AND_TRAINING_WORKFLOW.md](docs/FREE_DATASET_AND_TRAINING_WORKFLOW.md).
 
 These scripts do not include a trained checkpoint or claim accuracy. You must supply a permitted labelled dataset and an existing local base checkpoint, then run training and the frozen test evaluation yourself. The existing [RGB-D proposal pipeline](apps/pui89_app/local_first_pipeline.py) connects a local coconut model to a review-only JSON proposal; calibrated depth and safety evidence remain necessary, and no hardware commands are sent.
 
