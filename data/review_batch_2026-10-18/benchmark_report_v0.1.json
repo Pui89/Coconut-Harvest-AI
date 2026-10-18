@@ -4,21 +4,37 @@
   "method": "OpenCV HSV threshold + morphology + connected contours; no learned weights",
   "iou_threshold": 0.5,
   "images_evaluated": 2,
-  "ground_truth_boxes": 16,
+  "ground_truth_boxes": 15,
   "predicted_boxes": 20,
   "true_positives": 0,
   "false_positives": 20,
-  "false_negatives": 16,
-  "precision_iou50": 0.0,
-  "recall_iou50": 0.0,
-  "f1_iou50": 0.0,
-  "mean_cpu_runtime_ms_per_image": 30.28,
+  "false_negatives": 15,
+  "precision_iou50": 0,
+  "recall_iou50": 0,
+  "f1_iou50": 0,
+  "mean_cpu_runtime_ms_per_image": 15.12,
   "per_image": [
-    {"image": "0002_1280px-Fresh_coconuts.jpg", "ground_truth_boxes": 10, "predicted_boxes": 12, "tp_iou50": 0, "fp_iou50": 12, "fn_iou50": 10, "runtime_ms": 44.6},
-    {"image": "0004_1280px-Cocos_nucifera_003.jpg", "ground_truth_boxes": 6, "predicted_boxes": 8, "tp_iou50": 0, "fp_iou50": 8, "fn_iou50": 6, "runtime_ms": 15.95}
+    {
+      "image": "0002_1280px-Fresh_coconuts.jpg",
+      "ground_truth_boxes": 9,
+      "predicted_boxes": 12,
+      "tp_iou50": 0,
+      "fp_iou50": 12,
+      "fn_iou50": 9,
+      "runtime_ms": 17.08
+    },
+    {
+      "image": "0004_1280px-Cocos_nucifera_003.jpg",
+      "ground_truth_boxes": 6,
+      "predicted_boxes": 8,
+      "tp_iou50": 0,
+      "fp_iou50": 8,
+      "fn_iou50": 6,
+      "runtime_ms": 13.17
+    }
   ],
   "limitations": [
-    "Only two images and 16 single-pass manually drawn boxes; labels have not received independent second-person QA.",
+    "Only two images and 15 single-pass manually drawn boxes; labels have not received independent second-person QA.",
     "Images are not an independent held-out test set; results are in-sample and do not measure generalization.",
     "HSV threshold is a deliberately simple non-ML reference; results are sensitive to overlapping fruit boxes and scene colour.",
     "No trained detector, model checkpoint, GPU measurement, RGB-D localization, or field performance was evaluated."
