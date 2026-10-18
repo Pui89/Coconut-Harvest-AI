@@ -1,6 +1,22 @@
 name: Python tests
 
 on:
+  push:
+    paths:
+      - "src/**"
+      - "apps/pui89_app/**"
+      - "tests/**"
+      - "training/**"
+      - "pyproject.toml"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "src/**"
+      - "apps/pui89_app/**"
+      - "tests/**"
+      - "training/**"
+      - "pyproject.toml"
+      - ".github/workflows/ci.yml"
   workflow_dispatch:
 
 permissions:
