@@ -60,6 +60,16 @@ python -m pip install -r apps/pui89_app/requirements-detector.txt
 
 Manually obtain a compatible base checkpoint from a source you trust and save it locally. Review the checkpoint and framework licences before use, especially for commercial distribution. Do not put weights in Git. The script refuses model names such as yolov8n.pt; pass a real local path. Ultralytics licensing may impose obligations or require a separate commercial licence depending on how the software is used or distributed.
 
+## Check labels before training
+
+Run this first from the repository root:
+
+~~~powershell
+python training/check_dataset.py --root "C:\datasets\coconut"
+~~~
+
+The checker validates image/label pairs, image readability, the single coconut class ID, and normalized bounding boxes. Fix every error before training.
+
 ## Train
 
 ~~~powershell
