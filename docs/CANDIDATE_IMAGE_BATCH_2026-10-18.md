@@ -46,3 +46,23 @@ The workflow artifact was retrieved for a first-pass technical inspection in thi
 - The most promising first-pass attached-fruit candidates remain IDs 0001, 0002 and 0004; other scenes require full-resolution inspection before deciding whether any visible fruit can be labelled reliably.
 
 **Important boundary:** this check is not a full-resolution annotation review, image-by-image licence verification, near-duplicate audit, or dataset acceptance. Every image remains unreviewed/unlabelled for training until those checks are completed. The Actions artifact expires on 25 October 2026; download it from the linked run if you need a durable local copy.
+
+
+## Full-resolution and source-page check — priority candidates
+
+I opened the original-resolution artifact files for IDs 0001, 0002 and 0004 and checked their Wikimedia Commons source pages on 18 October 2026.
+
+| ID | Visual suitability for attached-coconut detection | Commons page's stated licence | Credit shown on source page | Decision |
+|---|---|---|---|---|
+| 0001 | Fruits are present but relatively small and partly obscured by fronds; useful as a harder/occluded example if boxes can be drawn consistently | CC BY-SA 3.0 | Muminur Rahman | **Provisional candidate**; annotation and attribution record still required |
+| 0002 | Close-up cluster of attached coconuts; several fruit boundaries are visible | CC BY-SA 4.0 | Siva301in | **Strong provisional positive candidate**; annotate each clearly separable fruit under one policy |
+| 0004 | Close-up cluster of attached coconuts; multiple fruit boundaries visible despite overlap and strong shadows | CC BY-SA 3.0 and GFDL 1.2-or-later (dual licence displayed) | H. Zell | **Strong provisional positive candidate**; annotate visible instances and retain the selected licence/credit details |
+
+Source pages checked:
+- [0001 — Coconuts on Tree.jpg](https://commons.wikimedia.org/wiki/File:Coconuts_on_Tree.jpg)
+- [0002 — Fresh coconuts.jpg](https://commons.wikimedia.org/wiki/File:Fresh_coconuts.jpg)
+- [0004 — Cocos nucifera 003.jpg](https://commons.wikimedia.org/wiki/File:Cocos_nucifera_003.jpg)
+
+These three source pages displayed the stated licences and attribution details when checked. This is not a legal opinion and does not clear the other 27 images. Preserve source URLs, author credit, licence URL and any changes with the dataset; do not assume the whole batch is approved.
+
+**Still pending for these three:** write and visually inspect bounding-box labels, confirm the precise class definition, retain the provenance metadata, and include them only after the project’s dataset audit passes. No model has been trained from them.
