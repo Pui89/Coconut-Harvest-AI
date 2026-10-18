@@ -1,0 +1,32 @@
+{
+  "mode": "LOCAL_ONLY_PROPOSAL",
+  "schema_version": "1.0",
+  "candidate_count": 1,
+  "actuator_commands_authorized": false,
+  "candidates": [
+    {
+      "target_id": "coconut-demo-001",
+      "confidence": 0.92,
+      "box_xyxy": [
+        40,
+        40,
+        60,
+        60
+      ],
+      "localization": {
+        "status": "ESTIMATED_CAMERA_FRAME",
+        "x_m": 0.5,
+        "y_m": 0.2,
+        "z_m": 1,
+        "pixel_uv": [
+          50,
+          50
+        ],
+        "valid_depth_samples": 25
+      },
+      "status": "REVIEW_REQUIRED",
+      "reasons": []
+    }
+  ],
+  "note": "SYNTHETIC SMOKE-TEST DATA ONLY; not a detector output or field measurement."
+}
