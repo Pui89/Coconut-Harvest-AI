@@ -47,6 +47,9 @@ The possible value is a local-first, auditable, human-supervised workflow that c
 - [End-to-end workflow and safety limitations](docs/END_TO_END_ROBOT_WORKFLOW.md)
 - [Application setup and local detector requirements](apps/pui89_app/README.md)
 - [Development roadmap](docs/DEVELOPMENT_ROADMAP.md)
+- [Reproducible benchmark protocol](docs/REPRODUCIBLE_BENCHMARK_PROTOCOL.md)
+- [Safety state machine and release gates](docs/SAFETY_STATE_MACHINE.md)
+- [Research evidence matrix: implemented vs. unvalidated](docs/RESEARCH_EVIDENCE_MATRIX.md)
 - [Cost and billing policy](docs/COST_SAFETY_AND_BILLING.md)
 
 ---
