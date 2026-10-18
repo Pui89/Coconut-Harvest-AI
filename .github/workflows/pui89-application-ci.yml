@@ -28,7 +28,7 @@ jobs:
       - name: Compile Python files
         run: python -m compileall -q apps/pui89_app benchmarks
       - name: Run focused AI and robot workflow tests
-        run: python -m pytest -q apps/pui89_app/test_robot_workflow.py apps/pui89_app/test_spatial_tracking.py apps/pui89_app/test_local_detector.py apps/pui89_app/test_local_first_pipeline.py
+        run: python -m pytest -q apps/pui89_app/test_robot_workflow.py apps/pui89_app/test_spatial_tracking.py apps/pui89_app/test_local_detector.py apps/pui89_app/test_local_first_pipeline.py apps/pui89_app/test_vision_to_workflow.py
       - name: Run application tests
         run: python -m unittest discover -s apps/pui89_app -p 'test_*.py' -v
       - name: Check benchmark validator
