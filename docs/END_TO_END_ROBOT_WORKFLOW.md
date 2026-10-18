@@ -23,8 +23,8 @@ The example file is intentionally illustrative. It is not a labelled dataset, an
 ## Pipeline
 
 1. **Image perception:** the optional local detector can produce pixel bounding boxes and confidence scores from a user-supplied, trusted local model. The runner does not itself load a model or infer detections from images.
-2. **Tracking:** the workflow accepts track age as supplied evidence and rejects unstable tracks. It does not implement multi-object tracking across video frames.
-3. **3D localization:** metric coordinates, uncertainty, timestamp, reachability and obstacle clearance are inputs from a future calibrated localization/perception component. A 2D box is never converted into a guessed 3D position.
+2. **Tracking:** [`iou_tracker.py`](../apps/pui89_app/iou_tracker.py) provides a small deterministic IoU association baseline that assigns track IDs and increments track age across frame updates. It is not robust to camera motion, prolonged occlusion or complex crossings; those require further testing and a stronger tracker.
+3. **3D localization:** [`rgbd_localization.py`](../apps/pui89_app/rgbd_localization.py) projects the centre of a bounding box into camera-frame XYZ using median valid depth and calibrated pinhole intrinsics. It requires RGB-aligned depth in metres. The caller must supply the calibrated camera-to-robot/world transform separately; the utility does not guess one. The task runner consumes metric coordinates, uncertainty, timestamp, reachability and clearance as explicit evidence.
 4. **Target planning:** valid candidates are ranked deterministically by confidence, then distance. Candidates missing required evidence are rejected with reason codes.
 5. **Human approval:** no simulated task sequence is emitted until approval is present in the input. Approval only allows the software simulation to continue; it is not physical authorization.
 6. **Robot task sequence:** the adapter emits approach, tool-sequence, and retract *preview* steps. These are task-sequence records, not physics simulation, inverse kinematics, or validated collision-free trajectories.
@@ -68,8 +68,8 @@ CI runs these tests on relevant pull requests. Passing tests establish the behav
 | Require explicit human approval before emitting simulated steps | Implemented and unit-tested |
 | JSON audit report and explicit no-actuator flag | Implemented and unit-tested |
 | Detect coconuts directly from every uploaded image | Not established; optional model adapter needs a suitable trained model and evaluation |
-| Track targets across real video | Not implemented in this workflow |
-| Calibrated metric 3D localization | External evidence input only; not implemented here |
+| IoU association baseline for frame detections | Implemented and unit-tested; not benchmarked on real video |
+| Bounding-box + aligned-depth projection into camera-frame XYZ | Utility implemented and unit-tested; calibration/alignment assumed, no field accuracy claim |\n| Camera-to-robot/world transform and calibrated field localization | Not implemented in this workflow |
 | Robot kinematics and physics/collision simulation | Not implemented by this workflow |
 | ROS 2 hardware execution or physical harvesting | Not implemented; no actuator commands are sent |
 | Commercial readiness or safety certification | Not established |
