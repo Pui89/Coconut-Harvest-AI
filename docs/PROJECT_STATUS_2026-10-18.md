@@ -47,3 +47,9 @@ Collect permitted orchard-specific images across occlusion, lighting, distance a
 ## Cost boundary
 
 Free/open-source-first. No paid inference API, cloud GPU or subscription is required by this plan. Do not commit private/copyrighted images or model weights.
+
+### Candidate-image review progress — 18 October 2026
+
+- Retrieved and inspected the temporary 30-image candidate artifact; 30 files are readable (29 JPEG, 1 PNG) and no byte-identical duplicates were found.
+- Completed full-resolution visual inspection and checked the source-page licence/credit details for three priority candidates: IDs 0001, 0002 and 0004. The source pages list CC BY-SA licences (0004 also displays GFDL); the credits and URLs are recorded in [the batch report](CANDIDATE_IMAGE_BATCH_2026-10-18.md).
+- **Progress is still preliminary:** the other 27 source pages have not been individually licence-verified; the priority images still need bounding-box annotations and QA; no dataset split or model benchmark has been completed.
