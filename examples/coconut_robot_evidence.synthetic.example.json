@@ -1,0 +1,39 @@
+{
+  "now_s": 10,
+  "camera_to_robot_base_4x4": [
+    [
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "evidence_by_target": {
+    "coconut-demo-001": {
+      "localization_uncertainty_m": 0.03,
+      "track_age_frames": 8,
+      "timestamp_s": 9.9,
+      "obstacle_clearance_m": 0.5,
+      "reachable": true
+    }
+  },
+  "note": "SYNTHETIC SMOKE-TEST EVIDENCE ONLY. The identity transform is not real camera/robot calibration."
+}
