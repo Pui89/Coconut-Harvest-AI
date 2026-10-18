@@ -33,8 +33,10 @@ def _positive(value: Any, name: str) -> float:
 
 def load_intrinsics(path: str | Path) -> Intrinsics:
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
-    return Intrinsics(_positive(raw["fx"], "fx"), _positive(raw["fy"], "fy"),
-                      float(raw["cx"]), float(raw["cy"]))
+    cx, cy = float(raw["cx"]), float(raw["cy"])
+    if not math.isfinite(cx) or not math.isfinite(cy):
+        raise ValueError("cx and cy must be finite")
+    return Intrinsics(_positive(raw["fx"], "fx"), _positive(raw["fy"], "fy"), cx, cy)
 
 def load_local_detector(weights_path: str | Path):
     """Load only an existing local weights file; never download weights."""
@@ -83,9 +85,12 @@ def localize_detection(detection: Detection, depth_map: Any, intrinsics: Intrins
                        max_depth_m: float = 5.0, window_radius: int = 2) -> dict[str, Any]:
     """Median-depth pinhole projection to camera-frame XYZ; not world-frame pose."""
     import numpy as np
-    if getattr(depth_map, "ndim", None) != 2:
+    if getattr(depth_map, "ndim", None) != 2 or not np.issubdtype(depth_map.dtype, np.number):
         raise ValueError("depth map must be a 2-D numeric array")
     scale = _positive(depth_scale, "depth_scale")
+    if (not math.isfinite(min_depth_m) or not math.isfinite(max_depth_m)
+            or min_depth_m <= 0 or max_depth_m <= min_depth_m):
+        raise ValueError("depth bounds must be finite, positive, and ordered")
     h, w = depth_map.shape
     x1, y1, x2, y2 = detection.box_xyxy
     u, v = int(round((x1+x2)/2)), int(round((y1+y2)/2))
@@ -115,6 +120,8 @@ def build_review_report(detections: list[Detection], localized: dict[str, dict[s
     candidates = []
     for det in detections:
         reasons = []
+        if det.class_name.strip().casefold() != "coconut":
+            reasons.append("class is not coconut")
         loc = localized.get(det.target_id, {"status":"UNKNOWN", "reason":"depth unavailable"})
         if not math.isfinite(det.confidence) or not 0 <= det.confidence <= 1:
             reasons.append("invalid confidence")
@@ -123,8 +130,14 @@ def build_review_report(detections: list[Detection], localized: dict[str, dict[s
         if loc.get("status") != "ESTIMATED_CAMERA_FRAME":
             reasons.append("3D location unavailable or invalid")
         else:
-            distance = math.sqrt(sum(float(loc[k])**2 for k in ("x_m","y_m","z_m")))
-            if not math.isfinite(distance) or not min_range_m <= distance <= max_range_m:
+            try:
+                xyz = tuple(float(loc[k]) for k in ("x_m", "y_m", "z_m"))
+                distance = math.sqrt(sum(value * value for value in xyz))
+            except (KeyError, TypeError, ValueError, OverflowError):
+                distance = math.nan
+            if not math.isfinite(distance):
+                reasons.append("3D coordinates are missing or non-finite")
+            elif not min_range_m <= distance <= max_range_m:
                 reasons.append("target outside configured camera-frame range")
         status = "REJECTED" if reasons else "REVIEW_REQUIRED"
         if not reasons and human_approved_target == det.target_id:
