@@ -19,7 +19,7 @@
 ## Latest status update — 18 October 2026
 
 - **Successful:** Python CI passed on 3.10/3.11/3.12; candidate collection generated 30 image candidates and provenance/review files; Pages deployment passed.
-- **Batch triage update:** I retrieved the 30-file artifact for an initial contact-sheet review; all 30 files open, with 29 JPEGs and 1 PNG, and no exact byte-identical duplicates. This is only a preliminary integrity/contact-sheet check—not full-resolution target review, licence verification, near-duplicate checking or annotation. See the [candidate batch report](docs/CANDIDATE_IMAGE_BATCH_2026-10-18.md).
+- **Batch triage update:** all 30 files were readable (29 JPEG, 1 PNG) with no byte-identical duplicates. Full-resolution review and Commons source-page licence/credit checks are complete for priority candidates 0001, 0002 and 0004 only; their box labels and QA remain pending. The other 27 images still need individual review. This is not a labelled dataset. See the [candidate batch report](docs/CANDIDATE_IMAGE_BATCH_2026-10-18.md).
 - **Continuing:** full-resolution image and licence review, human annotation, dataset QA and leakage-safe splits.
 - **Next:** download the temporary candidate artifact before 25 October 2026; label approved images; run dataset audits; then perform a reproducible local baseline and frozen held-out evaluation.
 - **Future:** measure detection and RGB-D localization, validate robot geometry/collision/safe-stop behavior in simulation, and only later consider supervised non-cutting hardware tests.
