@@ -2,7 +2,7 @@ candidate_id,filename,source_page_url,creator_credit,licence_as_displayed,licenc
 0001,0001_1280px-Coconuts_on_Tree.jpg,https://commons.wikimedia.org/wiki/File:Coconuts_on_Tree.jpg,Muminur Rahman,CC BY-SA 3.0,https://creativecommons.org/licenses/by-sa/3.0/,2026-10-18,checked,yes,pending,blocked
 0002,0002_1280px-Fresh_coconuts.jpg,https://commons.wikimedia.org/wiki/File:Fresh_coconuts.jpg,Siva301in,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0/,2026-10-18,checked,yes,pending,blocked
 0003,0003_Owoce_Orzech_kokosowy.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
-0004,0004_1280px-Cocos_nucifera_003.jpg,https://commons.wikimedia.org/wiki/File:Cocos_nucifera_003.jpg,H. Zell,"CC BY-SA 3.0; GFDL 1.2-or-later displayed (dual licence)",https://creativecommons.org/licenses/by-sa/3.0/,2026-10-18,checked,yes,pending,blocked
+0004,0004_1280px-Cocos_nucifera_003.jpg,https://commons.wikimedia.org/wiki/File:Cocos_nucifera_003.jpg,H. Zell,"CC BY-SA 3.0; GFDL 1.2-or-later displayed (dual licence)","https://creativecommons.org/licenses/by-sa/3.0/; https://www.gnu.org/licenses/fdl-1.2.html",2026-10-18,checked,yes,pending,blocked
 0005,0005_1280px-Climbing_Balinese_Palm_Tree.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0006,0006_1280px-Climbing_coconut_tree.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0007,0007_1280px-Coconut_harvest_tool.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
