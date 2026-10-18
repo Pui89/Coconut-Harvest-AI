@@ -1,5 +1,12 @@
 # Coconut Harvest AI Application
 
+## Robot concept illustration
+
+![Coconut Harvest AI agricultural robot concept](docs/images/coconut-harvest-robot-concept-2026.svg)
+
+*Original concept artwork—not a real robot photograph or evidence of validated physical harvesting.*
+
+
 > **Complete-system architecture and acceptance gates:** [COMPLETE_SYSTEM_BLUEPRINT.md](docs/COMPLETE_SYSTEM_BLUEPRINT.md). This is a build-and-validation plan, not a claim of field-validated harvesting.
 > **Current validation matrix:** [VALIDATION_MATRIX.md](docs/VALIDATION_MATRIX.md) — implementation evidence, automated checks, and remaining unvalidated capabilities.
 
