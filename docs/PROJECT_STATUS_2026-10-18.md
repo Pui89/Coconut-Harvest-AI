@@ -2,36 +2,48 @@
 
 ## Current state
 
-**Stage:** software prototype + candidate-data collection. This is not a validated autonomous harvesting robot.
+**Stage:** local-first software prototype, dataset-candidate collection and simulation-oriented workflow. This is not a trained, field-validated autonomous harvesting robot.
 
-### Completed and evidenced
-- [Candidate-image workflow passed](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196); the run generated a downloadable artifact containing 30 candidate images, provenance metadata and a review gallery.
-- [GitHub Pages deployment passed](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39093607358).
-- Repository contains a local-first collection tool, licence/provenance capture, offline box annotator, annotation conversion, reviewed-dataset builder, split audit, training/evaluation scripts and simulation-oriented application components.
-- Preliminary contact-sheet triage was recorded in [candidate batch report](CANDIDATE_IMAGE_BATCH_2026-10-18.md).
+## Successful and evidenced
 
-### In progress
-- Review the 30 images at full resolution and verify original source/licence terms.
-- Remove irrelevant or unsuitable images; manually label every visible target coconut.
-- Build a group-separated train/validation/test dataset and inspect the generated previews/manifests.
-- Check script/CLI compatibility and extend automated tests before any baseline experiment.
+- Latest known Python CI run [39096443251](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39096443251) passed across Python 3.10, 3.11 and 3.12. This is software regression evidence only.
+- The candidate-image workflow [39092214196](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196) collected 30 candidate images and generated provenance/review files. The artifact is temporary and is due to expire on 25 October 2026 unless downloaded earlier.
+- The GitHub Pages deployment [39093607358](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39093607358) passed.
+- Repository tools include candidate collection, provenance capture, offline bounding-box annotation, annotation conversion, dataset building/split auditing, local training/evaluation scaffolding, and a simulation-oriented decision workflow.
 
-### Not yet demonstrated
-- A complete, reviewed and licensed detection dataset.
-- Measured held-out detection metrics, independent-orchard generalization, RGB-D benefit, safe arm motion, or physical harvesting.
-- A reproducible trained model checkpoint. The training scripts deliberately require a user-provided local checkpoint.
+## Continuing now
+
+- Download and inspect the 30-image artifact; verify every image's relevance and original licence/attribution terms.
+- Exclude irrelevant or ambiguous images; label only clear coconut targets and review labels visually.
+- Build group-separated train/validation/test splits and run manifest, duplicate/leakage and label-quality checks.
+- Check dataset/training script compatibility and run a baseline only after rights, labels, hardware and checkpoint licence are confirmed.
+
+## Not yet demonstrated
+
+- A complete, human-reviewed, licence-verified dataset.
+- A trained detector with held-out precision/recall/mAP, latency or independent-orchard generalization.
+- Measured RGB-D localization benefit, calibrated camera-to-robot coordinates, validated collision-free motion, or physical harvesting.
+- Any claim that this robot is safer, faster, cheaper or better than alternatives.
 
 ## Next actions
-1. Review and annotate candidate images.
-2. Run dataset builder, dataset checks, split/leakage audit and visual label QA.
-3. Run tests for dataset edge cases and baseline CLI argument compatibility.
-4. Train only when data and a legally usable local checkpoint are available.
-5. Freeze a held-out test split and publish real metrics with dataset size, provenance, limitations and experiment settings.
+
+1. Download the candidate artifact before its stated expiry; inspect images and licences.
+2. Annotate approved images, build the dataset, inspect previews, and pass the leakage/manifest audits.
+3. Run the focused tests and a reproducible local baseline with a frozen held-out test set.
+4. Publish raw results, dataset/split counts, model/checkpoint provenance, hardware, thresholds, latency and failure examples; use **not measured** for missing results.
+5. Validate RGB-D error against reference positions, then test robot geometry, reachability, collisions and stop/fault cases in simulation.
 
 ## Future
-- Collect orchard-specific data with permission; evaluate occlusion, lighting, distance, viewpoint and negative examples.
-- Compare detector baselines and RGB-only vs RGB-D localization using predefined metrics.
-- Validate perception and motion in simulation before any supervised physical trials.
 
-## Cost and safety
-Free-first; no paid APIs or cloud GPUs required. Do not commit private/copyrighted images or model weights. No actuator commands or real harvesting are authorized by this prototype. A green CI result is software verification only, not evidence of agricultural performance.
+Collect permitted orchard-specific images across occlusion, lighting, distance and viewpoint; compare detector baselines and RGB-only versus RGB-D localization; then progress from simulation to any supervised, non-cutting hardware test only after risk review and independent safety gates.
+
+## Corrections and boundaries
+
+- Candidate images are not a labelled or validated dataset.
+- A model adapter, demo, synthetic fixture, or passing CI run is not proof of detector accuracy or safe harvesting.
+- Concept drawings and trajectories are illustrations, not a built robot or measured physical performance.
+- No actuator commands or real harvesting are authorized by the current prototype.
+
+## Cost boundary
+
+Free/open-source-first. No paid inference API, cloud GPU or subscription is required by this plan. Do not commit private/copyrighted images or model weights.
