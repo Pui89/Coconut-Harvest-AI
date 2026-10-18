@@ -76,7 +76,7 @@ Start-Process (Resolve-Path data/commons_candidates/review_gallery.html)
 
 The downloaded images and gallery stay on your computer. The collector writes `provenance.csv` with source URLs and licence metadata. Open each original file page and verify the exact licence/attribution terms before using the image, especially for redistribution or commercial use. Search results may include non-orchard images; discard those rather than pretending they represent harvesting conditions.
 
-**Then label reviewed images:** open [the offline annotator](tools/coconut_annotator.html) from a local checkout, choose the reviewed image files, draw a box around every clearly visible coconut, and export the JSON. Convert it using the commands in [the training guide](training/README.md). Keep the dataset and weights out of Git.
+**Then label reviewed images:** open [the offline annotator](tools/coconut_annotator.html) from a local checkout, choose the reviewed image files, draw a box around every clearly visible coconut, and export the JSON. Use the [reviewed dataset builder](training/build_dataset_from_annotations.py) to package the images and labels into reproducible group-separated train/validation/test splits after recording human review and licence verification. Keep the dataset and weights out of Git.
 
 **No dataset has been downloaded by this documentation change.** The first real benchmark begins only after you run these commands locally, review sources, annotate images, and create independent train/validation/test splits.
 
@@ -104,7 +104,7 @@ The manifest is provenance metadata, **not an experiment result**. It does not v
 
 ## Train and evaluate a real coconut detector
 
-The local training, offline annotation, YOLO conversion, and held-out evaluation workflow is documented in [training/README.md](training/README.md). Tools include the [Commons image collector](tools/collect_commons_coconuts.py), [local review-gallery builder](tools/build_candidate_gallery.py), [offline annotator](tools/coconut_annotator.html), [annotation converter](tools/convert_annotations_to_yolo.py), and [dataset split audit](training/audit_dataset_splits.py). Dataset access/licensing and the current free-data search are documented in [FREE_DATASET_AND_TRAINING_WORKFLOW.md](docs/FREE_DATASET_AND_TRAINING_WORKFLOW.md).
+The local training, offline annotation, YOLO conversion, and held-out evaluation workflow is documented in [training/README.md](training/README.md). Tools include the [Commons image collector](tools/collect_commons_coconuts.py), [local review-gallery builder](tools/build_candidate_gallery.py), [offline annotator](tools/coconut_annotator.html), [reviewed dataset builder](training/build_dataset_from_annotations.py), [annotation converter](tools/convert_annotations_to_yolo.py), and [dataset split audit](training/audit_dataset_splits.py). Dataset access/licensing and the current free-data search are documented in [FREE_DATASET_AND_TRAINING_WORKFLOW.md](docs/FREE_DATASET_AND_TRAINING_WORKFLOW.md).
 
 These scripts do not include a trained checkpoint or claim accuracy. You must supply a permitted labelled dataset and an existing local base checkpoint, then run training and the frozen test evaluation yourself. The existing [RGB-D proposal pipeline](apps/pui89_app/local_first_pipeline.py) connects a local coconut model to a review-only JSON proposal; calibrated depth and safety evidence remain necessary, and no hardware commands are sent.
 
