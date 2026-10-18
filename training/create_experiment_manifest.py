@@ -71,6 +71,17 @@ def count_images(paths: list[Path]) -> int | None:
             return None
         if path.is_file() and path.suffix.lower() in IMAGE_SUFFIXES:
             total += 1
+        elif path.is_file() and path.suffix.lower() == ".txt":
+            # YOLO split lists contain one image path per line.
+            for line in path.read_text(encoding="utf-8").splitlines():
+                value = line.strip()
+                if not value or value.startswith("#"):
+                    continue
+                listed = Path(value).expanduser()
+                if not listed.is_absolute():
+                    listed = (path.parent / listed).resolve()
+                if listed.is_file() and listed.suffix.lower() in IMAGE_SUFFIXES:
+                    total += 1
         elif path.is_dir():
             total += sum(
                 1 for item in path.rglob("*")
