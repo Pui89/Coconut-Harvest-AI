@@ -52,8 +52,16 @@ class LocalFirstPipelineTests(unittest.TestCase):
     def test_non_coconut_class_not_constructed_by_report(self):
         other = Detection("other", 0.99, (1, 1, 2, 2), class_name="person")
         report = build_review_report([other], {})
-        self.assertEqual(report["candidates"][0]["target_id"], "other")
+        self.assertEqual(report["candidates"][0]["status"], "REJECTED")
+        self.assertIn("class is not coconut", report["candidates"][0]["reasons"])
         self.assertFalse(report["actuator_commands_authorized"])
+
+    def test_malformed_camera_frame_coordinates_fail_closed(self):
+        report = build_review_report([self.detection], {
+            "coconut-001": {"status": "ESTIMATED_CAMERA_FRAME", "z_m": 1}
+        })
+        self.assertEqual(report["candidates"][0]["status"], "REJECTED")
+        self.assertIn("3D coordinates are missing or non-finite", report["candidates"][0]["reasons"])
 
     def test_intrinsics_validate_focal_length(self):
         with tempfile.TemporaryDirectory() as folder:
