@@ -34,6 +34,21 @@ def _validated_transform(value: Any) -> list[list[float]] | None:
         matrix.append([_finite_number(v, "transform value") for v in row])
     if any(abs(a - b) > 1e-6 for a, b in zip(matrix[3], [0.0, 0.0, 0.0, 1.0])):
         raise ValueError("transform last row must be [0, 0, 0, 1]")
+    rotation = [row[:3] for row in matrix[:3]]
+    for i in range(3):
+        for j in range(3):
+            dot = sum(rotation[i][k] * rotation[j][k] for k in range(3))
+            expected = 1.0 if i == j else 0.0
+            if abs(dot - expected) > 1e-3:
+                raise ValueError("transform rotation must be orthonormal")
+    r = rotation
+    determinant = (
+        r[0][0] * (r[1][1] * r[2][2] - r[1][2] * r[2][1])
+        - r[0][1] * (r[1][0] * r[2][2] - r[1][2] * r[2][0])
+        + r[0][2] * (r[1][0] * r[2][1] - r[1][1] * r[2][0])
+    )
+    if abs(determinant - 1.0) > 1e-3:
+        raise ValueError("transform rotation must have determinant +1")
     return matrix
 
 
