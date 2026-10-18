@@ -10,7 +10,7 @@
 |---|---|
 | **Implemented prototype** | Local detector adapter, camera-frame RGB-D localization, simple IoU tracking baseline, configurable decision gates, simulated task workflow, and JSON audit reporting are present in the codebase. |
 | **Testable with synthetic inputs** | A deterministic simulation workflow and clearly labelled synthetic fixtures let developers test decisions without a physical robot or paid cloud inference. |
-| **Still being validated** | The integrated feature branch needs a full CI run and reproducible local checkout test. Local detector accuracy and RGB-D error on real orchard data are not yet established. |
+| **Automated CI** | The current feature branch passed both GitHub Actions jobs: the focused/application test workflow and the dedicated end-to-end simulation workflow. This validates software tests, not real-orchard accuracy or robot safety. |
 | **Not demonstrated** | Autonomous physical harvesting, safe palm climbing, real cutting/grasping, field success rate, and production readiness. |
 
 ### What has been achieved
@@ -23,14 +23,14 @@
 
 ### What is being worked on
 
-- Verifying the complete feature branch with GitHub Actions and resolving any integration failures.
-- Making the demo and local run instructions reproducible from a clean checkout.
+- Keeping both GitHub Actions workflows green as the branch changes.
+- Rechecking the demo and local run instructions from a clean checkout.
 - Separating synthetic examples from measured results and documenting each limitation.
 - Preparing a practical benchmark for detection, localization, tracking, safety rejection, and task simulation.
 
 ### What comes next
 
-1. **CI and reproducibility:** pass focused and full repository tests from a clean environment.
+1. **Reproducibility:** keep the passing focused and repository test suites repeatable from a clean environment.
 2. **Real-image benchmark:** assemble a permitted, labelled orchard dataset and report held-out detection precision/recall and failure cases.
 3. **Spatial validation:** measure RGB-D localization error and validate camera-to-robot calibration; never use the synthetic identity transform for hardware.
 4. **Physics simulation:** validate robot geometry, joint limits, reachability, collision checking, tool envelope, and safe-stop scenarios in a simulator.
