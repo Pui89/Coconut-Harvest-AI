@@ -1,5 +1,32 @@
 # Coconut Harvest AI Application
 
+> **End-to-end AI application + agricultural robot research prototype.** The workflow links optional local image detection, target-evidence checks, conservative target selection, a human-approved simulated task sequence, and an auditable JSON report. It does not currently prove calibrated 3D localization, physics-validated motion, physical harvesting, or commercial readiness.
+
+## Run the end-to-end workflow now
+
+Python 3.10+; this workflow runner uses the standard library and needs no model download, paid API, cloud service, or robot hardware.
+
+```bash
+python -m apps.pui89_app.run_robot_workflow
+```
+
+The report is printed as JSON. The example is synthetic/illustrative, not a real camera observation or benchmark. To save a report:
+
+```bash
+python -m apps.pui89_app.run_robot_workflow --input examples/end_to_end_robot_workflow.example.json --output workflow-report.json
+```
+
+**What this demonstrates:** candidate ranking, explicit rejection reasons, stale/invalid evidence handling, a human-approval gate, simulation-only approach/tool/retract task records, and an audit report. **What it does not demonstrate:** coconut detection from the example JSON, video tracking, metric 3D reconstruction, robot kinematics, independent collision checking, physical actuation, or a successful harvest.
+
+- [End-to-end workflow guide and tests](docs/END_TO_END_ROBOT_WORKFLOW.md)
+- [Workflow implementation](apps/pui89_app/robot_workflow.py)
+- [Runner](apps/pui89_app/run_robot_workflow.py)
+- [Illustrative input](examples/end_to_end_robot_workflow.example.json)
+- [Workflow tests](apps/pui89_app/test_robot_workflow.py)
+- [AI application setup and optional local detector](apps/pui89_app/README.md)
+
+---
+
 ## Free local Hugging Face model plan
 
 This repository's recommended local model, intended tasks, licence checks, setup notes, and no-surprise-billing rules are documented in **[HUGGINGFACE_LOCAL_MODELS.md](docs/HUGGINGFACE_LOCAL_MODELS.md)**.
