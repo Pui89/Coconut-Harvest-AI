@@ -34,3 +34,19 @@ python tools/convert_annotations_to_yolo.py --annotations "C:\\path\\to\\coconut
 ~~~
 
 The converter writes a `labels/` directory and `conversion_summary.json`. It does not copy images or create train/validation/test splits. After you arrange the files, run `training/audit_dataset_splits.py` before training to check exact duplicates and, if you create a source/tree/session manifest, group leakage across splits. Arrange images and matching labels into the documented YOLO folder layout, keep each image paired with its matching label file, and split by tree or capture session—not random adjacent frames. Inspect the converted labels and run `training/check_dataset.py` before training.
+
+
+## Quick start: download a small batch and review it
+
+From a local checkout on Windows, run these commands in PowerShell:
+
+~~~powershell
+python -m pip install -r tools/requirements-data.txt
+python tools/collect_commons_coconuts.py --out data/commons_candidates --limit 30
+python tools/build_candidate_gallery.py --collection-dir data/commons_candidates
+Start-Process (Resolve-Path data/commons_candidates/review_gallery.html)
+~~~
+
+The gallery displays local candidate images, creator/credit information, the reported licence and a link to the original Wikimedia Commons file page. Verify each file's licence and attribution requirements on its original page. The search may return images that are not suitable for canopy detection; exclude them. The checkboxes in the gallery are temporary browser controls and do not save a review record.
+
+After reviewing, open the [offline annotator](../tools/coconut_annotator.html), choose only the image files you accepted, draw boxes around visible coconuts, and export the annotation JSON. Convert the JSON to YOLO labels with [the converter](../tools/convert_annotations_to_yolo.py). Keep downloaded images and labels local, and do not commit them to the public Git repository. These steps prepare candidate training data; they do not produce a trained model or performance metrics by themselves.
