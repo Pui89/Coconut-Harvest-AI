@@ -62,6 +62,24 @@ This repository's recommended local model, intended tasks, licence checks, setup
 **Cost boundary:** the plan uses downloaded local weights only; it does not require paid Hugging Face inference, cloud GPUs, paid notebooks, or a subscription. Model integration and performance must be verified by running tests locally.
 
 
+## Quick start: create a free candidate-image review gallery (Windows)
+
+This is the shortest practical route to start without owning coconut photos. It downloads a **small candidate batch** from Wikimedia Commons and builds a local gallery so you can reject irrelevant images and verify each source licence. It does not automatically label images or create a validated orchard dataset.
+
+~~~powershell
+# From a local clone of this repository
+python -m pip install -r tools/requirements-data.txt
+python tools/collect_commons_coconuts.py --out data/commons_candidates --limit 30
+python tools/build_candidate_gallery.py --collection-dir data/commons_candidates
+Start-Process (Resolve-Path data/commons_candidates/review_gallery.html)
+~~~
+
+The downloaded images and gallery stay on your computer. The collector writes `provenance.csv` with source URLs and licence metadata. Open each original file page and verify the exact licence/attribution terms before using the image, especially for redistribution or commercial use. Search results may include non-orchard images; discard those rather than pretending they represent harvesting conditions.
+
+**Then label reviewed images:** open [the offline annotator](tools/coconut_annotator.html) from a local checkout, choose the reviewed image files, draw a box around every clearly visible coconut, and export the JSON. Convert it using the commands in [the training guide](training/README.md). Keep the dataset and weights out of Git.
+
+**No dataset has been downloaded by this documentation change.** The first real benchmark begins only after you run these commands locally, review sources, annotate images, and create independent train/validation/test splits.
+
 ## Start without your own photos
 
 Use the free Wikimedia Commons collector to build a candidate image collection with recorded licence and attribution metadata: [collection guide](docs/FREE_IMAGE_COLLECTION_GUIDE.md), [collector script](tools/collect_commons_coconuts.py). It does not create labels automatically and it does not guarantee that each image is an orchard scene. Review every image and licence, then use the [offline browser annotator](tools/coconut_annotator.html) and [YOLO conversion script](tools/convert_annotations_to_yolo.py) to prepare reviewed labels before training.
