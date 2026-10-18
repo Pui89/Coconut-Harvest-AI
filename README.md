@@ -16,6 +16,16 @@
 
 [Detailed project status, checks, next steps and future plan](docs/PROJECT_STATUS_2026-10-18.md)
 
+## Latest status update — 18 October 2026
+
+- **Successful:** Python CI passed on 3.10/3.11/3.12; candidate collection generated 30 image candidates and provenance/review files; Pages deployment passed.
+- **Continuing:** full-resolution image and licence review, human annotation, dataset QA and leakage-safe splits.
+- **Next:** download the temporary candidate artifact before 25 October 2026; label approved images; run dataset audits; then perform a reproducible local baseline and frozen held-out evaluation.
+- **Future:** measure detection and RGB-D localization, validate robot geometry/collision/safe-stop behavior in simulation, and only later consider supervised non-cutting hardware tests.
+- **Corrections:** no trained-detector metrics, RGB-D benefit, safe physical motion or real harvesting are established. CI success and concept artwork are not field-performance evidence. Free/local-first; no paid cloud service is required.
+
+
+
 ## Live project overview — 18 October 2026
 
 This table is the current evidence-based status, not a claim that the full robot is complete.
