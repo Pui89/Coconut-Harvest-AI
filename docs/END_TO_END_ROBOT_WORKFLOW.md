@@ -75,3 +75,24 @@ CI runs these tests on relevant pull requests. Passing tests establish the behav
 | Commercial readiness or safety certification | Not established |
 
 The workflow is a practical integration step for research, not a claim that an autonomous harvesting robot is ready for real-world or commercial operation.
+
+
+## Connect a local RGB-D proposal to the simulated workflow
+
+The optional `apps/pui89_app/vision_to_workflow.py` adapter connects a JSON proposal from `local_first_pipeline.py` to the conservative simulated task planner. It does not treat camera-frame coordinates as robot-base coordinates. A supplied `camera_to_robot_base_4x4` transform is required to map the point into the robot base frame; uncertainty, track age, timestamp, obstacle clearance and reachability must also be supplied as explicit per-target evidence. Missing evidence is rejected by the planner and leads to safe hold.
+
+For a free smoke test, use the clearly labelled synthetic fixtures (not real detections or calibration):
+
+```bash
+python -m apps.pui89_app.vision_to_workflow \
+  --proposal examples/coconut_robot_proposal.synthetic.example.json \
+  --evidence examples/coconut_robot_evidence.synthetic.example.json \
+  --human-approved \
+  --output coconut_simulated_workflow_report.json
+```
+
+The identity transform and robot-evidence values in the fixture are synthetic and must never be reused for physical robot motion. The command should create a report with a three-step simulated preview and `actuator_commands_sent: false`.
+
+For real local inference, first run `apps.pui89_app.local_first_pipeline` with an existing trusted local coconut detector, an aligned depth map and calibrated intrinsics. Then provide independently validated robot-base transform and robot/sensor evidence to the adapter. If that evidence is not available, do not fabricate it: the expected outcome is `SAFE_HOLD`.
+
+The adapter requires no hosted service, does not download model weights, and never sends actuator commands.
