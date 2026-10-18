@@ -1,10 +1,17 @@
 """Evaluate a trained local coconut detector on the frozen YOLO test split."""
 from __future__ import annotations
-import argparse, json
+import argparse, hashlib, json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 import yaml
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 def validate_test_split(data_yaml: Path) -> dict[str, Any]:
     if not data_yaml.is_file():
@@ -81,8 +88,9 @@ def main() -> int:
     report = {
         "status": "TEST_EVALUATION_FINISHED",
         "evaluated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "weights": str(weights), "dataset_yaml": str(data_yaml), "split": "test",
-        "imgsz": args.imgsz, "batch": args.batch, "device": args.device,
+        "weights": str(weights), "weights_sha256": sha256_file(weights),
+        "dataset_yaml": str(data_yaml), "dataset_yaml_sha256": sha256_file(data_yaml),
+        "split": "test", "imgsz": args.imgsz, "batch": args.batch, "device": args.device,
         "class_names": labels, "metrics": values,
         "artifacts_dir": str(getattr(metrics, "save_dir", "")),
         "interpretation": "Metrics apply only to this dataset and split. They do not establish performance on independent farms, cameras, seasons, or robot safety.",
