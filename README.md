@@ -4,6 +4,8 @@
 
 ![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
 
+[Detailed project status, checks, next steps and future plan](docs/PROJECT_STATUS_2026-10-18.md)
+
 ## Live project overview — 18 October 2026
 
 This table is the current evidence-based status, not a claim that the full robot is complete.
