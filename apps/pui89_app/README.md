@@ -84,13 +84,13 @@ Configure the path to an existing, trusted model file before starting the app.
 
 **Windows Command Prompt**
 ```bat
-set "PUI89_COCONUT_MODEL_PATH=C:\\path\\to\\your\\trusted-coconut-model.pt"
+set "PUI89_COCONUT_MODEL_PATH=C:\path\to\your\trusted-coconut-model.pt"
 streamlit run apps/pui89_app/web_demo.py
 ```
 
 **PowerShell**
 ```powershell
-$env:PUI89_COCONUT_MODEL_PATH = "C:\\path\\to\\your\\trusted-coconut-model.pt"
+$env:PUI89_COCONUT_MODEL_PATH = "C:\path\to\your\trusted-coconut-model.pt"
 streamlit run apps/pui89_app/web_demo.py
 ```
 
