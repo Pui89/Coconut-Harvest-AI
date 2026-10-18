@@ -30,8 +30,9 @@ class HarvestResult:
         )
 
 
-class HarvestPipeline:
+class HarvestPipeline(torch.nn.Module):
     def __init__(self, config: RobotConfig | None = None):
+        super().__init__()
         self.config = config or RobotConfig()
         self.vision_encoder = TreeVisionEncoder(out_dim=16)
         self.spatial_extractor = SpatialFeatureExtractor(in_channels=4, out_dim=16)
@@ -47,7 +48,7 @@ class HarvestPipeline:
         tokens = [vocab.get(ch, 0) for ch in instruction.lower()]
         return torch.tensor(tokens, dtype=torch.long)
 
-    def __call__(self, rgb: torch.Tensor, depth: torch.Tensor, instruction: str) -> HarvestResult:
+    def forward(self, rgb: torch.Tensor, depth: torch.Tensor, instruction: str) -> HarvestResult:
         if rgb.dim() != 4:
             raise ValueError("Expected RGB tensor with shape [B, C, H, W]")
         if depth.dim() != 4:
