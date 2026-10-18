@@ -60,6 +60,16 @@ python -m pip install -r apps/pui89_app/requirements-detector.txt
 
 Manually obtain a compatible base checkpoint from a source you trust and save it locally. Review the checkpoint and framework licences before use, especially for commercial distribution. Do not put weights in Git. The script refuses model names such as yolov8n.pt; pass a real local path. Ultralytics licensing may impose obligations or require a separate commercial licence depending on how the software is used or distributed.
 
+## Convert labels from the offline annotation tool
+
+The repository includes [an offline browser annotator](../tools/coconut_annotator.html) and [a JSON-to-YOLO converter](../tools/convert_annotations_to_yolo.py). The annotator exports a JSON file; it does not upload images or automatically label them. Run the converter with paths to the JSON, the output directory, and the original image directory:
+
+~~~powershell
+python tools/convert_annotations_to_yolo.py --annotations "C:\\path\\to\\coconut-annotations.json" --output-dir "C:\\datasets\\coconut-converted" --images-dir "C:\\path\\to\\original-images"
+~~~
+
+It writes one YOLO text file per image under `labels/` and a conversion summary. You must manually arrange each image with its corresponding label in the `images/train|val|test` and `labels/train|val|test` folders described above. Do not use the same tree, video, or capture session across splits. Images without visible coconuts should have an empty label file and be retained only when they are genuinely negative examples. Review boxes for missed fruit, loose boxes, and inconsistent annotation policy.
+
 ## Check labels before training
 
 Run this first from the repository root:
