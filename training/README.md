@@ -132,3 +132,20 @@ The values above are placeholders, **not calibration values**. Replace them with
 ## Safety and claims
 
 A good detection score does not prove accurate 3D localization, ripeness, safe motion, or physical harvesting. Validate RGB-depth alignment, camera-to-robot calibration, tracking stability, robot reachability, collision checking, emergency stops, and a supervised non-cutting test separately. Keep model/data licences and source attribution with published results.
+
+
+## Create an experiment provenance manifest
+
+Before training or evaluation, record the exact dataset configuration and environment. From the repository root, run:
+
+~~~powershell
+python training/create_experiment_manifest.py --data "C:\datasets\coconut\coconut.yaml" --experiment-id "coconut-baseline-v1" --output "reports\coconut-baseline-v1-manifest.json"
+~~~
+
+After training, create a second manifest that includes the exact checkpoint checksum:
+
+~~~powershell
+python training/create_experiment_manifest.py --data "C:\datasets\coconut\coconut.yaml" --weights "runs\coconut\train\weights\best.pt" --experiment-id "coconut-test-v1" --seed 42 --notes "Frozen held-out test; describe any deviations" --output "reports\coconut-test-v1-manifest.json"
+~~~
+
+Replace example paths and the seed with what you actually used; do not record a seed unless it was really set. The script is local-only and does not download files, train a model, evaluate a model, or change your system configuration. It records Git commit/working-tree status, package versions, Python/platform details, visible GPU information when PyTorch is installed, dataset YAML SHA-256, configured split paths and image counts, and optional checkpoint SHA-256. Inspect the JSON before sharing it because it contains local file paths and machine details. A manifest is not a benchmark result and does not prove that labels, image licences, or split independence are correct.
