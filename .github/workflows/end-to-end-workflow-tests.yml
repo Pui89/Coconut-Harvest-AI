@@ -1,0 +1,28 @@
+name: End-to-end robot workflow tests
+
+on:
+  pull_request:
+    paths:
+      - "apps/pui89_app/robot_workflow.py"
+      - "apps/pui89_app/run_robot_workflow.py"
+      - "apps/pui89_app/test_robot_workflow.py"
+      - "examples/end_to_end_robot_workflow.example.json"
+      - ".github/workflows/end-to-end-workflow-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulation-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check Python syntax
+        run: python -m compileall -q apps/pui89_app
+      - name: Run workflow tests
+        run: python -m unittest discover -s apps/pui89_app -p 'test_robot_workflow.py' -v
