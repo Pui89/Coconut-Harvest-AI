@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Coconut Harvest AI: from orchard evidence to a safety-gated robot proposal</title>
+  <desc id="desc">A five-stage research prototype: capture orchard RGB and depth, propose coconut candidates with local AI, estimate camera-frame position and track candidates, apply evidence and safety gates, then present a human-reviewable simulation report. Physical robot execution is not implemented.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102b2a"/><stop offset="1" stop-color="#193e39"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b7e4a8"/><stop offset="1" stop-color="#66c7a5"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#9ad7bf"/></marker>
+    <style>
+      .h{font:700 27px Arial,sans-serif;fill:#f4fff9}.sub{font:400 15px Arial,sans-serif;fill:#c7e0d5}
+      .step{font:700 16px Arial,sans-serif;fill:#f4fff9}.body{font:400 13px Arial,sans-serif;fill:#c7e0d5}
+      .pill{font:700 12px Arial,sans-serif;letter-spacing:.5px}
+    </style>
+  </defs>
+  <rect width="1200" height="560" rx="28" fill="url(#bg)"/>
+  <circle cx="1090" cy="90" r="125" fill="#2d6556" opacity=".22"/><circle cx="80" cy="500" r="150" fill="#2d6556" opacity=".18"/>
+  <text x="52" y="58" class="h">COCONUT HARVEST AI</text>
+  <text x="52" y="86" class="sub">Local-first AI application + simulated agricultural robot workflow</text>
+  <rect x="52" y="110" width="218" height="30" rx="15" fill="#28594c"/><text x="161" y="130" text-anchor="middle" class="pill" fill="#c9f4d8">RESEARCH PROTOTYPE</text>
+  <g transform="translate(48,174)">
+    <rect width="202" height="176" rx="17" fill="#21463f" stroke="#4b8370"/>
+    <circle cx="101" cy="47" r="24" fill="#2d6556" stroke="#9ad7bf" stroke-width="2"/>
+    <rect x="86" y="33" width="30" height="24" rx="4" fill="none" stroke="#d7f4df" stroke-width="2"/>
+    <circle cx="101" cy="45" r="6" fill="none" stroke="#d7f4df" stroke-width="2"/>
+    <path d="M90 60 L82 72 M112 60 L120 72" stroke="#d7f4df" stroke-width="2" stroke-linecap="round"/>
+    <text x="101" y="101" text-anchor="middle" class="step">1. Observe</text>
+    <text x="101" y="124" text-anchor="middle" class="body">RGB image + aligned</text><text x="101" y="142" text-anchor="middle" class="body">depth, when available</text>
+  </g>
+  <path d="M253 262 H279" stroke="#9ad7bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(286,174)">
+    <rect width="202" height="176" rx="17" fill="#21463f" stroke="#4b8370"/>
+    <rect x="70" y="22" width="62" height="48" rx="8" fill="#2d6556" stroke="#9ad7bf" stroke-width="2"/>
+    <circle cx="87" cy="38" r="4" fill="#d7f4df"/><circle cx="115" cy="38" r="4" fill="#d7f4df"/>
+    <path d="M82 54 Q101 67 120 54" fill="none" stroke="#d7f4df" stroke-width="2"/>
+    <text x="101" y="101" text-anchor="middle" class="step">2. Propose</text>
+    <text x="101" y="124" text-anchor="middle" class="body">Local coconut detector</text><text x="101" y="142" text-anchor="middle" class="body">must be supplied/tested</text>
+  </g>
+  <path d="M491 262 H517" stroke="#9ad7bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(524,174)">
+    <rect width="202" height="176" rx="17" fill="#21463f" stroke="#4b8370"/>
+    <circle cx="101" cy="46" r="25" fill="#2d6556" stroke="#9ad7bf" stroke-width="2"/>
+    <path d="M78 46 H124 M101 23 V69 M84 29 L118 63 M118 29 L84 63" stroke="#d7f4df" stroke-width="1.5"/>
+    <text x="101" y="101" text-anchor="middle" class="step">3. Localize</text>
+    <text x="101" y="124" text-anchor="middle" class="body">Depth + calibration</text><text x="101" y="142" text-anchor="middle" class="body">camera-frame XYZ</text>
+  </g>
+  <path d="M729 262 H755" stroke="#9ad7bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(762,174)">
+    <rect width="202" height="176" rx="17" fill="#21463f" stroke="#4b8370"/>
+    <path d="M101 20 L127 30 V48 Q125 65 101 74 Q77 65 75 48 V30 Z" fill="#2d6556" stroke="#9ad7bf" stroke-width="2"/>
+    <path d="M88 46 L97 55 L115 36" fill="none" stroke="#d7f4df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="101" y="101" text-anchor="middle" class="step">4. Gate</text>
+    <text x="101" y="124" text-anchor="middle" class="body">Check evidence, missing</text><text x="101" y="142" text-anchor="middle" class="body">data and human review</text>
+  </g>
+  <path d="M967 262 H993" stroke="#9ad7bf" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(1000,174)">
+    <rect width="152" height="176" rx="17" fill="#21463f" stroke="#4b8370"/>
+    <rect x="35" y="22" width="82" height="49" rx="5" fill="#2d6556" stroke="#9ad7bf" stroke-width="2"/>
+    <path d="M45 34 H107 M45 44 H99 M45 54 H87" stroke="#d7f4df" stroke-width="2" stroke-linecap="round"/>
+    <text x="76" y="101" text-anchor="middle" class="step">5. Report</text>
+    <text x="76" y="124" text-anchor="middle" class="body">Simulation</text><text x="76" y="142" text-anchor="middle" class="body">+ JSON audit</text>
+  </g>
+  <rect x="52" y="382" width="1096" height="60" rx="13" fill="#132f2b" stroke="#d6b66e" stroke-width="1.5"/>
+  <circle cx="80" cy="412" r="8" fill="#e7c875"/>
+  <text x="101" y="407" class="step" fill="#f5df9e">HARD SAFETY BOUNDARY</text>
+  <text x="101" y="427" class="body">Simulation only • no actuator commands • no verified physical harvest • missing evidence should cause safe hold</text>
+  <text x="52" y="482" class="sub">Next proof points: held-out orchard detection metrics → measured RGB-D error → validated robot-frame calibration → physics simulation</text>
+  <text x="52" y="512" class="sub">Then supervised low-risk hardware trials, independent safety review, and only then a commercial pilot.</text>
+  <text x="1148" y="538" text-anchor="end" font-family="Arial,sans-serif" font-size="11" fill="#9abeb0">PUI89 • concept + software workflow overview</text>
+</svg>
