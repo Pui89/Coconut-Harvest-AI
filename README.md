@@ -11,6 +11,21 @@ This repository's recommended local model, intended tasks, licence checks, setup
 
 The hardware-aware, zero-cost-first plan is in [LOCAL_EXPERIMENT_PLAN_RTX3050.md](docs/LOCAL_EXPERIMENT_PLAN_RTX3050.md). A read-only environment checker is available at [scripts/check_local_environment.py](scripts/check_local_environment.py); it does not install packages, download models, use the network, or change system settings. The plan is tailored to a reported RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. It distinguishes the existing synthetic prototype from future model experiments and measured results.
 
+## Research evaluation and product-readiness work
+
+- **[Detection evaluation protocol](docs/DETECTION_EVALUATION_PROTOCOL.md):** CSV format and metrics for comparing labelled coconut boxes with predictions.
+- **[Evaluation script](scripts/evaluate_coconut_detections.py):** standard-library evaluator for precision, recall, F1 and AP at a stated IoU threshold. It scores predictions supplied by a detector; it does not run a detector or invent results.
+- **[Product readiness roadmap](docs/PRODUCT_READINESS_ROADMAP.md):** separate release gates for the AI application, simulated/physical robot, controlled field testing and commercial release.
+- **Automated evaluator tests:** `.github/workflows/evaluation-tests.yml` runs focused unit tests when relevant files change.
+
+Run evaluation after creating ground-truth and prediction CSVs:
+
+```bash
+python scripts/evaluate_coconut_detections.py --ground-truth data/annotations/test_ground_truth.csv --predictions data/predictions/test_predictions.csv --iou 0.50 --output results/test_metrics.json
+```
+
+The example paths are placeholders: provide real CSV files and predictions from a model that has been verified to detect coconuts. **No benchmark result is claimed until the script is run on a documented held-out dataset.**
+
 ## AI Application Overview
 
 ## Try the Interactive AI Application Example
