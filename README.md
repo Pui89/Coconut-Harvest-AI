@@ -16,6 +16,10 @@
 
 [Detailed project status, checks, next steps and future plan](docs/PROJECT_STATUS_2026-10-18.md)
 
+## Product brief
+
+See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners or award applications.
+
 ## Commercial and award readiness
 
 See [docs/COMMERCIAL_READINESS_ROADMAP.md](docs/COMMERCIAL_READINESS_ROADMAP.md) for product stages, evidence required before selling, immediate priorities, acceptance gates and award-application preparation. The roadmap distinguishes verified software checks from unvalidated real-world capability; it does not claim commercial readiness or market leadership.
