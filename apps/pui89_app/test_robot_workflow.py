@@ -5,7 +5,7 @@ from pathlib import Path
 
 from apps.pui89_app.robot_workflow import Candidate, run_simulated_workflow
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def good_candidate(**overrides):
@@ -96,7 +96,7 @@ def test_cli_emits_json_without_network_or_hardware():
     example = ROOT / "examples" / "end_to_end_robot_workflow.example.json"
     proc = subprocess.run(
         [sys.executable, "-m", "apps.pui89_app.run_robot_workflow", "--input", str(example)],
-        cwd=ROOT.parent, capture_output=True, text=True, check=True,
+        cwd=ROOT, capture_output=True, text=True, check=True,
     )
     report = json.loads(proc.stdout)
     assert report["actuator_commands_sent"] is False
