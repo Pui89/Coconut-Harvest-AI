@@ -63,7 +63,7 @@ This repository's recommended local model, intended tasks, licence checks, setup
 
 ## Start without your own photos
 
-Use the free Wikimedia Commons collector to build a candidate image collection with recorded licence and attribution metadata: [collection guide](docs/FREE_IMAGE_COLLECTION_GUIDE.md), [collector script](tools/collect_commons_coconuts.py). It does not create labels automatically and it does not guarantee that each image is an orchard scene. Review every image and licence, then annotate only useful images before training.
+Use the free Wikimedia Commons collector to build a candidate image collection with recorded licence and attribution metadata: [collection guide](docs/FREE_IMAGE_COLLECTION_GUIDE.md), [collector script](tools/collect_commons_coconuts.py). It does not create labels automatically and it does not guarantee that each image is an orchard scene. Review every image and licence, then use the [offline browser annotator](tools/coconut_annotator.html) and [YOLO conversion script](tools/convert_annotations_to_yolo.py) to prepare reviewed labels before training.
 
 ## Train and evaluate a real coconut detector
 
