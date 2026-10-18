@@ -43,6 +43,12 @@ class VisionToWorkflowTests(unittest.TestCase):
         self.assertFalse(result["actuator_commands_sent"])
         self.assertFalse(result["physical_harvest_verified"])
 
+    def test_simulation_requires_explicit_human_approval(self):
+        result = run_vision_to_simulated_workflow(PROPOSAL, EVIDENCE, human_approved=False)
+        self.assertEqual(result["workflow_report"]["status"], "AWAITING_HUMAN_APPROVAL")
+        self.assertEqual(result["workflow_report"]["plan"], [])
+        self.assertFalse(result["actuator_commands_sent"])
+
     def test_missing_transform_fails_closed(self):
         evidence = dict(EVIDENCE)
         evidence.pop("camera_to_robot_base_4x4")
