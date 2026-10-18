@@ -16,6 +16,7 @@ from typing import Any, Iterable
 class WorkflowState(str, Enum):
     IDLE = "IDLE"
     TARGET_SELECTED = "TARGET_SELECTED"
+    AWAITING_HUMAN_APPROVAL = "AWAITING_HUMAN_APPROVAL"
     PLAN_VALIDATED = "PLAN_VALIDATED"
     EXECUTING_SIMULATION = "EXECUTING_SIMULATION"
     COMPLETED_SIMULATION = "COMPLETED_SIMULATION"
@@ -186,8 +187,8 @@ def run_simulated_workflow(
           confidence=selected.confidence, ranking="confidence_then_distance")
 
     if not human_approved:
-        history.append(WorkflowState.SAFE_HOLD.value)
-        event("SAFE_HOLD", reason="HUMAN_APPROVAL_REQUIRED")
+        history.append(WorkflowState.AWAITING_HUMAN_APPROVAL.value)
+        event("AWAITING_HUMAN_APPROVAL", reason="HUMAN_APPROVAL_REQUIRED")
         return WorkflowReport(
             status="AWAITING_HUMAN_APPROVAL", state_history=history,
             selected_target_id=selected.target_id, plan=[], rejected_candidates=rejected,
