@@ -1,0 +1,30 @@
+name: Safety gate fault tests
+
+on:
+  pull_request:
+    paths:
+      - "src/coconut_harvest_robot/safety_gate.py"
+      - "src/coconut_harvest_robot/sensor_quality.py"
+      - "tests/test_safety_gate_faults.py"
+      - "tests/test_sensor_quality_faults.py"
+      - ".github/workflows/safety-gate-fault-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  safety-fault-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test runner
+        run: python -m pip install pytest
+      - name: Run standard-library gate tests
+        env:
+          PYTHONPATH: src
+        run: python -m pytest -q tests/test_safety_gate_faults.py tests/test_sensor_quality_faults.py
