@@ -153,6 +153,25 @@ The evaluator uses the framework's test-split validation and saves a JSON summar
 
 A report is generated only when you run the script with real labelled data and weights. No accuracy values are pre-filled or promised.
 
+## Run the local baseline pipeline (after dataset QA)
+
+After the reviewed dataset builder succeeds, both dataset audits return success, and you have a compatible trusted local `.pt` base checkpoint, you can run the training and frozen-test sequence with one PowerShell command. This pipeline installs nothing and downloads neither a dataset nor weights.
+
+From the repository root:
+
+~~~powershell
+powershell -ExecutionPolicy Bypass -File scripts/run_coconut_baseline.ps1 `
+  -DatasetRoot "C:\datasets\coconut-v1" `
+  -LocalCheckpoint "C:\models\your-local-base-checkpoint.pt" `
+  -ExperimentId "coconut-baseline-v1" `
+  -Epochs 30 `
+  -ImageSize 416 `
+  -Device 0
+~~~
+
+The script checks image/label structure and exact duplicate split leakage, records a pre-training manifest, trains with batch size 1, evaluates once on the test split, records checkpoint/data checksums, and audits report provenance. The 416-pixel setting and 30 epochs are a conservative starting point for a reported 4 GB RTX 3050, not a guarantee against out-of-memory errors or a promise of accuracy. If CUDA fails, stop and retry with `-ImageSize 320` or `-Device cpu`; do not rent cloud compute.
+
+Generated files are local under `reports/` and `runs/coconut/<ExperimentId>/`. Read the test report and both audits; inspect missed coconuts and false positives before describing any metric. If the test split is used to change settings, it is no longer a frozen test set. A measured result is valid only after the pipeline actually finishes with real reviewed labels and a held-out test split.
 ## Connect detection to the existing workflow
 
 Once you have trained weights, run the existing RGB-D bridge on a local RGB image, aligned depth array saved as .npy, and camera intrinsics JSON:
