@@ -14,6 +14,7 @@ The hardware-aware, zero-cost-first plan is in [LOCAL_EXPERIMENT_PLAN_RTX3050.md
 ## Research evaluation and product-readiness work
 
 - **[Detection evaluation protocol](docs/DETECTION_EVALUATION_PROTOCOL.md):** CSV format and metrics for comparing labelled coconut boxes with predictions.
+- **[Annotation guide](docs/ANNOTATION_GUIDE.md):** consistent box-label rules, uncertainty handling, and leakage-aware data splits. Blank CSV templates are in `data/annotations/` and `data/predictions/`.
 - **[Evaluation script](scripts/evaluate_coconut_detections.py):** standard-library evaluator for precision, recall, F1 and AP at a stated IoU threshold. It scores predictions supplied by a detector; it does not run a detector or invent results.
 - **[Product readiness roadmap](docs/PRODUCT_READINESS_ROADMAP.md):** separate release gates for the AI application, simulated/physical robot, controlled field testing and commercial release.
 - **Automated evaluator tests:** `.github/workflows/evaluation-tests.yml` runs focused unit tests when relevant files change.
