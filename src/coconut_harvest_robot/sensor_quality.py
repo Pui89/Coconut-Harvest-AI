@@ -49,7 +49,8 @@ def assess_sensor_health(
         quality = observation.quality
         if not math.isfinite(quality) or not 0.0 <= quality <= 1.0:
             reasons.append(f"sensor {observation.name!r} has invalid quality value")
-            quality_values.append(0.0 if not math.isfinite(quality) else min(1.0, max(0.0, quality)))
+            # Invalid evidence is scored conservatively rather than silently clipped.
+            quality_values.append(0.0)
         else:
             quality_values.append(quality)
 
@@ -78,14 +79,26 @@ def assess_sensor_health(
     if len(active) != len(observations):
         reasons.append("one or more sensors are missing")
 
-    allowed_skew = min(observation.max_skew_s for observation in active)
-    if not math.isfinite(allowed_skew) or allowed_skew < 0.0:
-        reasons.append("sensor synchronization tolerance is invalid")
+    invalid_tolerances = [
+        observation.name
+        for observation in active
+        if not math.isfinite(observation.max_skew_s)
+        or observation.max_skew_s < 0.0
+    ]
+    if invalid_tolerances:
+        reasons.append(
+            "sensor synchronization tolerance is invalid: "
+            + ", ".join(invalid_tolerances)
+        )
         skew = float("inf")
-    elif skew > allowed_skew:
+        allowed_skew = 0.0
+    else:
+        allowed_skew = min(observation.max_skew_s for observation in active)
+
+    if not invalid_tolerances and skew > allowed_skew:
         reasons.append("sensor timestamps are not synchronized")
 
-    if invalid_timestamps or not math.isfinite(allowed_skew) or allowed_skew < 0.0 or skew > allowed_skew:
+    if invalid_timestamps or invalid_tolerances or skew > allowed_skew:
         status = SensorStatus.UNSYNCHRONIZED
     elif reasons:
         status = SensorStatus.DEGRADED
