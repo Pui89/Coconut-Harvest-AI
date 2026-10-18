@@ -42,7 +42,15 @@ function current(){return items[active]}
 function safeName(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function setStatus(){let n=items.reduce((a,x)=>a+x.boxes.length,0);status.textContent=items.length+' image(s) · '+n+' box(es) labelled';counter.textContent=active<0?'No image selected':(active+1)+' / '+items.length+' · '+current().file.name;boxcount.textContent=(active<0?0:current().boxes.length)+' boxes';prev.disabled=active<=0;next.disabled=active<0||active>=items.length-1;undo.disabled=active<0||!current().boxes.length;clear.disabled=active<0||!current().boxes.length;exportBtn.disabled=!items.length}
 function draw(){
-if(active<0)return;let it=current();stage.innerHTML='';canvas=document.createElement('canvas');ctx=canvas.getContext('2d');let maxW=Math.max(320,stage.clientWidth-8),maxH=Math.max(260,window.innerHeight*.68);let scale=Math.min(maxW/it.img.naturalWidth,maxH/it.img.naturalHeight,1);canvas.width=Math.round(it.img.naturalWidth*scale);canvas.height=Math.round(it.img.naturalHeight*scale);canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';stage.appendChild(canvas);ctx.drawImage(it.img,0,0,canvas.width,canvas.height);
+if(active<0)return;
+let it=current();
+if(!canvas){stage.innerHTML='';canvas=document.createElement('canvas');ctx=canvas.getContext('2d');stage.appendChild(canvas)}
+let maxW=Math.max(320,stage.clientWidth-8),maxH=Math.max(260,window.innerHeight*.68);
+let scale=Math.min(maxW/it.img.naturalWidth,maxH/it.img.naturalHeight,1);
+let targetW=Math.max(1,Math.round(it.img.naturalWidth*scale)),targetH=Math.max(1,Math.round(it.img.naturalHeight*scale));
+if(canvas.width!==targetW||canvas.height!==targetH){canvas.width=targetW;canvas.height=targetH}
+canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
+ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(it.img,0,0,canvas.width,canvas.height);
 it.boxes.forEach((b,i)=>{let x=b.x*canvas.width,y=b.y*canvas.height,w=b.w*canvas.width,h=b.h*canvas.height;ctx.lineWidth=i===selected?3:2;ctx.strokeStyle='#ff9f1c';ctx.fillStyle='rgba(255,159,28,.12)';ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);ctx.fillStyle='#ff9f1c';ctx.font='bold 13px system-ui';ctx.fillText('coconut '+(i+1),x+3,Math.max(14,y-4))});
 if(drag){let x=Math.min(drag.x,drag.cx),y=Math.min(drag.y,drag.cy),w=Math.abs(drag.cx-drag.x),h=Math.abs(drag.cy-drag.y);ctx.strokeStyle='#7dffb3';ctx.setLineDash([6,4]);ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);ctx.setLineDash([])}
 setStatus()
