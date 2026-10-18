@@ -61,6 +61,10 @@ This repository's recommended local model, intended tasks, licence checks, setup
 **Cost boundary:** the plan uses downloaded local weights only; it does not require paid Hugging Face inference, cloud GPUs, paid notebooks, or a subscription. Model integration and performance must be verified by running tests locally.
 
 
+## Start without your own photos
+
+Use the free Wikimedia Commons collector to build a candidate image collection with recorded licence and attribution metadata: [collection guide](docs/FREE_IMAGE_COLLECTION_GUIDE.md), [collector script](tools/collect_commons_coconuts.py). It does not create labels automatically and it does not guarantee that each image is an orchard scene. Review every image and licence, then annotate only useful images before training.
+
 ## Train and evaluate a real coconut detector
 
 The local training and held-out evaluation scripts are now documented in [training/README.md](training/README.md). Dataset access/licensing and the current free-data search are documented in [FREE_DATASET_AND_TRAINING_WORKFLOW.md](docs/FREE_DATASET_AND_TRAINING_WORKFLOW.md).
