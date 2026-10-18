@@ -1,7 +1,7 @@
 from math import nan, inf
 
 from coconut_harvest_robot.harvestability import HarvestDecision,HarvestEvidence,score_harvestability
-from coconut_harvest_robot.safety_gate import ActionCandidate,SafetyDecision,validate_action
+from coconut_harvest_robot.safety_gate import ActionCandidate,SafetyDecision,SafetyLimits,validate_action
 
 def test_low_confidence_abstains():
     r=score_harvestability(HarvestEvidence(.5,.5,.5,.5,.5,sensor_quality=.8))
@@ -40,3 +40,17 @@ def test_safety_still_blocks_emergency_stop_and_collision():
         ActionCandidate("c1", .95, .5, .1, 100, 5, collision_free=False),
     ):
         assert validate_action(candidate).decision == SafetyDecision.BLOCK
+
+
+def test_safety_blocks_malformed_values_and_invalid_limits():
+    malformed = ActionCandidate("c1", "high", .5, .1, 100, 5)
+    assert validate_action(malformed).decision == SafetyDecision.BLOCK
+    invalid_limits = (
+        SafetyLimits(min_clearance_m=float("nan")),
+        SafetyLimits(max_speed_mps=-1),
+        SafetyLimits(max_force_n=float("inf")),
+        SafetyLimits(max_workspace_height_m=0),
+    )
+    safe_candidate = ActionCandidate("c1", .95, .5, .1, 100, 5)
+    for limits in invalid_limits:
+        assert validate_action(safe_candidate, limits).decision == SafetyDecision.BLOCK
