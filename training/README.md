@@ -83,6 +83,46 @@ python tools/convert_annotations_to_yolo.py --annotations "C:\\path\\to\\coconut
 
 It writes one YOLO text file per image under `labels/` and a conversion summary. You must manually arrange each image with its corresponding label in the `images/train|val|test` and `labels/train|val|test` folders described above. Do not use the same tree, video, or capture session across splits. Images without visible coconuts should have an empty label file and be retained only when they are genuinely negative examples. Review boxes for missed fruit, loose boxes, and inconsistent annotation policy.
 
+## Build the reviewed dataset (recommended)
+
+The repository now has a packaging script that creates YOLO labels, copies images into train/validation/test folders, records source/licence metadata, and assigns entire group_id groups to one split. It refuses to build unless every image has a human review record, the original-source provenance is present, and the reviewer marks the licence as checked. It does **not** check whether a human drew accurate boxes.
+
+### 1. Create a review CSV
+
+Open a spreadsheet and save `reviewed_images.csv` as UTF-8 CSV with these exact columns:
+
+~~~csv
+filename,review_status,group_id,license_verified
+0001_example.jpg,reviewed_positive,tree_or_session_01,yes
+0002_example.jpg,reviewed_negative,tree_or_session_02,yes
+~~~
+
+The example rows are format examples only; replace them with your real filenames and review decisions. Include one row for every image in the annotation JSON. Use `reviewed_positive` only when you labelled every clearly visible coconut; use `reviewed_negative` only after checking that the image contains no coconut target. Do not label hidden or ambiguous fruit by guessing. Set `license_verified` to `yes` only after checking the original source page and reuse conditions. Use a meaningful `group_id` for a tree, capture session, video, or known related-source group. Do not split frames from the same video/tree across train, validation and test.
+
+### 2. Build the dataset from reviewed labels
+
+For the Commons collector's output, the original images are under `data/commons_candidates/images` and provenance is `data/commons_candidates/provenance.csv`. Adjust the JSON path and filenames to match your local files:
+
+~~~powershell
+python training/build_dataset_from_annotations.py `
+  --annotations "C:\datasets\coconut-annotations.json" `
+  --images-dir "C:\path\to\commons_candidates\images" `
+  --reviewed-csv "C:\datasets\reviewed_images.csv" `
+  --provenance-csv "C:\path\to\commons_candidates\provenance.csv" `
+  --output "C:\datasets\coconut-v1" `
+  --seed "pui89-coconut-v1"
+~~~
+
+The output includes `images/train|val|test`, matching `labels/` directories, `coconut.yaml`, `dataset_manifest.csv`, and `dataset_build_summary.json`. The output directory must not already exist. The script needs at least three distinct groups; more independent groups are strongly preferred. If all your images are from one or two trees or sessions, collect more independent scenes rather than weakening the split rule.
+
+### 3. Run both data audits
+
+~~~powershell
+python training/check_dataset.py --root "C:\datasets\coconut-v1"
+python training/audit_dataset_splits.py --root "C:\datasets\coconut-v1" --output "C:\datasets\coconut-v1\split_audit.json"
+~~~
+
+Review the manifest and open sample images with their boxes before training. The builder checks file integrity and metadata consistency, not visual label correctness, true orchard representativeness, or licence compliance. A build summary is not a trained detector result.
 ## Check labels before training
 
 Run this first from the repository root:
