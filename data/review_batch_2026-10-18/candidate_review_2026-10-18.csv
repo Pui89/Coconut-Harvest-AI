@@ -8,7 +8,7 @@ candidate_id,filename,visual_triage,label_status,license_metadata_from_collector
 0007,0007_1280px-Coconut_harvest_tool.jpg,exclude,not_applicable,CC BY-SA 4.0,no,excluded,"Harvesting tool only; not fruit class"
 0008,0008_1280px-Coconut_harvest.jpg,exclude,not_applicable,CC BY-SA 3.0,no,excluded,"Harvesting scene; no confidently visible fruit targets"
 0009,0009_1280px-Coconut_harvesting_Zanzibar__2821629268959_29.jpg,exclude,not_applicable,CC BY 2.0,no,excluded,"Harvesting scene; no confidently visible fruit targets"
-0010,0010_1280px-DSC_8970__285607044352_29.jpg,positive_candidate,not_labelled,CC BY 2.0,no,not_cleared,"Some attached coconuts visible but small/occluded; source review and annotation pending"
+0010,0010_1280px-DSC_8970__285607044352_29.jpg,exclude,not_applicable,CC BY 2.0,no,excluded,"Full-resolution review: harvested coconuts near the climber are not attached-fruit targets; no confidently boxable attached fruit; exclude from positive detection data"
 0011,0011_Giay-dua_nhung_nguoi_tham_gia_che_canh_dua_can.jpg,exclude,not_applicable,CC BY-SA 4.0,no,excluded,"Processing scene; no attached fruit targets"
 0012,0012_1280px-Goa_coconut_harvest.jpg,exclude,not_applicable,metadata present,no,excluded,"Wide plantation/harvest view; no reliably boxable fruit"
 0013,0013_Grimp_C3_A9_-_cocotier.jpg,exclude,not_applicable,metadata present,no,excluded,"Climber scene; no reliably boxable fruit"
