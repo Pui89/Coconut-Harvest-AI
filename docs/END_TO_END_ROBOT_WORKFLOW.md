@@ -37,7 +37,7 @@ The example file is intentionally illustrative. It is not a labelled dataset, an
 IDLE
   ├─ no target / emergency stop / invalid evidence ─> SAFE_HOLD
   └─ valid candidate ─> TARGET_SELECTED
-                         ├─ no human approval ─> SAFE_HOLD / AWAITING_HUMAN_APPROVAL
+                         ├─ no human approval ─> AWAITING_HUMAN_APPROVAL
                          └─ human approval ─> PLAN_VALIDATED
                                                └─ EXECUTING_SIMULATION
                                                    └─ COMPLETED_SIMULATION
