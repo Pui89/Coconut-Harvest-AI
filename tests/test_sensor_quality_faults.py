@@ -1,13 +1,28 @@
+import importlib.util
 import math
+from pathlib import Path
+import sys
 
 import pytest
 
-from coconut_harvest_robot.sensor_quality import (
-    SensorObservation,
-    SensorStatus,
-    assess_sensor_health,
-)
 
+def load_source_module(name: str, relative_path: str):
+    source = Path(__file__).resolve().parents[1] / relative_path
+    spec = importlib.util.spec_from_file_location(name, source)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+sensor_quality = load_source_module(
+    "coconut_harvest_sensor_quality_test_module",
+    "src/coconut_harvest_robot/sensor_quality.py",
+)
+SensorObservation = sensor_quality.SensorObservation
+SensorStatus = sensor_quality.SensorStatus
+assess_sensor_health = sensor_quality.assess_sensor_health
 
 def test_good_synchronized_sensors_are_ok():
     report = assess_sensor_health([
