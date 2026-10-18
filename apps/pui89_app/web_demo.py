@@ -224,6 +224,68 @@ if "analysis_result" in st.session_state:
     )
 
 st.divider()
+st.header("4. End-to-end robot task simulation")
+st.caption(
+    "This separate panel uses explicitly supplied example evidence. It does not derive 3D "
+    "position from the uploaded image, simulate robot physics, or send hardware commands."
+)
+with st.expander("Configure a simulated target and safety gates", expanded=False):
+    from apps.pui89_app.robot_workflow import Candidate, run_simulated_workflow
+
+    sim_left, sim_right = st.columns(2)
+    with sim_left:
+        sim_target_id = st.text_input("Simulation target ID", value="coconut-sim-01")
+        sim_confidence = st.slider("Supplied detection confidence", 0.0, 1.0, 0.90, 0.01)
+        sim_x = st.number_input("Camera/world X (m; supplied)", value=1.0, min_value=-10.0, max_value=10.0, step=0.1)
+        sim_y = st.number_input("Camera/world Y (m; supplied)", value=0.5, min_value=-10.0, max_value=10.0, step=0.1)
+        sim_z = st.number_input("Camera/world Z (m; supplied)", value=1.2, min_value=-10.0, max_value=15.0, step=0.1)
+    with sim_right:
+        sim_uncertainty = st.number_input("Localization uncertainty (m; supplied)", value=0.04, min_value=0.0, max_value=5.0, step=0.01)
+        sim_track_age = st.slider("Track age (frames; supplied)", 0, 30, 8)
+        sim_age_s = st.slider("Observation age (seconds)", 0.0, 2.0, 0.1, 0.05)
+        sim_clearance = st.number_input("Obstacle clearance (m; supplied)", value=0.5, min_value=0.0, max_value=5.0, step=0.05)
+        sim_reachable = st.checkbox("Reachability independently confirmed (input only)", value=False)
+    sim_human_approval = st.checkbox("Approve this simulated task sequence", value=False)
+    sim_emergency_stop = st.checkbox("Emergency stop active", value=False)
+    if st.button("Run simulation-only workflow", use_container_width=True):
+        now_s = 10.0
+        sim_candidate = Candidate(
+            target_id=sim_target_id.strip() or "unnamed-target",
+            confidence=sim_confidence,
+            bbox_xyxy_pixels=(10.0, 10.0, 50.0, 50.0),
+            world_position_m=(float(sim_x), float(sim_y), float(sim_z)),
+            localization_uncertainty_m=float(sim_uncertainty),
+            track_age_frames=int(sim_track_age),
+            timestamp_s=now_s - float(sim_age_s),
+            obstacle_clearance_m=float(sim_clearance),
+            reachable=sim_reachable,
+        )
+        sim_report = run_simulated_workflow(
+            [sim_candidate],
+            now_s=now_s,
+            human_approved=sim_human_approval,
+            emergency_stop=sim_emergency_stop,
+        ).to_dict()
+        st.session_state["robot_workflow_report"] = sim_report
+
+if "robot_workflow_report" in st.session_state:
+    sim_report = st.session_state["robot_workflow_report"]
+    if sim_report["status"] == "COMPLETED_SIMULATION":
+        st.success("Simulated task sequence completed. No physical robot action occurred.")
+    elif sim_report["status"] == "AWAITING_HUMAN_APPROVAL":
+        st.warning("Awaiting approval. No simulated action sequence was emitted.")
+    else:
+        st.error(f"Workflow stopped: {sim_report['status']}")
+    st.code(json.dumps(sim_report, indent=2), language="json")
+    st.download_button(
+        "Download simulated workflow report",
+        data=json.dumps(sim_report, indent=2),
+        file_name="coconut_harvest_ai_robot_workflow.json",
+        mime="application/json",
+        use_container_width=True,
+    )
+
+st.divider()
 st.caption(
     "Research prototype only. Never connect this demo directly to motors, cutters, or manipulators. "
     "Real-world use requires a validated detector, calibrated sensors, independent safety checks, "
