@@ -5,6 +5,7 @@ on:
     paths:
       - "apps/pui89_app/robot_workflow.py"
       - "apps/pui89_app/run_robot_workflow.py"
+      - "apps/pui89_app/web_demo.py"
       - "apps/pui89_app/test_robot_workflow.py"
       - "apps/pui89_app/iou_tracker.py"
       - "apps/pui89_app/rgbd_localization.py"
