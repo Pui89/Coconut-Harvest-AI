@@ -2,6 +2,19 @@
 
 This folder provides reproducible scripts; it does **not** contain a trained model or dataset. The scripts run locally and refuse model IDs/URLs so they do not silently download weights. No hosted inference, cloud GPU, paid notebook, or paid API is needed.
 
+## Fastest free start on Windows
+
+From a local clone of the repository, run:
+
+~~~powershell
+python -m pip install -r tools/requirements-data.txt
+python tools/collect_commons_coconuts.py --out data/commons_candidates --limit 30
+python tools/build_candidate_gallery.py --collection-dir data/commons_candidates
+Start-Process (Resolve-Path data/commons_candidates/review_gallery.html)
+~~~
+
+This produces a candidate gallery and provenance CSV locally. It is deliberately a small first batch to limit download size and review effort. Verify licences and remove out-of-domain images before annotation. No collection is downloaded when you merely browse this repository.
+
 ## Dataset decision
 
 I did not identify a verified, fully downloadable, suitably licensed, non-Roboflow orchard object-detection dataset that I can responsibly recommend as ready to train. Some public GitHub results are only dataset listings or annotation tools and do not include the images or a clear licence. Do not train on them until access and rights are confirmed.
