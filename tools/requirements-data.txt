@@ -1,0 +1,2 @@
+# Optional dependency for the Wikimedia Commons image collector
+requests>=2.31,<3.0
