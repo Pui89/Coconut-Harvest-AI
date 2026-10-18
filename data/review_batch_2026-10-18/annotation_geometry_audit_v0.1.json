@@ -1,0 +1,36 @@
+{
+  "format": "pui89-coconut-annotation-geometry-audit-v1",
+  "annotation_file": "data/review_batch_2026-10-18/annotations_v0.1.json",
+  "overlap_iou_warning_threshold": 0.15,
+  "image_count": 2,
+  "box_count": 15,
+  "geometry_error_count": 0,
+  "images": [
+    {
+      "filename": "0002_1280px-Fresh_coconuts.jpg",
+      "box_count": 9,
+      "errors": [],
+      "border_warnings": [],
+      "overlap_warnings": [
+        {"boxes": [2, 3], "iou": 0.174278, "issue": "overlap_review_flag_not_automatic_error"},
+        {"boxes": [3, 5], "iou": 0.197408, "issue": "overlap_review_flag_not_automatic_error"}
+      ],
+      "status": "review_warnings",
+      "human_visual_qa": "not_automated"
+    },
+    {
+      "filename": "0004_1280px-Cocos_nucifera_003.jpg",
+      "box_count": 6,
+      "errors": [],
+      "border_warnings": [
+        {"box": 4, "issue": "touches_image_border; review truncated-object policy"},
+        {"box": 5, "issue": "touches_image_border; review truncated-object policy"},
+        {"box": 6, "issue": "touches_image_border; review truncated-object policy"}
+      ],
+      "overlap_warnings": [],
+      "status": "review_warnings",
+      "human_visual_qa": "not_automated"
+    }
+  ],
+  "interpretation": "Geometry checks cannot confirm missed fruit or correct boundaries. Human visual review and licence clearance remain required."
+}
