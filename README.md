@@ -104,6 +104,7 @@ The possible value is a local-first, auditable, human-supervised workflow that c
 - [One-command local baseline training and held-out evaluation](scripts/run_coconut_baseline.ps1)
 - [Safety state machine and release gates](docs/SAFETY_STATE_MACHINE.md)
 - [Research evidence matrix: implemented vs. unvalidated](docs/RESEARCH_EVIDENCE_MATRIX.md)
+- [Bristol PrO-AI PhD case-study evidence plan and experiment gates](docs/BRISTOL_PHD_EVIDENCE_PLAN.md)
 - [Cost and billing policy](docs/COST_SAFETY_AND_BILLING.md)
 - [First candidate-image batch: provenance, preliminary visual triage, and required review](docs/CANDIDATE_IMAGE_BATCH_2026-10-18.md)
 
