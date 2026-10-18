@@ -69,3 +69,31 @@ Example JSON:
 ```bash
 python -m unittest discover -s apps/pui89_app -p 'test_*.py' -v
 ```
+
+## Optional local coconut detector
+
+The demo can run a compatible, user-supplied Ultralytics `.pt` detector locally on CPU. It does **not** automatically download weights, contact a hosted inference API, or send robot commands.
+
+Install the optional dependencies:
+
+```bash
+python -m pip install -r apps/pui89_app/requirements-detector.txt
+```
+
+Configure the path to an existing, trusted model file before starting the app.
+
+**Windows Command Prompt**
+```bat
+set "PUI89_COCONUT_MODEL_PATH=C:\\path\\to\\your\\trusted-coconut-model.pt"
+streamlit run apps/pui89_app/web_demo.py
+```
+
+**PowerShell**
+```powershell
+$env:PUI89_COCONUT_MODEL_PATH = "C:\\path\\to\\your\\trusted-coconut-model.pt"
+streamlit run apps/pui89_app/web_demo.py
+```
+
+The adapter checks that the model file exists locally and that its labels include a class named `coconut` or `coconuts`. It will not silently substitute a generic pretrained model. PyTorch `.pt` weights may use pickle-based serialization: only load files from sources you trust. The model licence must permit your intended use.
+
+If you do not have a trained, licensed coconut model, leave this feature unconfigured. The app's manual-evidence demo remains available. A model running successfully is not proof of accuracy; evaluate predictions on a frozen, labelled test set using [the detection evaluation protocol](../../docs/DETECTION_EVALUATION_PROTOCOL.md).
