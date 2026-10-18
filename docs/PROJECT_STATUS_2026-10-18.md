@@ -17,7 +17,7 @@
 ## Still in progress
 
 1. Download the temporary image artifact before 25 October 2026 and preserve the files and provenance locally.
-2. Individually verify original source-page licence, creator credit and reuse conditions for every image intended for training. Only candidates 0001, 0002 and 0004 have had their source pages checked so far; the other 27 are not cleared.
+2. Individually verify original source-page licence, creator credit and reuse conditions for every image intended for training. Candidates 0001, 0002, 0004 and 0014 have had their source pages checked so far; the other 26 are not cleared.
 3. Independently inspect and correct the 15 first-pass boxes on candidates 0002 and 0004; use a consistent annotation policy and keep an audit trail.
 4. Reject irrelevant/ambiguous images, and collect or obtain permission for more varied orchard images.
 5. Create source/tree/session-separated train, validation and test splits; inspect label previews and pass dataset and leakage audits before training.
