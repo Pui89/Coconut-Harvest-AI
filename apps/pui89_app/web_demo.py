@@ -5,10 +5,20 @@ Uploaded images are displayed for context; they are not automatically analysed.
 """
 from __future__ import annotations
 
+import io
 import json
+import os
 from datetime import datetime, timezone
+from pathlib import Path
 
 import streamlit as st
+
+from apps.pui89_app.local_detector import detect_coconuts, load_local_coconut_model
+
+
+@st.cache_resource(show_spinner="Loading trusted local model...")
+def _load_cached_local_model(model_path: str):
+    return load_local_coconut_model(model_path)
 
 st.set_page_config(page_title="Coconut Harvest AI Demo", page_icon="🥥", layout="wide")
 
@@ -47,6 +57,82 @@ with right:
     distance = st.slider("Estimated distance (m)", 0.0, 8.0, 2.1, 0.1)
     clearance = st.slider("Estimated obstacle clearance (m)", 0.0, 1.5, 0.45, 0.05)
     stable_frames = st.slider("Consecutive stable tracking frames", 0, 30, 12)
+
+
+with st.expander("Optional: run a trusted local coconut detector", expanded=False):
+    st.caption(
+        "This optional feature runs a user-supplied model file on the local CPU. "
+        "It does not download weights, call a hosted API, or control a robot."
+    )
+    local_model_path = os.environ.get("PUI89_COCONUT_MODEL_PATH", "").strip()
+    if not local_model_path:
+        st.info(
+            "No local model is configured. Set the environment variable "
+            "`PUI89_COCONUT_MODEL_PATH` to an existing trusted .pt weights file, "
+            "then restart the app. The model must have a class explicitly labelled coconut."
+        )
+    elif not Path(local_model_path).expanduser().is_file():
+        st.error(
+            "The configured local model file was not found. Check "
+            "`PUI89_COCONUT_MODEL_PATH`. No online fallback will be attempted."
+        )
+    elif upload is None:
+        st.info("Upload an orchard photo above to run local inference.")
+    else:
+        detector_confidence = st.slider(
+            "Detection confidence threshold", 0.05, 0.95, 0.25, 0.05,
+            key="local_detector_confidence",
+        )
+        if st.button("Run local image detection", use_container_width=True):
+            try:
+                from PIL import Image, ImageDraw
+
+                with st.spinner("Running local inference on CPU..."):
+                    model, coconut_ids = _load_cached_local_model(local_model_path)
+                    image = Image.open(io.BytesIO(upload.getvalue())).convert("RGB")
+                    detections = detect_coconuts(
+                        model, image, coconut_ids, confidence=detector_confidence
+                    )
+                overlay = image.copy()
+                draw = ImageDraw.Draw(overlay)
+                for detection in detections:
+                    x1, y1, x2, y2 = detection["bbox_xyxy_pixels"]
+                    label = f'{detection["class_name"]} {detection["confidence"]:.2f}'
+                    draw.rectangle((x1, y1, x2, y2), outline="lime", width=3)
+                    draw.text((x1, max(0, y1 - 18)), label, fill="lime")
+                st.image(overlay, caption="Local model predictions — not a robot command", use_container_width=True)
+                report = {
+                    "status": "INFERENCE_COMPLETED",
+                    "model_file": Path(local_model_path).name,
+                    "inference_device": "cpu",
+                    "confidence_threshold": detector_confidence,
+                    "image_width_pixels": image.width,
+                    "image_height_pixels": image.height,
+                    "detection_count": len(detections),
+                    "detections": detections,
+                    "actuator_commands_sent": False,
+                    "limitations": [
+                        "Predictions are not validated until evaluated against labelled held-out images.",
+                        "A bounding box does not provide calibrated 3D location, ripeness, reachability, or collision safety.",
+                        "A zero-detection result does not prove that the image contains no coconuts.",
+                        "Only trusted local model files should be loaded.",
+                    ],
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                }
+                st.json(report)
+                st.download_button(
+                    "Download local inference JSON",
+                    data=json.dumps(report, indent=2),
+                    file_name="coconut_local_detection_report.json",
+                    mime="application/json",
+                    use_container_width=True,
+                )
+            except Exception as exc:
+                st.error(f"Local inference could not be completed: {type(exc).__name__}: {exc}")
+                st.caption(
+                    "Check the model file, its class labels, and the optional detector dependencies. "
+                    "No network fallback or actuator command was attempted."
+                )
 
 if st.button("Analyse candidate", type="primary", use_container_width=True):
     sensor_reasons = []
