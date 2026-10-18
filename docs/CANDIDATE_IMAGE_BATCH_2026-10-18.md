@@ -33,3 +33,16 @@ The following is a rough relevance screen based on the generated contact sheet, 
 6. Run the dataset builder and leakage audit; inspect the generated manifest and sample visualizations before training.
 
 **Research integrity:** this triage is only an initial human-readable screening aid. It does not establish annotation quality, licence clearance, detector accuracy, localization performance, robot safety, or physical harvesting capability.
+
+
+## Follow-up integrity check — 18 October 2026
+
+The workflow artifact was retrieved for a first-pass technical inspection in this session.
+
+- 30 image files were present and readable: 29 JPEG files and 1 PNG file.
+- Image dimensions range from 476×458 to 1280×2773 pixels.
+- A byte-level SHA-256 check found no exact duplicate files in this batch. This does not rule out visually similar or near-duplicate images.
+- A contact sheet was visually reviewed. It confirms the batch mixes likely attached-fruit candidates with harvesting scenes, plantation context, seedlings, a tool image, a graphic/collage and an unrelated racecourse image.
+- The most promising first-pass attached-fruit candidates remain IDs 0001, 0002 and 0004; other scenes require full-resolution inspection before deciding whether any visible fruit can be labelled reliably.
+
+**Important boundary:** this check is not a full-resolution annotation review, image-by-image licence verification, near-duplicate audit, or dataset acceptance. Every image remains unreviewed/unlabelled for training until those checks are completed. The Actions artifact expires on 25 October 2026; download it from the linked run if you need a durable local copy.
