@@ -61,3 +61,12 @@ Free/open-source-first. Do not use paid inference APIs, cloud GPUs, hosted endpo
 - [Review-batch README and reproduction steps](../data/review_batch_2026-10-18/README.md)
 - [First-pass annotations v0.1](../data/review_batch_2026-10-18/annotations_v0.1.json)
 - [Baseline report v0.1](../data/review_batch_2026-10-18/benchmark_report_v0.1.json)
+
+
+## Dataset follow-up — 19 October 2026
+
+- Retrieved the 15.6 MB candidate artifact and verified its SHA-256 against GitHub's artifact digest: `da87fe2b3380fec4f5675f7c6d8b02a28f5597eaed1b03771c8ae2df4529480f`. The source artifact is still scheduled to expire on 25 October 2026; preserve a separate copy.
+- Overlaid the 15 existing boxes on the original image files. Candidate 0002 has two box pairs with IoU above the 0.15 review threshold (pairs 2/3 and 3/5); candidate 0004 has three boxes touching image boundaries (box 4 right edge, boxes 5/6 bottom edge). No normalized-coordinate bounds errors were detected. These checks do not prove the boxes are correct.
+- Added a dependency-free geometry-audit tool, a saved first-pass report, a source-rights ledger with the three already-checked source pages, and tests for geometry errors and review warnings.
+- The source-rights ledger leaves all unverified source-page fields blank and keeps every candidate blocked from training promotion. Candidate 0004's displayed CC BY-SA and GFDL options are recorded; select and preserve a compliant attribution/licence path before reuse.
+- **Current gate:** independent visual QA of all 15 boxes, explicit policy for occluded/truncated fruit, and per-image rights clearance are incomplete. Do not train a learned detector or publish detector metrics yet.
