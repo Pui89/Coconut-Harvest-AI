@@ -68,12 +68,16 @@ This repository's recommended local model, intended tasks, licence checks, setup
 This is the shortest practical route to start without owning coconut photos. It downloads a **small candidate batch** from Wikimedia Commons and builds a local gallery so you can reject irrelevant images and verify each source licence. It does not automatically label images or create a validated orchard dataset.
 
 ~~~powershell
-# From a local clone of this repository
+# First change into the cloned repository folder (the folder containing README.md)
+cd C:\\path\\to\\Coconut-Harvest-AI
+
 python -m pip install -r tools/requirements-data.txt
 python tools/collect_commons_coconuts.py --out data/commons_candidates --limit 30
 python tools/build_candidate_gallery.py --collection-dir data/commons_candidates
 Start-Process (Resolve-Path data/commons_candidates/review_gallery.html)
 ~~~
+
+**Important on Windows:** run the commands above in **PowerShell**, not Command Prompt (`cmd.exe`), because `Start-Process` is a PowerShell command. Replace `C:\\path\\to\\Coconut-Harvest-AI` with your actual repository path. Before running anything, confirm you are at the repository root by running `dir`; you should see `README.md`, `apps`, `tools`, and `training`. If Python says `No module named 'apps'`, or says it cannot open `tools\\...`, you are in the wrong folder. In Command Prompt, you can open PowerShell by typing `powershell`, then change to the repository folder with `cd /d "C:\\path\\to\\Coconut-Harvest-AI"`. Do not run these repository commands from `C:\\Users\\ACER` unless that is actually where the repository's files are.
 
 The downloaded images and gallery stay on your computer. The collector writes `provenance.csv` with source URLs and licence metadata. Open each original file page and verify the exact licence/attribution terms before using the image, especially for redistribution or commercial use. Search results may include non-orchard images; discard those rather than pretending they represent harvesting conditions.
 
