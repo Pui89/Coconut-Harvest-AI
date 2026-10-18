@@ -39,3 +39,46 @@ def test_invalid_image_size_is_rejected_without_model_call(image_size):
 def test_empty_class_set_is_rejected_without_model_call():
     with pytest.raises(ValueError, match="coconut class ID"):
         detect_coconuts(object(), object(), set())
+
+
+class FakeTensor:
+    def __init__(self, values):
+        self.values = values
+
+    def detach(self):
+        return self
+
+    def cpu(self):
+        return self
+
+    def tolist(self):
+        return self.values
+
+
+class FakeBoxes:
+    def __init__(self):
+        self.xyxy = FakeTensor([[10, 20, 40, 60], [1, 2, 3, 4], [5, 5, 5, 9]])
+        self.conf = FakeTensor([0.91, 0.99, 0.88])
+        self.cls = FakeTensor([1, 0, 1])
+
+
+class FakeResult:
+    boxes = FakeBoxes()
+    names = {0: "person", 1: "coconut"}
+
+
+class FakeModel:
+    names = {0: "person", 1: "coconut"}
+
+    def predict(self, **kwargs):
+        assert kwargs["device"] == "cpu"
+        assert kwargs["verbose"] is False
+        return [FakeResult()]
+
+
+def test_detection_filters_other_classes_and_invalid_boxes():
+    detections = detect_coconuts(FakeModel(), object(), {1})
+    assert len(detections) == 1
+    assert detections[0]["class_name"] == "coconut"
+    assert detections[0]["confidence"] == pytest.approx(0.91)
+    assert detections[0]["bbox_xyxy_pixels"] == [10.0, 20.0, 40.0, 60.0]
