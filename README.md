@@ -1,5 +1,35 @@
 # Coconut Harvest AI Application
 
+> **End-to-end AI application + agricultural robot research prototype.** The workflow links optional local image detection, target-evidence checks, conservative target selection, a human-approved simulated task sequence, and an auditable JSON report. It does not currently prove calibrated 3D localization, physics-validated motion, physical harvesting, or commercial readiness.
+
+## Run the end-to-end workflow now
+
+Python 3.10+; this workflow runner uses the standard library and needs no model download, paid API, cloud service, or robot hardware.
+
+```bash
+python -m apps.pui89_app.run_robot_workflow
+```
+
+The report is printed as JSON. The example is synthetic/illustrative, not a real camera observation or benchmark. To save a report:
+
+```bash
+python -m apps.pui89_app.run_robot_workflow --input examples/end_to_end_robot_workflow.example.json --output workflow-report.json
+```
+
+**What this demonstrates:** candidate ranking, explicit rejection reasons, stale/invalid evidence handling, a human-approval gate, simulation-only approach/tool/retract task records, an audit report, plus separately testable IoU tracking and calibrated RGB-D box-to-camera-frame localization utilities. **What it does not demonstrate:** validated coconut detection from the example JSON, production-grade video tracking, calibrated localization in the robot/world frame, robot kinematics, physics simulation, independent collision checking, physical actuation, or a successful harvest. The RGB-D utility requires aligned depth and known intrinsics; the IoU tracker is a simple baseline, not a benchmarked tracker.
+
+- [End-to-end workflow guide and tests](docs/END_TO_END_ROBOT_WORKFLOW.md)
+- [Workflow implementation](apps/pui89_app/robot_workflow.py)
+- [Runner](apps/pui89_app/run_robot_workflow.py)
+- [Illustrative input](examples/end_to_end_robot_workflow.example.json)
+- [Workflow tests](apps/pui89_app/test_robot_workflow.py)
+- [RGB-D camera-frame localization utility](apps/pui89_app/rgbd_localization.py)
+- [IoU target tracker baseline](apps/pui89_app/iou_tracker.py)
+- [Spatial localization and tracking tests](apps/pui89_app/test_spatial_tracking.py)
+- [AI application setup and optional local detector](apps/pui89_app/README.md)
+
+---
+
 ## Free local Hugging Face model plan
 
 This repository's recommended local model, intended tasks, licence checks, setup notes, and no-surprise-billing rules are documented in **[HUGGINGFACE_LOCAL_MODELS.md](docs/HUGGINGFACE_LOCAL_MODELS.md)**.
@@ -26,7 +56,7 @@ python -m pip install -r apps/pui89_app/requirements.txt
 streamlit run apps/pui89_app/web_demo.py
 ```
 
-**Demo limitation:** the uploaded photograph is displayed for context but is not automatically analysed by a trained detector. The output is based on manually entered values and illustrative rules; it is not a real-world harvesting result or robot control system.
+**Demo limitation:** by default, the uploaded photograph is displayed for context but is not automatically analysed. An optional local detector can be configured using a trusted, existing `.pt` model file whose class labels include coconut; see [local detector setup](apps/pui89_app/README.md#optional-local-coconut-detector). The default manual-evidence workflow remains illustrative and is not a real-world harvesting result or robot control system. No detector accuracy is claimed without evaluation on labelled held-out images.
 
 
 ## How the AI Application Works

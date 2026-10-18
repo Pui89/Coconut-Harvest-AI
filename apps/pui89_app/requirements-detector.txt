@@ -1,0 +1,4 @@
+# Optional, local-only object detection support for the Streamlit demo.
+# This package downloads dependencies but does not download model weights.
+-r requirements.txt
+ultralytics>=8.3,<9
