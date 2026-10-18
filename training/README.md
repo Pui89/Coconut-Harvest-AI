@@ -149,3 +149,14 @@ python training/create_experiment_manifest.py --data "C:\datasets\coconut\coconu
 ~~~
 
 Replace example paths and the seed with what you actually used; do not record a seed unless it was really set. The script is local-only and does not download files, train a model, evaluate a model, or change your system configuration. It records Git commit/working-tree status, package versions, Python/platform details, visible GPU information when PyTorch is installed, dataset YAML SHA-256, configured split paths and image counts, and optional checkpoint SHA-256. Inspect the JSON before sharing it because it contains local file paths and machine details. A manifest is not a benchmark result and does not prove that labels, image licences, or split independence are correct.
+
+## Audit report provenance
+
+The detector evaluator records SHA-256 checksums for the exact dataset YAML and checkpoint it evaluates. After evaluation, generate a manifest for the same YAML and checkpoint, then cross-check them:
+
+~~~powershell
+python training/create_experiment_manifest.py --data "C:\datasets\coconut\coconut.yaml" --weights "runs\coconut\train\weights\best.pt" --experiment-id "coconut-test-v1" --output "reports\coconut-test-v1-manifest.json"
+python training/audit_experiment_report.py --manifest "reports\coconut-test-v1-manifest.json" --report "reports\coconut_test_report.json" --output "reports\provenance_audit.json"
+~~~
+
+The audit exits with code 0 only when the test-report status/split, nonempty metrics, dataset YAML checksum, and checkpoint checksum are consistent. It exits non-zero if required evidence is missing or does not match. Run the evaluator after the checksum fields were added; older reports must be regenerated. This is a provenance consistency check, not proof of correct annotations, legal image reuse, independent data, or real-world performance. Review generated JSON files before sharing because they can contain local paths and machine details.
