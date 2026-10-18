@@ -2,14 +2,14 @@ name: Build 3D Coconut Robot Demo
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "sim/**"
-      - ".github/workflows/build-robot-demo.yml"
+
+permissions:
+  contents: read
 
 jobs:
   render:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

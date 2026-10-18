@@ -1,0 +1,30 @@
+{
+  "purpose": "Illustrative input schema only; not a measured detection or calibrated field observation.",
+  "now_s": 100.0,
+  "human_approved": true,
+  "emergency_stop": false,
+  "candidates": [
+    {
+      "target_id": "example-coconut-01",
+      "confidence": 0.88,
+      "bbox_xyxy_pixels": [120, 80, 180, 145],
+      "world_position_m": [1.1, 0.7, 1.5],
+      "localization_uncertainty_m": 0.05,
+      "track_age_frames": 8,
+      "timestamp_s": 99.9,
+      "obstacle_clearance_m": 0.42,
+      "reachable": true
+    },
+    {
+      "target_id": "example-coconut-02",
+      "confidence": 0.71,
+      "bbox_xyxy_pixels": [220, 90, 260, 130],
+      "world_position_m": null,
+      "localization_uncertainty_m": null,
+      "track_age_frames": 1,
+      "timestamp_s": 99.95,
+      "obstacle_clearance_m": null,
+      "reachable": null
+    }
+  ]
+}

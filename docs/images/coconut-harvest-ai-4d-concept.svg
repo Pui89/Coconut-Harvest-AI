@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+<title id="title">COCONUT HARVEST AI — 4D AI concept</title><desc id="desc">Autonomous orchard robotics. Concept illustration only, not a measured or validated robot system.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061522"/><stop offset=".55" stop-color="#0A2540"/><stop offset="1" stop-color="#020910"/></linearGradient>
+ <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102D45" stop-opacity=".96"/><stop offset="1" stop-color="#061725" stop-opacity=".98"/></linearGradient>
+ <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#9BE15D"/><stop offset="1" stop-color="#31C48D"/></linearGradient>
+ <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#9BE15D" stroke-opacity=".12" stroke-width="1"/></pattern>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<rect width="1400" height="1000" fill="url(#bg)"/><rect width="1400" height="1000" fill="url(#grid)"/>
+<circle cx="1260" cy="75" r="190" fill="#9BE15D" opacity=".08" filter="url(#shadow)"/>
+<rect x="38" y="32" width="1324" height="125" rx="22" fill="url(#panel)" stroke="#9BE15D" stroke-opacity=".6"/>
+<rect x="38" y="32" width="10" height="125" rx="5" fill="url(#glow)"/>
+<text x="76" y="83" fill="#F2FAFF" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="700">COCONUT HARVEST AI</text>
+<text x="78" y="124" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="23">Autonomous orchard robotics</text>
+<text x="1322" y="75" text-anchor="end" fill="#AFC7DA" font-family="Arial,Helvetica,sans-serif" font-size="18">PUI89 AI ROBOTICS · CONCEPT v1.0</text>
+<text x="1322" y="112" text-anchor="end" fill="#F2FAFF" font-family="Arial,Helvetica,sans-serif" font-size="18">SPATIO-TEMPORAL / “4D” WORKFLOW</text>
+<!-- scene -->
+<rect x="38" y="180" width="835" height="440" rx="22" fill="url(#panel)" stroke="#9BE15D" stroke-opacity=".5"/>
+<text x="68" y="220" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="17" letter-spacing="2">ORCHARD / 3D PERCEPTION</text>
+<path d="M72 548 L840 548 M90 508 L820 508 M110 468 L800 468 M140 428 L770 428 M190 388 L720 388" stroke="#9BE15D" stroke-opacity=".14"/>
+<path d="M110 580L330 245L550 580 M250 580L470 245L690 580 M390 580L610 245L830 580" fill="none" stroke="#9BE15D" stroke-opacity=".11"/>
+<!-- stylized autonomous platform -->
+<ellipse cx="445" cy="520" rx="215" ry="28" fill="#9BE15D" opacity=".12"/>
+<path d="M270 475 L318 432 L550 432 L610 474 L585 520 L298 520 Z" fill="#1D3D55" stroke="#9BE15D" stroke-width="3"/>
+<path d="M300 475 L335 447 L540 447 L575 475 L558 502 L318 502 Z" fill="#091A29" stroke="#80B6D2" stroke-width="2"/>
+<rect x="365" y="413" width="110" height="35" rx="8" fill="#234A62" stroke="#9BE15D" stroke-width="2"/>
+<rect x="386" y="386" width="70" height="28" rx="7" fill="#102E43" stroke="#9BE15D" stroke-width="2"/>
+<circle cx="338" cy="514" r="29" fill="#030A11" stroke="#6E8BA0" stroke-width="6"/><circle cx="338" cy="514" r="10" fill="#9BE15D"/>
+<circle cx="535" cy="514" r="29" fill="#030A11" stroke="#6E8BA0" stroke-width="6"/><circle cx="535" cy="514" r="10" fill="#9BE15D"/>
+<path d="M420 389 L420 340 L465 310 L485 270" fill="none" stroke="#D4E6F4" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M420 389 L420 340 L465 310 L485 270" fill="none" stroke="#9BE15D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="420" cy="340" r="15" fill="#102E43" stroke="#9BE15D" stroke-width="4"/><circle cx="465" cy="310" r="14" fill="#102E43" stroke="#9BE15D" stroke-width="4"/>
+<path d="M485 270 L515 245 L532 263 L512 286 Z" fill="#173D55" stroke="#9BE15D" stroke-width="3"/>
+<rect x="488" y="238" width="52" height="20" rx="5" fill="#0A1724" stroke="#9BE15D" stroke-width="2"/>
+<path d="M513 239 L513 224 M500 231 L526 231" stroke="#9BE15D" stroke-width="3"/>
+<!-- sensor cones and temporal track -->
+<path d="M410 392 L300 282 L570 282 Z" fill="#9BE15D" opacity=".07" stroke="#9BE15D" stroke-dasharray="7 7"/>
+<path d="M550 280 C600 260 630 285 650 320 S700 370 735 345" fill="none" stroke="#31C48D" stroke-width="3" stroke-dasharray="8 7"/>
+<circle cx="550" cy="280" r="7" fill="#9BE15D"/><circle cx="650" cy="320" r="7" fill="#9BE15D"/><circle cx="735" cy="345" r="7" fill="#9BE15D"/>
+<rect x="605" y="255" width="220" height="72" rx="12" fill="#071521" stroke="#9BE15D" stroke-opacity=".8"/>
+<text x="624" y="283" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="15">WORLD MODEL TRACK</text>
+<text x="624" y="308" fill="#E8F6FF" font-family="Arial,Helvetica,sans-serif" font-size="17">t−5s → t0 → t+5s</text>
+<rect x="68" y="570" width="270" height="28" rx="14" fill="#9BE15D" fill-opacity=".14" stroke="#9BE15D" stroke-opacity=".6"/>
+<text x="203" y="589" text-anchor="middle" fill="#EAF7FF" font-family="Arial,Helvetica,sans-serif" font-size="14">MOBILE MANIPULATOR</text>
+<text x="846" y="593" text-anchor="end" fill="#9BB6CA" font-family="Arial,Helvetica,sans-serif" font-size="14">Illustrative concept — not a validated build</text>
+<!-- AI stack -->
+<rect x="900" y="180" width="462" height="440" rx="22" fill="url(#panel)" stroke="#9BE15D" stroke-opacity=".5"/>
+<text x="932" y="220" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700">AI APPLICATION STACK</text>
+<rect x="928" y="246" width="405" height="62" rx="12" fill="#071723" stroke="#9BE15D" stroke-opacity=".38"/><circle cx="958" cy="277" r="14" fill="#9BE15D" fill-opacity=".15" stroke="#9BE15D"/><text x="958" y="283" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700">1</text><text x="986" y="282" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17">RGB-D + LiDAR perception</text><rect x="928" y="324" width="405" height="62" rx="12" fill="#071723" stroke="#9BE15D" stroke-opacity=".38"/><circle cx="958" cy="355" r="14" fill="#9BE15D" fill-opacity=".15" stroke="#9BE15D"/><text x="958" y="361" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700">2</text><text x="986" y="360" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17">3D fruit localization</text><rect x="928" y="402" width="405" height="62" rx="12" fill="#071723" stroke="#9BE15D" stroke-opacity=".38"/><circle cx="958" cy="433" r="14" fill="#9BE15D" fill-opacity=".15" stroke="#9BE15D"/><text x="958" y="439" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700">3</text><text x="986" y="438" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17">Ripeness and reachability</text><rect x="928" y="480" width="405" height="62" rx="12" fill="#071723" stroke="#9BE15D" stroke-opacity=".38"/><circle cx="958" cy="511" r="14" fill="#9BE15D" fill-opacity=".15" stroke="#9BE15D"/><text x="958" y="517" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700">4</text><text x="986" y="516" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17">Safety-gated arm planning</text>
+<!-- timeline -->
+<rect x="38" y="646" width="1324" height="146" rx="22" fill="url(#panel)" stroke="#9BE15D" stroke-opacity=".5"/>
+<text x="68" y="681" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700">4D PIPELINE · OBSERVE → REASON OVER TIME → PROPOSE → VERIFY</text>
+<path d="M160 735 H1230" stroke="#9BE15D" stroke-opacity=".5" stroke-width="3"/>
+<circle cx="170" cy="735" r="22" fill="#0B2030" stroke="#9BE15D" stroke-width="3"/><text x="170" y="741" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700">1</text><text x="170" y="774" text-anchor="middle" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700">DETECT</text><circle cx="520" cy="735" r="22" fill="#0B2030" stroke="#9BE15D" stroke-width="3"/><text x="520" y="741" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700">2</text><text x="520" y="774" text-anchor="middle" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700">LOCALIZE</text><circle cx="870" cy="735" r="22" fill="#0B2030" stroke="#9BE15D" stroke-width="3"/><text x="870" y="741" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700">3</text><text x="870" y="774" text-anchor="middle" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700">PLAN</text><circle cx="1220" cy="735" r="22" fill="#0B2030" stroke="#9BE15D" stroke-width="3"/><text x="1220" y="741" text-anchor="middle" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700">4</text><text x="1220" y="774" text-anchor="middle" fill="#EAF5FC" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700">HARVEST</text>
+<!-- metrics -->
+<rect x="38" y="816" width="1324" height="130" rx="22" fill="url(#panel)" stroke="#9BE15D" stroke-opacity=".5"/>
+<text x="68" y="853" fill="#9BE15D" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700">BENCHMARKS TO MEASURE — NO SCORES CLAIMED</text>
+<circle cx="72" cy="880" r="5" fill="#9BE15D"/><text x="89" y="885" fill="#D8E9F5" font-family="Arial,Helvetica,sans-serif" font-size="17">Detection AP / precision-recall</text><circle cx="722" cy="880" r="5" fill="#9BE15D"/><text x="739" y="885" fill="#D8E9F5" font-family="Arial,Helvetica,sans-serif" font-size="17">Localization error (cm)</text><circle cx="72" cy="914" r="5" fill="#9BE15D"/><text x="89" y="919" fill="#D8E9F5" font-family="Arial,Helvetica,sans-serif" font-size="17">False-pick and miss rate</text><circle cx="722" cy="914" r="5" fill="#9BE15D"/><text x="739" y="919" fill="#D8E9F5" font-family="Arial,Helvetica,sans-serif" font-size="17">Cycle time and safety stops</text>
+<text x="700" y="979" text-anchor="middle" fill="#A8C0D2" font-family="Arial,Helvetica,sans-serif" font-size="15">PUI89 AI ROBOTICS · Research concept artwork · Simulation-first · Human oversight · Real-world validation required</text>
+</svg>

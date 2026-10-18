@@ -1,0 +1,11 @@
+domain: agriculture
+mission: autonomous_coconut_harvesting
+primary_metrics:
+  perception: [detection_ap, ripeness_f1]
+  geometry: [localization_error_cm, reachability_precision]
+  planning: [collision_free_rate, planning_latency_ms]
+  manipulation: [harvest_success_rate, fruit_damage_rate]
+  operations: [trees_per_hour, coconuts_per_hour, energy_per_tree_wh]
+  safety: [unsafe_command_rejection, emergency_stop_success]
+scenarios: [normal, low_light, rain, occlusion, motion_blur, sensor_dropout, calibration_error, ood, communication_loss]
+unknown_policy: preserve_uncertainty_and_request_review

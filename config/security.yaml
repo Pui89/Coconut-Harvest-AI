@@ -1,0 +1,47 @@
+# Development security baseline.
+# Production secrets MUST NOT be stored here.
+security:
+  fail_closed_on_authentication_error: true
+  fail_closed_on_model_integrity_error: true
+  fail_closed_on_ota_verification_error: true
+  require_signed_models: true
+  require_signed_firmware: true
+  require_update_manifest: true
+  anti_rollback: true
+  require_unique_device_identity: true
+  require_mutual_tls: true
+  require_role_based_access: true
+  require_audit_log: true
+  deny_public_actuator_api: true
+  deny_public_ros_bridge: true
+
+identity:
+  certificate_rotation_days: 90
+  operator_mfa_required: true
+  short_lived_service_credentials: true
+
+network:
+  control_plane_segmented: true
+  management_plane_segmented: true
+  cloud_access_allowlist: true
+  rate_limit_remote_commands: true
+
+artifacts:
+  hash_algorithm: sha256
+  sbom_required_for_release: true
+  provenance_required_for_release: true
+  vulnerability_scan_required: true
+
+ai:
+  model_provenance_required: true
+  model_license_record_required: true
+  model_digest_required: true
+  model_validation_required_before_deploy: true
+  foundation_models_advisory_only: true
+
+logging:
+  immutable_or_append_only: true
+  include_robot_id: true
+  include_principal: true
+  include_model_version: true
+  include_safety_decision: true

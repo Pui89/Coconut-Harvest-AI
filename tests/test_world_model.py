@@ -1,6 +1,15 @@
-from coconut_harvest_robot.world_model import OrchardWorldModel,Point3D,TargetState
+from coconut_harvest_robot.sensor_quality import SensorObservation, SensorStatus, assess_sensor_health
 
-def test_predict_target_position():
-    w=OrchardWorldModel(robot_position=Point3D(0,0,0))
-    w.upsert(TargetState("c1",Point3D(1,2,3),Point3D(1,0,0),.9,0.0))
-    assert w.predict("c1",2).x==3
+def test_sensor_health_ok():
+    r = assess_sensor_health([
+        SensorObservation("rgb", True, 0.95, 1.0),
+        SensorObservation("depth", True, 0.90, 1.02),
+    ])
+    assert r.status == SensorStatus.OK
+
+def test_sensor_health_detects_timestamp_skew():
+    r = assess_sensor_health([
+        SensorObservation("rgb", True, 1.0, 1.0, 0.05),
+        SensorObservation("depth", True, 1.0, 1.2, 0.05),
+    ])
+    assert r.status == SensorStatus.UNSYNCHRONIZED

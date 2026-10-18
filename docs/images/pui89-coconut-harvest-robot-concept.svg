@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<title id="title">PUI89 Coconut Harvest AI robot — concept visualization</title>
+<desc id="desc">A detailed engineering concept illustration of a sensor-equipped agricultural robot inspecting coconuts on a palm tree. This is a concept rendering, not a photograph or evidence of a built robot.</desc>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ac8d2"/><stop offset=".55" stop-color="#d8e7d9"/><stop offset="1" stop-color="#f2e8cf"/></linearGradient>
+  <linearGradient id="trunk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4d4938"/><stop offset=".35" stop-color="#887458"/><stop offset=".65" stop-color="#5b513e"/><stop offset="1" stop-color="#393e31"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7fbfc"/><stop offset=".35" stop-color="#b9cbd0"/><stop offset=".7" stop-color="#647c86"/><stop offset="1" stop-color="#263e4a"/></linearGradient>
+  <linearGradient id="darkmetal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#334d5b"/><stop offset="1" stop-color="#152b35"/></linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#688c4f"/><stop offset="1" stop-color="#1e503d"/></linearGradient>
+  <radialGradient id="coco" cx=".32" cy=".24" r=".8"><stop offset="0" stop-color="#b78a52"/><stop offset=".55" stop-color="#75502f"/><stop offset="1" stop-color="#392e25"/></radialGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="12"/></filter>
+  <pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="1" cy="2" r=".6" fill="#fff" opacity=".18"/><circle cx="6" cy="5" r=".5" fill="#233" opacity=".12"/></pattern>
+</defs>
+<rect width="1600" height="1000" fill="url(#sky)"/>
+<!-- soft distant orchard -->
+<g opacity=".42" fill="#55745a"><path d="M0 420 Q90 320 190 420 Q290 290 400 420 Q510 310 620 420 L620 760 L0 760Z"/><path d="M970 420 Q1070 280 1180 420 Q1300 300 1410 420 Q1500 335 1600 415 L1600 770 L970 770Z"/></g>
+<g opacity=".22" stroke="#f8f5e8" stroke-width="5"><path d="M80 170 L520 170"/><path d="M1060 240 L1460 240"/></g>
+<!-- ground -->
+<path d="M0 770 Q340 730 660 775 T1600 760 L1600 1000 L0 1000Z" fill="#b8b38b"/>
+<path d="M0 830 Q300 790 580 840 T1120 830 T1600 820 L1600 1000 L0 1000Z" fill="#858c68"/>
+<ellipse cx="830" cy="866" rx="360" ry="50" fill="#172d2b" opacity=".22" filter="url(#shadow)"/>
+<!-- palm trunk -->
+<path d="M805 870 Q790 640 814 450 Q830 320 865 205 L940 208 Q900 390 900 535 Q905 710 934 870Z" fill="url(#trunk)" stroke="#3e4235" stroke-width="5"/>
+<g fill="none" stroke="#c3a77a" stroke-width="8" opacity=".65"><path d="M803 730 Q855 745 923 722"/><path d="M801 665 Q858 682 916 660"/><path d="M804 600 Q859 615 909 592"/><path d="M810 535 Q860 550 904 529"/><path d="M821 468 Q862 483 900 464"/><path d="M832 401 Q867 415 897 395"/><path d="M845 340 Q875 353 892 335"/></g>
+<!-- fronds -->
+<g stroke="#305640" stroke-width="7" stroke-linecap="round">
+ <path d="M875 220 Q670 70 390 160" fill="none"/><path d="M872 220 Q680 115 455 136" fill="none"/><path d="M876 220 Q650 190 485 265" fill="none"/><path d="M880 220 Q1030 40 1310 120" fill="none"/><path d="M880 220 Q1110 110 1450 230" fill="none"/><path d="M881 220 Q1070 230 1260 330" fill="none"/><path d="M875 220 Q830 30 920 45" fill="none"/>
+</g>
+<g fill="url(#leaf)" stroke="#244d3b" stroke-width="2">
+ <path d="M875 220 Q620 35 390 160 Q610 115 875 220Z"/><path d="M875 220 Q620 95 455 136 Q655 160 875 220Z"/><path d="M875 220 Q610 180 485 265 Q700 205 875 220Z"/>
+ <path d="M880 220 Q1050 40 1310 120 Q1110 105 880 220Z"/><path d="M880 220 Q1120 110 1450 230 Q1180 180 880 220Z"/><path d="M881 220 Q1070 230 1260 330 Q1050 270 881 220Z"/><path d="M875 220 Q830 30 920 45 Q905 125 875 220Z"/>
+</g>
+<g fill="none" stroke="#9eb27b" stroke-width="3" opacity=".8"><path d="M875 220 L390 160"/><path d="M875 220 L455 136"/><path d="M875 220 L485 265"/><path d="M880 220 L1310 120"/><path d="M880 220 L1450 230"/><path d="M881 220 L1260 330"/></g>
+<!-- coconuts -->
+<g stroke="#473625" stroke-width="3"><ellipse cx="947" cy="300" rx="37" ry="48" fill="url(#coco)" transform="rotate(-15 947 300)"/><ellipse cx="987" cy="324" rx="34" ry="43" fill="url(#coco)" transform="rotate(17 987 324)"/><ellipse cx="930" cy="349" rx="35" ry="44" fill="url(#coco)" transform="rotate(-5 930 349)"/><ellipse cx="1004" cy="367" rx="30" ry="39" fill="url(#coco)" transform="rotate(10 1004 367)"/></g>
+<g stroke="#d5b17b" stroke-width="3" opacity=".55" fill="none"><path d="M930 274 q-10 22 2 44"/><path d="M979 295 q14 20 4 42"/><path d="M916 335 q-4 20 9 36"/><path d="M1000 345 q-7 16 2 31"/></g>
+<!-- robot climbing carriage shadow and body -->
+<g transform="translate(0 0)">
+ <ellipse cx="842" cy="590" rx="115" ry="34" fill="#162b31" opacity=".2" filter="url(#shadow)"/>
+ <!-- wrap-around tracks/clamps -->
+ <path d="M780 482 Q752 480 750 511 L756 615 Q760 642 788 641 L920 630 Q948 626 944 598 L936 506 Q932 480 906 482Z" fill="url(#darkmetal)" stroke="#182e39" stroke-width="7"/>
+ <path d="M779 497 Q800 485 822 498 L825 618 Q803 634 783 617Z" fill="#7f9aa2" stroke="#d5e0e2" stroke-width="5"/>
+ <path d="M879 493 Q902 482 922 496 L928 604 Q909 622 887 608Z" fill="#7f9aa2" stroke="#d5e0e2" stroke-width="5"/>
+ <g stroke="#233c47" stroke-width="5"><path d="M775 520 L813 516"/><path d="M779 545 L816 541"/><path d="M781 570 L818 566"/><path d="M783 595 L819 591"/><path d="M889 516 L925 512"/><path d="M891 542 L926 538"/><path d="M892 568 L927 564"/><path d="M894 593 L929 589"/></g>
+ <!-- central housing -->
+ <path d="M798 505 L895 500 L907 575 L895 607 L804 612 L792 581Z" fill="url(#metal)" stroke="#243c48" stroke-width="6"/>
+ <rect x="814" y="526" width="67" height="37" rx="8" fill="#19333f"/>
+ <rect x="822" y="534" width="50" height="21" rx="4" fill="#64d9d0"/>
+ <circle cx="836" cy="544" r="5" fill="#e5ffff"/><circle cx="857" cy="544" r="5" fill="#e5ffff"/>
+ <text x="847" y="586" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#1d3944">PUI89</text>
+ <!-- upper sensor mast -->
+ <path d="M843 505 L843 464 L859 451 L877 463 L877 505" fill="url(#darkmetal)" stroke="#1e3540" stroke-width="5"/>
+ <rect x="827" y="435" width="66" height="36" rx="9" fill="#243f4b" stroke="#dce7e9" stroke-width="4"/>
+ <circle cx="847" cy="453" r="9" fill="#1c2025" stroke="#6de0e0" stroke-width="4"/><circle cx="875" cy="453" r="6" fill="#91f1ec"/>
+ <!-- robotic arm base and links -->
+ <circle cx="903" cy="524" r="24" fill="#263f4a" stroke="#dbe5e8" stroke-width="6"/>
+ <path d="M908 520 L1010 470 L1044 490 L960 557Z" fill="url(#metal)" stroke="#2c4652" stroke-width="7"/>
+ <circle cx="1010" cy="484" r="18" fill="#243f4a" stroke="#dce7e9" stroke-width="5"/>
+ <path d="M1010 484 L1047 404 L1072 408 L1057 499 L1025 514Z" fill="url(#metal)" stroke="#2c4652" stroke-width="7"/>
+ <circle cx="1059" cy="410" r="15" fill="#263f4a" stroke="#dce7e9" stroke-width="5"/>
+ <path d="M1058 410 L1091 382 L1107 393 L1080 430Z" fill="url(#darkmetal)" stroke="#263f4a" stroke-width="5"/>
+ <!-- non-contact inspection head near fruit -->
+ <rect x="1086" y="367" width="49" height="42" rx="8" fill="#253f4b" stroke="#dce7e9" stroke-width="4" transform="rotate(18 1110 388)"/>
+ <circle cx="1110" cy="387" r="10" fill="#1b252b" stroke="#66dcd7" stroke-width="4"/>
+ <path d="M1128 380 L1147 373 L1153 382 L1135 391Z" fill="#e0e7e8" stroke="#2d4650" stroke-width="3"/>
+ <!-- cable and status light -->
+ <path d="M802 512 Q771 460 805 442 Q824 432 827 448" fill="none" stroke="#293d43" stroke-width="7"/>
+ <circle cx="801" cy="515" r="7" fill="#a8f0c7"/>
+</g>
+<!-- sensor rays and target box -->
+<g fill="none" stroke="#32bfc0" stroke-width="4" stroke-dasharray="10 9" opacity=".95"><path d="M1110 387 L1000 327"/><path d="M1110 387 L951 300"/><path d="M1110 387 L1005 368"/></g>
+<rect x="901" y="265" width="135" height="127" rx="10" fill="none" stroke="#36bfb9" stroke-width="4" stroke-dasharray="12 7"/>
+<g font-family="Arial,sans-serif"><rect x="905" y="236" width="180" height="31" rx="6" fill="#163d45"/><text x="995" y="257" font-size="17" font-weight="700" text-anchor="middle" fill="#eaffff">AI TARGET PROPOSAL</text></g>
+<!-- labels -->
+<g font-family="Arial,sans-serif" fill="#17333c">
+ <path d="M690 475 L778 510" stroke="#17333c" stroke-width="2.5" fill="none"/><rect x="495" y="440" width="200" height="60" rx="9" fill="#f6f6ed" opacity=".94"/><text x="515" y="465" font-size="19" font-weight="700">Trunk carriage</text><text x="515" y="488" font-size="15">Concept only</text>
+ <path d="M1160 473 L1080 440" stroke="#17333c" stroke-width="2.5" fill="none"/><rect x="1155" y="452" width="260" height="63" rx="9" fill="#f6f6ed" opacity=".94"/><text x="1175" y="478" font-size="19" font-weight="700">Inspection arm</text><text x="1175" y="500" font-size="15">Non-contact sensing concept</text>
+ <path d="M680 650 L785 602" stroke="#17333c" stroke-width="2.5" fill="none"/><rect x="460" y="640" width="224" height="60" rx="9" fill="#f6f6ed" opacity=".94"/><text x="480" y="665" font-size="19" font-weight="700">Sensor + compute</text><text x="480" y="688" font-size="15">RGB / depth / state data</text>
+</g>
+<!-- header/footer overlay -->
+<rect x="48" y="38" width="570" height="112" rx="16" fill="#102e38" opacity=".92"/>
+<text x="78" y="81" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#f3fbf8">PUI89  |  COCONUT HARVEST AI</text>
+<text x="78" y="116" font-family="Arial,sans-serif" font-size="19" fill="#bce5df">Embodied-AI agricultural robot concept</text>
+<rect x="48" y="910" width="1504" height="52" rx="12" fill="#102e38" opacity=".92"/>
+<text x="76" y="943" font-family="Arial,sans-serif" font-size="18" fill="#f5fbf8">CONCEPT VISUALIZATION • NOT A PHOTOGRAPH • NOT A BUILT OR FIELD-VALIDATED ROBOT</text>
+<rect width="1600" height="1000" fill="url(#grain)" opacity=".35"/>
+</svg>

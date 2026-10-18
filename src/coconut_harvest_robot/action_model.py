@@ -14,10 +14,10 @@ class AdvancedActionModel(nn.Module):
             nn.Flatten(),
             nn.Linear(in_dim, hidden_dim),
             nn.ReLU(),
-            nn.BatchNorm1d(hidden_dim),
+            nn.LayerNorm(hidden_dim),
             nn.Linear(hidden_dim, hidden_dim),
             nn.ReLU(),
-            nn.BatchNorm1d(hidden_dim),
+            nn.LayerNorm(hidden_dim),
             nn.Linear(hidden_dim, action_dim),
         )
 

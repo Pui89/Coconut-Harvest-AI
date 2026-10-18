@@ -1,29 +1,400 @@
-# Coconut Harvest Robot
+# Coconut Harvest AI Application
 
-A PyTorch-based robotic agriculture system for autonomous coconut harvesting in high trees. Combines vision-based fruit detection, 3D spatial reasoning, trajectory planning, and action execution in a production-ready framework.
+> **A local-first AI application and simulation-first agricultural robot research project.** The goal is to explore whether computer vision, RGB-D localization, conservative task planning, and human-supervised safety gates can support safer coconut harvesting. This is a research prototype—not a finished or field-validated harvesting robot.
+
+![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
+
+## Project status at a glance
+
+| Status | What it means today |
+|---|---|
+| **Implemented prototype** | Local detector adapter, camera-frame RGB-D localization, simple IoU tracking baseline, configurable decision gates, simulated task workflow, and JSON audit reporting are present in the codebase. |
+| **Testable with synthetic inputs** | A deterministic simulation workflow and clearly labelled synthetic fixtures let developers test decisions without a physical robot or paid cloud inference. |
+| **Automated CI** | The current feature branch passed both GitHub Actions jobs: the focused/application test workflow and the dedicated end-to-end simulation workflow. This validates software tests, not real-orchard accuracy or robot safety. |
+| **Not demonstrated** | Autonomous physical harvesting, safe palm climbing, real cutting/grasping, field success rate, and production readiness. |
+
+### What has been achieved
+
+- Built separate AI-application and robot-workflow components that can be inspected and tested.
+- Added fail-closed checks so missing or invalid evidence should not be treated as a safe robot target.
+- Connected local vision proposals to a simulation-only workflow through an explicit calibration/evidence interface.
+- Added unit and integration tests, synthetic fixtures, documentation, and a proposed CI test path.
+- Kept the software local-first: no paid inference API, no automatic model-weight download, and no physical actuator commands.
+
+### What is being worked on
+
+- Keeping both GitHub Actions workflows green as the branch changes.
+- Rechecking the demo and local run instructions from a clean checkout.
+- Separating synthetic examples from measured results and documenting each limitation.
+- Preparing a practical benchmark for detection, localization, tracking, safety rejection, and task simulation.
+
+### What comes next
+
+1. **Reproducibility:** keep the passing focused and repository test suites repeatable from a clean environment.
+2. **Real-image benchmark:** assemble a permitted, labelled orchard dataset and report held-out detection precision/recall and failure cases.
+3. **Spatial validation:** measure RGB-D localization error and validate camera-to-robot calibration; never use the synthetic identity transform for hardware.
+4. **Physics simulation:** validate robot geometry, joint limits, reachability, collision checking, tool envelope, and safe-stop scenarios in a simulator.
+5. **Controlled prototype:** only after independent risk review, test a guarded, non-cutting rig under qualified supervision.
+6. **Commercial pilot:** compare measured safety, successful collection rate, cycle time, fruit damage, operator intervention, and total cost against the current harvesting process.
+
+## Why a farm or company might evaluate this project
+
+The possible value is a local-first, auditable, human-supervised workflow that can be tested before committing to expensive robot hardware. Its intended direction is to help operators assess targets and plan work while reducing the need for some hazardous climbing tasks. These benefits are hypotheses, not measured outcomes.
+
+**Honest buying position:** this project is not ready to be sold as a functioning autonomous coconut-harvesting robot. A suitable current partner would be a research group, farm, or company interested in a feasibility study, data collaboration, or simulation benchmark. No claim of being better, faster, cheaper, or safer than another robot is justified until an agreed comparison is measured.
+
+- [Buyer value, competitive comparison, and evidence required before a pilot](docs/BUYER_VALUE_AND_COMPETITIVE_POSITIONING.md)
+- [End-to-end workflow and safety limitations](docs/END_TO_END_ROBOT_WORKFLOW.md)
+- [Application setup and local detector requirements](apps/pui89_app/README.md)
+- [Development roadmap](docs/DEVELOPMENT_ROADMAP.md)
+- [Reproducible benchmark protocol](docs/REPRODUCIBLE_BENCHMARK_PROTOCOL.md)
+- [Safety state machine and release gates](docs/SAFETY_STATE_MACHINE.md)
+- [Research evidence matrix: implemented vs. unvalidated](docs/RESEARCH_EVIDENCE_MATRIX.md)
+- [Cost and billing policy](docs/COST_SAFETY_AND_BILLING.md)
+
+---
+
+## Free local Hugging Face model plan
+
+This repository's recommended local model, intended tasks, licence checks, setup notes, and no-surprise-billing rules are documented in **[HUGGINGFACE_LOCAL_MODELS.md](docs/HUGGINGFACE_LOCAL_MODELS.md)**.
+
+**Cost boundary:** the plan uses downloaded local weights only; it does not require paid Hugging Face inference, cloud GPUs, paid notebooks, or a subscription. Model integration and performance must be verified by running tests locally.
+
+
+## Local development on an RTX 3050 laptop
+
+The hardware-aware, zero-cost-first plan is in [LOCAL_EXPERIMENT_PLAN_RTX3050.md](docs/LOCAL_EXPERIMENT_PLAN_RTX3050.md). A read-only environment checker is available at [scripts/check_local_environment.py](scripts/check_local_environment.py); it does not install packages, download models, use the network, or change system settings. The plan is tailored to a reported RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. It distinguishes the existing synthetic prototype from future model experiments and measured results.
+
+## Try the Interactive AI Application Example
+
+Want to see an example instead of only reading about the concept? The repository includes a small Streamlit demo where you can upload an orchard photo for display, adjust example sensor/coconut evidence, run the decision-support rules, and download a JSON report.
+
+**[Open the web demo source and setup instructions](apps/pui89_app/README.md)** · [View the interactive demo code](apps/pui89_app/web_demo.py)
+
+Run it locally from the repository root:
+
+```bash
+python -m pip install -r apps/pui89_app/requirements.txt
+streamlit run apps/pui89_app/web_demo.py
+```
+
+**Demo limitation:** the uploaded photograph is displayed for context but is not automatically analysed by a trained detector. The output is based on manually entered values and illustrative rules; it is not a real-world harvesting result or robot control system.
+
+
+## How the AI Application Works
+
+The **AI application** is the software layer that runs on a computer. It takes orchard images and, when available, depth and robot-state data; checks input quality; analyses candidate coconuts; records uncertainty; and produces a reviewable harvest-plan proposal and JSON audit report.
+
+```text
+Orchard image + optional depth / robot-state data
+                    |
+                    v
+         Input quality and sensor checks
+                    |
+                    v
+          AI vision / target proposals
+                    |
+                    v
+      Spatial and temporal evidence (3D/4D)
+                    |
+                    v
+ Harvestability + uncertainty + missing-data checks
+                    |
+                    v
+            Candidate plan proposal
+                    |
+                    v
+       Safety checks, review and JSON report
+```
+
+**AI application concept image**
+
+![AI application concept: coconut orchard perception and planning](docs/images/coconut-harvest-ai-demo.svg)
+
+![AI application 3D/4D concept visualization](docs/images/coconut-harvest-ai-4d-concept.svg)
+
+**Real-world image used as application context**
+
+![Real coconut fruits growing on a palm](https://commons.wikimedia.org/wiki/Special:FilePath/Fruiting_Coconut_Palm_Canopy.jpg?width=1100)
+
+*Photograph by Paul The Writer, shared under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). [Original image and licence](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg). This is a real-world visual reference, not an image processed or evaluated by the current prototype.*
+
+**What it does and does not prove:** the repository provides a simulation-first software prototype and concept visualizations. Coconut-specific detection accuracy, ripeness assessment, and real-time 3D/4D tracking require representative labelled data and measured validation. The application proposes and reports; the documented demo does not directly control physical actuators.
+
+---
+
+## How the AI Robot Works
+
+The **AI robot** is the proposed physical or simulated machine that could use the application's proposals. In a future validated system, cameras and other calibrated sensors observe the tree and workspace; perception estimates target locations; a planner proposes a movement; and an independent safety layer checks that movement before an authorized controller could execute it.
+
+```text
+RGB / depth / optional LiDAR + robot-state sensors
+                    |
+                    v
+        Perception and target tracking
+                    |
+                    v
+             3D / 4D scene model
+                    |
+                    v
+        Harvest task / motion proposal
+                    |
+                    v
+ Independent collision and safety validation
+                    |
+                    v
+      Authorized controller (future stage)
+                    |
+                    v
+        Verify outcome and record evidence
+```
+
+![Existing coconut harvesting robot concept illustration](docs/images/coconut_harvest_robot_photo.svg)
+
+![3D/4D coconut harvesting robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
+
+**Real-world image of the harvesting task**
+
+![Real photograph of a person harvesting coconuts from a palm](https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG?width=1100)
+
+*Photograph by Rudolph A. Furtado, shared under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). [Original image and licence](https://commons.wikimedia.org/wiki/File:Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG). This shows human harvesting for real-world context; it is not a robot trial or proof of autonomous harvesting.*
+
+**Current robot status and safety boundary:** the repository includes software prototypes, simulation assets and robot concept/model files. It does not establish that a physical robot can safely climb a palm, cut or grasp coconuts, avoid every collision, or harvest autonomously in an orchard. Do not connect this prototype directly to physical motors, cutters or manipulators. Any future hardware work needs calibrated sensors, independent collision/workspace validation, emergency-stop testing, supervised low-risk trials and a documented safety review.
+
+---
+
+## How the Coconut Harvest AI Application Works
+
+Coconut Harvest AI is a **simulation-first research prototype** for exploring how computer vision, spatial reasoning, harvestability assessment, and safety checks could support coconut harvesting. The workflow below explains the intended system and distinguishes existing prototype behavior from work that still needs real-world validation.
+
+### End-to-end workflow
+
+```text
+Orchard RGB image + optional depth / LiDAR / robot-state data
+                         |
+                         v
+              1. Input and sensor checks
+       Check data quality, health, and time alignment
+                         |
+                         v
+              2. Perception proposal
+       Extract visual features and identify candidate targets
+       Coconut-specific detection requires validated model/data
+                         |
+                         v
+              3. Spatial and temporal reasoning
+       Associate depth with targets; estimate 3D position
+       Track target state over time when suitable data are available
+                         |
+                         v
+              4. Harvestability assessment
+       Review ripeness evidence, visibility, confidence,
+       reachability, clearance, and missing/contradictory inputs
+                         |
+                         v
+              5. Plan proposal
+       Generate a candidate approach / waypoint sequence
+                         |
+                         v
+              6. Deterministic safety gate
+       Reject unsafe, incomplete, or unverified proposals;
+       require independent collision and workspace validation
+                         |
+                         v
+              7. Report and operator review
+       Save decision status, reasons, and an auditable JSON report
+```
+
+### What each stage does
+
+1. **Input:** Start with synthetic scenes or recorded orchard images. RGB-D cameras and LiDAR can be integrated, but sensor calibration and timestamp synchronization must be checked before trusting spatial measurements.
+2. **Perception:** A vision model extracts features and may propose coconut/tree targets. A model architecture or a generic pretrained checkpoint alone does not prove accurate coconut detection; this requires labelled, representative orchard data and held-out evaluation.
+3. **3D/4D scene understanding:** Depth and sensor calibration can help estimate target locations in 3D. The 4D layer refers to tracking how targets and the robot scene change over time; it is not a claim that a validated real-time 4D system is already operating in an orchard.
+4. **Harvestability:** The system can consider supplied evidence such as ripeness, occlusion, localization confidence, reachability, clearance, and tracking stability. A score is only as reliable as its inputs and validation.
+5. **Planning:** The planner proposes candidate waypoints or a harvesting sequence. A proposed path must not be described as collision-free unless an independent, validated collision checker has verified it.
+6. **Safety gate:** The prototype can reject proposals and use conservative states such as `SAFE_HOLD`, `BLOCKED`, or `PROPOSAL_APPROVED_NOT_EXECUTED`. Approval means only that configured software checks passed; it is not authorization to move a physical robot.
+7. **Reporting:** The end-to-end demo emits a JSON audit report containing the decision status and reasons. The documented demo does **not** send actuator commands.
+
+### Run the prototype locally
+
+From the repository root:
+
+```bash
+python -m pip install -e ".[dev]"
+python demo_end_to_end.py
+python -m pytest
+```
+
+See the [end-to-end simulation guide](docs/END_TO_END_SIMULATION.md), [pipeline implementation](src/coconut_harvest_robot/end_to_end.py), [demo script](demo_end_to_end.py), and [evaluation benchmark](docs/EVALUATION_BENCHMARK.md).
+
+### Current implementation vs. future validation
+
+| Area | What this repository currently supports | What is still needed |
+|---|---|---|
+| Software workflow | Prototype pipeline, configured checks, and JSON reporting | Reproducible tests across representative scenarios |
+| Vision | Neural feature-processing prototype | Labelled orchard dataset, trained/validated coconut detector, held-out metrics |
+| Harvestability | Assessment of supplied evidence and configured scores | Ground-truth maturity labels and evaluation of decision quality |
+| 3D/4D reasoning | Prototype spatial/temporal architecture | Calibrated sensors, measured localization error, validated target tracking |
+| Motion planning | Candidate trajectory/waypoint proposal | Independent collision checking, robot-kinematics and physics validation |
+| Robot execution | Documented integration path and simulation assets | Validated ROS 2/controller integration, hardware tests, risk assessment |
+| Field harvesting | Not demonstrated by the software demo | Supervised field trials and documented success, failure, and safety results |
+
+### Safety and evidence limits
+
+This is **not yet a validated autonomous harvesting robot**. The demo uses synthetic inputs and/or explicitly supplied evidence rather than proving that a trained model correctly detects and harvests coconuts in real orchards. Concept images and animations illustrate the idea; they are not experimental results. Do not connect this prototype directly to physical motors, cutters, or manipulators. Before any hardware trial, require calibrated sensors, independent collision/workspace checks, emergency-stop verification, supervised low-risk testing, and documented safety review.
+
+
+### Platform scope: AI application + embodied robotics
+
+**This platform is designed to support both an AI application and embodied AI in a robot.** These are two connected layers of one research platform:
+
+- **AI application layer (runs on a computer):** orchard-image/data processing, coconut target detection and tracking experiments, harvestability assessment, uncertainty reporting, visualization, and reviewable harvest-plan proposals.
+- **Embodied robotics layer (robot-facing architecture):** connect perception and planning to a simulated or physical agricultural robot through interfaces such as ROS 2, with localization, 3D scene understanding, reachability/collision checks, manipulation planning, and independent safety supervision.
+- **Shared pipeline:** sensor/data quality → perception and tracking → 3D/temporal world model → task planning → safety validation → operator review and audit.
+
+The software application can be developed and evaluated on a computer without robot hardware. The embodied layer is the intended robotics integration path; **do not interpret this architecture or concept artwork as proof that physical robot integration, safe manipulation, or field harvesting has been completed or validated.** Begin with synthetic/recorded data and simulation, then require measured benchmarks and independent safety validation before hardware trials.
+
+
+### Quick start
+
+Clone the renamed repository and install the project dependencies:
+
+```bash
+git clone https://github.com/Pui89/Coconut-Harvest-AI.git
+cd Coconut-Harvest-AI
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+python demo_end_to_end.py
+python -m pytest
+```
+
+The end-to-end demo and tests are intended for local development with the project's documented inputs. Start with synthetic or recorded data; do not connect the prototype directly to physical actuators or use it as the sole basis for consequential decisions.
+
+**Workflow:** sensor/data quality checks → perception and multimodal evidence → 3D/temporal scene representation → uncertainty and unknown-case handling → reviewable plan or screening proposal → audit record.
+
+**Documentation:** [End-to-end simulation guide](docs/END_TO_END_SIMULATION.md) · [Evaluation benchmark](docs/EVALUATION_BENCHMARK.md)
+
+## PUI89 AI Robotics Platform
+
+**Autonomous multimodal embodied-AI platform for orchard harvesting.**
+
+This repository is one vertical implementation of the **PUI89 AI Robotics** platform for agriculture. The common architecture is:
+
+```text
+Multimodal Sensors
+      ↓
+Quality / Health Gate
+      ↓
+Perception + Tracking
+      ↓
+3D / 4D World Model
+      ↓
+Uncertainty + OOD
+      ↓
+Foundation-Model Reasoning
+      ↓
+Task Planning
+      ↓
+Deterministic Safety Supervisor
+      ↓
+ROS 2 / Robot Control
+      ↓
+Telemetry / Evidence
+      ↓
+MLOps / Fleet Learning
+```
+
+### Product tiers
+
+- **PUI89 Research** — universities, robotics competitions, researchers
+- **PUI89 Professional** — farms, plantations, agricultural operators
+- **PUI89 Enterprise** — large corporations, governments, logistics, ports, infrastructure
+
+### Cross-environment research
+
+The same perception/world-model/uncertainty/safety interfaces are designed to transfer between agriculture, disaster response and security/inspection. Transfer must be measured with the repository benchmark; it is not assumed from architecture alone.
+
+- [Optional DINOv2 + Anomalib integration, end-to-end verification and tests](docs/OPEN_SOURCE_VISION_INTEGRATION.md)
+- [ROS 2 + Nav2 + Gazebo Sim + Open3D integration guide and environment preflight](docs/ROBOTICS_STACK_INTEGRATION.md)
+
+### Evidence standard
+
+This project separates **targets, prototypes and measured results**. Production or field-validation claims require reproducible benchmark evidence, failure testing, and documented safety validation.
+
+See:
+- [PUI89 Benchmark](docs/PUI89_BENCHMARK.md)
+- [Cross-Environment Transfer Benchmark](docs/PUI89_TRANSFER_BENCHMARK.md)
+- [Product Tiers](docs/PUI89_PRODUCT_TIERS.md)
+- [Failure and UNKNOWN Protocol](docs/PUI89_FAILURE_AND_UNKNOWN_PROTOCOL.md)
+- [MLOps Model Lifecycle](docs/PUI89_MLOPS_MODEL_LIFECYCLE.md)
+- [Research, Competition and Commercial Evidence](docs/PUI89_RESEARCH_COMPETITION_INVESTOR.md)
+- [12-Month Roadmap](docs/PUI89_12_MONTH_ROADMAP.md)
+- [Cost Safety and Billing Policy](docs/COST_SAFETY_AND_BILLING.md)
+
+## Robot concept and development status
+
+PUI89 Coconut Harvest Robot is a **simulation-first research concept** for investigating safer coconut harvesting. The proposed architecture compares a trunk-climbing platform with alternatives such as a ground-based arm. The mechanical approach is not yet validated; physical climbing and cutting must not be assumed to work.
 
 ![Coconut harvest robot concept](docs/images/coconut_harvest_robot_photo.svg)
 
-## 3D / 4D Realistic Robot Concept
+### 3D / 4D concept visualization
 
-![Realistic 3D/4D coconut harvest robot](docs/coconut_harvest_robot_3d_4d_concept.svg)
+![3D/4D coconut harvest robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
 
-A new concept render presents the autonomous orchard platform with RGB-D/LiDAR sensing, sensor mast, mobile chassis, articulated harvesting arm, coconut target tracking, and a time-aware 4D trajectory visualization.
+These repository graphics are concept visualizations, not evidence of a completed or field-tested robot. Any animation illustrates a proposed trajectory rather than measured robot performance.
 
-- **3D/4D concept:** `docs/coconut_harvest_robot_3d_4d_concept.svg`
-- **4D demo video:** `docs/coconut_harvest_robot_4d_demo.mp4`
+- [Concept design, subsystems, safety boundaries and acceptance criteria](docs/CONCEPT_DESIGN.md)
+- [Simulation-first development roadmap and release gates](docs/DEVELOPMENT_ROADMAP.md)
+- [Robot description (URDF)](robots/coconut_harvester.urdf)
+- [Simulation demos](sim/)
+- [Evaluation benchmark](docs/EVALUATION_BENCHMARK.md)
 
-The SVG contains an animated target trajectory to visualize the fourth dimension (time). The MP4 is a lightweight preview of the robot's arm tracking motion.
+### End-to-end simulation demo
 
-## Overview
+Run the safety-gated software workflow with synthetic orchard inputs:
 
-This project implements a complete autonomous harvesting pipeline:
+~~~bash
+python -m pip install -e ".[dev]"
+python demo_end_to_end.py
+python -m pytest
+~~~
 
-- **Vision system**: coconut and tree detection from RGB/depth imagery
-- **Spatial reasoning**: 3D localization and canopy geometry analysis
-- **Motion planning**: collision-free trajectory generation for robot arm
-- **Action execution**: gripper control and cutting mechanisms
-- **Real orchard support**: handles real farm imagery and LiDAR data
+**Workflow stages**
+1. **Sensor health:** evaluate sensor quality and timestamp alignment; unhealthy or unsynchronized inputs trigger a safe hold.
+2. **Perception proposal:** process RGB and depth tensors through the current prototype pipeline.
+3. **Harvestability review:** score explicitly supplied evidence for perception/localization confidence, ripeness, reachability, clearance, occlusion, and tracking stability.
+4. **Safety gate:** reject proposals without independent collision validation or when other configured safety conditions fail.
+5. **Audit report:** emit a JSON report with status, decision reasons, prototype trajectory waypoint count, and the actuator-command invariant.
+
+**Possible report status:** `SAFE_HOLD`, `BLOCKED`, or `PROPOSAL_APPROVED_NOT_EXECUTED`. An approval status means only that a software proposal passed the configured checks; it is **not** permission to operate a physical robot.
+
+- [End-to-end workflow, tests, safety gates and limitations](docs/END_TO_END_SIMULATION.md)
+- [Pipeline implementation](src/coconut_harvest_robot/end_to_end.py)
+- [Synthetic demo](demo_end_to_end.py)
+- [End-to-end tests](tests/test_end_to_end.py)
+- [CI results](https://github.com/Pui89/Coconut-Harvest-AI/actions)
+
+**Evidence and safety limits:** The demo uses generated synthetic imagery and hand-supplied evidence; these are fixtures, not measured detection or harvesting results. The trajectory planner is not independently collision-validated, and the report never sends actuator commands. Do not use this prototype to control a physical robot. Gazebo Sim/Isaac Sim physics validation, calibrated sensor evaluation, independent collision checking, and a documented safety review remain future acceptance gates.
+
+### First engineering priority
+
+1. Audit the current URDF, demo scripts, dependencies and tests.
+2. Make a reproducible palm-trunk simulation with configurable dimensions and contact assumptions.
+3. Validate robot frames, joint limits, collision geometry and safety states.
+4. Establish a held-out vision dataset and publish raw benchmark logs before reporting metrics.
+5. Only after simulation and risk review, assess a low-height, tethered, non-cutting physical rig.
+
+**Evidence policy:** clearly distinguish design targets, simulation measurements and physical measurements. Do not claim autonomous harvesting, field readiness, or safety validation without reproducible evidence.
+
+## Prototype pipeline overview
+
+This repository sketches the intended harvesting pipeline. The current implementation is a research prototype and does not provide validated autonomous harvesting or safe physical control. The end-to-end demo produces a report only; it is not evidence of real-world performance.
+
+- **Vision prototype**: neural feature extraction from RGB/depth tensors; coconut-specific detection needs dataset validation
+- **Spatial prototype**: feature fusion intended to support future 3D localization
+- **Planning prototype**: candidate waypoint generation; collision-free motion is not verified
+- **Action boundary**: no physical gripper, cutter, or motor command is issued
+- **Real orchard validation**: RGB-D/LiDAR calibration and held-out farm-data evaluation remain future work
 
 ## Pipeline overview
 
@@ -71,8 +442,7 @@ Spatial Feature Extractor
 Target Coconut (3D position + ripeness)
     |
     v
-Reachability Analysis
-  - robot workspace check
+Reachability Analysis  - robot workspace check
   - collision detection
   - approach angle planning
     |
@@ -158,8 +528,8 @@ Result Logging
 ## Installation
 
 ```bash
-git clone https://github.com/Pui89/coconut-harvest-robot.git
-cd coconut-harvest-robot
+git clone https://github.com/Pui89/Coconut-Harvest-AI.git
+cd Coconut-Harvest-AI
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -176,788 +546,128 @@ python demo.py
 ```python
 import torch
 from coconut_harvest_robot.pipeline import HarvestPipeline
-from coconut_harvest_robot.config import RobotConfig
 
-# Initialize pipeline with real orchard config
-config = RobotConfig(
-    image_size=(256, 256),
-    arm_reach_m=2.8,
-    max_height_m=14.0,
-    gripper_force_n=150,
-)
-pipeline = HarvestPipeline(config=config)
+## Open-source Harvest Planning Agent (new prototype)
 
-# Load real orchard scene
-rgb = torch.rand(1, 3, 256, 256)
-depth = torch.rand(1, 1, 256, 256)
-instruction = "harvest the ripe coconut at the top-right of the canopy"
+A small, local, deterministic decision-support agent is available at
+[`agents/harvest_planning_agent.py`](agents/harvest_planning_agent.py). It evaluates supplied coconut candidates, explains rejected targets, ranks candidates that pass configured checks, and outputs an auditable JSON proposal.
 
-# Generate harvest plan
-result = pipeline(rgb, depth, instruction)
+- [Agent setup and limitations](agents/README.md)
+- [Open-source agent development and evaluation plan](docs/OPEN_SOURCE_AGENT_GUIDE.md)
+- [Example candidate input](examples/agent_candidates.example.json)
+- [Agent tests](tests/test_harvest_planning_agent.py)
 
-print(f"Scene features: {result.scene_repr.shape}")
-print(f"Spatial analysis: {result.spatial_features.shape}")
-print(f"Action plan: {result.action_plan}")
-print(f"Robot pose: {result.harvest_pose}")
-print(f"Trajectory waypoints: {len(result.trajectory_waypoints)}")
-```
-
-## Technical Highlights
-
-### Coconut Detection
-- CNN-based detector trained on farm imagery
-- Ripeness scoring (color + texture analysis)
-- Real-time inference on embedded GPUs
-
-### Spatial Reasoning
-- Depth-to-3D point cloud conversion
-- Trunk & branch segmentation
-- Coconut localization in world frame
-- Reachability analysis for robot arm
-
-### Motion Planning
-- RRT* trajectory planner for collision-free paths
-- Inverse kinematics solver for 6-DOF arm
-- Velocity/acceleration profiling
-- Safety margin enforcement
-
-### Real Orchard Support
-- Handles RGB-D data from farm cameras
-- LiDAR point cloud integration
-- Multi-tree orchard scenes
-- Seasonal and environmental variation
-
-## Key Features
-
-✓ Vision-based detection and ripeness scoring  
-✓ 3D spatial reasoning and geometric analysis  
-✓ Collision-free motion planning  
-✓ Real orchard imagery support  
-✓ Production-ready trajectory execution  
-✓ Clean object-oriented PyTorch code  
-✓ Extensive test coverage  
-
-## Real Orchard Data
-
-The system is designed to work with:
-- RGB-D camera feeds (Intel RealSense, Azure Kinect)
-- LiDAR point clouds
-- Multi-spectral imagery for ripeness detection
-- Farm GPS and seasonal metadata
-
-See `docs/ORCHARD_DATA.md` for data format specification.
-
-## Future Extensions
-
-- Real-time on-device inference for edge robots
-- Multi-arm coordination for parallel harvesting
-- Autonomous farm navigation and path planning
-- Reinforcement learning for adaptive strategies
-- Integration with ROS for industrial robot control
-
-## News
-
-Project updates, architecture changes, new model integrations, simulation assets, evaluation milestones, and safety-related changes are recorded in Git history and repository documentation. New capabilities are labeled according to implementation status rather than presented as validated results.
-
-## Online API
-
-**Status: Prototype / planned interface**
-
-A future HTTP API can expose perception, 3D localization, harvest planning, and safety-gated decision services.
-
-Example request:
-
-    {
-      "request_id": "example-001",
-      "modalities": ["rgb", "depth", "lidar"],
-      "mode": "harvest_planning",
-      "target_id": "coconut-01"
-    }
-
-Example response:
-
-    {
-      "request_id": "example-001",
-      "decision": "HUMAN_REVIEW",
-      "target_id": "coconut-01",
-      "confidence": 0.0,
-      "uncertainty": 0.0,
-      "safety_gate": "NOT_EXECUTED",
-      "evidence_provenance": {}
-    }
-
-These values are interface examples only, not measured performance. Any future API must keep model reasoning separate from actuator control and enforce deterministic safety validation.
-
-## Online App
-
-**Status: Prototype / planned**
-
-The planned web application can provide:
-
-- live RGB/RGB-D/LiDAR sensor status
-- synchronized orchard and robot views
-- 3D target localization
-- 4D target trajectory visualization
-- harvest-plan inspection
-- uncertainty and sensor-health indicators
-- robot telemetry
-- safety-gate state and emergency-stop status
-- human approval/review workflow
-- audit history and evidence provenance
-
-The online interface is intended for monitoring and authorized human oversight. It must not provide unrestricted AI-to-motor control.
-
-## System Overview
-
-    RGB / RGB-D / LiDAR / Multispectral
-                    |
-                    v
-          Sensor Synchronization
-                    |
-                    v
-            Quality / Health Gate
-                    |
-                    v
-     Detection + Segmentation + Tracking
-                    |
-                    v
-           3D Spatial World Model
-                    |
-                    v
-          Target / Ripeness Screening
-                    |
-                    v
-           Multimodal Reasoning
-                    |
-                    v
-          Uncertainty / OOD Checks
-                    |
-                    v
-           Harvest Plan Proposal
-                    |
-                    v
-            HUMAN REVIEW / POLICY
-                    |
-                    v
-           Deterministic Safety Gate
-                    |
-                    v
-           ROS 2 / MoveIt 2 Control
-                    |
-                    v
-           Robot + End Effector
-
-The architecture separates perception and multimodal reasoning from deterministic robot control. Foundation models may propose high-level actions, but they do not bypass collision, workspace, joint-limit, force/torque, exclusion-zone, velocity, or emergency-stop constraints.
-
-## Model Variants and Input Specifications
-
-| Variant | Inputs | Primary role | Status |
-|---|---|---|---|
-| RGB | RGB image | Coconut/tree perception | Prototype |
-| RGB-D | RGB + depth | 3D localization and geometry | Prototype |
-| LiDAR | Point cloud | Mapping and obstacle geometry | Prototype |
-| Multispectral | Multispectral image | Complementary crop/ripeness evidence | Planned |
-| Multimodal | RGB-D + LiDAR + optional multispectral | Evidence fusion | Prototype |
-| Temporal / 4D | Sequential multimodal observations | Target tracking and motion state | Prototype |
-| Open-set / anomaly | Multimodal features | Unknown or degraded-scene handling | Planned |
-| Gemma 4 31B IT | Image + text/evidence metadata | High-level multimodal reasoning | Prototype |
-| VLA candidates | Vision/state/action context | Future embodied-action research | Planned |
-
-Actual camera resolution, depth range, LiDAR density, field of view, frame rate, calibration, synchronization, and preprocessing depend on deployed hardware. Configuration and sensor provenance should be recorded with every evaluation.
-
-## YOLO26 Perception Integration
-
-The coconut-harvest perception stack now includes **Ultralytics YOLO26** as an optional fast visual proposal layer. The official Hugging Face model repository provides YOLO26 checkpoints such as `yolo26n.pt`; YOLO26 supports detection and related vision tasks through the Ultralytics runtime. citeturn0search0turn0search2
-
-**Integration role**
-
-- Detect candidate coconuts and relevant orchard objects from RGB imagery.
-- Provide bounding boxes and confidence scores to the downstream 3D/spatial pipeline.
-- Combine RGB detections with depth/LiDAR for 3D localization.
-- Feed candidate evidence to segmentation, tracking, ripeness screening, and multimodal reasoning.
-- Preserve uncertainty when detections are weak, contradictory, or outside the trained domain.
-- YOLO26 does **not** directly control the arm, cutter, gripper, mobile base, or other actuators.
-
-**Runtime**
+Run from the repository root with Python 3.10+:
 
 ```bash
-python -m pip install ultralytics huggingface-hub
+python agents/harvest_planning_agent.py
+python agents/harvest_planning_agent.py --input examples/agent_candidates.example.json --output agent_report.json
 ```
 
-Example:
+The baseline uses only Python's standard library; no paid API, hosted inference endpoint, or model download is required. The example inputs are synthetic. The agent does not detect coconuts itself, validate real robot reachability, perform independent collision checking, or control hardware. Its output is for simulation review only; physical robot execution is not authorized.
 
-```python
-from coconut_harvest_robot.yolo26 import YOLO26Detector
 
-detector = YOLO26Detector(
-    weights="yolo26n.pt",
-    confidence=0.35,
-    imgsz=640,
-)
+## Free Windows Laptop Quick Start
 
-detections = detector.predict(rgb_image)
+To try the rule-based planning agent without installing extra Python packages or downloading an AI model:
 
-for item in detections:
-    print(item.class_name, item.confidence, item.xyxy)
+1. Download the repository ZIP using **Code → Download ZIP**, then extract it.
+2. Open the extracted repository folder.
+3. Double-click `run_free_agent.bat`.
+
+The launcher checks your Python version and reports optional packages without installing anything. Alternatively, run `python scripts\\check_local_agent_environment.py` and then `python agents\\harvest_planning_agent.py` from Command Prompt.
+
+See [Free Windows Setup](docs/FREE_WINDOWS_SETUP.md). This starter run uses synthetic candidate data and is not a real camera, trained detector, or physical robot test.
+
+
+---
+
+## Real Coconut Image Review — Free Local Workflow
+
+The repository now includes a **manual real-image review workflow** using openly referenced coconut photographs. It prepares a local image sample and CSV annotation sheet without installing packages or downloading an AI model.
+
+**[Read the real-image workflow guide](docs/REAL_IMAGE_TEST_WORKFLOW.md)**
+
+From the repository root on Windows, run:
+
+```bat
+python scripts/prepare_real_image_review.py --download
 ```
 
-The adapter downloads the selected checkpoint from the official `Ultralytics/YOLO26` Hugging Face repository and keeps model weights out of this Git repository. The default `yolo26n.pt` checkpoint is intended as a lightweight starting point; model size should be selected according to the edge/robot compute budget. citeturn0view0
+The script downloads two reference photographs from Wikimedia Commons on demand and creates a local review CSV plus source/licence notes. It does not upload images or annotations to GitHub.
 
-**Important licensing note:** the YOLO26 Hugging Face model card currently lists an **AGPL-3.0** license. Review Ultralytics licensing requirements before redistributing or deploying this integration in a proprietary/commercial system; an appropriate commercial license may be required. citeturn0view0
+**Important status distinction:** this is a real-image *manual review* workflow, not automatic coconut detection. The current rule-based agent does not analyse image pixels; it consumes candidate fields supplied by another component or a person. A normal RGB photo does not establish calibrated 3D position or robot reachability. No detector accuracy, depth accuracy, or robot safety performance is claimed.
 
-**Perception flow**
+---
 
-```text
-RGB Camera
-    |
-    v
-YOLO26 Detection
-    |
-    +----> Candidate Coconut / Orchard Objects
-    |
-    v
-Depth + LiDAR Association
-    |
-    v
-3D Localization + Tracking
-    |
-    v
-Segmentation / Ripeness / Multimodal Reasoning
-    |
-    v
-Reachability + Collision Validation
-    |
-    v
-Deterministic Safety Gate
-    |
-    v
-Authorized Robot Control
-```
+## Example: How a Coconut Harvesting AI Robot Could Help Replace High-Risk Climbing Work
 
-YOLO26 is therefore integrated as **perception evidence**, not as an autonomous harvesting authority. Its pretrained COCO checkpoints are not claimed to be coconut-specific; orchard performance requires validation and, where appropriate, fine-tuning on representative coconut/orchard data. citeturn0search1
+The concept below shows one possible **AI-assisted coconut harvesting workflow**. The aim is to reduce the need for a worker to climb a tall palm to inspect and harvest coconuts. A robot would observe the canopy from a suitable platform, propose a target, check whether a tool can reach it safely, and ask a human operator to approve the task. The robot design and method must be validated before this could be used in a real plantation.
 
-## YOLO26 Models & Training
+![Illustrated coconut harvesting AI robot workflow showing sensing, target assessment, safety checks and human supervision](docs/images/coconut_harvest_robot_workflow_concept.svg)
 
-The repository uses **Ultralytics YOLO26** as the fast RGB perception family. The official YOLO26 release supports detection, instance segmentation, semantic segmentation, monocular depth, classification, pose estimation, and oriented bounding boxes, with training, validation, inference, and export workflows. citeturn0search0turn0search1
+*Illustration is a concept visualization, not a photograph of a built robot or evidence of a successful harvest.*
 
-| Model | Filenames | Task | Training | Validation | Inference | Export |
-|---|---|---|---|---|---|---|
-| YOLO26 | `yolo26n.pt` · `yolo26s.pt` · `yolo26m.pt` · `yolo26l.pt` · `yolo26x.pt` | Detection | ✅ | ✅ | ✅ | ✅ |
-| YOLO26-seg | `yolo26n-seg.pt` … `yolo26x-seg.pt` | Instance Segmentation | ✅ | ✅ | ✅ | ✅ |
-| YOLO26-sem | `yolo26n-sem.pt` … `yolo26x-sem.pt` | Semantic Segmentation | ✅ | ✅ | ✅ | ✅ |
-| YOLO26-depth | `yolo26n-depth.pt` … `yolo26x-depth.pt` | Depth Estimation | ✅ | ✅ | ✅ | ✅ |
-| YOLO26-cls | `yolo26n-cls.pt` … `yolo26x-cls.pt` | Classification | ✅ | ✅ | ✅ | ✅ |
-| YOLO26-pose | `yolo26n-pose.pt` … `yolo26x-pose.pt` | Pose / Keypoints | ✅ | ✅ | ✅ | ✅ |
-| YOLO26-obb | `yolo26n-obb.pt` … `yolo26x-obb.pt` | Oriented Detection | ✅ | ✅ | ✅ | ✅ |
+### Example task: from tree to collected coconut
 
-The `n/s/m/l/x` variants provide a compute/accuracy trade-off. For this robot, **YOLO26n or YOLO26s** is a practical starting point for edge inference; larger variants should be selected only after measuring orchard latency and accuracy on target hardware. citeturn0search0
+1. **Observe the tree:** a camera and, if available, a calibrated depth sensor capture the tree and coconut cluster. The system checks whether the data are usable.
+2. **Propose a target:** a vision model could identify candidate coconuts and estimate their positions. It must report uncertainty and leave unclear or occluded fruit for human review.
+3. **Check reach and risk:** a planner could propose a tool approach. Independent checks must verify reachability, collisions, branches, people in the work zone, and safe tool operation. If checks fail or data are missing, the robot must hold position and request help.
+4. **Human authorization:** a trained operator reviews the proposed target and plan, and can stop the task at any time. Remote supervision is not a substitute for physical safety controls.
+5. **Harvest and verify (future capability):** only after mechanical design, guarded tooling, safety interlocks, and controlled tests are validated could an approved controller perform a cut or grasp. Sensors would then check whether the coconut was actually collected; uncertain outcomes would be reported rather than guessed.
 
-### Coconut Detection Training
+### What is working now, and what is not
 
-The pretrained checkpoints are general-purpose starting points and should not be presented as coconut-specific performance. Fine-tune on representative orchard data.
+| Capability | Current evidence in this repository |
+|---|---|
+| AI application / decision-support prototype | Code and demo workflows exist; the demo uses supplied or synthetic evidence and does not itself prove accurate coconut detection from uploaded photographs. |
+| Harvest plan proposal and audit report | Prototype software can produce reviewable proposals and reports; these are not commands to physical actuators. |
+| Robot concept illustration and model assets | Design concepts and simulation-related files are included. |
+| Reliable detection of real coconuts, ripeness, and 3D position | **Not yet established.** Requires representative labelled orchard data, calibrated sensors, and measured validation. |
+| Robot physically climbing or reaching a palm, cutting/grasping fruit, and collecting it | **Not demonstrated.** Requires a validated mechanical system, controlled simulation, hardware tests, and risk assessment. |
+| Replacing a worker entirely | **Not a current capability or claim.** The intended benefit is to reduce hazardous climbing and support a human-supervised harvesting workflow. |
 
-```yaml
-path: data/coconut_yolo26
-train: images/train
-val: images/val
+### Free, simulation-first development plan
 
-names:
-  0: coconut
-  1: coconut_tree
-  2: ripe_coconut
-  3: unripe_coconut
-```
+1. Run the existing local software demo and tests.
+2. Create a repeatable simulated palm, robot reach envelope, and guarded tool model; validate the geometry and joint limits.
+3. Test target-location error, reachability, collision rejection, safe-stop behavior, and task completion in simulation. Record results and failures instead of inventing performance numbers.
+4. Only after documented simulation and safety gates pass, consider low-height, tethered, non-cutting hardware trials under supervision.
 
-Train YOLO26n:
+**Safety boundary:** this repository is a research prototype, not a field-ready harvesting robot. Do not connect its current prototype directly to motors, cutters, or manipulators, and do not use it as the sole basis for a real harvest. A human operator, independent safety system, emergency stop, exclusion zone, and documented risk assessment remain necessary for any future physical trial.
+
+
+
+---
+
+
+## Local-first AI application and simulated agricultural robot
+
+The current repository includes an optional local detector adapter, RGB-D camera-frame localization, a simple IoU tracking baseline, and a deterministic simulation-only harvesting workflow. The workflow accepts supplied candidate evidence, applies conservative preflight gates, produces an auditable JSON report, and simulates approach/tool/retract steps. It never sends physical actuator commands.
+
+- [End-to-end workflow guide](docs/END_TO_END_ROBOT_WORKFLOW.md)
+- [Application usage and local detector setup](apps/pui89_app/README.md)
+- [Simulation example input](examples/end_to_end_robot_workflow.example.json)
+- [Run the simulation](apps/pui89_app/run_robot_workflow.py)
+
+From the repository root, run:
 
 ```bash
-yolo detect train model=yolo26n.pt data=data/coconut_yolo26.yaml epochs=100 imgsz=640 batch=16
+python -m apps.pui89_app.run_robot_workflow --input examples/end_to_end_robot_workflow.example.json
 ```
 
-Or from Python:
+The example is synthetic evidence for software testing, not a measured field result. Local image inference requires a detector model that you supply and trust; no model weights are bundled or downloaded automatically. The RGB-D estimate is in the camera frame until calibrated transforms are validated. This remains a research prototype, not a physically validated harvesting robot.
 
-```python
-from ultralytics import YOLO
 
-model = YOLO("yolo26n.pt")
-results = model.train(
-    data="data/coconut_yolo26.yaml",
-    epochs=100,
-    imgsz=640,
-    batch=16,
-)
-```
+### End-to-end workflow smoke test (synthetic data)
 
-Ultralytics supports loading pretrained YOLO26 checkpoints and fine-tuning them with a custom dataset. citeturn0search1
-
-### Validation
+The following command connects a labelled synthetic proposal to the simulation-only task workflow. It is useful for testing the software path, not for measuring real detection or harvesting performance:
 
 ```bash
-yolo detect val model=runs/detect/train/weights/best.pt data=data/coconut_yolo26.yaml imgsz=640
+python -m apps.pui89_app.vision_to_workflow --proposal examples/coconut_robot_proposal.synthetic.example.json --evidence examples/coconut_robot_evidence.synthetic.example.json --human-approved --output coconut_simulated_workflow_report.json
 ```
 
-Record mAP50, mAP50-95, precision, recall, per-class metrics, false positives/negatives, inference latency, and compute/memory configuration. Evaluate daylight, shade, occlusion, distance, small/partially visible coconuts, and difficult canopy scenes separately.
+The example uses a synthetic identity transform and synthetic robot evidence. **Do not reuse these values for a physical robot.** The workflow never sends actuator commands.
 
-### Inference
-
-```bash
-yolo detect predict model=runs/detect/train/weights/best.pt source=data/sample_orchard_scenes imgsz=640
-```
-
-For the YOLO26 end-to-end one-to-one inference head:
-
-```bash
-yolo detect predict model=runs/detect/train/weights/best.pt source=data/sample_orchard_scenes nms=False
-```
-
-The default one-to-many head is generally used for accuracy-oriented prediction/validation; `nms=False` selects the NMS-free one-to-one head. citeturn0search0
-
-### Export
-
-ONNX:
-```bash
-yolo export model=runs/detect/train/weights/best.pt format=onnx
-```
-
-TensorRT:
-```bash
-yolo export model=runs/detect/train/weights/best.pt format=engine
-```
-
-Other official export targets include TorchScript, OpenVINO, NCNN, CoreML and additional edge/accelerator formats. citeturn0search2turn0search4
-
-### Coconut-Robot Integration
-
-```text
-RGB Camera
-    |
-    v
-YOLO26 Detection
-    |
-    +--> coconut / tree candidates
-    |
-    v
-Depth + LiDAR Association
-    |
-    v
-3D Localization
-    |
-    v
-Tracking + Ripeness Evidence
-    |
-    v
-Harvest Plan Proposal
-    |
-    v
-Reachability + Collision Checks
-    |
-    v
-Deterministic Safety Gate
-    |
-    v
-Authorized ROS 2 / MoveIt 2 Control
-```
-
-YOLO26 remains a **perception component**. Detection confidence must not be interpreted as harvest authorization, and the model must never directly command motors, cutters, or the harvesting arm.
-
-## Model Architecture
-
-The model stack is organized into six layers:
-
-1. **Perception** — detection, segmentation, tracking, and sensor quality checks.
-2. **Spatial intelligence** — depth-to-3D projection, point-cloud processing, canopy geometry, and world-frame localization.
-3. **Temporal intelligence** — target-state estimation and 4D trajectory representation.
-4. **Multimodal reasoning** — Gemma 4 31B IT and other approved models summarize evidence and propose high-level plans.
-5. **Planning** — reachability, inverse kinematics, collision-aware trajectory generation, and task sequencing.
-6. **Safety/control** — deterministic validation followed by ROS 2 / MoveIt 2 execution.
-
-    Sensors
-      -> Perception
-      -> 3D/4D World Model
-      -> Multimodal Reasoning
-      -> Plan Proposal
-      -> Deterministic Safety Gate
-      -> Robot Control
-
-No foundation model is trusted as the final authority for physical actuation.
-
-## Recommended Workflow
-
-1. Calibrate RGB, depth, LiDAR, and optional multispectral sensors.
-2. Verify timestamp synchronization and sensor health.
-3. Acquire orchard observations and validate data quality.
-4. Detect and track candidate coconuts and relevant tree geometry.
-5. Fuse depth/LiDAR evidence into a 3D world representation.
-6. Track target state over time for the 4D layer.
-7. Generate a harvest-plan proposal using deterministic planners and approved AI reasoning.
-8. Check uncertainty, missing modalities, reachability, collision risk, and safety constraints.
-9. Require human review where the deployment policy requires approval.
-10. Pass the approved candidate action through the deterministic safety gate.
-11. Execute through ROS 2 / MoveIt 2 or the validated robot interface.
-12. Verify the outcome and record provenance, telemetry, failures, and recovery actions.
-
-## Local Deployment
-
-**Status: Local development / prototype deployment.** Physical harvesting must remain behind deterministic safety controls and an authorized robot-control interface.
-
-### Requirements
-
-- Python 3.x
-- Git
-- PyTorch and project dependencies
-- ROS 2 / MoveIt 2 for physical robot integration
-- Compatible RGB/RGB-D/LiDAR and optional multispectral hardware
-- Optional NVIDIA GPU for accelerated inference
-- Optional Isaac Sim, Isaac Lab, or Gazebo for simulation
-
-### Clone and Install
-
-```bash
-git clone https://github.com/Pui89/coconut-harvest-robot.git
-cd coconut-harvest-robot
-
-python -m venv .venv
-source .venv/bin/activate
-# Windows PowerShell:
-# .venv\Scripts\Activate.ps1
-
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
-
-For editable development when supported by the repository packaging:
-
-```bash
-python -m pip install -e .
-```
-
-### Validate the Environment
-
-```bash
-python --version
-python -m pip check
-pytest -q
-```
-
-Run the local demonstration:
-
-```bash
-python demo.py
-```
-
-Start with recorded orchard data or simulation before connecting physical actuators.
-
-### Recommended Deployment Sequence
-
-```text
-Recorded / Simulated Orchard Data
-        |
-Environment + Dependency Validation
-        |
-Sensor Calibration + Time Synchronization
-        |
-Perception + Coconut Tracking
-        |
-3D Spatial World Model
-        |
-4D Target-State Tracking
-        |
-Multimodal Evidence + Reasoning
-        |
-Harvest Plan Proposal
-        |
-Uncertainty / Reachability / Collision Checks
-        |
-Human Review / Mission Policy
-        |
-Deterministic Safety Gate
-        |
-ROS 2 / MoveIt 2
-        |
-Authorized Robot Interface
-        |
-Harvest Action + Outcome Verification
-        |
-Provenance / Telemetry / Audit Log
-```
-
-### Sensor Deployment Checklist
-
-Record, at minimum:
-
-- sensor model and configuration
-- RGB/depth/multispectral resolution and frame rate
-- LiDAR range/density/FOV where applicable
-- intrinsic and extrinsic calibration
-- timestamp synchronization method
-- preprocessing and model versions
-- sensor-health and missing-modality state
-- robot pose/configuration and workspace limits
-- target/evidence provenance
-- reviewer decision and execution outcome
-
-If a sensor is degraded, missing, or contradictory, preserve uncertainty and avoid forcing a harvest decision.
-
-### ROS 2 / Robotics Integration Boundary
-
-```text
-Sensors -> Perception -> 3D/4D World Model -> Reasoning
-                                                   |
-                                                   v
-                                             Human Review
-                                                   |
-Depth + LiDAR + IMU -> SLAM -> Planner -> Safety Gate -> ROS 2
-```
-
-Foundation, generative, and action models must not directly command motors, cutters, manipulators, or other actuators. Deterministic collision/workspace checks, joint limits, force/torque limits, human-exclusion zones, velocity constraints, and emergency-stop behavior remain authoritative.
-
-### Troubleshooting
-
-- **Install failure:** verify Python version, `requirements.txt`, and optional package/driver compatibility.
-- **Tests fail:** fix the local software environment before physical deployment.
-- **Camera/depth issues:** verify device permissions, drivers, calibration, and timestamp synchronization.
-- **LiDAR issues:** verify point-cloud frame, extrinsics, range configuration, and sensor health.
-- **ROS 2 unavailable:** use recorded data or simulation until the robotics stack is validated.
-- **Low confidence or modality disagreement:** retain uncertainty and require review rather than forcing execution.
-
-### Development Principle
-
-Validate **simulation/recorded data → perception → spatial reasoning → uncertainty → planning → safety** before connecting hardware incrementally. No foundation-model output may bypass the deterministic safety layer or directly actuate the harvesting robot.
-
-## Full 2K-Workflow
-
-**2K** refers to a target high-resolution visual workflow; it does not guarantee that every deployment uses a 2K camera.
-
-    2K RGB Acquisition
-            |
-            v
-    Quality Check + Synchronization
-            |
-            v
-    Resize / Crop / Preprocessing
-            |
-            v
-    Coconut + Tree Detection
-            |
-            v
-    Segmentation + Tracking
-            |
-            v
-    Depth / LiDAR Alignment
-            |
-            v
-    3D Spatial Fusion
-            |
-            v
-    4D Target-State Tracking
-            |
-            v
-    Multimodal Reasoning
-            |
-            v
-    Uncertainty / OOD Check
-            |
-            v
-    Harvest Plan
-            |
-            v
-    Deterministic Safety Gate
-            |
-            v
-    Human Review / Authorized Execution
-            |
-            v
-    Verify + Log + Audit
-
-Actual resolution and throughput depend on the camera, GPU/CPU, memory, preprocessing, model size, and deployment configuration. Do not infer real-time performance from the 2K workflow description alone.
-
-## Prompting Guidance
-
-Foundation models should operate as evidence-grounded reasoning assistants, not as unrestricted robot controllers.
-
-Recommended prompt structure:
-
-    ROLE:
-    You are an orchard-robot evidence and planning assistant.
-
-    INPUT:
-    Use only the supplied RGB/RGB-D/LiDAR observations,
-    robot state, target metadata, and safety constraints.
-
-    TASK:
-    1. Summarize observable evidence.
-    2. Identify target candidates and missing/degraded modalities.
-    3. Report contradictions and uncertainty.
-    4. Propose a high-level harvest plan.
-    5. Preserve UNKNOWN when evidence is insufficient.
-    6. Recommend HUMAN_REVIEW when required.
-
-    CONSTRAINTS:
-    - Do not invent sensor observations.
-    - Do not claim certainty beyond the evidence.
-    - Do not bypass deterministic safety checks.
-    - Do not issue unrestricted motor commands.
-    - Do not execute an action without the validated control layer.
-
-Gemma 4 31B IT and other foundation models remain subordinate to deterministic safety controls and the authorized robot-control policy.
-
-## License
-
-This project is released under the **MIT License**. See [LICENSE](LICENSE) for the full license text.
-
-Third-party models, datasets, simulators, SDKs, and pretrained checkpoints may have separate licenses and usage conditions.
-
-## Contact Us
-
-**GitHub:** [Pui89](https://github.com/Pui89)
-
-For technical questions, collaboration, bug reports, or feature requests, use the repository **Issues** and **Discussions** where available.
-
-**Repository:** https://github.com/Pui89/coconut-harvest-robot
-## Citation
-
-If you use this project in your research, please cite:
-
-```bibtex
-@software{coconut_harvest_2024,
-  title={Coconut Harvest Robot: Vision-Based Autonomous Agricultural Robotics},
-  author={Your Name},
-  year={2024},
-  url={https://github.com/Pui89/coconut-harvest-robot}
-}
-```
-
-## License
-
-MIT
-
-## Contributing
-
-Contributions are welcome! Please see `CONTRIBUTING.md` for guidelines.
-
-## Contact
-
-For questions or collaboration, open an issue or contact us via GitHub.
-
-
-## Embodied AI Stack
-
-The next-generation architecture is documented in [`docs/AI_STACK.md`](docs/AI_STACK.md). It combines fast YOLO perception, SAM 3 segmentation/tracking, Qwen3-VL scene reasoning, RGB-D/LiDAR 3D world modeling, VLA candidates (GR00T, SmolVLA, OpenVLA, pi0 family), ROS 2/Nav2, MoveIt 2/OMPL, and Isaac Sim/Isaac Lab.
-
-### Safety-first control
-
-Large vision-language and action models never connect directly to motor drivers. Proposed actions pass through deterministic workspace, collision, exclusion-zone, confidence, velocity and emergency-stop checks before execution.
-
-### AI roadmap
-
-See [`docs/ROADMAP_AI.md`](docs/ROADMAP_AI.md) for the perception → 3D world model → VLM → VLA → planning → anomaly recovery → digital twin → real-robot roadmap.
-
-Reference configurations live in [`config/ai_stack.yaml`](config/ai_stack.yaml) and [`config/safety.yaml`](config/safety.yaml).
-
-
-## Advanced Generative + Action Models
-
-The current embodied-AI roadmap also integrates:
-- **LTX-2.5-Diffusers** for offline orchard video/audio simulation and rare-event dataset generation.
-- **MiniMax H3 Turbo LoRA** for offline audio-visual scenario augmentation and difficult/failure cases.
-- **NVIDIA GR00T N1.7 3B** as an embodied action-policy candidate for skill transfer and imitation learning.
-- **FLUX 3 Action Base** as an embodiment-adaptation/world-action base for camera/state-conditioned action prediction and future video prediction.
-
-These models are proposal/simulation layers only. They never directly command motors. Candidate actions pass through deterministic workspace, collision, human-exclusion, joint-limit, velocity, force/torque, confidence and emergency-stop checks. See `docs/ADVANCED_MODEL_INTEGRATION.md` and `config/advanced_models.yaml`.
-
-
-## Generated Robot Model
-
-A concrete simulation robot model is included in `robots/coconut_harvester.urdf`. The generated platform combines a mobile orchard base, vertical lift mast, 6-DOF harvesting arm, adaptive harvest tool, servo-driven cutter, and a multi-modal sensing/control configuration.
-
-- Robot URDF: `robots/coconut_harvester.urdf`
-- Robot configuration: `config/robot.yaml`
-- Design and simulation notes: `docs/ROBOT_DESIGN.md`
-
-The model is intended for Isaac Sim, Gazebo/ROS 2 and kinematic prototyping. It is a reference simulation asset, not a certified mechanical design. Foundation models remain advisory and candidate actions must pass the deterministic safety gate before execution.
-
-
-## 3D Robot + Working Video Demo
-
-The repository now includes a reproducible 3D demonstration pipeline for the concrete coconut harvester:
-- sim/coconut_harvester_demo.py generates the 3D scene and animated MP4.
-- docs/VIDEO_3D_DEMO.md documents the demo.
-- GitHub Actions workflow Build 3D Coconut Robot Demo renders the GLB and MP4 as downloadable workflow artifacts.
-
-The animation demonstrates **drive → scan → approach → cut → verify → retract** in a 3D orchard scene. For physics-backed movement, the same robot is represented by robots/coconut_harvester.urdf for Isaac Sim/Gazebo/ROS 2 integration.
-
-
-
-
-## AI Architecture + Autonomous Workflow
-
-### Gemma 4 31B IT embodied-AI architecture
-
-![Embodied AI architecture](docs/AI_ARCHITECTURE_GEMMA4.svg)
-
-The architecture separates multimodal reasoning from real-time deterministic control. Gemma 4 31B IT proposes high-level decisions; a safety gate validates every candidate action before ROS 2 / MoveIt 2 and hardware execution.
-
-- Architecture: [docs/AI_ARCHITECTURE_GEMMA4.md](docs/AI_ARCHITECTURE_GEMMA4.md)
-- Architecture diagram: [docs/AI_ARCHITECTURE_GEMMA4.svg](docs/AI_ARCHITECTURE_GEMMA4.svg)
-
-### Autonomous harvest workflow
-
-![Autonomous harvesting workflow](docs/AUTONOMOUS_HARVEST_WORKFLOW.svg)
-
-The end-to-end loop is **scan → detect → 3D localize → reason → plan → safety gate → approach → cut/grasp → verify → retract**. The 4D layer tracks target state over time and can trigger replanning or safe retreat.
-
-- Workflow: [docs/AUTONOMOUS_HARVEST_WORKFLOW.md](docs/AUTONOMOUS_HARVEST_WORKFLOW.md)
-- Workflow diagram: [docs/AUTONOMOUS_HARVEST_WORKFLOW.svg](docs/AUTONOMOUS_HARVEST_WORKFLOW.svg)
-
-## Gemma 4 31B IT Multimodal Reasoning
-
-The project supports **Google Gemma 4 31B IT** (`google/gemma-4-31B-it`) as the default high-level multimodal reasoning model. The model accepts image + text inputs and can be run with Hugging Face Transformers or a vLLM OpenAI-compatible server.
-
-- Model: https://huggingface.co/google/gemma-4-31B-it
-- Runtime adapter: `src/coconut_harvest_robot/gemma4.py`
-- Configuration: `config/ai_stack.yaml`, `config/reasoning.yaml`
-- Advanced model registry: `config/advanced_models.yaml`
-
-Example local usage:
-
-```python
-from coconut_harvest_robot.gemma4 import Gemma4Reasoner
-
-reasoner = Gemma4Reasoner()
-decision = reasoner.structured_decision(
-    {"targets": [{"id": "coconut-01", "ripeness": "candidate"}]}
-)
-print(decision)
-```
-
-The Gemma model is advisory only. It does not directly control motors, cutters, or the arm. All proposed decisions remain subject to target verification, collision/workspace checks, joint and force limits, human-exclusion checks, and the emergency-stop path. Gemma 4 31B IT is a large model; its Hugging Face repository is about 62.6 GB, so model weights are intentionally not stored in this Git repository.
-
-
-## Professional Autonomous Robotics Upgrade
-
-The platform now includes a deterministic engineering layer around the existing YOLO26 and Gemma 4 31B IT components:
-
-- sensor-health and timestamp-synchronization assessment
-- conservative harvestability scoring with explicit abstention states
-- deterministic safety-gate API for candidate actions
-- 3D/4D target-state primitives
-- machine-readable harvest-target and safety-action schemas
-- evaluation benchmark and digital-twin guidance
-- operator oversight requirements
-- Dependabot, CODEOWNERS, CI testing and CodeQL security workflow
-- clearer separation between AI proposal, deterministic validation and actuator control
-
-### Production architecture
-
-Sensors → Sensor Health → YOLO26/Segmentation/Tracking → 3D/4D World Model → Harvestability → Gemma Reasoning → Planning → Human/Policy Review → Deterministic Safety Gate → ROS 2/MoveIt 2 → Validated Controller → Harvest Verification → Audit
-
-The repository deliberately does not claim certified autonomous physical harvesting, field-success rates, or real-time performance without representative hardware and dataset measurements.
-
-See:
-- docs/PROFESSIONAL_ROBOT_ARCHITECTURE.md
-- docs/HARVESTABILITY.md
-- docs/SAFETY_CONTROL_BOUNDARY.md
-- docs/EVALUATION_BENCHMARK.md
-- docs/DIGITAL_TWIN.md
-- docs/OPERATOR_CONSOLE.md
-- docs/RELEASE_SECURITY.md
+- [Visual workflow overview](docs/images/coconut-harvest-ai-overview.svg)
+- [Competitive positioning and buyer validation checklist](docs/BUYER_VALUE_AND_COMPETITIVE_POSITIONING.md)

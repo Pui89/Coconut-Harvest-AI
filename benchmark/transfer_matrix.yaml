@@ -1,0 +1,12 @@
+benchmark: pui89_cross_environment_transfer
+source_domains: [agriculture, disaster_response, security_inspection]
+target_domains: [agriculture, disaster_response, security_inspection]
+protocol:
+  - freeze_source_training
+  - evaluate_held_out_target
+  - record_hardware_and_sensor_configuration
+  - inject_ood_and_sensor_failures
+  - measure_accuracy_uncertainty_abstention_and_safety
+  - compare_domain_specific_baseline
+  - publish_failure_cases
+safety_rule: transfer_performance_does_not_transfer_actuator_authority

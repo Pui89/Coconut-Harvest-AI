@@ -1,7 +1,7 @@
 """Optional local Gemma 4 31B IT multimodal inference adapter.
 
-The model is large (~62.6 GB in the Hugging Face repository), so weights are
-downloaded at runtime and are never committed to this repository.
+The model is large (~62.6 GB in the upstream repository). It uses cached local
+weights by default; network downloads require explicit opt-in.
 
 This adapter is for perception/reasoning only. Its output must still pass the
 deterministic planner and safety gate before any robot action.
@@ -10,6 +10,7 @@ deterministic planner and safety gate before any robot action.
 from __future__ import annotations
 
 import json
+import os
 from typing import Any, Dict, Optional
 
 
@@ -33,10 +34,17 @@ class Gemma4Reasoner:
 
         self.model_id = model_id
         self.max_new_tokens = max_new_tokens
-        self.processor = AutoProcessor.from_pretrained(model_id)
+        # Offline/cache-only by default. Opt in only after reviewing download size,
+        # network usage, hardware requirements, and model license.
+        allow_download = os.getenv("PUI89_ALLOW_MODEL_DOWNLOAD", "").strip().lower() in {
+            "1", "true", "yes"
+        }
+        load_options = {"local_files_only": not allow_download}
+        self.processor = AutoProcessor.from_pretrained(model_id, **load_options)
         self.model = AutoModelForMultimodalLM.from_pretrained(
             model_id,
             device_map=device_map,
+            **load_options,
         )
 
     def reason(self, prompt: str, image: Optional[Any] = None) -> str:
