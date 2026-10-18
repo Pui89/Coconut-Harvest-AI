@@ -21,7 +21,7 @@ This table is the current evidence-based status, not a claim that the full robot
 - The repository contains separable application and robot-workflow components, automated tests, synthetic fixtures and audit-oriented reporting.
 - Fail-closed decision gates are intended to reject missing or invalid evidence instead of treating it as a safe target.
 - Free-first dataset preparation and offline annotation tools are in the repository; the workflow does not require a paid inference API.
-- The latest candidate-image collection workflow completed successfully: [view run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196). This means the workflow ran successfully; it does **not** mean images were collected, licensed, labelled or evaluated by this README update.
+- The latest candidate-image collection workflow completed successfully and collected **30 candidate images**; its gallery builder recorded 30 candidate records and the workflow uploaded a 15.6 MB artifact containing the images and provenance/review files. [View run and download the artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196). These are **unreviewed candidates**, not a labelled dataset; some search results may be irrelevant, and some downloads were rate-limited. The artifact expires on 25 October 2026 unless downloaded beforehand.
 
 ### What is in progress
 - Turn the candidate-image tools into a human-reviewed, licence-checked, labelled dataset.
@@ -30,7 +30,7 @@ This table is the current evidence-based status, not a claim that the full robot
 - Measure localization/tracking separately from detection, then test the end-to-end workflow in simulation with explicit safety stops.
 
 ### Next actions, in order
-1. Run the [free candidate-image collection guide](docs/FREE_IMAGE_COLLECTION_GUIDE.md) locally; inspect each image and its source licence.
+1. Download the generated [coconut-image-candidates artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39092214196) before it expires; review the images and source licences. The collection workflow has already run on GitHub, so no local collection command is needed for this first batch.
 2. Label only relevant, clearly visible coconuts using the [offline annotator](tools/coconut_annotator.html); exclude irrelevant or ambiguous images.
 3. Build and audit dataset splits with the scripts linked in [training documentation](training/README.md). Keep image datasets and model weights out of Git.
 4. Train a local baseline only after checking the base checkpoint licence and available hardware; freeze the test split before tuning.
@@ -123,7 +123,7 @@ The downloaded images and gallery stay on your computer. The collector writes `p
 
 **Then label reviewed images:** open [the offline annotator](tools/coconut_annotator.html) from a local checkout, choose the reviewed image files, draw a box around every clearly visible coconut, and export the JSON. Use the [reviewed dataset builder](training/build_dataset_from_annotations.py) to package the images and labels into reproducible group-separated train/validation/test splits after recording human review and licence verification. Keep the dataset and weights out of Git.
 
-**No dataset has been downloaded by this documentation change.** The first real benchmark begins only after you run these commands locally, review sources, annotate images, and create independent train/validation/test splits.
+**Current collection status:** GitHub Actions has collected the first 30 candidate images and built a review gallery. The generated artifact is temporary (7-day retention). A valid dataset and real benchmark still require image relevance review, licence verification, annotation, independent group-separated train/validation/test splits, and an actual training/evaluation run.
 
 ## Start without your own photos
 
