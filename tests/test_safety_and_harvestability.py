@@ -54,3 +54,17 @@ def test_safety_blocks_malformed_values_and_invalid_limits():
     safe_candidate = ActionCandidate("c1", .95, .5, .1, 100, 5)
     for limits in invalid_limits:
         assert validate_action(safe_candidate, limits).decision == SafetyDecision.BLOCK
+
+
+def test_harvestability_returns_unknown_for_invalid_evidence():
+    invalid_cases = (
+        HarvestEvidence(nan, .95, .95, .95, .5),
+        HarvestEvidence(1.2, .95, .95, .95, .5),
+        HarvestEvidence(.95, .95, .95, .95, -1),
+        HarvestEvidence(.95, .95, .95, .95, .5, occlusion=inf),
+    )
+    for evidence in invalid_cases:
+        result = score_harvestability(evidence)
+        assert result.decision == HarvestDecision.UNKNOWN
+        assert result.score == 0.0
+        assert result.reasons
