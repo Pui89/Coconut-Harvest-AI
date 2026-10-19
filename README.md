@@ -24,6 +24,10 @@ See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of 
 
 The latest Python test workflow passed on the current main-branch change in [run 39276683425](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39276683425). This confirms the configured automated software checks on that commit; it does **not** unblock the dataset, approve annotations, or establish detector accuracy or physical harvesting performance.
 
+## New replacement candidates identified — 20 October 2026
+
+Two additional Wikimedia Commons source pages with visible coconut clusters and CC BY-SA 4.0 licensing have been recorded for review. They are **candidates only**: they have not yet passed local download/hash verification, annotation, independent visual QA, or dataset approval. See [external replacement candidates and attribution checklist](docs/EXTERNAL_REPLACEMENT_CANDIDATES_2026-10-20.md). Do not train on or publish draft labels for these images until the review gates pass.
+
 ## Latest status update — 19 October 2026
 
 - **Current status: dataset is still blocked from training.** The first-pass labels have unresolved visual-review warnings. The two previously reviewed labelled images (0002 and 0004) passed basic coordinate-boundary checks, but overlapping boxes on 0002 and border-touching boxes on 0004 still require human review; geometry checks alone do not approve annotations.
