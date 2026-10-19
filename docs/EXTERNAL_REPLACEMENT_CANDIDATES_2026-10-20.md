@@ -2,7 +2,7 @@
 
 ## Status
 
-**Candidate discovery only — not approved training data.** The two Wikimedia Commons source pages below were opened and checked for visible author/source and a CC BY-SA 4.0 licence. Their full-resolution pixels still require local download verification, annotation, missed-fruit review, geometry checks, and independent visual review before they can enter any dataset split. Do not infer model performance from these images.
+**Candidate discovery only — not approved training data.** On 20 October 2026, both Wikimedia Commons source pages were re-opened and their original 3,072 × 4,096 pixel images were visually inspected in the browser. Both pages display author Johnnybam, own-work source information, and CC BY-SA 4.0. The original images have not yet been verified as local downloaded files with recorded SHA-256 hashes. They still require local download verification, annotation, missed-fruit review, geometry checks, and independent visual review before they can enter any dataset split. Do not infer model performance from these images.
 
 These are new source-page candidates, not replacements for existing local IDs 0031/0032 or the current 0032/0034 annotation-review work. Assign permanent dataset IDs only after the image bytes and provenance are recorded locally.
 
@@ -13,7 +13,7 @@ These are new source-page candidates, not replacements for existing local IDs 00
 - Source: Own work
 - Licence shown on source page: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 - Source-page dimensions: 3,072 × 4,096 pixels
-- Initial visual screen: real coconut palm with several visible green fruits and substantial foliage/occlusion; potentially useful for a challenging detection example. Some small fruits overlap or are partly hidden, so label only objects whose boundaries can be judged reliably.
+- Browser original-file visual review (20 Oct 2026): real palm with two prominent green fruits near the centre-left and a dense cluster of smaller green fruits on the right; heavy frond/trunk clutter and many partly occluded fruit-like structures. Potentially useful for a difficult detection example, but annotate only individually distinguishable coconuts. Local file/hash and annotation review are still pending.
 - Attribution requirement: credit Johnnybam, link to the source page and licence, and note any edits/crops.
 
 ## Candidate B — multiple green coconut clusters on a palm
@@ -23,7 +23,7 @@ These are new source-page candidates, not replacements for existing local IDs 00
 - Source: Own work
 - Licence shown on source page: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 - Source-page dimensions: 3,072 × 4,096 pixels
-- Initial visual screen: real palm with multiple visible green coconut clusters at different positions and partial occlusion by trunk/fronds; potentially useful for varied object sizes and lighting. Inspect the full-resolution image before deciding whether every visible fruit is labelable.
+- Browser original-file visual review (20 Oct 2026): real palm with several clear green coconuts in multiple clusters, including larger foreground fruit and smaller partly hidden fruit near the trunk/fronds. Visually promising for varied target sizes, but overlapping/occluded objects need a conservative annotation policy. Local file/hash and annotation review are still pending.
 - Attribution requirement: credit Johnnybam, link to the source page and licence, and note any edits/crops.
 
 ## Required gate before inclusion
