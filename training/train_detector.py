@@ -15,10 +15,12 @@ import yaml
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif", ".tiff"}
 
 
-def _image_paths_for_split(path: Path) -> list[Path]:
-    """Return image files referenced by a split directory, image, or YOLO list file."""
+def _image_paths_for_split(path: Path, dataset_root: Path) -> list[Path]:
+    """Return images in a directory, a single image, or a YOLO image-list file."""
     if path.is_dir():
-        return sorted(p for p in path.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_SUFFIXES)
+        return sorted(
+            p for p in path.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_SUFFIXES
+        )
     if path.is_file() and path.suffix.lower() in IMAGE_SUFFIXES:
         return [path]
     if path.is_file() and path.suffix.lower() == ".txt":
@@ -29,8 +31,17 @@ def _image_paths_for_split(path: Path) -> list[Path]:
                 continue
             candidate = Path(entry).expanduser()
             if not candidate.is_absolute():
-                candidate = path.parent / candidate
-            candidate = candidate.resolve()
+                # YOLO lists commonly store paths relative to dataset "path", not
+                # the directory containing the list file. Prefer that convention.
+                rooted_candidate = (dataset_root / candidate).resolve()
+                list_relative_candidate = (path.parent / candidate).resolve()
+                candidate = (
+                    rooted_candidate
+                    if rooted_candidate.is_file()
+                    else list_relative_candidate
+                )
+            else:
+                candidate = candidate.resolve()
             if candidate.suffix.lower() not in IMAGE_SUFFIXES or not candidate.is_file():
                 raise ValueError(f"Dataset list references a missing or unsupported image: {entry}")
             image_paths.append(candidate)
@@ -50,18 +61,19 @@ def validate_dataset_yaml(data_yaml: Path, require_test: bool = False) -> dict[s
         raise ValueError("Dataset YAML must contain a mapping.")
     names = config.get("names")
     if isinstance(names, dict):
-        class_names = [str(v).strip().lower() for _, v in sorted(names.items(), key=lambda pair: str(pair[0]))]
         try:
-            class_ids = sorted(int(k) for k in names)
+            indexed_names = sorted(((int(key), value) for key, value in names.items()), key=lambda pair: pair[0])
         except (TypeError, ValueError) as exc:
             raise ValueError("Dataset class mapping keys must be integer IDs.") from exc
+        class_ids = [class_id for class_id, _ in indexed_names]
         if class_ids != list(range(len(class_ids))):
             raise ValueError("Dataset class IDs must be contiguous from zero.")
+        class_names = [str(value).strip().lower() for _, value in indexed_names]
     elif isinstance(names, list):
-        class_names = [str(v).strip().lower() for v in names]
+        class_names = [str(value).strip().lower() for value in names]
     else:
         raise ValueError("Dataset YAML must define names as a list or mapping.")
-    if not class_names or not any(n in {"coconut", "coconuts"} for n in class_names):
+    if not class_names or not any(name in {"coconut", "coconuts"} for name in class_names):
         raise ValueError("Dataset classes must include an explicit coconut class.")
     configured_root = config.get("path", ".")
     if not isinstance(configured_root, str) or not configured_root.strip():
@@ -85,7 +97,7 @@ def validate_dataset_yaml(data_yaml: Path, require_test: bool = False) -> dict[s
                 path = root / path
             if not path.exists():
                 raise FileNotFoundError(f"Dataset {split} path does not exist: {path}")
-            images = _image_paths_for_split(path)
+            images = _image_paths_for_split(path, root)
             if not images:
                 raise ValueError(f"Dataset {split} path contains no supported image files: {path}")
             image_count += len(images)
@@ -141,6 +153,7 @@ def main() -> int:
     (save_dir / "training_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, indent=2))
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
