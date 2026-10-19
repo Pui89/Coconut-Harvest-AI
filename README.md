@@ -459,7 +459,6 @@ See:
 - [Product Tiers](docs/PUI89_PRODUCT_TIERS.md)
 - [Failure and UNKNOWN Protocol](docs/PUI89_FAILURE_AND_UNKNOWN_PROTOCOL.md)
 - [MLOps Model Lifecycle](docs/PUI89_MLOPS_MODEL_LIFECYCLE.md)
-- [Research, Competition and Commercial Evidence](docs/PUI89_RESEARCH_COMPETITION_INVESTOR.md)
 - [12-Month Roadmap](docs/PUI89_12_MONTH_ROADMAP.md)
 - [Cost Safety and Billing Policy](docs/COST_SAFETY_AND_BILLING.md)
 
