@@ -24,6 +24,10 @@ See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of 
 
 The latest Python test workflow passed on the current main-branch change in [run 39276683425](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39276683425). This confirms the configured automated software checks on that commit; it does **not** unblock the dataset, approve annotations, or establish detector accuracy or physical harvesting performance.
 
+## Backup replacement candidates added — 20 October 2026
+
+Because the first two candidates are still pending full-resolution download and annotation QA, three more alternatives have been recorded. Candidate C and D are listed as CC BY-SA 4.0; candidate E is listed as CC BY 4.0. They are **not approved training images** and must pass the same provenance, duplicate, annotation, geometry and independent visual-review gates. See [additional coconut image alternatives](docs/ADDITIONAL_COCONUT_IMAGE_ALTERNATIVES_2026-10-20.md). If any candidate fails, reject it and test the next alternative rather than forcing a poor label.
+
 ## New replacement candidates identified — 20 October 2026
 
 Two additional Wikimedia Commons source pages with visible coconut clusters and CC BY-SA 4.0 licensing have been recorded for review. They are **candidates only**: they have not yet passed local download/hash verification, annotation, independent visual QA, or dataset approval. See [external replacement candidates and attribution checklist](docs/EXTERNAL_REPLACEMENT_CANDIDATES_2026-10-20.md). Do not train on or publish draft labels for these images until the review gates pass. A separate [preliminary visual triage of the original 30-image candidate batch](docs/PRELIMINARY_VISUAL_TRIAGE_2026-10-20.md) also records obvious task-mismatch images to exclude or review; it is not a licence or annotation approval.
