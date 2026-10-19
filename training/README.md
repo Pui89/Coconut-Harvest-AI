@@ -150,6 +150,10 @@ python training/check_dataset.py --root "C:\datasets\coconut"
 
 The checker validates image/label pairs, image readability, the single coconut class ID, and normalized bounding boxes. Fix every error before training.
 
+## Training preflight validation
+
+`training/train_detector.py` now checks the YAML structure, requires an explicit coconut class with contiguous zero-based class IDs, and verifies that each required split resolves to at least one supported image (`.jpg`, `.jpeg`, `.png`, `.bmp`, `.webp`, `.tif`, or `.tiff`). Split entries may be image directories, individual image files, or `.txt` lists of image paths. Missing images, empty splits, unsupported list entries, and malformed YAML are rejected before model training begins. This is a structural preflight only: it does **not** decode image contents, validate annotation boxes, verify image rights, or establish that the dataset is ready for training. Run `python training/check_dataset.py` and complete the documented human-review and split audits as well.
+
 ## Train
 
 ~~~powershell
