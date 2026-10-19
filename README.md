@@ -18,9 +18,7 @@
 
 ## Product brief
 
-See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners or award applications.
-
-## Latest status update — 19 October 2026
+See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners and product stakeholders.
 
 ## Latest status update — 19 October 2026
 
@@ -438,7 +436,7 @@ MLOps / Fleet Learning
 
 ### Product tiers
 
-- **PUI89 Research** — universities, robotics competitions, researchers
+- **PUI89 Research** — universities, researchers, and potential product partners
 - **PUI89 Professional** — farms, plantations, agricultural operators
 - **PUI89 Enterprise** — large corporations, governments, logistics, ports, infrastructure
 
