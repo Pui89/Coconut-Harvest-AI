@@ -4,33 +4,79 @@ The script refuses model names/URLs: --model must be a local .pt file. It never
 downloads a base model or dataset. Training artifacts are written locally.
 """
 from __future__ import annotations
-import argparse, json
+
+import argparse
+import json
 from pathlib import Path
 from typing import Any
+
 import yaml
 
+IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif", ".tiff"}
+
+
+def _image_paths_for_split(path: Path) -> list[Path]:
+    """Return image files referenced by a split directory, image, or YOLO list file."""
+    if path.is_dir():
+        return sorted(p for p in path.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_SUFFIXES)
+    if path.is_file() and path.suffix.lower() in IMAGE_SUFFIXES:
+        return [path]
+    if path.is_file() and path.suffix.lower() == ".txt":
+        image_paths: list[Path] = []
+        for raw_line in path.read_text(encoding="utf-8").splitlines():
+            entry = raw_line.strip()
+            if not entry or entry.startswith("#"):
+                continue
+            candidate = Path(entry).expanduser()
+            if not candidate.is_absolute():
+                candidate = path.parent / candidate
+            candidate = candidate.resolve()
+            if candidate.suffix.lower() not in IMAGE_SUFFIXES or not candidate.is_file():
+                raise ValueError(f"Dataset list references a missing or unsupported image: {entry}")
+            image_paths.append(candidate)
+        return image_paths
+    return []
+
+
 def validate_dataset_yaml(data_yaml: Path, require_test: bool = False) -> dict[str, Any]:
+    """Validate the YAML structure, coconut class, split paths, and non-empty image splits."""
     if not data_yaml.is_file():
         raise FileNotFoundError(f"Dataset YAML not found: {data_yaml}")
-    config = yaml.safe_load(data_yaml.read_text(encoding="utf-8"))
+    try:
+        config = yaml.safe_load(data_yaml.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        raise ValueError(f"Dataset YAML is invalid: {exc}") from exc
     if not isinstance(config, dict):
         raise ValueError("Dataset YAML must contain a mapping.")
     names = config.get("names")
     if isinstance(names, dict):
-        class_names = [str(v).strip().lower() for v in names.values()]
+        class_names = [str(v).strip().lower() for _, v in sorted(names.items(), key=lambda pair: str(pair[0]))]
+        try:
+            class_ids = sorted(int(k) for k in names)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("Dataset class mapping keys must be integer IDs.") from exc
+        if class_ids != list(range(len(class_ids))):
+            raise ValueError("Dataset class IDs must be contiguous from zero.")
     elif isinstance(names, list):
         class_names = [str(v).strip().lower() for v in names]
     else:
         raise ValueError("Dataset YAML must define names as a list or mapping.")
     if not class_names or not any(n in {"coconut", "coconuts"} for n in class_names):
         raise ValueError("Dataset classes must include an explicit coconut class.")
-    root = Path(config.get("path", ".")).expanduser()
+    configured_root = config.get("path", ".")
+    if not isinstance(configured_root, str) or not configured_root.strip():
+        raise ValueError("Dataset path must be a non-empty string when provided.")
+    root = Path(configured_root).expanduser()
     if not root.is_absolute():
         root = (data_yaml.parent / root).resolve()
-    for split in ("train", "val", *(("test",) if require_test else ())):
+    splits = ("train", "val", *(("test",) if require_test else ()))
+    for split in splits:
         if split not in config:
             raise ValueError(f"Dataset YAML is missing required {split} split.")
         values = config[split] if isinstance(config[split], list) else [config[split]]
+        if not values:
+            raise ValueError(f"Dataset {split} split must not be empty.")
+        image_count = 0
         for item in values:
             if not isinstance(item, str) or not item.strip():
                 raise ValueError(f"Dataset {split} paths must be non-empty strings.")
@@ -39,7 +85,14 @@ def validate_dataset_yaml(data_yaml: Path, require_test: bool = False) -> dict[s
                 path = root / path
             if not path.exists():
                 raise FileNotFoundError(f"Dataset {split} path does not exist: {path}")
+            images = _image_paths_for_split(path)
+            if not images:
+                raise ValueError(f"Dataset {split} path contains no supported image files: {path}")
+            image_count += len(images)
+        if image_count == 0:
+            raise ValueError(f"Dataset {split} split contains no supported images.")
     return config
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
