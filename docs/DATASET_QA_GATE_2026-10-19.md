@@ -25,6 +25,13 @@
 7. **Visual inspection:** render the boxes over every included image, inspect positive and negative examples, and retain a QA decision log.
 8. **Frozen split:** only create train/validation/test after enough independently sourced groups exist. Never weaken the group split just to make a two-image dataset trainable.
 
+## Follow-up review — 19 October 2026
+
+- **Candidate 0033:** do not use as the preferred first replacement; the full-resolution image is strongly shadowed and individual boundaries are difficult to distinguish.
+- **Candidate 0032:** selected as the clearer replacement candidate for further review. Source page: https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg; author Sarmi~Kili; licence CC BY-SA 4.0; downloaded SHA-1 matches the source-page checksum. It is still unlabelled and not training-approved.
+- **Candidate 0034:** a provisional local annotation overlay was generated. Geometry checks report valid normalized coordinates, one border-touching box, and no box-pair overlap at IoU >= 0.15. This is only a geometry check; missed fruit, loose boundaries and incorrect fruit assignments remain possible. Independent visual review is outstanding.
+- **Data handling:** the draft annotation and overlay remain in a temporary local review bundle and have not been committed as training data.
+
 ## Current decision for this batch
 
 | Candidate | Current status | Required next action |
