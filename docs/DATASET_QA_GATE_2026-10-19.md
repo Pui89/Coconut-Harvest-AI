@@ -8,8 +8,8 @@
 - Candidate batch: 30 images; temporary Actions artifact is preserved as a ZIP backup outside the Git repository. Original artifact expiry is 25 October 2026.
 - Candidate review ledger: `data/review_batch_2026-10-18/candidate_review_2026-10-18.csv`.
 - First-pass annotation file: `data/review_batch_2026-10-18/annotations_v0.1.json`.
-- Current labels: 15 boxes across two images (9 on candidate 0002, 6 on candidate 0004). These are single-pass annotations and have not passed independent QA.
-- Independently checked Commons source pages: candidates 0001, 0002, 0004 and 0014. This does not mean these images are approved for training: candidate 0001 remains unlabelled; candidates 0002 and 0004 remain blocked pending independent label QA; candidate 0014 has source/credit recorded but is a challenging, unlabelled annotation candidate.
+- Historical labels: 15 first-pass boxes across candidates 0002 and 0004. Both images are now excluded from active training candidates because their annotation QA is unresolved. The original JSON is retained only for audit traceability; do not train on it.
+- Source pages checked for new replacements 0033 and 0034: both have recorded creator, CC BY-SA 3.0 licence, and source URLs. The files were downloaded and SHA-1 verified in GitHub Actions run [39235348989](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39235348989). They remain unlabelled and are not training-approved. Candidates 0002 and 0004 are excluded from active training; their old labels are historical only.
 - Candidate 0010 was inspected at full resolution and excluded from attached-fruit detection because the visible coconuts are harvested fruit, not attached targets.
 - Replacement candidates 0031 and 0032 were reviewed from separate Actions artifact run [39233532723](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39233532723). Candidate 0031 is deferred due to severe backlighting; candidate 0032 is an annotation priority but remains unlabelled. See [replacement candidate review](REPLACEMENT_IMAGE_CANDIDATES_2026-10-19.md).
 - The other candidates were excluded from this fruit-detection batch for domain/visibility reasons. Do not infer that their licences were independently verified.
@@ -30,8 +30,10 @@
 | Candidate | Current status | Required next action |
 |---|---|---|
 | 0001 | Provisional positive; source page checked; not labelled | Re-check attribution/licence record, then label only if useful and unambiguous |
-| 0002 | Provisional positive; 9 first-pass boxes; source page checked | Independently review every box and complete source/credit record |
-| 0004 | Provisional positive; 6 first-pass boxes; source page checked | Independently review every box and record the Commons page's displayed licence options accurately |
+| 0002 | Excluded from active training; 9 old boxes retained for audit | Do not use the v0.1 labels for training |
+| 0004 | Excluded from active training; 6 old boxes retained for audit | Do not use the v0.1 labels for training |
+| 0033 | New close-up cluster; source/licence checked; unlabelled | Annotate conservatively, then independent box review |
+| 0034 | New green cluster; source/licence checked; unlabelled | Annotate conservatively, then independent box review |
 | 0010 | Excluded after full-resolution review; harvested fruit are not attached targets | Keep excluded from attached-coconut detection |
 | 0014 | Provisional positive; source page checked; CC BY 3.0; unlabelled | Annotate only individually identifiable attached fruit; second review required |
 | Other 25 | Excluded from this detection batch, subject to documented re-review | Do not include as training examples unless a documented re-review changes the decision |
@@ -43,7 +45,7 @@ The 18 October HSV-contour smoke test scored 0 true positives at IoU >= 0.50 on 
 ## Next actions
 
 1. Keep the ZIP backup and provenance records; do not commit candidate image files to the public repository.
-2. Finish licence/attribution review and independent label QA for candidates 0002 and 0004; then decide whether 0001, 0010 and 0014 merit inclusion.
+2. Do not reactivate candidates 0002 and 0004. Annotate replacement candidates 0033 and 0034 and obtain independent label QA before promotion.
 3. Collect more independently sourced, permitted orchard images, including genuine negative images and varied lighting, distance, cultivar, occlusion and backgrounds.
 4. Record source/tree/session groups before annotation grows large.
 5. Build a dataset only after every included image passes the gate; run both dataset audits and inspect generated label galleries before training.
