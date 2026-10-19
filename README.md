@@ -26,7 +26,7 @@ The latest Python test workflow passed on the current main-branch change in [run
 
 ## New replacement candidates identified — 20 October 2026
 
-Two additional Wikimedia Commons source pages with visible coconut clusters and CC BY-SA 4.0 licensing have been recorded for review. They are **candidates only**: they have not yet passed local download/hash verification, annotation, independent visual QA, or dataset approval. See [external replacement candidates and attribution checklist](docs/EXTERNAL_REPLACEMENT_CANDIDATES_2026-10-20.md). Do not train on or publish draft labels for these images until the review gates pass.
+Two additional Wikimedia Commons source pages with visible coconut clusters and CC BY-SA 4.0 licensing have been recorded for review. They are **candidates only**: they have not yet passed local download/hash verification, annotation, independent visual QA, or dataset approval. See [external replacement candidates and attribution checklist](docs/EXTERNAL_REPLACEMENT_CANDIDATES_2026-10-20.md). Do not train on or publish draft labels for these images until the review gates pass. A separate [preliminary visual triage of the original 30-image candidate batch](docs/PRELIMINARY_VISUAL_TRIAGE_2026-10-20.md) also records obvious task-mismatch images to exclude or review; it is not a licence or annotation approval.
 
 ## Latest status update — 19 October 2026
 
