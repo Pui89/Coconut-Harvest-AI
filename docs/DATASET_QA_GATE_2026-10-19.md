@@ -7,7 +7,7 @@
 
 - Candidate batch: 30 images; temporary Actions artifact is preserved as a ZIP backup outside the Git repository. Original artifact expiry is 25 October 2026.
 - Candidate review ledger: `data/review_batch_2026-10-18/candidate_review_2026-10-18.csv`.
-- First-pass annotation file: `data/review_batch_2026-10-18/annotations_v0.1.json`.
+- First-pass annotation file: `data/review_batch_2026-10-18/annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json`.
 - Historical labels: 15 first-pass boxes across candidates 0002 and 0004. Both images are now excluded from active training candidates because their annotation QA is unresolved. The original JSON is retained only for audit traceability; do not train on it.
 - Source pages checked for new replacements 0033 and 0034: both have recorded creator, CC BY-SA 3.0 licence, and source URLs. The files were downloaded and SHA-1 verified in GitHub Actions run [39235348989](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39235348989). They remain unlabelled and are not training-approved. Candidates 0002 and 0004 are excluded from active training; their old labels are historical only.
 - Candidate 0010 was inspected at full resolution and excluded from attached-fruit detection because the visible coconuts are harvested fruit, not attached targets.
