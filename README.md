@@ -20,7 +20,19 @@
 
 See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners or award applications.
 
-## Latest status update — 18 October 2026
+## Latest status update — 19 October 2026
+
+## Latest status update — 19 October 2026
+
+- **Current status: dataset is still blocked from training.** The first-pass labels have unresolved visual-review warnings. The two previously reviewed labelled images (0002 and 0004) passed basic coordinate-boundary checks, but overlapping boxes on 0002 and border-touching boxes on 0004 still require human review; geometry checks alone do not approve annotations.
+- **Required cleanup before approval:** keep defective first-pass labels out of the active dataset; replace image 0033 with a clearer candidate only after checking its original source page, licence/attribution and relevance; correct image 0034's boxes and inspect the overlay against the full-resolution original; run geometry checks and an independent visual review.
+- **Data handling:** unapproved images and labels must remain in temporary artifacts/review files. Do not commit or publish unverified images, annotations, or model outputs as a finished dataset. The earlier 30-image candidate artifact has its own expiry noted below; download it before 25 October 2026 if it is still needed.
+- **Already evidenced:** the repository has dataset collection, provenance/review, annotation, conversion and split-audit tooling. The earlier candidate collection produced 30 candidates; that count is not the count of licence-cleared or training-ready images.
+- **Not yet established:** an approved complete dataset, trained detector performance, held-out precision/recall/mAP, measured RGB-D localization accuracy, safe collision-free robot motion, or physical coconut harvesting.
+- **Next sequence:** verify/replace candidates and source rights → correct and independently review labels → audit dataset and group-separated splits → train a local baseline only after approval → publish reproducible held-out metrics and failure examples → validate robot geometry and stop behavior in simulation.
+- **Cost and safety boundary:** remain local-first and free/open-source-first; no paid inference API or physical actuator commands are required for dataset QA. Concept art and passing CI are not evidence of field performance.
+
+## Previous status update — 18 October 2026
 
 - **Successful:** Python CI passed on 3.10/3.11/3.12 in [run 39096443251](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39096443251); candidate collection generated 30 image candidates and provenance/review files; Pages deployment passed. This verifies automated software checks only—not detector accuracy or physical harvesting.
 - **Dataset QA update (19 Oct):** the 30-image candidate batch is triaged; candidates 0001, 0002, 0004 and 0014 have independently checked Commons source pages. Candidate 0010 was excluded from positive detection data after full-resolution review. The two labelled images (0002: 9 boxes; 0004: 6 boxes) were overlaid; the geometry audit found no out-of-bounds coordinates, but flagged two overlapping box pairs on 0002 and border-touching boxes on 0004. These are review warnings, not automatic corrections. Labels still need independent visual QA; the other 26 source pages are not cleared. See the [annotation QA audit](docs/ANNOTATION_QA_AUDIT_2026-10-19.md), [source-rights ledger](data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv), and [candidate batch report](docs/CANDIDATE_IMAGE_BATCH_2026-10-18.md).
