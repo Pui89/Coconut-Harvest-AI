@@ -27,3 +27,30 @@ The software gate blocks emergency-stop state, human exclusion-zone occupancy, f
 - Never use training or validation images to claim held-out test performance.
 - Record dataset/checkpoint hashes, exact configuration, environment, failure cases and the CI run URL.
 - Mark unexecuted tests **NOT RUN**. Do not infer physical safety or harvest success from simulation alone.
+
+## Execution checkpoint — 20 October 2026
+
+This checkpoint is intentionally conservative. It distinguishes work that can be automated from work that requires inspection of the actual image pixels and licence records.
+
+### Dataset decision log
+
+- **Training status: BLOCKED.** Do not start detector training or publish a training-ready dataset while any selected image has pending rights checks, unresolved labels, or incomplete provenance.
+- **Existing labels:** images 0002 and 0004 have first-pass labels only. Geometry checks are not annotation approval; overlaps, border-touching boxes, missed coconuts and false boxes require visual adjudication.
+- **Replacement candidates A–E:** the source-page and licence notes are discovery records only. No candidate is promoted by this checkpoint. A candidate may replace a rejected image only after the original bytes are downloaded, SHA-256 and dimensions are recorded, the source/author/licence are captured, duplicate checks pass, and a human-reviewed overlay passes geometry and missed/false-object review.
+- **If a candidate fails:** record `REJECTED` plus the reason and try the next permitted candidate. Do not make the label easier by guessing hidden or ambiguous fruit boundaries.
+- **Artifact preservation deadline:** the 30-image candidate artifact referenced in the README is scheduled to expire on 25 October 2026. Preserve it before expiry if it is still needed; this is separate from dataset approval.
+
+### Release gates (all required, in order)
+
+1. **Provenance:** every retained image has a source URL, creator, licence/permission basis, retrieval date, dimensions, file hash, and any required attribution.
+2. **Visual relevance:** image shows the intended coconut-harvest target; irrelevant, unreadable, duplicate, or unsuitable images are excluded.
+3. **Annotation review:** every box is checked against the original image; missed targets, false boxes, overlaps, occlusion policy and border handling are resolved; a second independent review is recorded.
+4. **Automated audit:** annotation geometry, image/label correspondence, duplicate/near-duplicate review, and source/tree/session-separated split leakage checks pass.
+5. **Dataset freeze:** record a dataset version and manifest/checksum before training; keep unapproved drafts out of public training paths.
+6. **Model benchmark:** only then run a local, licensed baseline and report real frozen-test precision, recall, mAP where applicable, latency, hardware, threshold, seed, checkpoint hash and failure examples. If not run, write **NOT MEASURED**.
+7. **Robot validation:** keep perception metrics separate from RGB-D localisation, simulation, collision/safe-stop tests, and any future supervised non-cutting hardware trial.
+
+### Current completion statement
+
+Automated Python CI passing is useful software evidence, but it does not clear any of the gates above. At this checkpoint, dataset approval, a trained detector benchmark, measured RGB-D localisation, validated robot safety, and physical harvesting remain **NOT ESTABLISHED**. The project remains local-first/free-first; do not introduce paid APIs, cloud GPUs, subscriptions, or public commits of unapproved images/labels to try to accelerate this work.
+
