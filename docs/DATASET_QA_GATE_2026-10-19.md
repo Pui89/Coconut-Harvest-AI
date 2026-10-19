@@ -29,7 +29,7 @@
 
 - **Candidate 0033:** do not use as the preferred first replacement; the full-resolution image is strongly shadowed and individual boundaries are difficult to distinguish.
 - **Candidate 0032:** selected as the clearer replacement candidate for further review. Source page: https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg; author Sarmi~Kili; licence CC BY-SA 4.0; downloaded SHA-1 matches the source-page checksum. It is still unlabelled and not training-approved.
-- **Candidate 0034:** a provisional local annotation overlay was generated. Geometry checks report valid normalized coordinates, one border-touching box, and no box-pair overlap at IoU >= 0.15. This is only a geometry check; missed fruit, loose boundaries and incorrect fruit assignments remain possible. Independent visual review is outstanding.
+- **Candidate 0034:** a provisional local annotation overlay was generated. Geometry checks report valid normalized coordinates, one border-touching box, and one box-pair overlap warning (boxes 8 and 9, IoU 0.2416) at IoU >= 0.15. This is only a geometry check; missed fruit, loose boundaries and incorrect fruit assignments remain possible. Independent visual review is outstanding.
 - **Data handling:** the draft annotation and overlay remain in a temporary local review bundle and have not been committed as training data.
 
 ## Current decision for this batch
