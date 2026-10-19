@@ -26,6 +26,12 @@ The new replacement candidates are **0033** and **0034**. Both images were downl
 - **Visual decision:** use as a green-fruit cluster annotation candidate. The main cluster is clear, but individual fruits overlap and a few fruit are partly obscured by fronds. Do not draw one box around the whole bunch; label individual identifiable coconuts.
 - **SHA-1:** `afb1ab478f0b2b25af495082665fa3ede7fdfc55`
 
+## Follow-up decision — 19 October 2026
+
+After inspecting the downloaded images at full resolution, **candidate 0033 is not the preferred first clean replacement**: its cluster is strongly shadowed and many fruit boundaries are difficult to distinguish. Use candidate **0032 — `Coconut_in_Coconut_Tree.jpg`** as the replacement candidate for review instead. The [original Wikimedia Commons source page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) identifies Sarmi~Kili as author and CC BY-SA 4.0 as the licence; the downloaded file's SHA-1 matches the source-page checksum (`34a77896b7ad78532cd41aadc2c3967220fd91ab`). This is a candidate-selection decision, not dataset approval.
+
+A local, temporary draft overlay and annotation JSON were generated for candidate 0034. Geometry checks found no invalid/out-of-range coordinates, one border-touching box, and no pairwise overlap warning at IoU 0.15. **This does not verify that every visible fruit is labelled or that the boxes are tight/correct.** The draft remains outside the public repository and is not approved for training pending human correction and independent second review.
+
 ## Required next actions
 
 1. Annotate 0033 and 0034 as new records; never copy or reuse labels from 0002 or 0004.
