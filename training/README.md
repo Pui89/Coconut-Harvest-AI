@@ -17,7 +17,7 @@ This produces a candidate gallery and provenance CSV locally. It is deliberately
 
 ## Current dataset status — 19 October 2026
 
-The first-pass annotations in `data/review_batch_2026-10-18/annotations_v0.1.json` are historical only. Candidates 0002 and 0004 have been removed from the active training candidate set because their labels have unresolved QA issues. **Do not train from v0.1.**
+The first-pass annotations in `data/review_batch_2026-10-18/annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json` are historical only. Candidates 0002 and 0004 have been removed from the active training candidate set because their labels have unresolved QA issues. **Do not train from v0.1.**
 
 Two replacement images, candidates 0033 and 0034, have passed source-page/licence recording and file checksum verification, but they are not labelled or independently reviewed yet. The active training dataset remains blocked until replacement annotations, second-review approval, and a sufficiently large group-separated dataset are available. See [replacement-image review](../docs/REPLACEMENT_IMAGE_CANDIDATES_2026-10-19.md) and [dataset QA gate](../docs/DATASET_QA_GATE_2026-10-19.md).
 
