@@ -71,6 +71,22 @@ def test_accepts_yolo_text_file_with_existing_image(tmp_path: Path) -> None:
     validate_dataset_yaml(config_path)
 
 
+def test_accepts_yolo_list_paths_relative_to_dataset_root(tmp_path: Path) -> None:
+    config_path = make_dataset_config(tmp_path)
+    (tmp_path / "train-images.txt").write_text(
+        "images/train/train-example.jpg\n", encoding="utf-8"
+    )
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    config["train"] = "train-images.txt"
+    config_path.write_text(yaml.safe_dump(config), encoding="utf-8")
+    validate_dataset_yaml(config_path)
+
+
+def test_class_names_are_matched_to_numeric_ids(tmp_path: Path) -> None:
+    config_path = make_dataset_config(tmp_path, names={0: "other", 1: "coconut", 2: "fruit"})
+    validate_dataset_yaml(config_path)
+
+
 def test_rejects_malformed_yaml(tmp_path: Path) -> None:
     config_path = tmp_path / "broken.yaml"
     config_path.write_text("names: [coconut\ntrain: [", encoding="utf-8")
