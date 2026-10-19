@@ -6,8 +6,8 @@
 ## Current result
 
 - All 30 files were visually triaged in a contact sheet and assigned a conservative decision in `candidate_review_2026-10-18.csv`.
-- Two images have first-pass bounding-box annotations: `0002_1280px-Fresh_coconuts.jpg` (9 boxes) and `0004_1280px-Cocos_nucifera_003.jpg` (6 boxes). Annotations are normalized x/y/width/height in `annotations_v0.1.json`.
-- The two labelled images have now been overlaid and visually rechecked. Several boundaries need another pass; box overlaps and border-truncated fruit require a consistent annotation policy. See the [annotation QA audit](../../docs/ANNOTATION_QA_AUDIT_2026-10-19.md). **Do not promote these labels yet.**
+- The first-pass labels for candidates 0002 (9 boxes) and 0004 (6 boxes) are now **retired from the active training candidate set** because their annotation QA is unresolved. They remain in `annotations_v0.1.json` as audit history only; do not train on them.
+- Replacement candidates 0033 and 0034 have been selected after visual screening: [Coconut bunch in the tree](https://commons.wikimedia.org/wiki/File:Coconut_bunch_in_the_tree.JPG) (Yasagan, CC BY-SA 3.0) and [Coconut fruits](https://commons.wikimedia.org/wiki/File:Coconut_fruits.jpg) (Vinshi / Vishwas Suryawanshi, CC BY-SA 3.0). Both have source-page and licence records in the updated source-rights ledger. They are **not labelled yet**; do not promote them to training until annotations are created and independently reviewed.
 - Commons source pages for candidates 0001, 0002 and 0004 were checked on 18 October; candidate 0014 was checked on 19 October. Candidate 0001 remains provisional and is not yet boxed. The other 26 image source pages have not been independently checked here and are not cleared for inclusion in a distributable training set. See the [source-rights audit ledger](source_rights_audit_2026-10-19.csv).
 - The fixed HSV-contour smoke test on the same two images produced 20 predicted boxes against 15 manually drawn boxes, with 0 true positives at IoU ≥ 0.50 (precision 0.000, recall 0.000, F1 0.000); mean CPU runtime was 15.12 ms/image in that run. This is a failed colour-contour heuristic baseline, not a learned detector.
 
@@ -23,7 +23,7 @@ This is **not** a complete training dataset or a valid held-out benchmark. The 1
 
 - `candidate_review_2026-10-18.csv`: visual triage and review/licence state for all 30 files.
 - `source_rights_audit_2026-10-19.csv`: per-candidate source-page and attribution gate; blank fields mean not verified, not permission granted.
-- `annotations_v0.1.json`: unchanged first-pass boxes for two images.
+- `annotations_v0.1.json`: archived first-pass boxes for candidates 0002 and 0004; excluded from active training.
 - [Annotation geometry audit tool](../../tools/audit_coconut_annotations.py): dependency-free checks for invalid normalized coordinates, overlapping boxes and image-border contact. Warnings require human review; the tool cannot identify missed coconuts or confirm box accuracy.
 - [HSV baseline script](../../training/benchmark_hsv_baseline.py): reproducible OpenCV heuristic baseline; requires OpenCV and NumPy.
 - `benchmark_report_v0.1.json`: measured run summary from 18 October 2026.
