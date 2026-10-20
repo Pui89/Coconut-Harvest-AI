@@ -65,8 +65,12 @@ class WorkflowReport:
 
 
 def _finite_tuple(values: Iterable[float], expected: int) -> bool:
-    values = tuple(values)
-    return len(values) == expected and all(isfinite(float(v)) for v in values)
+    """Validate numeric tuples without letting malformed external values crash checks."""
+    try:
+        values = tuple(values)
+        return len(values) == expected and all(isfinite(float(v)) for v in values)
+    except (TypeError, ValueError, OverflowError):
+        return False
 
 
 def validate_candidate(candidate: Candidate, *, now_s: float,
