@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
 <title id="title">Coconut Harvest AI — realistic-style low-cost all-stage harvesting robot concept</title>
-<desc id="desc">Detailed engineering concept rendering of a compact tracked agricultural robot with a slim telescopic mast, lightweight multi-joint arm, stereo/depth camera, and guarded fruit handling tool beside a 20 to 30 metre coconut palm carrying young green, mature green and brown coconuts. It is a concept, not validated hardware.</desc>
+<desc id="desc">Concept rendering beside a tall coconut palm representing a 0–30 m orchard challenge. The pictured compact tracked robot and slim telescopic arm are not shown to scale and are not demonstrated to reach the crown. Fruit detection, high-reach access, stability, cutting and safe capture are unvalidated.</desc>
 <defs>
   <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9bc9df"/><stop offset=".58" stop-color="#d9e9dc"/><stop offset="1" stop-color="#f2e8cf"/></linearGradient>
   <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#87966b"/><stop offset="1" stop-color="#4c6146"/></linearGradient>
@@ -57,8 +57,8 @@
 <g font-family="Arial, sans-serif">
  <path d="M1300 178V672M1287 190l13 -15 13 15M1287 660l13 15 13 -15" stroke="#f9fbf5" stroke-width="3" fill="none"/>
  <rect x="1318" y="370" width="220" height="70" rx="12" fill="#18342d" opacity=".88"/>
- <text x="1334" y="399" fill="#fff" font-size="22" font-weight="700">20–30 m palms</text>
- <text x="1334" y="424" fill="#cce2d0" font-size="15">Tall-tree challenge</text>
+ <text x="1334" y="399" fill="#fff" font-size="22" font-weight="700">0–30 m range</text>
+ <text x="1334" y="424" fill="#cce2d0" font-size="15">Reach not validated</text>
 </g>
 <!-- robot ground shadow and low-cost tracked base -->
 <ellipse cx="660" cy="754" rx="230" ry="38" fill="#20362d" opacity=".32" filter="url(#shadow)"/>
@@ -126,8 +126,8 @@
  <text x="80" y="816" fill="#ffffff" font-size="18" font-weight="700">Design priorities</text>
  <text x="80" y="843" fill="#d7e5d9" font-size="16">Slim arm • modular mast • low-cost sensors • guarded tool • tracked base + stabilizers</text>
  <rect x="1000" y="752" width="545" height="110" rx="14" fill="#152b2d" opacity=".92"/>
- <text x="1025" y="783" fill="#f4cb77" font-size="18" font-weight="700">Important limitation</text>
- <text x="1025" y="809" fill="#ffffff" font-size="15">20–30 m reach, mast stability, cutting, fruit capture,</text>
- <text x="1025" y="833" fill="#ffffff" font-size="15">and all-stage recognition require simulation and field tests.</text>
+ <text x="1025" y="783" fill="#f4cb77" font-size="18" font-weight="700">Height is not reach</text>
+ <text x="1025" y="809" fill="#ffffff" font-size="15">0–6 m: supervised feasibility tests only;</text>
+ <text x="1025" y="833" fill="#ffffff" font-size="15">6–30 m: specialized reach and safety unvalidated.</text>
 </g>
 </svg>
