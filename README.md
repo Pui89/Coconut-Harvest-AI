@@ -2,9 +2,9 @@
 
 ## Robot concept illustration
 
-![Coconut Harvest AI agricultural robot concept](docs/images/coconut-harvest-robot-concept-2026.svg)
+![Low-cost all-stage Coconut Harvest AI robot concept for tall coconut palms](docs/images/coconut-harvest-low-cost-all-stage-concept.svg)
 
-*Original concept artwork—not a real robot photograph or evidence of validated physical harvesting.*
+*Original engineering concept artwork—not a real robot photograph or evidence of validated physical harvesting. The slim arm and telescopic mast are a low-cost design direction; safe reach to 20–30 m palms and harvesting across fruit stages remain unvalidated engineering goals.*
 
 
 > **Complete-system architecture and acceptance gates:** [COMPLETE_SYSTEM_BLUEPRINT.md](docs/COMPLETE_SYSTEM_BLUEPRINT.md). This is a build-and-validation plan, not a claim of field-validated harvesting.
