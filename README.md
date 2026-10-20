@@ -131,6 +131,21 @@ The **0–30 m range describes the trees the AI system may need to inspect—not
 The project should report separate results by height band: detection precision/recall, localization error, reachability false-safe rate, safe task completion rate, successful fruit capture rate, fruit damage, aborts, collisions/near misses, and cycle time. Publish the denominator, failures, conditions and whether each result came from recorded images, simulation, or physical hardware. See [the full 0–30 m feasibility and acceptance plan](docs/TREE_HEIGHT_FEASIBILITY_0-30M.md).
 
 
+
+### Next engineering designs: from concept to testable prototype
+
+The next designs are planned as separate engineering views so the project can be reviewed and tested step by step. They are **proposed designs, not evidence that the physical robot has been built or validated**.
+
+1. **Height and access design (0–30 m tree range):** compare a compact ground platform, a supervised low-height test rig, and specialist high-reach approaches. State the reach envelope and stop at the boundary of verified capability; do not imply that a small arm reaches a 30 m crown.
+2. **Per-fruit AI selection interface:** let the operator choose *young green*, *mature green*, *mature brown/dry*, *selected combination*, or *survey only*. Display each fruit separately with confidence and an uncertainty option. The operator's selection never bypasses safety checks.
+3. **Cutting, gripping and fruit-retention mechanism:** design a guarded cutting head, a way to control the detached fruit, and a fail-safe retention/lowering method. Start with a bench rig or non-cutting mock-up; require mechanical review and supervised testing before field use.
+4. **Simulation and test environment:** use free/open-source tools where practical to test perception, target localization, arm reach, collisions, stop conditions and task sequences before hardware. Label simulation results separately from physical tests.
+5. **Sensor and 3D-localization layout:** document camera placement, optional depth/LiDAR, calibration, field of view, range limits and localization uncertainty. If position or reach is uncertain, the correct output is **SURVEY ONLY / NO CUT**.
+6. **Harvest verification and metrics:** record each target as proposed, human-approved, attempted, safely detached, captured/controlled, and independently verified. Report per-stage and per-height-band results, including failures, fruit damage, aborts, near misses and cycle time.
+
+**Recommended build order:** (1) review and approve the data, (2) evaluate a local vision baseline on a leakage-safe held-out set, (3) prototype the operator interface and sensor/localization workflow, (4) test the cutting/retention concept on a guarded bench rig, and (5) integrate in simulation before any supervised physical trial. Do not claim a successful harvest from an illustration, detection, or simulation animation alone.
+
+
 ### Proposed system architecture
 
 ```text
