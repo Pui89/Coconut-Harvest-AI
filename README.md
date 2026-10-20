@@ -9,6 +9,7 @@
 
 > **Complete-system architecture and acceptance gates:** [COMPLETE_SYSTEM_BLUEPRINT.md](docs/COMPLETE_SYSTEM_BLUEPRINT.md). This is a build-and-validation plan, not a claim of field-validated harvesting.
 > **Current validation matrix:** [VALIDATION_MATRIX.md](docs/VALIDATION_MATRIX.md) — implementation evidence, automated checks, and remaining unvalidated capabilities.
+> **All-stage coconut roadmap:** [COCONUT_STAGE_ROADMAP.md](docs/COCONUT_STAGE_ROADMAP.md) — proposed labels and workflow for young green, mature green, brown/dry, damaged, occluded, and uncertain fruit, with operator-selected harvest classes.
 
 > **A local-first AI application and simulation-first agricultural robot research project.** The goal is to explore whether computer vision, RGB-D localization, conservative task planning, and human-supervised safety gates can support safer coconut harvesting. This is a research prototype—not a finished or field-validated harvesting robot.
 
