@@ -10,6 +10,7 @@
 > **Complete-system architecture and acceptance gates:** [COMPLETE_SYSTEM_BLUEPRINT.md](docs/COMPLETE_SYSTEM_BLUEPRINT.md). This is a build-and-validation plan, not a claim of field-validated harvesting.
 > **Current validation matrix:** [VALIDATION_MATRIX.md](docs/VALIDATION_MATRIX.md) — implementation evidence, automated checks, and remaining unvalidated capabilities.
 > **All-stage coconut roadmap:** [COCONUT_STAGE_ROADMAP.md](docs/COCONUT_STAGE_ROADMAP.md) — proposed labels and workflow for young green, mature green, brown/dry, damaged, occluded, and uncertain fruit, with operator-selected harvest classes.
+> **Candidate image triage (20 Oct 2026):** [CANDIDATE_IMAGE_TRIAGE_2026-10-20.md](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md) — contact-sheet triage of 30 candidates; this is not licence clearance or annotation approval.
 
 ## How the all-stage coconut robot is intended to work
 
