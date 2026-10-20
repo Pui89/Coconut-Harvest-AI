@@ -451,7 +451,6 @@ Orchard image + optional depth / robot-state data
 
 ![AI application concept: coconut orchard perception and planning](docs/images/coconut-harvest-ai-demo.svg)
 
-![AI application 3D/4D concept visualization](docs/images/coconut-harvest-ai-4d-concept.svg)
 
 **Real-world image used as application context**
 
@@ -489,9 +488,7 @@ RGB / depth / optional LiDAR + robot-state sensors
         Verify outcome and record evidence
 ```
 
-![Existing coconut harvesting robot concept illustration](docs/images/coconut_harvest_robot_photo.svg)
 
-![3D/4D coconut harvesting robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
 
 **Real-world image of the harvesting task**
 
@@ -670,25 +667,9 @@ See:
 - [12-Month Roadmap](docs/PUI89_12_MONTH_ROADMAP.md)
 - [Cost Safety and Billing Policy](docs/COST_SAFETY_AND_BILLING.md)
 
-## Robot concept and development status
+## End-to-end simulation demo
 
-PUI89 Coconut Harvest Robot is a **simulation-first research concept** for investigating safer coconut harvesting. The proposed architecture compares a trunk-climbing platform with alternatives such as a ground-based arm. The mechanical approach is not yet validated; physical climbing and cutting must not be assumed to work.
 
-![Coconut harvest robot concept](docs/images/coconut_harvest_robot_photo.svg)
-
-### 3D / 4D concept visualization
-
-![3D/4D coconut harvest robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
-
-These repository graphics are concept visualizations, not evidence of a completed or field-tested robot. Any animation illustrates a proposed trajectory rather than measured robot performance.
-
-- [Concept design, subsystems, safety boundaries and acceptance criteria](docs/CONCEPT_DESIGN.md)
-- [Simulation-first development roadmap and release gates](docs/DEVELOPMENT_ROADMAP.md)
-- [Robot description (URDF)](robots/coconut_harvester.urdf)
-- [Simulation demos](sim/)
-- [Evaluation benchmark](docs/EVALUATION_BENCHMARK.md)
-
-### End-to-end simulation demo
 
 Run the safety-gated software workflow with synthetic orchard inputs:
 
@@ -714,16 +695,6 @@ python -m pytest
 - [CI results](https://github.com/Pui89/Coconut-Harvest-AI/actions)
 
 **Evidence and safety limits:** The demo uses generated synthetic imagery and hand-supplied evidence; these are fixtures, not measured detection or harvesting results. The trajectory planner is not independently collision-validated, and the report never sends actuator commands. Do not use this prototype to control a physical robot. Gazebo Sim/Isaac Sim physics validation, calibrated sensor evaluation, independent collision checking, and a documented safety review remain future acceptance gates.
-
-### First engineering priority
-
-1. Audit the current URDF, demo scripts, dependencies and tests.
-2. Make a reproducible palm-trunk simulation with configurable dimensions and contact assumptions.
-3. Validate robot frames, joint limits, collision geometry and safety states.
-4. Establish a held-out vision dataset and publish raw benchmark logs before reporting metrics.
-5. Only after simulation and risk review, assess a low-height, tethered, non-cutting physical rig.
-
-**Evidence policy:** clearly distinguish design targets, simulation measurements and physical measurements. Do not claim autonomous harvesting, field readiness, or safety validation without reproducible evidence.
 
 ## Prototype pipeline overview
 
@@ -837,11 +808,7 @@ Result Logging
 ├── demo.py
 ├── docs
 │   ├── images
-│   │   ├── coconut_harvest_robot_photo.svg
 │   │   ├── harvest_pipeline.svg
-│   │   ├── coconut_robot_realistic.svg
-│   │   ├── coconut_robot_cartoon.svg
-│   │   └── coconut_robot_drone_view.svg
 │   ├── TECHNICAL_OVERVIEW.md
 │   └── ORCHARD_DATA.md
 ├── src
@@ -943,7 +910,6 @@ The script downloads two reference photographs from Wikimedia Commons on demand 
 
 The concept below shows one possible **AI-assisted coconut harvesting workflow**. The aim is to reduce the need for a worker to climb a tall palm to inspect and harvest coconuts. A robot would observe the canopy from a suitable platform, propose a target, check whether a tool can reach it safely, and ask a human operator to approve the task. The robot design and method must be validated before this could be used in a real plantation.
 
-![Illustrated coconut harvesting AI robot workflow showing sensing, target assessment, safety checks and human supervision](docs/images/coconut_harvest_robot_workflow_concept.svg)
 
 *Illustration is a concept visualization, not a photograph of a built robot or evidence of a successful harvest.*
 
@@ -961,7 +927,7 @@ The concept below shows one possible **AI-assisted coconut harvesting workflow**
 |---|---|
 | AI application / decision-support prototype | Code and demo workflows exist; the demo uses supplied or synthetic evidence and does not itself prove accurate coconut detection from uploaded photographs. |
 | Harvest plan proposal and audit report | Prototype software can produce reviewable proposals and reports; these are not commands to physical actuators. |
-| Robot concept illustration and model assets | Design concepts and simulation-related files are included. |
+| Simulation workflow and model assets | Simulation-related files are included; physical harvesting is not demonstrated. |
 | Reliable detection of real coconuts, ripeness, and 3D position | **Not yet established.** Requires representative labelled orchard data, calibrated sensors, and measured validation. |
 | Robot physically climbing or reaching a palm, cutting/grasping fruit, and collecting it | **Not demonstrated.** Requires a validated mechanical system, controlled simulation, hardware tests, and risk assessment. |
 | Replacing a worker entirely | **Not a current capability or claim.** The intended benefit is to reduce hazardous climbing and support a human-supervised harvesting workflow. |
