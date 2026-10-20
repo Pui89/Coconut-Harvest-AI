@@ -11,6 +11,44 @@ Coconut Harvest AI is a research and development project exploring how AI softwa
 
 > **Readiness at a glance:** software and simulation prototypes are available in this repository. Reliable all-stage maturity detection, validated 3D localization, physical cutting and fruit handling, and autonomous operation across 0–30 m tree heights are not established as field-validated capabilities. The 0–30 m range is a design challenge, not a proven robot reach specification.
 
+## Research portfolio snapshot — for PhD reviewers
+
+**Research focus:** practice-oriented AI for agricultural perception and decision support, connecting computer vision, uncertainty-aware planning, human oversight, and robotics constraints.
+
+### Research question
+
+How can a local-first AI system help an operator identify and select individual coconuts across different maturity stages while making uncertainty, sensor limitations, and physical reach constraints explicit?
+
+### Current evidence and honest status
+
+| Area | Current evidence | What it does not prove |
+|---|---|---|
+| Decision-support / planning software | Repository contains a deterministic harvest-planning agent, workflow scripts, synthetic examples, and automated tests | Accurate coconut detection from raw images or safe physical robot control |
+| Synthetic workflow | A simulation-oriented workflow produces auditable proposal/status reports and applies configured safety gates | Real-world perception, collision-free motion, or successful harvesting |
+| Real-image baseline | The repository reports a simple OpenCV HSV-contour baseline evaluated on two images: precision 0.000, recall 0.000, F1 0.000 at IoU ≥ 0.50 (20 predictions against 15 first-pass reference boxes; reported mean CPU runtime 15.12 ms/image) | Generalisable performance; this small baseline is a failure signal and not a trained deep-learning detector benchmark |
+| Dataset readiness | A 30-image candidate batch has first-pass visual triage; two images have first-pass boxes | A licensed, independently checked, representative dataset ready for training |
+| Physical robot | Engineering concepts and simulation plans are documented | A built and validated robot, autonomous cutting, fruit capture, or harvesting at 0–30 m |
+
+The negative baseline is useful research evidence: it identifies that the current heuristic is inadequate on the reviewed examples and motivates a stronger dataset and detector. The sample is too small to support generalisation claims. Report future results only after annotation review, source/licence verification, grouped train/validation/test splits, and a frozen held-out evaluation.
+
+### Proposed research and evaluation plan
+
+1. **Data quality:** verify image provenance and reuse rights; define grower-reviewed labels for young green, mature green, brown/dry, damaged, occluded, and uncertain fruit; independently review annotations.
+2. **Perception:** compare a transparent baseline with an appropriate open-source detector; report per-class precision, recall, F1, IoU/mAP where appropriate, and inference latency on stated hardware.
+3. **Robustness:** evaluate changes in lighting, distance, occlusion, background, and fruit maturity; separate images from the same tree or source sequence across dataset splits to reduce leakage.
+4. **Decision support:** measure abstention/uncertain-case handling, false-safe reachability proposals, rejected unsafe plans, and audit-log completeness using synthetic cases and simulation.
+5. **Robotics feasibility:** begin with simulation and low-height, non-cutting tests only after software gates pass. Evaluate localization error, reachability, collision rejection, safe stops, task completion, and fruit capture separately. No physical cutting or 0–30 m capability is claimed.
+
+### Why this is practice-oriented AI
+
+The project starts from a real agricultural problem and treats perception as one component of a larger decision process. It combines domain-defined maturity criteria, vision, uncertainty handling, human approval, spatial constraints, safety checks, and measurable evaluation. The research contribution should be judged by reproducible evidence and failure analysis—not by concept artwork alone.
+
+**Implementation boundary:** code and tests described as present are software prototypes. Dataset expansion, validated all-stage detection, calibrated 3D localization, physically safe manipulation, and field trials remain future work unless accompanied by new, reproducible evidence.
+
+**Useful evidence links:** [Validation Matrix](docs/VALIDATION_MATRIX.md) · [Project Status](docs/PROJECT_STATUS_2026-10-18.md) · [Evaluation Benchmark](docs/EVALUATION_BENCHMARK.md) · [Candidate Image Triage](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md) · [End-to-End Simulation Guide](docs/END_TO_END_SIMULATION.md).
+
+---
+
 ## Commercial overview
 
 ### What the system is intended to do
