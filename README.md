@@ -20,6 +20,96 @@
 
 See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners and product stakeholders.
 
+
+## Real-orchard robot design: mature-coconut detection and low-cost harvesting
+
+**Design goal:** develop a cost-conscious agricultural AI system for coconut orchards, including tall palms approximately 20–30 m high. The first objective is dependable maturity assessment and fruit localization; physical harvesting is a separate engineering and safety challenge.
+
+> **Important reach constraint:** a compact ground robot with a small arm cannot reach coconuts in a 20–30 m palm crown. Do not describe a short arm as capable of harvesting at that height. The system must separate ground-level perception and mobility from the high-reach harvesting method. Full autonomous harvesting remains a future research goal until a suitable mechanism is built and validated.
+
+### Proposed system architecture
+
+```text
+Ground robot / operator-guided platform
+  ├── RGB camera (fruit appearance and colour)
+  ├── Depth camera or LiDAR (range, obstacle and trunk geometry)
+  ├── Optional IMU + wheel encoders (pose and motion estimate)
+  ├── Onboard computer (initially existing laptop; edge computer later)
+  └── Local AI application
+       ├── Detect and track individual coconut candidates
+       ├── Estimate maturity: mature/brown, green/immature, uncertain
+       ├── Estimate 3D position and confidence when sensor data permits
+       ├── Reject occluded, ambiguous or out-of-range targets
+       ├── Record tree/cluster observations and review images
+       └── Request human confirmation before any harvesting action
+
+Separate harvesting subsystem (not yet validated)
+  ├── Candidate A: human-operated pole/cutting tool guided by AI
+  ├── Candidate B: purpose-built lightweight climbing/crown mechanism
+  └── Candidate C: other engineered high-reach system after feasibility study
+       └── Requires mechanical design, load analysis, redundant retention,
+           controlled cutting, drop-zone management and supervised testing
+```
+
+The first two components to validate are **maturity detection** and **fruit localization**. Only after these work on representative orchard images should the project select and build a harvesting mechanism. A short arm may still be useful for a small controlled bench demonstrator, but it is not the high-reach solution.
+
+### How the robot should judge maturity
+
+Colour is a useful signal, not a sufficient rule. Brown appearance can be affected by lighting, shadows, age, cultivar, dirt and image quality. The AI should combine visual cues where the dataset supports them and return **uncertain / request human review** when evidence is weak.
+
+| Output | System behaviour |
+|---|---|
+| Mature/brown candidate | Show the detection, confidence and image evidence; mark for review |
+| Green/immature candidate | Do not select for mature-fruit harvesting |
+| Occluded, blurry or poorly lit fruit | Mark uncertain; ask for another viewpoint or human review |
+| Conflicting maturity cues | Abstain rather than force a decision |
+| Unsafe or unverified position | Do not issue a harvesting command |
+
+A maturity label is not the same as proof that a coconut is ready for a particular use. Ground truth should be defined with an experienced grower and, where feasible, verified against harvest outcomes and the intended product (for example, mature dry coconut versus other harvest stages).
+
+### Low-cost hardware plan
+
+| Subsystem | Minimum viable starting point | Upgrade only when evidence shows it is needed |
+|---|---|---|
+| Camera | Existing phone/camera or affordable RGB camera for data collection | Calibrated RGB-D camera if range accuracy is needed |
+| Range sensing | Fixed viewpoints and measured-distance trials first | RGB-D or 2D/3D LiDAR after testing sunlight, range and foliage effects |
+| Compute | Existing laptop/desktop for offline inference | Low-power edge AI board after measuring latency and power |
+| Mobility | Human-carried/handheld data collection first; then a simple wheeled base if useful | Tracked chassis only if orchard terrain tests justify it |
+| Arm | No arm required for the first maturity-detection milestone | Small arm only for a safe, close-range bench demonstrator |
+| Harvest mechanism | No automated cutting in the initial prototype | Separate high-reach feasibility study and risk review |
+| Power/network | Local battery and offline logs; no cloud inference required | Size battery from measured system power and field duration |
+
+Use free/open-source software and local processing wherever practical. Before buying hardware, collect representative data and test the proposed sensing setup. Prices, sensor ranges, sunlight performance and compute throughput must be checked against current vendor specifications and measured in the intended orchard; no specific hardware combination is guaranteed to work before those tests.
+
+### Development and acceptance gates
+
+1. **Define the harvest target.** Agree with an experienced grower on maturity classes, intended use, fruit-selection rules and unacceptable mistakes.
+2. **Build a rights-cleared dataset.** Verify each image's source, licence, attribution, hash and relevance. Correct every selected annotation and complete an independent visual review. Do not train on the currently blocked candidate set.
+3. **Train and evaluate a local baseline.** Freeze leakage-safe train/validation/test splits. Report precision, recall, mAP where appropriate, per-class results, false positives/negatives and failure examples. Do not publish estimated metrics as measured results.
+4. **Test maturity classification.** Include different lighting, shadows, viewing angles, varieties, backgrounds, occlusion and fruit stages. Measure a confusion matrix and the rate of immature fruit incorrectly selected as mature.
+5. **Measure localization separately.** Calibrate the sensor; compare estimated 3D positions with measured reference distances. Report error by range and condition, plus invalid/missing-depth rates.
+6. **Run a supervised orchard survey.** Begin with perception-only trials from safe ground viewpoints. Record tree/cluster IDs, candidate locations, uncertainty and human corrections. Do not cut fruit.
+7. **Select the harvesting mechanism.** Compare feasibility, reach, stability, mass, power, cost, maintenance and failure consequences. A lightweight climbing or high-reach mechanism needs a separate engineering design; do not assume a compact arm solves crown access.
+8. **Validate safety before actuation.** Use simulation and guarded bench tests, independent emergency stop, fail-safe power behaviour, physical exclusion zones and human supervision. Never test cutting above people, roads, buildings, animals or unprotected equipment.
+9. **Only then conduct controlled field harvesting trials.** Start with a qualified team, a documented risk assessment, a protected drop zone and staged acceptance criteria. Record success rate, damage, cycle time, intervention rate, downtime and near misses.
+
+### Metrics to publish
+
+- **Maturity:** precision/recall per maturity class, confusion matrix, and especially immature-fruit false-selection rate.
+- **Detection:** precision, recall, mAP at stated thresholds, and results on a held-out test set.
+- **Localization:** median and 95th-percentile 3D position error, invalid-depth rate, and performance by distance/lighting.
+- **Field usability:** correct fruit candidates per tree, human correction rate, inference latency, power consumption and operating time.
+- **Harvesting (only after a real trial):** successful detachment rate, fruit damage, missed targets, cycle time, operator interventions and safety incidents.
+
+Always document dataset version, split manifest, model/checkpoint hash, code revision, device, software versions, confidence thresholds and test conditions. A CI pass, simulated run, concept illustration or model prediction is not evidence of successful physical harvesting.
+
+### Current implementation status and honest scope
+
+This section defines the **proposed engineering plan**, not a claim that the complete robot has been built. The repository's existing software prototype and automated tests do not establish a trained detector's held-out accuracy, maturity-classification reliability, real-world 3D localization, high-reach capability or successful physical harvesting. The dataset remains blocked pending image-rights checks, annotation correction and independent review, as described in the status notes above.
+
+**Immediate priority:** finish the reviewed dataset and establish a reproducible local perception baseline. In parallel, gather grower input and conduct a no-cut feasibility study for safe access to fruit in tall palm crowns. Keep spending at $0 for now: use existing hardware, simulation and free/local tools until a specific purchase is justified by measured evidence.
+
+
 ## Latest automated CI verification — 20 October 2026
 
 The latest Python test workflow passed on the current main-branch change in [run 39276683425](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39276683425). This confirms the configured automated software checks on that commit; it does **not** unblock the dataset, approve annotations, or establish detector accuracy or physical harvesting performance.
