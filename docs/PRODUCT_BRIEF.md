@@ -1,6 +1,6 @@
 # Product brief — Coconut Harvest AI
 
-**One-line description:** A local-first AI application and simulation-first agricultural-robot research platform for evaluating coconut perception, localization and harvest-task planning.
+**Product direction:** A local-first AI application paired with an agricultural-robot system, developed toward a dependable coconut perception and harvest-assistance product. Today it remains a prototype and simulation-first engineering project.
 
 ## The problem
 Coconut harvesting involves difficult visibility, height, access and handling conditions. A useful robotic system must do more than detect a coconut: it must localize the target, establish whether a planned action is feasible, handle uncertainty and stop safely when evidence is insufficient.
@@ -39,5 +39,5 @@ The project is intended to make a complex harvesting-robot problem inspectable: 
 - **60 days:** run a reproducible baseline and publish metrics, error cases and latency.
 - **90 days:** complete localization/simulation validation plan and conduct structured customer discovery. Dates are targets, not promises of completion.
 
-## Short award pitch
-Coconut Harvest AI explores how practical AI can move from image perception toward embodied agricultural tasks. The contribution is a transparent, locally runnable research workflow that measures data quality, target localization and safety-related decision gates before making physical-robot claims. The next phase will establish benchmark evidence and test feasibility with qualified agricultural partners.
+## Product positioning
+Coconut Harvest AI is intended to help agricultural partners evaluate a complete workflow—from finding visible coconuts to estimating target location, checking task feasibility, and stopping when evidence is insufficient. The product direction is practical and measurable: local installation, transparent logs, repeatable benchmarks, clear operator controls, and a staged path from software to simulation and supervised hardware trials. This is not yet a ready-to-deploy harvesting robot; customer value, performance, safety and savings must be measured with qualified partners before commercial claims are made.

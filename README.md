@@ -1,14 +1,170 @@
-# Coconut Harvest AI Application
+# Coconut Harvest AI
+
+
+### AI-Assisted Coconut Detection, Harvest Selection and Robotic Harvesting
+
+**Smarter coconut harvesting through computer vision, robotics and agricultural AI.**
+
+Coconut Harvest AI is a research and development project exploring how AI software could help growers identify individual coconuts, assess their harvesting stage, select target fruit, and plan safer harvesting workflows. The long-term vision is to connect a local-first AI application to a suitable agricultural robot.
+
+**For farms, cooperatives, equipment manufacturers and research partners:** this repository documents the current software prototypes, test workflows, engineering concepts and validation roadmap. It is not an offer of a finished, commercially available harvesting machine.
+
+> **Readiness at a glance:** software and simulation prototypes are available in this repository. Reliable all-stage maturity detection, validated 3D localization, physical cutting and fruit handling, and autonomous operation across 0–30 m tree heights are not established as field-validated capabilities. The 0–30 m range is a design challenge, not a proven robot reach specification.
+
+## Commercial overview
+
+### What the system is intended to do
+
+- **Observe:** capture orchard images and, where available, depth or range data.
+- **Detect:** propose individual coconut targets for review.
+- **Select:** let an operator choose the intended harvest stage or use survey-only mode.
+- **Plan:** assess uncertainty, target location, reachability and safety constraints.
+- **Support harvesting:** connect an approved plan to a separately engineered and validated harvesting mechanism in future development.
+- **Verify:** record whether a task was proposed, attempted, or independently confirmed as successful.
+
+### System workflow
+
+```text
+Camera / Sensors
+      ↓
+Image and Sensor Quality Checks
+      ↓
+Coconut Detection and Stage Assessment
+      ↓
+Operator Selects Harvest Stage
+      ↓
+Target, Location and Safety Review
+      ↓
+Human Approval / Safe Hold
+      ↓
+Future Robot Integration: Controlled Cut and Fruit Handling
+      ↓
+Outcome Verification and Audit Log
+```
+
+The current software workflow does not by itself prove that a coconut was detected accurately or harvested physically. Uncertain targets, unsafe reach, missing sensor evidence or failed safety checks must result in review or **SURVEY ONLY / NO CUT**.
+
+### Potential customer value
+
+The project investigates whether AI-assisted perception and planning could help reduce reliance on hazardous climbing, improve harvest selection and make harvesting tasks more consistent and traceable. These are intended benefits, not measured commercial outcomes or guarantees of labour savings, safety improvement, yield or return on investment.
+
+### Current readiness
+
+| Area | Status described by this repository |
+|---|---|
+| Local AI application and decision-support code | Prototype code and local workflows are available; see the implementation and test documentation below |
+| Synthetic-data workflow and audit reports | Available for software testing; synthetic examples are not field-performance evidence |
+| Real-image coconut detection and maturity assessment | Not yet established as a reliable, generalisable detector; dataset quality and held-out evaluation remain necessary |
+| 3D localization and robot reachability | Prototype/engineering work; requires calibrated sensors and independent validation |
+| Physical robot, cutting and fruit handling | Not demonstrated as a validated end-to-end harvesting system |
+| Operation at 0–30 m tree heights | Long-term feasibility challenge; no full-height capability claim |
+| Commercial pricing and availability | Not established |
+
+### Collaboration
+
+We welcome discussions with coconut growers, agricultural cooperatives, machinery manufacturers, robotics teams and research organisations interested in requirements assessment, dataset review, feasibility studies and supervised pilot planning. Any physical trial would require suitable hardware, independent safety controls and documented risk assessment.
+
+**Suggested first step:** review the [Product Brief](docs/PRODUCT_BRIEF.md), [Validation Matrix](docs/VALIDATION_MATRIX.md), [Complete-System Blueprint](docs/COMPLETE_SYSTEM_BLUEPRINT.md), and [Buyer Value and Competitive Positioning](docs/BUYER_VALUE_AND_COMPETITIVE_POSITIONING.md).
+
+---
+
 
 ## Robot concept illustration
 
-![Coconut Harvest AI agricultural robot concept](docs/images/coconut-harvest-robot-concept-2026.svg)
+![Realistic-style low-cost Coconut Harvest AI concept with slim robotic arm, telescopic mast, and mixed-stage coconuts](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
-*Original concept artwork—not a real robot photograph or evidence of validated physical harvesting.*
+*Original realistic-style engineering concept artwork—not a photograph of a built robot. The concept shows young green, mature green/yellow-green, and brown/dry coconuts as separate per-fruit targets. Safe reach to 20–30 m palms, stability, cutting, fruit capture, and all-stage recognition remain unvalidated engineering goals.*
 
 
 > **Complete-system architecture and acceptance gates:** [COMPLETE_SYSTEM_BLUEPRINT.md](docs/COMPLETE_SYSTEM_BLUEPRINT.md). This is a build-and-validation plan, not a claim of field-validated harvesting.
 > **Current validation matrix:** [VALIDATION_MATRIX.md](docs/VALIDATION_MATRIX.md) — implementation evidence, automated checks, and remaining unvalidated capabilities.
+> **All-stage coconut roadmap:** [COCONUT_STAGE_ROADMAP.md](docs/COCONUT_STAGE_ROADMAP.md) — proposed labels and workflow for young green, mature green, brown/dry, damaged, occluded, and uncertain fruit, with operator-selected harvest classes.
+> **Candidate image triage (20 Oct 2026):** [CANDIDATE_IMAGE_TRIAGE_2026-10-20.md](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md) — contact-sheet triage of 30 candidates; this is not licence clearance or annotation approval.
+
+## Per-coconut handling and image-quality review
+
+The robot must make a separate decision for **each visible fruit**, even when a bunch contains different stages. The operator selects the intended harvest class before a task; the software filters candidates, but selection never overrides uncertainty, reach, collision, drop-zone, or human-confirmation checks.
+
+| Per-fruit observation | Intended AI/application response | Robot action policy |
+|---|---|---|
+| Young green | Propose `young_green` only when the image and grower-defined criteria support it | Eligible only when the operator selected young fruit; otherwise skip |
+| Mature green | Keep separate from young green; green colour alone is not proof of maturity | Eligible only after validated maturity criteria and required confirmation |
+| Mature brown/dry | Propose `mature_brown_or_dry` with confidence and image evidence | Eligible only when selected and all safety/reach checks pass |
+| Mixed-stage bunch | Detect and label each fruit independently; do not assign one label to the whole bunch | Filter each candidate separately |
+| Partly hidden or overlapping | Mark visible fruit only when its boundary is supportable; flag occlusion/uncertainty | Request another view or human review; no automatic cut |
+| Blurry, tiny, shadowed, or cropped at image edge | Mark uncertain if the whole fruit/class cannot be judged reliably | Do not cut automatically |
+| Damaged or abnormal | Label for review, not as a normal harvest target | Reject from automatic harvesting unless a separately approved workflow applies |
+| No safe reach, unclear 3D position, obstacle, person/animal nearby, or unsafe drop zone | Preserve the candidate record and explain the failed check | Do not issue a cutting action |
+| Survey-only request | Detect/map candidates without choosing a harvest target | No cutting |
+
+### Current candidate-image triage: what to keep, crop, replace, or exclude
+
+The 30-image candidate set is **not approved for training**. The table below is first-pass visual triage from contact sheets, not final full-resolution inspection or licence clearance. Check the original file before cropping, drawing boxes, or accepting any image.
+
+| Candidate ID(s) | Current issue / use | Recommended action |
+|---|---|---|
+| **0002, 0004** | Fruit are visible; existing boxes are only first-pass labels | **Review first at full resolution.** Check every box, missed fruit, false box, overlap, edge truncation, and stage label. Crop a *derived copy* only if the original fruit is too small to inspect; retain the untouched original and record crop coordinates/source hash. |
+| **0001, 0010, 0014, 0015** | Possible fruit may be too distant or unclear in the contact sheet | Inspect original resolution. Keep only if individual fruit are genuinely visible and annotatable; otherwise retain as context/negative examples only if appropriate and rights-cleared. |
+| **0003** | Collage/composite containing multiple coconut-related panels | Exclude from detector training unless the original panels are separated into individual files and each source/licence is independently verified. Do not draw boxes across the collage as if it were one natural scene. |
+| **0007** | Harvest tool close-up, no fruit target | Exclude from fruit-detection positives; possibly retain in a separate tool/safety dataset later. |
+| **0011** | Coconut processing scene, not a clear fruit-on-tree target | Exclude from fruit-detection positives unless the task and labels are explicitly changed. |
+| **0018** | Appears to be a map/plantation graphic | Exclude from fruit-detection training. |
+| **0023, 0024** | Seedlings/young plants rather than harvestable fruit targets | Exclude from harvest-fruit positives; do not label seedlings as young coconuts. |
+| **0029** | Appears unrelated to coconut harvesting | Reject as irrelevant. |
+| **0005–0009, 0012–0017, 0019–0022, 0025–0028, 0030** | Mostly harvesting context, people, tools, plantation panoramas, or distant palms; individual fruit are not clear in the contact sheet | Do not use as positive fruit examples based on the thumbnail. Inspect full resolution only if there is a specific reason; otherwise exclude from fruit positives or keep as separately labelled context/negative material after rights review. |
+
+**Cropping and replacement rules**
+
+- Never overwrite or delete the original image to improve a crop. Save crops as new files and record the parent filename/hash, crop coordinates, and source/licence.
+- Crop only when the fruit remains naturally interpretable; do not crop away the stem, boundary, occlusion, or nearby fruit needed to understand the target. Keep some surrounding context.
+- Do not enlarge a tiny fruit and treat interpolation as new visual evidence. If its boundary or stage cannot be judged, mark it uncertain or replace it with a better rights-cleared source.
+- Replace an image only after checking source URL, creator, exact licence/permission, attribution requirements, dimensions, SHA-256, duplicate status, and annotation overlay.
+- A photo of a palm, a person climbing, or a harvesting tool does not automatically provide a usable fruit-detection example.
+- The contact-sheet review does not establish that all stages are represented. The set still needs verified examples of young green, mature green, mature brown/dry, damaged, occluded, and uncertain fruit.
+- **Training remains blocked** until provenance/licence checks, independent box and maturity-label review, leakage-safe splits, and a frozen dataset manifest are complete. No model accuracy or physical harvesting capability should be claimed from these candidate images.
+
+Full triage log: [CANDIDATE_IMAGE_TRIAGE_2026-10-20.md](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md).
+
+## How the all-stage coconut robot is intended to work
+
+The system is designed as a **human-supervised AI application connected to an agricultural robot**. It should first identify and assess each visible coconut, then propose a target based on the operator's chosen harvest stage. Detection is not the same as confirmed maturity, and a software demo is not proof of physical harvesting.
+
+### 1. Choose a task
+
+The operator selects one mode before the robot starts:
+
+- **Young green:** consider only fruit confirmed under the project's grower-defined young-coconut criteria.
+- **Mature green:** consider green fruit assessed as mature using validated criteria; do not infer maturity from green colour alone.
+- **Mature brown/dry:** consider fruit assessed as mature or drying under the agreed criteria.
+- **Selected combination:** consider only the classes selected by the operator.
+- **Survey only:** detect, label, and map fruit without cutting.
+
+The operator can also set a target limit and confirm the intended tree or row. The selection filters candidate fruit; it never disables a safety check.
+
+### 2. See and classify each fruit
+
+An RGB camera captures the bunch. A local vision model (once trained and validated) should detect individual coconuts and assign a provisional class, confidence, and image location. If available, calibrated depth or another validated sensor may help estimate 3D position.
+
+Proposed classes include young green, mature green, mature brown/dry, damaged/abnormal, occluded/partial, and uncertain. A grower should define the class criteria for the local cultivar and intended use. Colour is a visual clue, not reliable proof of maturity on its own.
+
+### 3. Filter targets and abstain when uncertain
+
+The application compares each proposed class with the operator's selection. Fruit outside the selection is not sent to the harvest planner. Low-confidence, hidden, damaged, or ambiguous fruit is marked for review rather than cut automatically. Mixed-stage bunches are processed fruit by fruit, not assigned one class as a whole.
+
+### 4. Check robot reach and safety
+
+Before any physical action, the system must check that the target is within the validated reach envelope, the robot is stable, the path is clear, the tool is suitable, and the fruit can be lowered or dropped into a safe area. People and animals must be kept clear. A stop command, fault, lost sensor, collision risk, or unsafe condition must prevent cutting.
+
+A small ground robot with a short arm cannot reach high palm crowns by itself. The high-reach mechanism, stability, cutting tool, fruit handling, and safe lowering method are separate engineering tasks that require supervised testing.
+
+### 5. Ask for confirmation and record the outcome
+
+The interface should show the target, predicted class, confidence, and proposed action. Human confirmation is required by default before cutting. The system should record whether the task was merely proposed, attempted, or independently confirmed as successful; it must not report a successful harvest without evidence.
+
+### Development status and evidence
+
+This workflow describes the intended design. It does **not** mean every class is already detected, that a trained all-stage model exists, or that the physical robot can harvest all coconut stages. The project must first complete image-source and licence checks, annotation review, a leakage-safe dataset split, local model training, and held-out per-class evaluation. Physical reach and harvesting must then be validated separately. See the [all-stage roadmap](docs/COCONUT_STAGE_ROADMAP.md) and [project status](docs/PROJECT_STATUS_2026-10-18.md).
+
 
 > **A local-first AI application and simulation-first agricultural robot research project.** The goal is to explore whether computer vision, RGB-D localization, conservative task planning, and human-supervised safety gates can support safer coconut harvesting. This is a research prototype—not a finished or field-validated harvesting robot.
 
@@ -18,9 +174,174 @@
 
 ## Product brief
 
-See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners or award applications.
+See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of the problem, current evidence, intended audiences, demonstration plan and milestones for potential partners and product stakeholders.
 
-## Latest status update — 18 October 2026
+
+## Real-orchard robot design: mature-coconut detection and low-cost harvesting
+
+**Design goal:** develop a cost-conscious agricultural AI system for coconut orchards, including tall palms approximately 20–30 m high. The first objective is dependable maturity assessment and fruit localization; physical harvesting is a separate engineering and safety challenge.
+
+> **Important reach constraint:** a compact ground robot with a small arm cannot reach coconuts in a 20–30 m palm crown. Do not describe a short arm as capable of harvesting at that height. The system must separate ground-level perception and mobility from the high-reach harvesting method. Full autonomous harvesting remains a future research goal until a suitable mechanism is built and validated.
+
+### Coconut-tree height range: 0–30 m
+
+The **0–30 m range describes the trees the AI system may need to inspect—not a proven reach envelope for this robot**. The current artwork is conceptual; it does not demonstrate that the pictured arm can reach the crown or harvest successfully. The AI can be designed to detect, record, and rank fruit at different visible heights, but physical cutting is permitted only when a separately validated mechanism can reach the target safely.
+
+| Approximate target height | Intended operating mode | Honest current status / gate |
+|---|---|---|
+| **0–3 m** | Ground-level perception and controlled, guarded test rig | First candidate band for supervised, non-cutting tests; harvesting still requires hardware, safety and success-rate validation |
+| **3–6 m** | Extended mast or engineered lift/platform | Feasibility study only; verify stability, load, wind, reach and safe fruit capture before any cutting |
+| **6–12 m** | Purpose-built high-reach or climbing system with independent retention | Research concept; not demonstrated by the pictured compact ground robot |
+| **12–20 m** | Specialized access/harvesting mechanism, redundant retention and exclusion zone | Unvalidated research challenge; no claim of successful operation |
+| **20–30 m** | Specialized tall-palm solution; assess alternatives to a ground-mounted arm | Out of current demonstrated capability; do not command a harvest based on AI detection alone |
+
+**Per-tree decision:** estimate target height and uncertainty, check 3D localization, mechanism reach, stability, collision path, wind/conditions, fruit capture and a clear exclusion zone. If any check fails or is unknown, the system must report **SURVEY ONLY / NO CUT**. A target is counted as a successful harvest only after the fruit is safely detached and captured/controlled, verified by sensors or operator, and logged; a detection, simulation animation, or proposed cut is not a harvest success.
+
+The project should report separate results by height band: detection precision/recall, localization error, reachability false-safe rate, safe task completion rate, successful fruit capture rate, fruit damage, aborts, collisions/near misses, and cycle time. Publish the denominator, failures, conditions and whether each result came from recorded images, simulation, or physical hardware. See [the full 0–30 m feasibility and acceptance plan](docs/TREE_HEIGHT_FEASIBILITY_0-30M.md).
+
+
+
+### Next engineering designs: from concept to testable prototype
+
+The next designs are planned as separate engineering views so the project can be reviewed and tested step by step. They are **proposed designs, not evidence that the physical robot has been built or validated**.
+
+1. **Height and access design (0–30 m tree range):** compare a compact ground platform, a supervised low-height test rig, and specialist high-reach approaches. State the reach envelope and stop at the boundary of verified capability; do not imply that a small arm reaches a 30 m crown.
+2. **Per-fruit AI selection interface:** let the operator choose *young green*, *mature green*, *mature brown/dry*, *selected combination*, or *survey only*. Display each fruit separately with confidence and an uncertainty option. The operator's selection never bypasses safety checks.
+3. **Cutting, gripping and fruit-retention mechanism:** design a guarded cutting head, a way to control the detached fruit, and a fail-safe retention/lowering method. Start with a bench rig or non-cutting mock-up; require mechanical review and supervised testing before field use.
+4. **Simulation and test environment:** use free/open-source tools where practical to test perception, target localization, arm reach, collisions, stop conditions and task sequences before hardware. Label simulation results separately from physical tests.
+5. **Sensor and 3D-localization layout:** document camera placement, optional depth/LiDAR, calibration, field of view, range limits and localization uncertainty. If position or reach is uncertain, the correct output is **SURVEY ONLY / NO CUT**.
+6. **Harvest verification and metrics:** record each target as proposed, human-approved, attempted, safely detached, captured/controlled, and independently verified. Report per-stage and per-height-band results, including failures, fruit damage, aborts, near misses and cycle time.
+
+**Recommended build order:** (1) review and approve the data, (2) evaluate a local vision baseline on a leakage-safe held-out set, (3) prototype the operator interface and sensor/localization workflow, (4) test the cutting/retention concept on a guarded bench rig, and (5) integrate in simulation before any supervised physical trial. Do not claim a successful harvest from an illustration, detection, or simulation animation alone.
+
+
+### Proposed system architecture
+
+```text
+Ground robot / operator-guided platform
+  ├── RGB camera (fruit appearance and colour)
+  ├── Depth camera or LiDAR (range, obstacle and trunk geometry)
+  ├── Optional IMU + wheel encoders (pose and motion estimate)
+  ├── Onboard computer (initially existing laptop; edge computer later)
+  └── Local AI application
+       ├── Detect and track individual coconut candidates
+       ├── Estimate maturity: mature/brown, green/immature, uncertain
+       ├── Estimate 3D position and confidence when sensor data permits
+       ├── Reject occluded, ambiguous or out-of-range targets
+       ├── Record tree/cluster observations and review images
+       └── Request human confirmation before any harvesting action
+
+Separate harvesting subsystem (not yet validated)
+  ├── Candidate A: human-operated pole/cutting tool guided by AI
+  ├── Candidate B: purpose-built lightweight climbing/crown mechanism
+  └── Candidate C: other engineered high-reach system after feasibility study
+       └── Requires mechanical design, load analysis, redundant retention,
+           controlled cutting, drop-zone management and supervised testing
+```
+
+The first two components to validate are **maturity detection** and **fruit localization**. Only after these work on representative orchard images should the project select and build a harvesting mechanism. A short arm may still be useful for a small controlled bench demonstrator, but it is not the high-reach solution.
+
+### Operator-selectable harvest order: mature, young, or both
+
+**The operator—not the AI alone—chooses which coconut stage to harvest for the current job.** Before a run, the local application should offer a clear harvest-order setting:
+
+```text
+HARVEST ORDER
+  [ ] Mature coconuts (usually brown / mature-stage)
+  [ ] Young coconuts (usually green / tender-stage)
+  [ ] Both stages (show separate targets and ask before each action)
+
+Additional controls:
+  • Intended use: mature/dry coconut, drinking coconut, or grower-defined stage
+  • Tree/row or selected cluster
+  • Maximum targets and stop conditions
+  • Human confirmation: ON by default
+```
+
+The AI should classify each visible fruit into **mature-stage**, **young-stage**, or **uncertain**; it then filters the candidate list using the operator's chosen order. For example, a mature-only job must not select a young coconut just because it is easy to reach. A young-only job must not select a mature coconut. If “both” is selected, the application should display the two classes separately and apply the correct harvest method for each only after that method has been engineered and validated.
+
+“Brown” and “green” are visual clues, not universal ground truth: cultivar, lighting, weathering, and intended use can change what counts as harvest-ready. A grower should define the classes and labels for the orchard and product. If the model is uncertain, it must abstain and ask the operator rather than guess. The selected order changes **which targets the AI proposes**; it does not bypass reach, collision, drop-zone, tool, or safety checks. Any fruit high in a 20–30 m crown still requires a separately validated high-reach harvesting mechanism.
+
+### How the robot should judge maturity
+
+Colour is a useful signal, not a sufficient rule. Brown appearance can be affected by lighting, shadows, age, cultivar, dirt and image quality. The AI should combine visual cues where the dataset supports them and return **uncertain / request human review** when evidence is weak.
+
+| Output | System behaviour |
+|---|---|
+| Mature/brown candidate | Show the detection, confidence and image evidence; mark for review |
+| Green/immature candidate | Do not select for mature-fruit harvesting |
+| Occluded, blurry or poorly lit fruit | Mark uncertain; ask for another viewpoint or human review |
+| Conflicting maturity cues | Abstain rather than force a decision |
+| Unsafe or unverified position | Do not issue a harvesting command |
+
+A maturity label is not the same as proof that a coconut is ready for a particular use. Ground truth should be defined with an experienced grower and, where feasible, verified against harvest outcomes and the intended product (for example, mature dry coconut versus other harvest stages).
+
+### Low-cost hardware plan
+
+| Subsystem | Minimum viable starting point | Upgrade only when evidence shows it is needed |
+|---|---|---|
+| Camera | Existing phone/camera or affordable RGB camera for data collection | Calibrated RGB-D camera if range accuracy is needed |
+| Range sensing | Fixed viewpoints and measured-distance trials first | RGB-D or 2D/3D LiDAR after testing sunlight, range and foliage effects |
+| Compute | Existing laptop/desktop for offline inference | Low-power edge AI board after measuring latency and power |
+| Mobility | Human-carried/handheld data collection first; then a simple wheeled base if useful | Tracked chassis only if orchard terrain tests justify it |
+| Arm | No arm required for the first maturity-detection milestone | Small arm only for a safe, close-range bench demonstrator |
+| Harvest mechanism | No automated cutting in the initial prototype | Separate high-reach feasibility study and risk review |
+| Power/network | Local battery and offline logs; no cloud inference required | Size battery from measured system power and field duration |
+
+Use free/open-source software and local processing wherever practical. Before buying hardware, collect representative data and test the proposed sensing setup. Prices, sensor ranges, sunlight performance and compute throughput must be checked against current vendor specifications and measured in the intended orchard; no specific hardware combination is guaranteed to work before those tests.
+
+### Development and acceptance gates
+
+1. **Define the harvest target.** Agree with an experienced grower on maturity classes, intended use, fruit-selection rules and unacceptable mistakes.
+2. **Build a rights-cleared dataset.** Verify each image's source, licence, attribution, hash and relevance. Correct every selected annotation and complete an independent visual review. Do not train on the currently blocked candidate set.
+3. **Train and evaluate a local baseline.** Freeze leakage-safe train/validation/test splits. Report precision, recall, mAP where appropriate, per-class results, false positives/negatives and failure examples. Do not publish estimated metrics as measured results.
+4. **Test maturity classification.** Include different lighting, shadows, viewing angles, varieties, backgrounds, occlusion and fruit stages. Measure a confusion matrix and the rate of immature fruit incorrectly selected as mature.
+5. **Measure localization separately.** Calibrate the sensor; compare estimated 3D positions with measured reference distances. Report error by range and condition, plus invalid/missing-depth rates.
+6. **Run a supervised orchard survey.** Begin with perception-only trials from safe ground viewpoints. Record tree/cluster IDs, candidate locations, uncertainty and human corrections. Do not cut fruit.
+7. **Select the harvesting mechanism.** Compare feasibility, reach, stability, mass, power, cost, maintenance and failure consequences. A lightweight climbing or high-reach mechanism needs a separate engineering design; do not assume a compact arm solves crown access.
+8. **Validate safety before actuation.** Use simulation and guarded bench tests, independent emergency stop, fail-safe power behaviour, physical exclusion zones and human supervision. Never test cutting above people, roads, buildings, animals or unprotected equipment.
+9. **Only then conduct controlled field harvesting trials.** Start with a qualified team, a documented risk assessment, a protected drop zone and staged acceptance criteria. Record success rate, damage, cycle time, intervention rate, downtime and near misses.
+
+### Metrics to publish
+
+- **Maturity:** precision/recall per maturity class, confusion matrix, and especially immature-fruit false-selection rate.
+- **Detection:** precision, recall, mAP at stated thresholds, and results on a held-out test set.
+- **Localization:** median and 95th-percentile 3D position error, invalid-depth rate, and performance by distance/lighting.
+- **Field usability:** correct fruit candidates per tree, human correction rate, inference latency, power consumption and operating time.
+- **Harvesting (only after a real trial):** successful detachment rate, fruit damage, missed targets, cycle time, operator interventions and safety incidents.
+
+Always document dataset version, split manifest, model/checkpoint hash, code revision, device, software versions, confidence thresholds and test conditions. A CI pass, simulated run, concept illustration or model prediction is not evidence of successful physical harvesting.
+
+### Current implementation status and honest scope
+
+This section defines the **proposed engineering plan**, not a claim that the complete robot has been built. The repository's existing software prototype and automated tests do not establish a trained detector's held-out accuracy, maturity-classification reliability, real-world 3D localization, high-reach capability or successful physical harvesting. The dataset remains blocked pending image-rights checks, annotation correction and independent review, as described in the status notes above.
+
+**Immediate priority:** finish the reviewed dataset and establish a reproducible local perception baseline. In parallel, gather grower input and conduct a no-cut feasibility study for safe access to fruit in tall palm crowns. Keep spending at $0 for now: use existing hardware, simulation and free/local tools until a specific purchase is justified by measured evidence.
+
+
+## Latest automated CI verification — 20 October 2026
+
+The latest Python test workflow passed on the current main-branch change in [run 39276683425](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39276683425). This confirms the configured automated software checks on that commit; it does **not** unblock the dataset, approve annotations, or establish detector accuracy or physical harvesting performance.
+
+## Backup replacement candidates added — 20 October 2026
+
+Because the first two candidates are still pending full-resolution download and annotation QA, three more alternatives have been recorded. Candidate C and D are listed as CC BY-SA 4.0; candidate E is listed as CC BY 4.0. They are **not approved training images** and must pass the same provenance, duplicate, annotation, geometry and independent visual-review gates. See [additional coconut image alternatives](docs/ADDITIONAL_COCONUT_IMAGE_ALTERNATIVES_2026-10-20.md). If any candidate fails, reject it and test the next alternative rather than forcing a poor label.
+
+## New replacement candidates identified — 20 October 2026
+
+Two additional Wikimedia Commons source pages with visible coconut clusters and CC BY-SA 4.0 licensing have been recorded for review. They are **candidates only**: they have not yet passed local download/hash verification, annotation, independent visual QA, or dataset approval. See [external replacement candidates and attribution checklist](docs/EXTERNAL_REPLACEMENT_CANDIDATES_2026-10-20.md). Do not train on or publish draft labels for these images until the review gates pass. A separate [preliminary visual triage of the original 30-image candidate batch](docs/PRELIMINARY_VISUAL_TRIAGE_2026-10-20.md) also records obvious task-mismatch images to exclude or review; it is not a licence or annotation approval.
+
+## Latest status update — 20 October 2026
+
+- **Current status: dataset is still blocked from training.** The first-pass labels have unresolved visual-review warnings. The 30-image contact sheet has now received a preliminary task-relevance screen; obvious mismatches are documented in [the visual-triage report](docs/PRELIMINARY_VISUAL_TRIAGE_2026-10-20.md). This screen is not source-rights clearance or label approval. The two previously reviewed labelled images (0002 and 0004) passed basic coordinate-boundary checks, but overlapping boxes on 0002 and border-touching boxes on 0004 still require human review; geometry checks alone do not approve annotations.
+- **Dataset QA actions taken:** candidate 0033 was judged too shadowed for the first clean replacement; candidate 0032 (`Coconut_in_Coconut_Tree.jpg`) was selected for further review after checking the original Commons source page, CC BY-SA 4.0 terms, attribution and matching SHA-1. A temporary draft overlay/annotation was generated for 0034 and geometry-checked (valid coordinates, one border-touching box and one overlap warning at IoU 0.15). This is not label approval: the draft still needs boundary correction, missed-fruit review and independent second review.
+- **Data handling:** unapproved images and labels must remain in temporary artifacts/review files. Do not commit or publish unverified images, annotations, or model outputs as a finished dataset. The earlier 30-image candidate artifact has its own expiry noted below; download it before 25 October 2026 if it is still needed.
+- **Already evidenced:** the repository has dataset collection, provenance/review, annotation, conversion and split-audit tooling. The earlier candidate collection produced 30 candidates; that count is not the count of licence-cleared or training-ready images.
+- **Not yet established:** an approved complete dataset, trained detector performance, held-out precision/recall/mAP, measured RGB-D localization accuracy, safe collision-free robot motion, or physical coconut harvesting.
+- **Next sequence:** finish human correction and independent review of 0032/0034 → verify every selected image's rights and annotations → audit duplicates and group-separated splits → train a local baseline only after dataset approval → publish reproducible held-out metrics and failure examples → validate robot geometry and stop behavior in simulation. Two new Wikimedia source pages were re-opened and their original images visually checked in-browser; local downloads, hashes and annotations remain pending in [the candidate ledger](docs/EXTERNAL_REPLACEMENT_CANDIDATES_2026-10-20.md).
+- **Cost and safety boundary:** remain local-first and free/open-source-first; no paid inference API or physical actuator commands are required for dataset QA. Concept art and passing CI are not evidence of field performance.
+
+## Previous status update — 18 October 2026
 
 - **Successful:** Python CI passed on 3.10/3.11/3.12 in [run 39096443251](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39096443251); candidate collection generated 30 image candidates and provenance/review files; Pages deployment passed. This verifies automated software checks only—not detector accuracy or physical harvesting.
 - **Dataset QA update (19 Oct):** the 30-image candidate batch is triaged; candidates 0001, 0002, 0004 and 0014 have independently checked Commons source pages. Candidate 0010 was excluded from positive detection data after full-resolution review. The two labelled images (0002: 9 boxes; 0004: 6 boxes) were overlaid; the geometry audit found no out-of-bounds coordinates, but flagged two overlapping box pairs on 0002 and border-touching boxes on 0004. These are review warnings, not automatic corrections. Labels still need independent visual QA; the other 26 source pages are not cleared. See the [annotation QA audit](docs/ANNOTATION_QA_AUDIT_2026-10-19.md), [source-rights ledger](data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv), and [candidate batch report](docs/CANDIDATE_IMAGE_BATCH_2026-10-18.md).
@@ -231,7 +552,6 @@ Orchard image + optional depth / robot-state data
 
 ![AI application concept: coconut orchard perception and planning](docs/images/coconut-harvest-ai-demo.svg)
 
-![AI application 3D/4D concept visualization](docs/images/coconut-harvest-ai-4d-concept.svg)
 
 **Real-world image used as application context**
 
@@ -269,9 +589,7 @@ RGB / depth / optional LiDAR + robot-state sensors
         Verify outcome and record evidence
 ```
 
-![Existing coconut harvesting robot concept illustration](docs/images/coconut_harvest_robot_photo.svg)
 
-![3D/4D coconut harvesting robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
 
 **Real-world image of the harvesting task**
 
@@ -426,7 +744,7 @@ MLOps / Fleet Learning
 
 ### Product tiers
 
-- **PUI89 Research** — universities, robotics competitions, researchers
+- **PUI89 Research** — universities, researchers, and potential product partners
 - **PUI89 Professional** — farms, plantations, agricultural operators
 - **PUI89 Enterprise** — large corporations, governments, logistics, ports, infrastructure
 
@@ -447,29 +765,12 @@ See:
 - [Product Tiers](docs/PUI89_PRODUCT_TIERS.md)
 - [Failure and UNKNOWN Protocol](docs/PUI89_FAILURE_AND_UNKNOWN_PROTOCOL.md)
 - [MLOps Model Lifecycle](docs/PUI89_MLOPS_MODEL_LIFECYCLE.md)
-- [Research, Competition and Commercial Evidence](docs/PUI89_RESEARCH_COMPETITION_INVESTOR.md)
 - [12-Month Roadmap](docs/PUI89_12_MONTH_ROADMAP.md)
 - [Cost Safety and Billing Policy](docs/COST_SAFETY_AND_BILLING.md)
 
-## Robot concept and development status
+## End-to-end simulation demo
 
-PUI89 Coconut Harvest Robot is a **simulation-first research concept** for investigating safer coconut harvesting. The proposed architecture compares a trunk-climbing platform with alternatives such as a ground-based arm. The mechanical approach is not yet validated; physical climbing and cutting must not be assumed to work.
 
-![Coconut harvest robot concept](docs/images/coconut_harvest_robot_photo.svg)
-
-### 3D / 4D concept visualization
-
-![3D/4D coconut harvest robot concept](docs/coconut_harvest_robot_3d_4d_concept.svg)
-
-These repository graphics are concept visualizations, not evidence of a completed or field-tested robot. Any animation illustrates a proposed trajectory rather than measured robot performance.
-
-- [Concept design, subsystems, safety boundaries and acceptance criteria](docs/CONCEPT_DESIGN.md)
-- [Simulation-first development roadmap and release gates](docs/DEVELOPMENT_ROADMAP.md)
-- [Robot description (URDF)](robots/coconut_harvester.urdf)
-- [Simulation demos](sim/)
-- [Evaluation benchmark](docs/EVALUATION_BENCHMARK.md)
-
-### End-to-end simulation demo
 
 Run the safety-gated software workflow with synthetic orchard inputs:
 
@@ -495,16 +796,6 @@ python -m pytest
 - [CI results](https://github.com/Pui89/Coconut-Harvest-AI/actions)
 
 **Evidence and safety limits:** The demo uses generated synthetic imagery and hand-supplied evidence; these are fixtures, not measured detection or harvesting results. The trajectory planner is not independently collision-validated, and the report never sends actuator commands. Do not use this prototype to control a physical robot. Gazebo Sim/Isaac Sim physics validation, calibrated sensor evaluation, independent collision checking, and a documented safety review remain future acceptance gates.
-
-### First engineering priority
-
-1. Audit the current URDF, demo scripts, dependencies and tests.
-2. Make a reproducible palm-trunk simulation with configurable dimensions and contact assumptions.
-3. Validate robot frames, joint limits, collision geometry and safety states.
-4. Establish a held-out vision dataset and publish raw benchmark logs before reporting metrics.
-5. Only after simulation and risk review, assess a low-height, tethered, non-cutting physical rig.
-
-**Evidence policy:** clearly distinguish design targets, simulation measurements and physical measurements. Do not claim autonomous harvesting, field readiness, or safety validation without reproducible evidence.
 
 ## Prototype pipeline overview
 
@@ -618,11 +909,7 @@ Result Logging
 ├── demo.py
 ├── docs
 │   ├── images
-│   │   ├── coconut_harvest_robot_photo.svg
 │   │   ├── harvest_pipeline.svg
-│   │   ├── coconut_robot_realistic.svg
-│   │   ├── coconut_robot_cartoon.svg
-│   │   └── coconut_robot_drone_view.svg
 │   ├── TECHNICAL_OVERVIEW.md
 │   └── ORCHARD_DATA.md
 ├── src
@@ -724,7 +1011,6 @@ The script downloads two reference photographs from Wikimedia Commons on demand 
 
 The concept below shows one possible **AI-assisted coconut harvesting workflow**. The aim is to reduce the need for a worker to climb a tall palm to inspect and harvest coconuts. A robot would observe the canopy from a suitable platform, propose a target, check whether a tool can reach it safely, and ask a human operator to approve the task. The robot design and method must be validated before this could be used in a real plantation.
 
-![Illustrated coconut harvesting AI robot workflow showing sensing, target assessment, safety checks and human supervision](docs/images/coconut_harvest_robot_workflow_concept.svg)
 
 *Illustration is a concept visualization, not a photograph of a built robot or evidence of a successful harvest.*
 
@@ -742,7 +1028,7 @@ The concept below shows one possible **AI-assisted coconut harvesting workflow**
 |---|---|
 | AI application / decision-support prototype | Code and demo workflows exist; the demo uses supplied or synthetic evidence and does not itself prove accurate coconut detection from uploaded photographs. |
 | Harvest plan proposal and audit report | Prototype software can produce reviewable proposals and reports; these are not commands to physical actuators. |
-| Robot concept illustration and model assets | Design concepts and simulation-related files are included. |
+| Simulation workflow and model assets | Simulation-related files are included; physical harvesting is not demonstrated. |
 | Reliable detection of real coconuts, ripeness, and 3D position | **Not yet established.** Requires representative labelled orchard data, calibrated sensors, and measured validation. |
 | Robot physically climbing or reaching a palm, cutting/grasping fruit, and collecting it | **Not demonstrated.** Requires a validated mechanical system, controlled simulation, hardware tests, and risk assessment. |
 | Replacing a worker entirely | **Not a current capability or claim.** The intended benefit is to reduce hazardous climbing and support a human-supervised harvesting workflow. |

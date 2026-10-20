@@ -1,0 +1,42 @@
+[
+  {
+    "target_id": "synthetic-young-green-01",
+    "confidence": 0.91,
+    "x_m": 1.2,
+    "y_m": 0.2,
+    "z_m": 1.1,
+    "reachable": true,
+    "occluded": false,
+    "stage": "young_green"
+  },
+  {
+    "target_id": "synthetic-mature-green-01",
+    "confidence": 0.90,
+    "x_m": 1.5,
+    "y_m": 0.0,
+    "z_m": 1.0,
+    "reachable": true,
+    "occluded": false,
+    "stage": "mature_green"
+  },
+  {
+    "target_id": "synthetic-mature-brown-01",
+    "confidence": 0.95,
+    "x_m": 1.4,
+    "y_m": 0.0,
+    "z_m": 1.0,
+    "reachable": true,
+    "occluded": false,
+    "stage": "mature_brown_or_dry"
+  },
+  {
+    "target_id": "synthetic-uncertain-01",
+    "confidence": 0.99,
+    "x_m": 1.0,
+    "y_m": 0.1,
+    "z_m": 1.0,
+    "reachable": true,
+    "occluded": false,
+    "stage": "uncertain_stage"
+  }
+]

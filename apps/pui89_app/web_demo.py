@@ -51,6 +51,51 @@ with left:
 with right:
     st.header("2. Candidate evidence")
     st.write("Adjust these values to see how the decision-support rules respond.")
+    st.caption("Stage and confidence below are manually supplied example evidence. The uploaded photo is not automatically classified.")
+    harvest_mode = st.selectbox(
+        "What should the operator request?",
+        options=["all_mature", "young_green", "mature_green", "mature_brown_or_dry", "selected_combination", "survey_only"],
+        format_func=lambda mode: {
+            "all_mature": "All mature coconuts (mature green + mature brown/dry)",
+            "young_green": "Young green coconuts",
+            "mature_green": "Mature green coconuts",
+            "mature_brown_or_dry": "Mature brown/dry coconuts",
+            "selected_combination": "A selected combination of stages",
+            "survey_only": "Survey only — do not harvest",
+        }[mode],
+    )
+    safe_stage_options = ["young_green", "mature_green", "mature_brown_or_dry"]
+    selected_stages = (
+        st.multiselect(
+            "Stages allowed for this task",
+            options=safe_stage_options,
+            default=["mature_green", "mature_brown_or_dry"],
+        )
+        if harvest_mode == "selected_combination"
+        else None
+    )
+    candidate_stage = st.selectbox(
+        "Candidate stage (manual input; not AI-predicted)",
+        options=[
+            "young_green",
+            "mature_green",
+            "mature_brown_or_dry",
+            "uncertain_stage",
+            "damaged_or_abnormal",
+            "occluded_or_partial",
+            "flower_or_infant",
+        ],
+        format_func=lambda stage: {
+            "young_green": "Young green",
+            "mature_green": "Mature green",
+            "mature_brown_or_dry": "Mature brown/dry",
+            "uncertain_stage": "Uncertain — review required",
+            "damaged_or_abnormal": "Damaged/abnormal — review required",
+            "occluded_or_partial": "Occluded/partial — review required",
+            "flower_or_infant": "Flower/infant — do not harvest",
+        }[stage],
+        index=2,
+    )
     target_id = st.text_input("Candidate ID", value="coconut-01", max_chars=80)
     ripeness = st.slider("Ripeness evidence score", 0.0, 1.0, 0.91, 0.01)
     localization = st.slider("Localization confidence", 0.0, 1.0, 0.94, 0.01)
@@ -146,12 +191,29 @@ if st.button("Analyse candidate", type="primary", use_container_width=True):
     if sensor_reasons:
         result = {
             "status": "SAFE_HOLD",
+            "harvest_mode": harvest_mode,
+            "selected_stages": selected_stages,
             "sensor_reasons": sensor_reasons,
             "decisions": [],
             "actuator_commands_sent": False,
         }
     else:
         reasons = []
+        mode_stage_map = {
+            "all_mature": {"mature_green", "mature_brown_or_dry"},
+            "young_green": {"young_green"},
+            "mature_green": {"mature_green"},
+            "mature_brown_or_dry": {"mature_brown_or_dry"},
+        }
+        allowed_stages = set(selected_stages or []) if harvest_mode == "selected_combination" else mode_stage_map.get(harvest_mode, set())
+        if harvest_mode == "survey_only":
+            reasons.append("SURVEY_ONLY_NO_HARVEST")
+        elif candidate_stage in {"uncertain_stage", "damaged_or_abnormal", "occluded_or_partial", "flower_or_infant"}:
+            reasons.append("STAGE_REQUIRES_HUMAN_REVIEW_OR_PROTECTION")
+        elif candidate_stage not in allowed_stages:
+            reasons.append("STAGE_NOT_SELECTED_FOR_THIS_HARVEST_TASK")
+        if harvest_mode == "selected_combination" and not allowed_stages:
+            reasons.append("NO_HARVEST_STAGES_SELECTED")
         if localization < 0.80:
             reasons.append("LOCALIZATION_CONFIDENCE_LOW")
         if stable_frames < 5:
@@ -163,7 +225,7 @@ if st.button("Analyse candidate", type="primary", use_container_width=True):
         if ripeness < 0.65:
             reasons.append("RIPENESS_BELOW_CONFIGURED_THRESHOLD")
         score = round(0.45 * ripeness + 0.40 * localization + 0.15 * min(stable_frames / 10, 1), 4)
-        if any(reason in reasons for reason in ("LOCALIZATION_CONFIDENCE_LOW", "TRACK_NOT_STABLE")):
+        if any(reason in reasons for reason in ("LOCALIZATION_CONFIDENCE_LOW", "TRACK_NOT_STABLE", "STAGE_REQUIRES_HUMAN_REVIEW_OR_PROTECTION")):
             status = "REVIEW"
         elif reasons:
             status = "REJECTED"
@@ -172,8 +234,11 @@ if st.button("Analyse candidate", type="primary", use_container_width=True):
             reasons.append("CONFIGURED_SOFTWARE_GATES_PASSED_NOT_PHYSICAL_SAFETY_VALIDATION")
         result = {
             "status": "ANALYZED",
+            "harvest_mode": harvest_mode,
+            "selected_stages": sorted(allowed_stages),
             "decisions": [{
                 "target_id": target_id.strip() or "unnamed-candidate",
+                "candidate_stage": candidate_stage,
                 "status": status,
                 "score": score,
                 "reasons": reasons,

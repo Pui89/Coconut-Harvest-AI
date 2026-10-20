@@ -7,6 +7,8 @@ on:
       - "apps/pui89_app/**"
       - "tests/**"
       - "training/**"
+      - "docs/**"
+      - "README.md"
       - "pyproject.toml"
       - ".github/workflows/ci.yml"
   pull_request:
@@ -15,6 +17,8 @@ on:
       - "apps/pui89_app/**"
       - "tests/**"
       - "training/**"
+      - "docs/**"
+      - "README.md"
       - "pyproject.toml"
       - ".github/workflows/ci.yml"
   workflow_dispatch:
@@ -32,7 +36,7 @@ jobs:
         python-version: ["3.10", "3.11", "3.12"]
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v7

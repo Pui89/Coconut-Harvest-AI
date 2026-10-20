@@ -1,8 +1,8 @@
 candidate_id,filename,source_page_url,creator_credit,licence_as_displayed,licence_url,source_page_checked_on,independent_page_check,attribution_recorded,annotation_qa_status,training_promotion
 0001,0001_1280px-Coconuts_on_Tree.jpg,https://commons.wikimedia.org/wiki/File:Coconuts_on_Tree.jpg,Muminur Rahman,CC BY-SA 3.0,https://creativecommons.org/licenses/by-sa/3.0/,2026-10-18,checked,yes,pending,blocked
-0002,0002_1280px-Fresh_coconuts.jpg,https://commons.wikimedia.org/wiki/File:Fresh_coconuts.jpg,Siva301in,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0/,2026-10-18,checked,yes,pending,blocked
+0002,0002_1280px-Fresh_coconuts.jpg,https://commons.wikimedia.org/wiki/File:Fresh_coconuts.jpg,Siva301in,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0/,2026-10-18,checked,yes,archived_not_for_training,excluded
 0003,0003_Owoce_Orzech_kokosowy.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
-0004,0004_1280px-Cocos_nucifera_003.jpg,https://commons.wikimedia.org/wiki/File:Cocos_nucifera_003.jpg,H. Zell,"CC BY-SA 3.0; GFDL 1.2-or-later displayed (dual licence)","https://creativecommons.org/licenses/by-sa/3.0/; https://www.gnu.org/licenses/fdl-1.2.html",2026-10-18,checked,yes,pending,blocked
+0004,0004_1280px-Cocos_nucifera_003.jpg,https://commons.wikimedia.org/wiki/File:Cocos_nucifera_003.jpg,H. Zell,"CC BY-SA 3.0; GFDL 1.2-or-later displayed (dual licence)","https://creativecommons.org/licenses/by-sa/3.0/; https://www.gnu.org/licenses/fdl-1.2.html",2026-10-18,checked,yes,archived_not_for_training,excluded
 0005,0005_1280px-Climbing_Balinese_Palm_Tree.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0006,0006_1280px-Climbing_coconut_tree.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0007,0007_1280px-Coconut_harvest_tool.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
@@ -14,7 +14,7 @@ candidate_id,filename,source_page_url,creator_credit,licence_as_displayed,licenc
 0013,0013_Grimp_C3_A9_-_cocotier.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0014,0014_1280px-Liberia_2C_Africa_-_panoramio__28272_29.jpg,"https://commons.wikimedia.org/wiki/File:Liberia,_Africa_-_panoramio_(272).jpg",blk24ga,CC BY 3.0,https://creativecommons.org/licenses/by/3.0/,2026-10-19,checked,yes,pending,blocked
 0015,0015_1280px-Morros_2C_Maranh_C3_A3o_09.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
-0016,0016_1280px-Agricultural_Research_And_The_Rural_Views_In_Agriuculture_Of_Western_Samoa_281_29__3D__E8_A5_BF_E3_82_B5_E3_83_A2.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
+0016,0016_1280px-Agricultural_Research_And_The_Rural_Views_In_Agriuculture_Of_Western_Samoa_281_29__3D__E8_A5_BF_E3_82_B5_E3_82_BB.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0017,0017_Bhattlem.png,,,,,not_checked,no,not_applicable,excluded,blocked
 0018,0018_1280px-Bobongan-Kokosnussplantage_bei_Perbaoengan_in_der_N_C3_A4he_von_Rantauparapat.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0019,0019_1280px-Coconut_Plantation__286066282491_29.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
@@ -29,4 +29,8 @@ candidate_id,filename,source_page_url,creator_credit,licence_as_displayed,licenc
 0028,0028_1280px-NL-HaNA_2.24.14.02_0_252-3307-groot.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0029,0029_1280px-Philippine_Jockey_Club_Homestretch_view_inside_course.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
 0030,0030_1280px-TM-10021456.jpg,,,,,not_checked,no,not_applicable,excluded,blocked
+0031,0031_Coconuts_in_coconut_tree.jpg,https://commons.wikimedia.org/wiki/File:Coconuts_in_coconut_tree.jpg,Tanzeemfsugtvm,CC BY-SA 3.0,https://creativecommons.org/licenses/by-sa/3.0/,2026-10-19,checked,yes,not_yet_annotated,blocked
+0032,0032_Coconut_in_Coconut_Tree.jpg,https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg,Sarmi~Kili,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0/,2026-10-19,checked,yes,not_yet_annotated,blocked
 
+0033,0033_Coconut_bunch_in_the_tree.JPG,https://commons.wikimedia.org/wiki/File:Coconut_bunch_in_the_tree.JPG,Yasagan,CC BY-SA 3.0,https://creativecommons.org/licenses/by-sa/3.0/,2026-10-19,checked,yes,pending,blocked
+0034,0034_Coconut_fruits.jpg,https://commons.wikimedia.org/wiki/File:Coconut_fruits.jpg,"Vinshi (Vishwas Suryawanshi)",CC BY-SA 3.0,https://creativecommons.org/licenses/by-sa/3.0/,2026-10-19,checked,yes,pending,blocked
