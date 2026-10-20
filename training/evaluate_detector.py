@@ -6,6 +6,35 @@ from pathlib import Path
 from typing import Any
 import yaml
 
+IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif", ".tiff"}
+
+
+def _test_images_for_path(path: Path, dataset_root: Path) -> list[Path]:
+    """Resolve a test split directory, image, or YOLO image-list file."""
+    if path.is_dir():
+        return sorted(p for p in path.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_SUFFIXES)
+    if path.is_file() and path.suffix.lower() in IMAGE_SUFFIXES:
+        return [path]
+    if path.is_file() and path.suffix.lower() == ".txt":
+        images: list[Path] = []
+        for raw_line in path.read_text(encoding="utf-8").splitlines():
+            entry = raw_line.strip()
+            if not entry or entry.startswith("#"):
+                continue
+            candidate = Path(entry).expanduser()
+            if not candidate.is_absolute():
+                rooted = (dataset_root / candidate).resolve()
+                relative_to_list = (path.parent / candidate).resolve()
+                candidate = rooted if rooted.is_file() else relative_to_list
+            else:
+                candidate = candidate.resolve()
+            if candidate.suffix.lower() not in IMAGE_SUFFIXES or not candidate.is_file():
+                raise ValueError(f"Test list references a missing or unsupported image: {entry}")
+            images.append(candidate)
+        return images
+    return []
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -26,13 +55,25 @@ def validate_test_split(data_yaml: Path) -> dict[str, Any]:
     root = Path(config.get("path", ".")).expanduser()
     if not root.is_absolute():
         root = (data_yaml.parent / root).resolve()
-    splits = config["test"] if isinstance(config["test"], list) else [config["test"]]
+    configured_test = config["test"]
+    splits = configured_test if isinstance(configured_test, list) else [configured_test]
+    if not splits:
+        raise ValueError("Dataset test split must not be empty.")
+    image_count = 0
     for item in splits:
+        if not isinstance(item, str) or not item.strip():
+            raise ValueError("Dataset test paths must be non-empty strings.")
         path = Path(item).expanduser()
         if not path.is_absolute():
             path = root / path
         if not path.exists():
             raise FileNotFoundError(f"Test split path does not exist: {path}")
+        images = _test_images_for_path(path, root)
+        if not images:
+            raise ValueError(f"Test split path contains no supported image files: {path}")
+        image_count += len(images)
+    if image_count == 0:
+        raise ValueError("Held-out test split contains no supported images.")
     return config
 
 def json_safe(value: Any) -> Any:
