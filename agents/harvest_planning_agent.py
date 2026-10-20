@@ -128,7 +128,7 @@ def propose_plan(
 ) -> dict[str, Any]:
     """Rank candidates for simulation review; never return an execution command.
 
-    If harvest_mode is omitted, legacy stage-agnostic demo behaviour is retained.
+    If harvest_mode is omitted, legacy stage-agnostic function behaviour is kept.
     For selected_combination, selected_stages must explicitly list the requested
     eligible stages. Labels are supplied evidence, not predictions by this agent.
     """
@@ -207,7 +207,8 @@ def main() -> int:
     parser.add_argument(
         "--harvest-mode",
         choices=sorted(set(HARVEST_MODES) | {"selected_combination"}),
-        help="Optional operator-selected stage filter. Without this, legacy demo mode is used.",
+        default="all_mature",
+        help="Operator-selected stage filter (default: all_mature).",
     )
     parser.add_argument(
         "--selected-stage",
