@@ -209,6 +209,19 @@ Intrinsics JSON shape:
 
 The values above are placeholders, **not calibration values**. Replace them with calibration from the actual camera. The depth map must be aligned to the RGB image; set depth-scale correctly for the sensor. The output is a review proposal only. The workflow cannot infer robot-base position, reachability, obstacle clearance, or safe motion from a bounding box alone. Without valid spatial evidence, candidates are rejected or held for review. No actuator commands are sent.
 
+## Regression tests for the safety boundary
+
+From the repository root, after installing the project development dependencies, run:
+
+~~~powershell
+python -m pip install -e ".[dev]"
+python -m pytest tests/test_coconut_safety_pipeline.py -q
+~~~
+
+These tests cover the pure proposal/localization helpers without loading model weights or connecting hardware. They check that missing/invalid depth is rejected, camera-frame projection is based on valid depth samples, and human approval never enables actuator commands. They do not validate a physical robot, camera calibration, detector accuracy, or real harvesting.
+
+The local RGB-D bridge also requires the RGB image and depth array to have the same height and width. It now rejects mismatched dimensions rather than silently resizing or treating unaligned pixels as corresponding points. This check is necessary but not sufficient: the depth data must still be geometrically aligned to RGB by a validated sensor pipeline, and the camera intrinsics and depth scale must come from actual calibration.
+
 ## Safety and claims
 
 A good detection score does not prove accurate 3D localization, ripeness, safe motion, or physical harvesting. Validate RGB-depth alignment, camera-to-robot calibration, tracking stability, robot reachability, collision checking, emergency stops, and a supervised non-cutting test separately. Keep model/data licences and source attribution with published results.
