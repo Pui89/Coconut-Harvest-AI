@@ -8,6 +8,20 @@ The project aims to help an operator review individual coconuts, choose an inten
 
 ![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
 
+## Project at a glance
+
+| Topic | Current position |
+|---|---|
+| Project type | Agricultural AI and robotics R&D |
+| Available software | Rule-based planning agent, synthetic workflow demo, and manual image-review tools |
+| Physical robot | Proposed concept; complete robot harvesting is not demonstrated |
+| Real-image AI performance | Initial two-image baseline scored 0 precision and 0 recall at IoU ≥ 0.50; more data and reviewed labels are needed |
+| Development approach | Local-first and free/open-source where practical |
+| Immediate focus | Rights-cleared data, annotation quality, reproducible evaluation, and simulation |
+
+**Explore:** [Run the prototype](#run-the-local-prototype) · [Current evaluation evidence](#current-evaluation-evidence) · [Development roadmap](#development-roadmap) · [Safety and limitations](#safety-and-limitations)
+
+
 
 ## Two parts of the project
 
