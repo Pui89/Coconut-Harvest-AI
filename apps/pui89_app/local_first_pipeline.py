@@ -170,6 +170,22 @@ def main(argv: list[str] | None = None) -> int:
     depth = np.load(args.depth_npy, allow_pickle=False)
     if depth.ndim != 2 or not np.issubdtype(depth.dtype, np.number):
         raise ValueError("depth file must contain a numeric 2-D array")
+    # A detector box is expressed in RGB-image pixels. Refuse to project it
+    # into a depth map with a different raster size unless the caller explicitly
+    # preprocesses both into a validated, aligned coordinate system beforehand.
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise RuntimeError("Pillow is required to verify RGB/depth dimensions.") from exc
+    with Image.open(args.image) as rgb_image:
+        rgb_width, rgb_height = rgb_image.size
+    if depth.shape != (rgb_height, rgb_width):
+        raise ValueError(
+            f"RGB/depth dimensions do not match: RGB is {rgb_width}x{rgb_height}, "
+            f"depth is {depth.shape[1]}x{depth.shape[0]}. Align/resize the depth map "
+            "using a documented sensor pipeline before localization; no automatic "
+            "resizing is performed."
+        )
     intrinsics = load_intrinsics(args.intrinsics_json)
     localized = {d.target_id:localize_detection(d, depth, intrinsics, depth_scale=args.depth_scale)
                  for d in detections}
