@@ -25,6 +25,7 @@ This is **not** a complete training dataset or a valid held-out benchmark. The 1
 - `source_rights_audit_2026-10-19.csv`: per-candidate source-page and attribution gate; blank fields mean not verified, not permission granted.
 - `annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json`: archived first-pass boxes for candidates 0002 and 0004; excluded from active training.
 - [Annotation geometry audit tool](../../tools/audit_coconut_annotations.py): dependency-free checks for invalid normalized coordinates, overlapping boxes and image-border contact. Warnings require human review; the tool cannot identify missed coconuts or confirm box accuracy.
+- [Annotation overlay renderer](../../tools/render_coconut_annotation_review.py): renders the existing normalized boxes over local source images so a human can inspect box placement. It does not validate labels or grant reuse rights.
 - [HSV baseline script](../../training/benchmark_hsv_baseline.py): reproducible OpenCV heuristic baseline; requires OpenCV and NumPy.
 - `benchmark_report_v0.1.json`: measured run summary from 18 October 2026.
 
