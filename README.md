@@ -114,6 +114,23 @@ See [docs/PRODUCT_BRIEF.md](docs/PRODUCT_BRIEF.md) for a concise description of 
 
 > **Important reach constraint:** a compact ground robot with a small arm cannot reach coconuts in a 20–30 m palm crown. Do not describe a short arm as capable of harvesting at that height. The system must separate ground-level perception and mobility from the high-reach harvesting method. Full autonomous harvesting remains a future research goal until a suitable mechanism is built and validated.
 
+### Coconut-tree height range: 0–30 m
+
+The **0–30 m range describes the trees the AI system may need to inspect—not a proven reach envelope for this robot**. The current artwork is conceptual; it does not demonstrate that the pictured arm can reach the crown or harvest successfully. The AI can be designed to detect, record, and rank fruit at different visible heights, but physical cutting is permitted only when a separately validated mechanism can reach the target safely.
+
+| Approximate target height | Intended operating mode | Honest current status / gate |
+|---|---|---|
+| **0–3 m** | Ground-level perception and controlled, guarded test rig | First candidate band for supervised, non-cutting tests; harvesting still requires hardware, safety and success-rate validation |
+| **3–6 m** | Extended mast or engineered lift/platform | Feasibility study only; verify stability, load, wind, reach and safe fruit capture before any cutting |
+| **6–12 m** | Purpose-built high-reach or climbing system with independent retention | Research concept; not demonstrated by the pictured compact ground robot |
+| **12–20 m** | Specialized access/harvesting mechanism, redundant retention and exclusion zone | Unvalidated research challenge; no claim of successful operation |
+| **20–30 m** | Specialized tall-palm solution; assess alternatives to a ground-mounted arm | Out of current demonstrated capability; do not command a harvest based on AI detection alone |
+
+**Per-tree decision:** estimate target height and uncertainty, check 3D localization, mechanism reach, stability, collision path, wind/conditions, fruit capture and a clear exclusion zone. If any check fails or is unknown, the system must report **SURVEY ONLY / NO CUT**. A target is counted as a successful harvest only after the fruit is safely detached and captured/controlled, verified by sensors or operator, and logged; a detection, simulation animation, or proposed cut is not a harvest success.
+
+The project should report separate results by height band: detection precision/recall, localization error, reachability false-safe rate, safe task completion rate, successful fruit capture rate, fruit damage, aborts, collisions/near misses, and cycle time. Publish the denominator, failures, conditions and whether each result came from recorded images, simulation, or physical hardware. See [the full 0–30 m feasibility and acceptance plan](docs/TREE_HEIGHT_FEASIBILITY_0-30M.md).
+
+
 ### Proposed system architecture
 
 ```text
