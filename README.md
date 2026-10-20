@@ -12,6 +12,50 @@
 > **All-stage coconut roadmap:** [COCONUT_STAGE_ROADMAP.md](docs/COCONUT_STAGE_ROADMAP.md) — proposed labels and workflow for young green, mature green, brown/dry, damaged, occluded, and uncertain fruit, with operator-selected harvest classes.
 > **Candidate image triage (20 Oct 2026):** [CANDIDATE_IMAGE_TRIAGE_2026-10-20.md](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md) — contact-sheet triage of 30 candidates; this is not licence clearance or annotation approval.
 
+## Per-coconut handling and image-quality review
+
+The robot must make a separate decision for **each visible fruit**, even when a bunch contains different stages. The operator selects the intended harvest class before a task; the software filters candidates, but selection never overrides uncertainty, reach, collision, drop-zone, or human-confirmation checks.
+
+| Per-fruit observation | Intended AI/application response | Robot action policy |
+|---|---|---|
+| Young green | Propose `young_green` only when the image and grower-defined criteria support it | Eligible only when the operator selected young fruit; otherwise skip |
+| Mature green | Keep separate from young green; green colour alone is not proof of maturity | Eligible only after validated maturity criteria and required confirmation |
+| Mature brown/dry | Propose `mature_brown_or_dry` with confidence and image evidence | Eligible only when selected and all safety/reach checks pass |
+| Mixed-stage bunch | Detect and label each fruit independently; do not assign one label to the whole bunch | Filter each candidate separately |
+| Partly hidden or overlapping | Mark visible fruit only when its boundary is supportable; flag occlusion/uncertainty | Request another view or human review; no automatic cut |
+| Blurry, tiny, shadowed, or cropped at image edge | Mark uncertain if the whole fruit/class cannot be judged reliably | Do not cut automatically |
+| Damaged or abnormal | Label for review, not as a normal harvest target | Reject from automatic harvesting unless a separately approved workflow applies |
+| No safe reach, unclear 3D position, obstacle, person/animal nearby, or unsafe drop zone | Preserve the candidate record and explain the failed check | Do not issue a cutting action |
+| Survey-only request | Detect/map candidates without choosing a harvest target | No cutting |
+
+### Current candidate-image triage: what to keep, crop, replace, or exclude
+
+The 30-image candidate set is **not approved for training**. The table below is first-pass visual triage from contact sheets, not final full-resolution inspection or licence clearance. Check the original file before cropping, drawing boxes, or accepting any image.
+
+| Candidate ID(s) | Current issue / use | Recommended action |
+|---|---|---|
+| **0002, 0004** | Fruit are visible; existing boxes are only first-pass labels | **Review first at full resolution.** Check every box, missed fruit, false box, overlap, edge truncation, and stage label. Crop a *derived copy* only if the original fruit is too small to inspect; retain the untouched original and record crop coordinates/source hash. |
+| **0001, 0010, 0014, 0015** | Possible fruit may be too distant or unclear in the contact sheet | Inspect original resolution. Keep only if individual fruit are genuinely visible and annotatable; otherwise retain as context/negative examples only if appropriate and rights-cleared. |
+| **0003** | Collage/composite containing multiple coconut-related panels | Exclude from detector training unless the original panels are separated into individual files and each source/licence is independently verified. Do not draw boxes across the collage as if it were one natural scene. |
+| **0007** | Harvest tool close-up, no fruit target | Exclude from fruit-detection positives; possibly retain in a separate tool/safety dataset later. |
+| **0011** | Coconut processing scene, not a clear fruit-on-tree target | Exclude from fruit-detection positives unless the task and labels are explicitly changed. |
+| **0018** | Appears to be a map/plantation graphic | Exclude from fruit-detection training. |
+| **0023, 0024** | Seedlings/young plants rather than harvestable fruit targets | Exclude from harvest-fruit positives; do not label seedlings as young coconuts. |
+| **0029** | Appears unrelated to coconut harvesting | Reject as irrelevant. |
+| **0005–0009, 0012–0017, 0019–0022, 0025–0028, 0030** | Mostly harvesting context, people, tools, plantation panoramas, or distant palms; individual fruit are not clear in the contact sheet | Do not use as positive fruit examples based on the thumbnail. Inspect full resolution only if there is a specific reason; otherwise exclude from fruit positives or keep as separately labelled context/negative material after rights review. |
+
+**Cropping and replacement rules**
+
+- Never overwrite or delete the original image to improve a crop. Save crops as new files and record the parent filename/hash, crop coordinates, and source/licence.
+- Crop only when the fruit remains naturally interpretable; do not crop away the stem, boundary, occlusion, or nearby fruit needed to understand the target. Keep some surrounding context.
+- Do not enlarge a tiny fruit and treat interpolation as new visual evidence. If its boundary or stage cannot be judged, mark it uncertain or replace it with a better rights-cleared source.
+- Replace an image only after checking source URL, creator, exact licence/permission, attribution requirements, dimensions, SHA-256, duplicate status, and annotation overlay.
+- A photo of a palm, a person climbing, or a harvesting tool does not automatically provide a usable fruit-detection example.
+- The contact-sheet review does not establish that all stages are represented. The set still needs verified examples of young green, mature green, mature brown/dry, damaged, occluded, and uncertain fruit.
+- **Training remains blocked** until provenance/licence checks, independent box and maturity-label review, leakage-safe splits, and a frozen dataset manifest are complete. No model accuracy or physical harvesting capability should be claimed from these candidate images.
+
+Full triage log: [CANDIDATE_IMAGE_TRIAGE_2026-10-20.md](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md).
+
 ## How the all-stage coconut robot is intended to work
 
 The system is designed as a **human-supervised AI application connected to an agricultural robot**. It should first identify and assess each visible coconut, then propose a target based on the operator's chosen harvest stage. Detection is not the same as confirmed maturity, and a software demo is not proof of physical harvesting.
