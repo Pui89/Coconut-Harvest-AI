@@ -63,6 +63,31 @@ Each visible coconut should be assessed separately, including fruit in mixed-sta
 
 These are intended classes and policies, not a claim that a reliable model for every class is already trained. Local growers should define criteria appropriate to cultivar and intended use.
 
+## How the system handles each coconut
+
+The intended workflow treats **each visible fruit as a separate candidate**, even when several coconuts share one bunch. The operator's choice determines which maturity category is requested; it does not force the AI to label an uncertain fruit or permit an unsafe cut.
+
+1. **Capture and inspect the view.** Check image sharpness, lighting, occlusion, and whether the fruit is sufficiently visible. Request another view or mark the candidate uncertain when the image is inadequate.
+2. **Detect and separate candidates.** A future validated vision model should assign a distinct candidate ID and bounding region to each visible coconut. Overlapping fruit must not be assumed to be one fruit or confidently split without evidence.
+3. **Estimate maturity with uncertainty.** Use validated visual and, where available, additional sensor evidence. Colour alone is not enough to reliably distinguish every young, mature-green, brown, or dry coconut.
+4. **Apply the operator's selection.** Keep candidates that match the requested stage; label non-matching candidates as “not selected.” Keep survey-only mode available when the operator wants inspection without harvesting.
+5. **Check localization and reach.** Verify the candidate's 3D position, tool approach, obstacles, robot stability, and whether the actual mechanism is validated for that height. If any required measurement is missing or outside the verified operating envelope, return **NO CUT**.
+6. **Require approval and safety interlocks.** Before any future physical cutting trial, require explicit human approval and independent hardware safety controls. The software prototype in this repository does not command a real cutter.
+7. **Verify the outcome.** A future system should confirm whether the fruit was safely retained or lowered and record failures separately. A detection, plan, simulated action, or attempted cut must never be counted as a successful harvest by itself.
+
+| Example situation | Candidate decision | Cutting policy |
+|---|---|---|
+| Requested mature-green fruit, clear image, validated maturity evidence | Eligible for further review | Only after all reach, safety, and approval gates pass |
+| Young green fruit when brown/dry fruit was requested | Not selected | No cut |
+| Brown-looking fruit with uncertain maturity | Uncertain; request another view or human review | No cut |
+| Fruit partly hidden behind leaves or another coconut | Incomplete evidence | No cut |
+| Fruit appears reachable but 3D position or tool clearance is unverified | Reachability unknown | No cut |
+| Fruit is above the mechanism's verified reach envelope | Out of range | No cut |
+| Operator chooses survey-only mode | Record/review candidate only | No cut |
+| A cut is attempted but fruit collection is not confirmed | Outcome unverified | Do not report harvest success |
+
+**Implementation status:** This section documents the intended system behaviour. It does not mean that all seven stages, an all-maturity detector, 3D localization, physical cutting, or harvest verification are already implemented. Current implementation details and evaluation evidence are listed in the status and benchmark sections below.
+
 ## Robot concept
 
 ![Conceptual coconut harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
