@@ -18,7 +18,7 @@ jobs:
       - run: pip install numpy matplotlib trimesh imageio
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - run: python sim/coconut_harvester_demo.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: coconut-harvester-3d-demo
           path: |

@@ -18,7 +18,7 @@ jobs:
       - name: Render cinematic 3D/4D demo
         run: python sim/cinematic_demo.py
       - name: Upload MP4 artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coconut-harvest-robot-cinematic-3d-4d
           path: artifacts/coconut_harvest_robot_cinematic_3d_4d.mp4
