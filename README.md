@@ -8,6 +8,32 @@ The project aims to help an operator review individual coconuts, choose an inten
 
 ![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
 
+
+## Two parts of the project
+
+<details>
+<summary><strong>1. AI application — software for inspection and decision support</strong></summary>
+
+The software side is intended to help a user review candidate coconuts, record the requested harvest stage, inspect uncertainty and safety checks, and produce an auditable planning report.
+
+**Available now:** a rule-based planning agent, synthetic workflow demonstrations, and tools for manual image review and annotation quality checks.
+
+**Not yet established:** reliable automatic coconut detection and maturity classification across real orchards, calibrated 3D fruit localization, or a validated model that can decide independently which fruit is ready to harvest.
+
+</details>
+
+<details>
+<summary><strong>2. Physical AI robot — proposed machinery for future field work</strong></summary>
+
+The robot concept shows how cameras and optional depth sensors could be combined with a mobile platform, a suitable reach mechanism, guarded cutting hardware, fruit retention or lowering, and independent safety controls.
+
+**Current status:** concept and engineering workflow only. The repository does not demonstrate a complete physical robot performing validated coconut harvesting. The 0–30 m palm-height range is a long-term feasibility challenge, not a tested operating range.
+
+</details>
+
+**How they connect:** the application may recommend a candidate and a plan; a future robot would still need independently validated localization, reachability, hardware interlocks, human approval, and verified fruit collection. A software recommendation must never directly authorize a physical cut.
+
+
 > **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Reliable all-stage detection, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and autonomous operation at 0–30 m are not demonstrated capabilities. The 0–30 m range is a design challenge, not a proven robot reach specification.
 
 ## What the project includes
