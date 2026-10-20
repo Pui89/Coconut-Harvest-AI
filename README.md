@@ -16,6 +16,7 @@ The project aims to help an operator review individual coconuts, choose an inten
 - **Harvest-planning agent:** a deterministic, rule-based tool that evaluates supplied candidate information; it does not detect fruit directly from image pixels.
 - **Synthetic end-to-end demo:** exercises software gates and report generation without sending commands to physical actuators.
 - **Real-image review workflow:** prepares a local manual-review sample and annotation sheet; it is not automatic detection.
+- **Annotation overlay review tool:** a local OpenCV script renders existing boxes over original images for human QA; it does not certify annotations or detect fruit.
 - **Robot concept and architecture:** outlines possible perception, target review, planning, and future hardware integration.
 - **Free-first development:** prioritizes local tools and open-source workflows, with no paid API required for the rule-based agent.
 
