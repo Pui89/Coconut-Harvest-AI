@@ -70,3 +70,11 @@ Free/open-source-first. Do not use paid inference APIs, cloud GPUs, hosted endpo
 - Added a dependency-free geometry-audit tool, a saved first-pass report, a source-rights ledger with the three already-checked source pages, and tests for geometry errors and review warnings.
 - The source-rights ledger leaves all unverified source-page fields blank and keeps every candidate blocked from training promotion. Candidate 0004's displayed CC BY-SA and GFDL options are recorded; select and preserve a compliant attribution/licence path before reuse.
 - **Current gate:** independent visual QA of all 15 boxes, explicit policy for occluded/truncated fruit, and per-image rights clearance are incomplete. Do not train a learned detector or publish detector metrics yet.
+
+
+## Follow-up checkpoint — 20 October 2026
+
+- Downloaded a local preservation copy of the GitHub Actions artifact `coconut-image-candidates` from run 39092214196 before its scheduled expiry. The copy should also be saved by the project owner to their own computer or storage.
+- Created [candidate image visual triage](CANDIDATE_IMAGE_TRIAGE_2026-10-20.md) from a 30-image contact sheet and linked it from the README.
+- The contact sheet suggests that many candidates are broad plantation, harvesting-person, tool, seedling, historical, or unrelated scenes rather than clear individual fruit targets. Candidates 0002 and 0004 are the strongest immediate candidates for full-resolution annotation review; they still have only first-pass boxes.
+- This triage is not pixel-level annotation approval and does not independently verify source-page licences. The training gate remains **BLOCKED** until retained images have verified provenance/licences, reviewed labels, suitable class coverage, and leakage-safe splits.
