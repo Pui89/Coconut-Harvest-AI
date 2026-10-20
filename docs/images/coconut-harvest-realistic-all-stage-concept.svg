@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Coconut Harvest AI — realistic-style low-cost all-stage harvesting robot concept</title>
+<desc id="desc">Detailed engineering concept rendering of a compact tracked agricultural robot with a slim telescopic mast, lightweight multi-joint arm, stereo/depth camera, and guarded fruit handling tool beside a 20 to 30 metre coconut palm carrying young green, mature green and brown coconuts. It is a concept, not validated hardware.</desc>
+<defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9bc9df"/><stop offset=".58" stop-color="#d9e9dc"/><stop offset="1" stop-color="#f2e8cf"/></linearGradient>
+  <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#87966b"/><stop offset="1" stop-color="#4c6146"/></linearGradient>
+  <linearGradient id="trunk" x2="1" y2=".2"><stop stop-color="#4b3328"/><stop offset=".35" stop-color="#926344"/><stop offset=".62" stop-color="#bc8b5c"/><stop offset="1" stop-color="#52392b"/></linearGradient>
+  <linearGradient id="metal" x2="1" y2="0"><stop stop-color="#4c5961"/><stop offset=".22" stop-color="#dce3e5"/><stop offset=".5" stop-color="#78868d"/><stop offset=".78" stop-color="#eef2f1"/><stop offset="1" stop-color="#56646a"/></linearGradient>
+  <linearGradient id="darkMetal" x2="0" y2="1"><stop stop-color="#34434a"/><stop offset=".55" stop-color="#17262d"/><stop offset="1" stop-color="#45565a"/></linearGradient>
+  <linearGradient id="greenFruit" x2="1" y2="1"><stop stop-color="#b3d45b"/><stop offset=".4" stop-color="#5c9a37"/><stop offset="1" stop-color="#2f602e"/></linearGradient>
+  <linearGradient id="brownFruit" x2="1" y2="1"><stop stop-color="#b9824d"/><stop offset=".45" stop-color="#87522e"/><stop offset="1" stop-color="#4e3325"/></linearGradient>
+  <linearGradient id="yellowFruit" x2="1" y2="1"><stop stop-color="#f0d16a"/><stop offset=".5" stop-color="#b3a43c"/><stop offset="1" stop-color="#6c7730"/></linearGradient>
+  <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8"/></filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="2.5"/></filter>
+  <g id="leaf"><path d="M0 0 Q-35 -35 -150 -64 Q-95 -17 -25 5 Q-95 -5 -130 12 Q-68 18 -5 10Z" fill="#2f6b43"/><path d="M0 0 Q-38 -33 -150 -64" fill="none" stroke="#87a65b" stroke-width="2"/><path d="M-24 -7l-38 -27M-47 -2l-37 -25M-70 -7l-36 -24M-92 -17l-33 -22" stroke="#9cba6a" stroke-width="1.5" opacity=".8"/></g>
+  <g id="coconutGreen"><ellipse cx="0" cy="0" rx="17" ry="23" fill="url(#greenFruit)" stroke="#3f682f" stroke-width="1.5"/><path d="M-9 -13Q-1 -20 8 -13" fill="none" stroke="#d0e68a" stroke-width="2" opacity=".75"/><path d="M0 17l-4 8 7 -2" fill="#5c7936"/></g>
+  <g id="coconutYellow"><ellipse cx="0" cy="0" rx="17" ry="23" fill="url(#yellowFruit)" stroke="#717d35" stroke-width="1.5"/><path d="M-8 -13Q0 -20 8 -12" fill="none" stroke="#f7e6a0" stroke-width="2" opacity=".75"/></g>
+  <g id="coconutBrown"><ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#brownFruit)" stroke="#4f3426" stroke-width="1.5"/><path d="M-7 -12Q1 -17 8 -10" fill="none" stroke="#d3a16d" stroke-width="2" opacity=".65"/><path d="M-8 3l13 8M-4 -2l10 6" stroke="#513323" stroke-width="1" opacity=".7"/></g>
+</defs>
+<!-- environment -->
+<rect width="1600" height="900" fill="url(#sky)"/>
+<circle cx="1320" cy="130" r="65" fill="#fff3cf" opacity=".62"/>
+<g fill="#fff" opacity=".28"><ellipse cx="280" cy="145" rx="130" ry="24"/><ellipse cx="330" cy="132" rx="70" ry="26"/><ellipse cx="1020" cy="190" rx="150" ry="20"/></g>
+<path d="M0 570 Q190 515 355 565 T710 550 T1090 558 T1600 520 V900 H0Z" fill="#a2b59a" opacity=".55"/>
+<path d="M0 665 Q280 615 520 665 T1000 648 T1600 630 V900 H0Z" fill="url(#ground)"/>
+<g opacity=".35" stroke="#d7d6a7" stroke-width="2"><path d="M0 736Q220 710 450 746T900 734T1600 708"/><path d="M70 810Q320 770 620 818T1220 796T1600 790"/></g>
+<!-- distant orchard -->
+<g opacity=".55" fill="#315b42"><path d="M70 650l25 -180 10 0 20 180z"/><use href="#leaf" transform="translate(100 485) rotate(-15) scale(.75)"/><use href="#leaf" transform="translate(100 485) rotate(65) scale(.72)"/><path d="M1430 650l18 -175 11 0 23 175z"/><use href="#leaf" transform="translate(1455 490) rotate(-15) scale(.7)"/><use href="#leaf" transform="translate(1455 490) rotate(65) scale(.7)"/></g>
+<!-- tall coconut palm trunk -->
+<path d="M1170 685 C1160 580 1145 475 1110 365 C1084 284 1068 220 1072 162 L1110 150 C1117 230 1148 312 1177 390 C1214 492 1236 590 1240 685Z" fill="url(#trunk)" stroke="#52392b" stroke-width="3"/>
+<g stroke="#d1a071" stroke-width="6" opacity=".6" fill="none"><path d="M1154 622l61 -17M1143 576l63 -17M1130 529l60 -17M1117 480l60 -16M1104 430l54 -14M1091 381l47 -14M1080 333l44 -13M1075 286l35 -12M1072 239l32 -10M1072 195l29 -8"/></g>
+<!-- palm crown -->
+<g transform="translate(1088 167)">
+  <use href="#leaf" transform="rotate(-160) scale(1.8 1.45)"/>
+  <use href="#leaf" transform="rotate(-132) scale(1.9 1.4)"/>
+  <use href="#leaf" transform="rotate(-105) scale(1.8 1.35)"/>
+  <use href="#leaf" transform="rotate(-76) scale(1.85 1.45)"/>
+  <use href="#leaf" transform="rotate(-46) scale(1.9 1.45)"/>
+  <use href="#leaf" transform="rotate(-16) scale(1.8 1.35)"/>
+  <use href="#leaf" transform="rotate(12) scale(1.75 1.35)"/>
+  <use href="#leaf" transform="rotate(44) scale(1.7 1.3)"/>
+  <use href="#leaf" transform="rotate(76) scale(1.55 1.25)"/>
+  <use href="#leaf" transform="rotate(112) scale(1.55 1.25)"/>
+  <use href="#leaf" transform="rotate(145) scale(1.5 1.2)"/>
+</g>
+<!-- mixed maturity clusters on palm -->
+<g>
+ <path d="M1085 205Q1120 226 1155 255M1090 214Q1058 241 1044 272" fill="none" stroke="#6b4b31" stroke-width="7"/>
+ <use href="#coconutGreen" transform="translate(1128 238) rotate(15) scale(1.05)"/>
+ <use href="#coconutGreen" transform="translate(1151 260) rotate(-12) scale(.95)"/>
+ <use href="#coconutYellow" transform="translate(1104 263) rotate(8) scale(1.02)"/>
+ <use href="#coconutBrown" transform="translate(1070 255) rotate(-12) scale(1.02)"/>
+ <use href="#coconutBrown" transform="translate(1050 279) rotate(10) scale(.92)"/>
+ <use href="#coconutGreen" transform="translate(1090 290) rotate(-8) scale(.95)"/>
+</g>
+<!-- height indicator -->
+<g font-family="Arial, sans-serif">
+ <path d="M1300 178V672M1287 190l13 -15 13 15M1287 660l13 15 13 -15" stroke="#f9fbf5" stroke-width="3" fill="none"/>
+ <rect x="1318" y="370" width="220" height="70" rx="12" fill="#18342d" opacity=".88"/>
+ <text x="1334" y="399" fill="#fff" font-size="22" font-weight="700">20–30 m palms</text>
+ <text x="1334" y="424" fill="#cce2d0" font-size="15">Tall-tree challenge</text>
+</g>
+<!-- robot ground shadow and low-cost tracked base -->
+<ellipse cx="660" cy="754" rx="230" ry="38" fill="#20362d" opacity=".32" filter="url(#shadow)"/>
+<g id="robot">
+ <!-- tracked undercarriage -->
+ <rect x="474" y="694" width="350" height="78" rx="37" fill="#1d2a2d" stroke="#0e191d" stroke-width="4"/>
+ <rect x="489" y="704" width="320" height="58" rx="28" fill="#536166" stroke="#9aa5a5" stroke-width="3"/>
+ <g fill="#263338" stroke="#a2acad" stroke-width="3">
+  <circle cx="516" cy="733" r="20"/><circle cx="561" cy="733" r="20"/><circle cx="606" cy="733" r="20"/><circle cx="651" cy="733" r="20"/><circle cx="696" cy="733" r="20"/><circle cx="741" cy="733" r="20"/><circle cx="784" cy="733" r="20"/>
+ </g>
+ <g stroke="#bcc5c6" stroke-width="2" opacity=".75"><path d="M516 718v30M501 733h30M561 718v30M546 733h30M606 718v30M591 733h30M651 718v30M636 733h30M696 718v30M681 733h30M741 718v30M726 733h30M784 718v30M769 733h30"/></g>
+ <!-- chassis -->
+ <path d="M485 685L520 650H771L813 688L796 711H502Z" fill="url(#darkMetal)" stroke="#111f24" stroke-width="4"/>
+ <path d="M530 657H755L783 683H508Z" fill="#d4d9d5" stroke="#657379" stroke-width="3"/>
+ <rect x="556" y="665" width="152" height="24" rx="5" fill="#283a40"/>
+ <text x="632" y="682" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#e4efeb">COCONUT AI</text>
+ <!-- battery/controller bay -->
+ <path d="M512 648L540 614H684L712 650Z" fill="#526268" stroke="#17272c" stroke-width="4"/>
+ <rect x="548" y="624" width="102" height="25" rx="4" fill="#23353a"/>
+ <g fill="#e5a94e"><circle cx="561" cy="636" r="4"/><circle cx="575" cy="636" r="4"/><circle cx="589" cy="636" r="4"/></g>
+ <!-- mast foot and stabilizer outriggers -->
+ <path d="M595 624L570 683M694 624L722 683" stroke="#252f33" stroke-width="13" stroke-linecap="round"/>
+ <path d="M570 683l-25 11M722 683l28 10" stroke="#d2d8d4" stroke-width="8" stroke-linecap="round"/>
+ <path d="M537 695l-4 14 20 0M753 694l5 15 -20 0" fill="#303c40" stroke="#121e22" stroke-width="3"/>
+ <!-- telescopic mast, intentionally slender with nested segments -->
+ <path d="M625 627L631 316L655 316L664 628Z" fill="url(#metal)" stroke="#34434a" stroke-width="3"/>
+ <path d="M633 540L637 330L650 330L655 540Z" fill="#d8dfe0" stroke="#718087" stroke-width="2"/>
+ <path d="M638 434L642 245L652 245L651 434Z" fill="url(#metal)" stroke="#34434a" stroke-width="2"/>
+ <path d="M642 339L646 197L654 197L652 339Z" fill="#e1e7e6" stroke="#68777d" stroke-width="2"/>
+ <g fill="#293a40"><rect x="624" y="555" width="40" height="12" rx="3"/><rect x="634" y="437" width="26" height="10" rx="3"/><rect x="639" y="340" width="21" height="9" rx="3"/></g>
+ <!-- arm shoulder at top -->
+ <circle cx="650" cy="198" r="17" fill="#26363b" stroke="#dce2df" stroke-width="5"/>
+ <path d="M650 198L720 168L777 198L815 177" fill="none" stroke="#1e2e34" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M650 198L720 168L777 198L815 177" fill="none" stroke="url(#metal)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+ <g fill="#33444a" stroke="#d4dddc" stroke-width="4"><circle cx="720" cy="168" r="13"/><circle cx="777" cy="198" r="13"/><circle cx="815" cy="177" r="10"/></g>
+ <!-- cable routing, restrained -->
+ <path d="M649 215Q672 244 695 219T737 184T782 215" fill="none" stroke="#26383d" stroke-width="3"/>
+ <!-- end-effector and RGB-D camera -->
+ <path d="M815 177l20 -8 8 8 -7 8Z" fill="#e3e8e5" stroke="#25353b" stroke-width="3"/>
+ <rect x="829" y="159" width="40" height="24" rx="4" fill="#263b43" stroke="#d5dddc" stroke-width="2"/>
+ <circle cx="840" cy="171" r="6" fill="#59c5e4" stroke="#c4eff9" stroke-width="2"/><circle cx="858" cy="171" r="5" fill="#0b1820" stroke="#91cde0" stroke-width="2"/>
+ <path d="M843 184l-4 17M861 184l5 16" stroke="#b8c2c0" stroke-width="5" stroke-linecap="round"/>
+ <!-- guarded cutter/capture fingers concept -->
+ <path d="M839 200Q825 220 841 230M864 200Q879 220 861 230" fill="none" stroke="#d7dfdb" stroke-width="6" stroke-linecap="round"/>
+ <path d="M841 230Q851 239 861 230" fill="none" stroke="#edb454" stroke-width="5" stroke-linecap="round"/>
+ <!-- depth sensors on base -->
+ <rect x="742" y="650" width="35" height="18" rx="4" fill="#182b31" stroke="#b9c5c2" stroke-width="2"/><circle cx="752" cy="659" r="4" fill="#56c5e5"/><circle cx="766" cy="659" r="4" fill="#56c5e5"/>
+</g>
+<!-- dotted sensor view to selected mixed-stage bunch -->
+<path d="M865 174Q974 160 1058 250" fill="none" stroke="#f8f5d8" stroke-width="3" stroke-dasharray="9 8" opacity=".9"/>
+<circle cx="1058" cy="250" r="39" fill="none" stroke="#fff5c8" stroke-width="3" stroke-dasharray="6 5"/>
+<!-- labels -->
+<g font-family="Arial, sans-serif">
+ <rect x="55" y="48" width="490" height="116" rx="18" fill="#132b30" opacity=".9"/>
+ <text x="82" y="88" fill="#ffffff" font-size="30" font-weight="700">COCONUT HARVEST AI</text>
+ <text x="82" y="119" fill="#c9e1d4" font-size="19">Low-cost, slim-arm all-stage concept</text>
+ <text x="82" y="145" fill="#f0c56e" font-size="15">ENGINEERING VISUAL • NOT A BUILT ROBOT</text>
+ <rect x="60" y="200" width="300" height="128" rx="14" fill="#ffffff" opacity=".9"/>
+ <text x="82" y="232" font-size="20" font-weight="700" fill="#20373a">Per-fruit AI selection</text>
+ <circle cx="88" cy="260" r="8" fill="#6eac45"/><text x="108" y="266" font-size="17" fill="#2c403d">Young green</text>
+ <circle cx="88" cy="288" r="8" fill="#c8b84c"/><text x="108" y="294" font-size="17" fill="#2c403d">Mature green / yellow-green</text>
+ <circle cx="88" cy="316" r="8" fill="#895637"/><text x="108" y="322" font-size="17" fill="#2c403d">Brown / dry</text>
+ <path d="M360 260L480 260L590 330" fill="none" stroke="#f7f8e9" stroke-width="2.5" stroke-dasharray="6 6"/>
+ <rect x="55" y="785" width="890" height="77" rx="14" fill="#152b2d" opacity=".92"/>
+ <text x="80" y="816" fill="#ffffff" font-size="18" font-weight="700">Design priorities</text>
+ <text x="80" y="843" fill="#d7e5d9" font-size="16">Slim arm • modular mast • low-cost sensors • guarded tool • tracked base + stabilizers</text>
+ <rect x="1000" y="752" width="545" height="110" rx="14" fill="#152b2d" opacity=".92"/>
+ <text x="1025" y="783" fill="#f4cb77" font-size="18" font-weight="700">Important limitation</text>
+ <text x="1025" y="809" fill="#ffffff" font-size="15">20–30 m reach, mast stability, cutting, fruit capture,</text>
+ <text x="1025" y="833" fill="#ffffff" font-size="15">and all-stage recognition require simulation and field tests.</text>
+</g>
+</svg>
