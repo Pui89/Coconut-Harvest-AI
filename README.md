@@ -11,6 +11,47 @@
 > **Current validation matrix:** [VALIDATION_MATRIX.md](docs/VALIDATION_MATRIX.md) — implementation evidence, automated checks, and remaining unvalidated capabilities.
 > **All-stage coconut roadmap:** [COCONUT_STAGE_ROADMAP.md](docs/COCONUT_STAGE_ROADMAP.md) — proposed labels and workflow for young green, mature green, brown/dry, damaged, occluded, and uncertain fruit, with operator-selected harvest classes.
 
+## How the all-stage coconut robot is intended to work
+
+The system is designed as a **human-supervised AI application connected to an agricultural robot**. It should first identify and assess each visible coconut, then propose a target based on the operator's chosen harvest stage. Detection is not the same as confirmed maturity, and a software demo is not proof of physical harvesting.
+
+### 1. Choose a task
+
+The operator selects one mode before the robot starts:
+
+- **Young green:** consider only fruit confirmed under the project's grower-defined young-coconut criteria.
+- **Mature green:** consider green fruit assessed as mature using validated criteria; do not infer maturity from green colour alone.
+- **Mature brown/dry:** consider fruit assessed as mature or drying under the agreed criteria.
+- **Selected combination:** consider only the classes selected by the operator.
+- **Survey only:** detect, label, and map fruit without cutting.
+
+The operator can also set a target limit and confirm the intended tree or row. The selection filters candidate fruit; it never disables a safety check.
+
+### 2. See and classify each fruit
+
+An RGB camera captures the bunch. A local vision model (once trained and validated) should detect individual coconuts and assign a provisional class, confidence, and image location. If available, calibrated depth or another validated sensor may help estimate 3D position.
+
+Proposed classes include young green, mature green, mature brown/dry, damaged/abnormal, occluded/partial, and uncertain. A grower should define the class criteria for the local cultivar and intended use. Colour is a visual clue, not reliable proof of maturity on its own.
+
+### 3. Filter targets and abstain when uncertain
+
+The application compares each proposed class with the operator's selection. Fruit outside the selection is not sent to the harvest planner. Low-confidence, hidden, damaged, or ambiguous fruit is marked for review rather than cut automatically. Mixed-stage bunches are processed fruit by fruit, not assigned one class as a whole.
+
+### 4. Check robot reach and safety
+
+Before any physical action, the system must check that the target is within the validated reach envelope, the robot is stable, the path is clear, the tool is suitable, and the fruit can be lowered or dropped into a safe area. People and animals must be kept clear. A stop command, fault, lost sensor, collision risk, or unsafe condition must prevent cutting.
+
+A small ground robot with a short arm cannot reach high palm crowns by itself. The high-reach mechanism, stability, cutting tool, fruit handling, and safe lowering method are separate engineering tasks that require supervised testing.
+
+### 5. Ask for confirmation and record the outcome
+
+The interface should show the target, predicted class, confidence, and proposed action. Human confirmation is required by default before cutting. The system should record whether the task was merely proposed, attempted, or independently confirmed as successful; it must not report a successful harvest without evidence.
+
+### Development status and evidence
+
+This workflow describes the intended design. It does **not** mean every class is already detected, that a trained all-stage model exists, or that the physical robot can harvest all coconut stages. The project must first complete image-source and licence checks, annotation review, a leakage-safe dataset split, local model training, and held-out per-class evaluation. Physical reach and harvesting must then be validated separately. See the [all-stage roadmap](docs/COCONUT_STAGE_ROADMAP.md) and [project status](docs/PROJECT_STATUS_2026-10-18.md).
+
+
 > **A local-first AI application and simulation-first agricultural robot research project.** The goal is to explore whether computer vision, RGB-D localization, conservative task planning, and human-supervised safety gates can support safer coconut harvesting. This is a research prototype—not a finished or field-validated harvesting robot.
 
 ![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
