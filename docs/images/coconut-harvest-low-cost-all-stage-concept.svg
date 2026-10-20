@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
 <title id="title">Coconut Harvest AI — low-cost all-stage harvesting robot concept</title>
-<desc id="desc">Detailed original engineering concept illustration in a tropical coconut orchard. A compact tracked ground base anchors a slim telescopic mast and lightweight guarded arm beside a 20–30 metre coconut palm. RGB and depth sensors inspect mixed green and brown coconut stages. The design is conceptual and not a photograph or validated robot.</desc>
+<desc id="desc">Concept illustration in a tropical orchard showing a compact tracked base, slim mast and mixed-stage coconuts on a tall palm representing a 0–30 m challenge. The pictured mechanism is not shown to scale and is not validated to reach the crown. AI perception, high-reach access, stability, cutting and fruit capture remain unvalidated.</desc>
 <defs>
  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9bcbd9"/><stop offset=".62" stop-color="#e2ead9"/><stop offset="1" stop-color="#f4e7c9"/></linearGradient>
  <linearGradient id="trunk" x2="1" y2=".2"><stop stop-color="#5c3926"/><stop offset=".28" stop-color="#94613b"/><stop offset=".58" stop-color="#c08b56"/><stop offset="1" stop-color="#65432e"/></linearGradient>
@@ -101,14 +101,14 @@
  <path d="M1060 175 V710" stroke="#fff" stroke-width="3" stroke-dasharray="7 8" opacity=".85"/>
  <path d="M1045 180 H1075 M1045 710 H1075" stroke="#fff" stroke-width="4"/>
  <rect x="1085" y="418" width="360" height="82" rx="12" fill="#fff" opacity=".9" stroke="#d1e0df"/>
- <text x="1107" y="449" font-size="20" fill="#24433e" font-weight="700">20–30 m palm height</text>
- <text x="1107" y="476" font-size="15" fill="#526c67">Illustrative scale, not a reach test</text>
+ <text x="1107" y="449" font-size="20" fill="#24433e" font-weight="700">0–30 m tree range</text>
+ <text x="1107" y="476" font-size="15" fill="#526c67">Tree height is not robot reach</text>
  <rect x="1070" y="535" width="455" height="112" rx="12" fill="#fff" opacity=".9" stroke="#d1e0df"/>
  <text x="1092" y="566" font-size="18" fill="#24433e" font-weight="700">All-stage decision support</text>
  <circle cx="1103" cy="590" r="7" fill="#79a942"/><text x="1120" y="596" font-size="15" fill="#405e4c">Young green • mature green</text>
  <circle cx="1103" cy="618" r="7" fill="#875433"/><text x="1120" y="624" font-size="15" fill="#405e4c">Brown/dry • damaged/uncertain</text>
  <rect x="60" y="804" width="1480" height="57" rx="12" fill="#f8fbf7" opacity=".94"/>
  <text x="82" y="828" font-size="15" fill="#3c5550" font-weight="700">CONCEPT ONLY</text>
- <text x="82" y="849" font-size="13" fill="#536963">Not a photograph or validated machine. 20–30 m reach, climbing stability, cutting, fruit capture and all-stage classification require engineering, simulation and supervised validation.</text>
+ <text x="82" y="849" font-size="13" fill="#536963">Concept only. 0–6 m is a first supervised test band; 6–30 m needs specialized, unvalidated access and safety engineering.</text>
 </g>
 </svg>
