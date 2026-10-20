@@ -1,4 +1,73 @@
-# Coconut Harvest AI Application
+# Coconut Harvest AI
+
+
+### AI-Assisted Coconut Detection, Harvest Selection and Robotic Harvesting
+
+**Smarter coconut harvesting through computer vision, robotics and agricultural AI.**
+
+Coconut Harvest AI is a research and development project exploring how AI software could help growers identify individual coconuts, assess their harvesting stage, select target fruit, and plan safer harvesting workflows. The long-term vision is to connect a local-first AI application to a suitable agricultural robot.
+
+**For farms, cooperatives, equipment manufacturers and research partners:** this repository documents the current software prototypes, test workflows, engineering concepts and validation roadmap. It is not an offer of a finished, commercially available harvesting machine.
+
+> **Readiness at a glance:** software and simulation prototypes are available in this repository. Reliable all-stage maturity detection, validated 3D localization, physical cutting and fruit handling, and autonomous operation across 0–30 m tree heights are not established as field-validated capabilities. The 0–30 m range is a design challenge, not a proven robot reach specification.
+
+## Commercial overview
+
+### What the system is intended to do
+
+- **Observe:** capture orchard images and, where available, depth or range data.
+- **Detect:** propose individual coconut targets for review.
+- **Select:** let an operator choose the intended harvest stage or use survey-only mode.
+- **Plan:** assess uncertainty, target location, reachability and safety constraints.
+- **Support harvesting:** connect an approved plan to a separately engineered and validated harvesting mechanism in future development.
+- **Verify:** record whether a task was proposed, attempted, or independently confirmed as successful.
+
+### System workflow
+
+```text
+Camera / Sensors
+      ↓
+Image and Sensor Quality Checks
+      ↓
+Coconut Detection and Stage Assessment
+      ↓
+Operator Selects Harvest Stage
+      ↓
+Target, Location and Safety Review
+      ↓
+Human Approval / Safe Hold
+      ↓
+Future Robot Integration: Controlled Cut and Fruit Handling
+      ↓
+Outcome Verification and Audit Log
+```
+
+The current software workflow does not by itself prove that a coconut was detected accurately or harvested physically. Uncertain targets, unsafe reach, missing sensor evidence or failed safety checks must result in review or **SURVEY ONLY / NO CUT**.
+
+### Potential customer value
+
+The project investigates whether AI-assisted perception and planning could help reduce reliance on hazardous climbing, improve harvest selection and make harvesting tasks more consistent and traceable. These are intended benefits, not measured commercial outcomes or guarantees of labour savings, safety improvement, yield or return on investment.
+
+### Current readiness
+
+| Area | Status described by this repository |
+|---|---|
+| Local AI application and decision-support code | Prototype code and local workflows are available; see the implementation and test documentation below |
+| Synthetic-data workflow and audit reports | Available for software testing; synthetic examples are not field-performance evidence |
+| Real-image coconut detection and maturity assessment | Not yet established as a reliable, generalisable detector; dataset quality and held-out evaluation remain necessary |
+| 3D localization and robot reachability | Prototype/engineering work; requires calibrated sensors and independent validation |
+| Physical robot, cutting and fruit handling | Not demonstrated as a validated end-to-end harvesting system |
+| Operation at 0–30 m tree heights | Long-term feasibility challenge; no full-height capability claim |
+| Commercial pricing and availability | Not established |
+
+### Collaboration
+
+We welcome discussions with coconut growers, agricultural cooperatives, machinery manufacturers, robotics teams and research organisations interested in requirements assessment, dataset review, feasibility studies and supervised pilot planning. Any physical trial would require suitable hardware, independent safety controls and documented risk assessment.
+
+**Suggested first step:** review the [Product Brief](docs/PRODUCT_BRIEF.md), [Validation Matrix](docs/VALIDATION_MATRIX.md), [Complete-System Blueprint](docs/COMPLETE_SYSTEM_BLUEPRINT.md), and [Buyer Value and Competitive Positioning](docs/BUYER_VALUE_AND_COMPETITIVE_POSITIONING.md).
+
+---
+
 
 ## Robot concept illustration
 
