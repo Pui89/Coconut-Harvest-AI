@@ -7,6 +7,8 @@ on:
       - "apps/pui89_app/**"
       - "tests/**"
       - "training/**"
+      - "docs/**"
+      - "README.md"
       - "pyproject.toml"
       - ".github/workflows/ci.yml"
   pull_request:
@@ -15,6 +17,8 @@ on:
       - "apps/pui89_app/**"
       - "tests/**"
       - "training/**"
+      - "docs/**"
+      - "README.md"
       - "pyproject.toml"
       - ".github/workflows/ci.yml"
   workflow_dispatch:
@@ -35,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip

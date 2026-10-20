@@ -4,9 +4,9 @@ A simulation-first decision-support application for demonstrating sensor-quality
 
 ## Interactive web demo
 
-The Streamlit demo lets you upload a real orchard photo for display, adjust example sensor/candidate evidence, run the rule-based decision flow, and download a JSON result.
+The Streamlit demo lets you upload a real orchard photo for display, select the operator's requested harvest stage (young green, mature green, mature brown/dry, all mature, a selected combination, or survey-only), enter the candidate's stage as manual example evidence, adjust sensor/candidate checks, and download a JSON report. Uncertain, damaged, occluded, and flower/infant candidates are routed to review/protection rather than accepted for harvest.
 
-**Important:** the photo is not automatically analysed. The scores and decisions are based on manually supplied values and illustrative rules, not a trained computer-vision model or validated field measurements.
+**Important:** the photo is not automatically classified by the stage selector. Candidate stage and scores are manually supplied values used to exercise the decision rules, not output from a trained computer-vision model or validated field measurements. The demo does not send physical robot commands.
 
 ## Run the web demo locally
 

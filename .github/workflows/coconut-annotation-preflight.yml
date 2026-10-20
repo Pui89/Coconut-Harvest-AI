@@ -1,0 +1,42 @@
+name: Coconut annotation preflight
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/preflight_coconut_annotations.py"
+      - "data/review_batch_2026-10-18/annotations_v0.1.json"
+      - ".github/workflows/coconut-annotation-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  annotation-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate annotation geometry and report review flags
+        run: python scripts/preflight_coconut_annotations.py
+
+      - name: Save audit report
+        if: always()
+        run: |
+          python scripts/preflight_coconut_annotations.py > coconut-annotation-preflight.txt 2>&1 || true
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coconut-annotation-preflight
+          path: coconut-annotation-preflight.txt
+          retention-days: 14
