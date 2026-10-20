@@ -52,15 +52,25 @@ def main():
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
     annotation = json.loads(Path(args.annotations).read_text(encoding="utf-8"))
+    if not isinstance(annotation, dict) or not isinstance(annotation.get("images"), list) or not annotation["images"]:
+        raise ValueError("Annotation JSON must contain a non-empty 'images' list.")
     results, runtimes = [], []
     tp = fp = fn = 0
+    images_dir = Path(args.images_dir)
+    if not images_dir.is_dir():
+        raise NotADirectoryError(f"Image directory does not exist: {images_dir}")
     for item in annotation["images"]:
+        if not isinstance(item, dict) or not isinstance(item.get("filename"), str) or not isinstance(item.get("boxes"), list):
+            raise ValueError("Each annotation image must contain a filename and a boxes list.")
         ground_truth = [
             [b["x"], b["y"], b["x"] + b["w"], b["y"] + b["h"]]
             for b in item["boxes"]
         ]
+        image_path = images_dir / item["filename"]
+        if not image_path.is_file():
+            raise FileNotFoundError(f"Annotated image file not found: {image_path}")
         start = time.perf_counter()
-        predictions = predict(Path(args.images_dir) / item["filename"])
+        predictions = predict(image_path)
         runtime = (time.perf_counter() - start) * 1000
         runtimes.append(runtime)
         matched = set()
