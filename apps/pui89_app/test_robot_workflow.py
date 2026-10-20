@@ -53,6 +53,24 @@ def test_invalid_box_is_rejected():
     assert "BOUNDING_BOX_INVALID" in report.rejected_candidates["coconut-01"]
 
 
+def test_non_numeric_box_is_rejected_without_crashing():
+    report = run_simulated_workflow(
+        [good_candidate(bbox_xyxy_pixels=(10, "not-a-number", 50, 60))], now_s=10
+    )
+    assert report.status == "SAFE_HOLD"
+    assert "BOUNDING_BOX_INVALID" in report.rejected_candidates["coconut-01"]
+
+
+def test_non_numeric_world_position_is_rejected_without_crashing():
+    report = run_simulated_workflow(
+        [good_candidate(world_position_m=(1.0, "unknown", 1.2))],
+        now_s=10,
+        human_approved=True,
+    )
+    assert report.status == "SAFE_HOLD"
+    assert "METRIC_3D_POSITION_INVALID" in report.rejected_candidates["coconut-01"]
+
+
 def test_emergency_stop_has_priority_over_candidates():
     report = run_simulated_workflow(
         [good_candidate()], now_s=10, human_approved=True, emergency_stop=True
