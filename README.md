@@ -208,6 +208,8 @@ python -m pytest
 
 These commands exercise the repository's software workflow and tests. Check the dependency and environment notes before installing optional packages. The demo uses synthetic or supplied evidence; it does not establish real-image detection accuracy or authorize physical robot control.
 
+The focused [coconut proposal safety regression tests](tests/test_coconut_safety_pipeline.py) check unknown-depth rejection, camera-frame localization, and that human approval never authorizes actuator commands. The local RGB-D bridge also rejects different RGB/depth image dimensions; this does not replace validation of sensor alignment and calibration. See the [local detector and RGB-D workflow](training/README.md).
+
 ### Manual real-image review
 
 See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). The optional script can download two reference photographs from Wikimedia Commons and prepare a local review CSV plus source/licence notes. Review each source's licence and attribution requirements before reuse. This workflow is manual review, not automatic detection.
