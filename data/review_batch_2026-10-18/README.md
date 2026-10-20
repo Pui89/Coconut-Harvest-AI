@@ -19,6 +19,24 @@ Use the [dataset QA gate](../../docs/DATASET_QA_GATE_2026-10-19.md) before any c
 
 This is **not** a complete training dataset or a valid held-out benchmark. The 15 boxes are single-pass annotations and need independent label QA. Two images cannot support a train/validation/test split or a generalization claim. No learned model was trained, no checkpoint was evaluated, and no orchard/robot performance was measured. The zero scores are for the simple HSV heuristic only—not for a trained AI model.
 
+## Follow-up visual inspection — 20 October 2026
+
+The two replacement images from the temporary `coconut-clean-replacement-candidates` artifact were opened at full resolution for a further visual check:
+
+- **Candidate 0033** (`0033_Coconut_bunch_in_the_tree.JPG`): attached coconuts are visible, but strong shadows, glare, and frond occlusion make fruit boundaries difficult. Keep it deferred until a reviewer can consistently distinguish individual fruit.
+- **Candidate 0034** (`0034_Coconut_fruits.jpg`): the attached green bunch is more useful for a first annotation exercise, but fruit overlap and partial occlusion are substantial. It is a **labeling candidate only**, not training-approved. Create boxes only for individually distinguishable fruit; do not guess hidden fruit, and record uncertain regions for a second review.
+- The original images remain in the temporary workflow artifact, not committed to the repository. Preserve their source attribution and licence records if making derived overlays or sharing copies.
+
+### Render existing labels for a human visual check
+
+After extracting the original image artifact locally, the archived historical labels can be rendered as a review aid:
+
+```bash
+python tools/render_coconut_annotation_review.py --images-dir /path/to/extracted/images --annotations data/review_batch_2026-10-18/annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json --output-dir /tmp/coconut-archived-label-review --banner "ARCHIVED LABELS - NOT FOR TRAINING"
+```
+
+This command is intended for checking the retired 0002/0004 annotations against their matching original images. It will not annotate candidate 0034 automatically. The overlay is a visual aid only; label correctness and missed fruit still require human review.
+
 ## Files
 
 - `candidate_review_2026-10-18.csv`: visual triage and review/licence state for all 30 files.
