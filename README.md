@@ -53,6 +53,27 @@ Separate harvesting subsystem (not yet validated)
 
 The first two components to validate are **maturity detection** and **fruit localization**. Only after these work on representative orchard images should the project select and build a harvesting mechanism. A short arm may still be useful for a small controlled bench demonstrator, but it is not the high-reach solution.
 
+### Operator-selectable harvest order: mature, young, or both
+
+**The operator—not the AI alone—chooses which coconut stage to harvest for the current job.** Before a run, the local application should offer a clear harvest-order setting:
+
+```text
+HARVEST ORDER
+  [ ] Mature coconuts (usually brown / mature-stage)
+  [ ] Young coconuts (usually green / tender-stage)
+  [ ] Both stages (show separate targets and ask before each action)
+
+Additional controls:
+  • Intended use: mature/dry coconut, drinking coconut, or grower-defined stage
+  • Tree/row or selected cluster
+  • Maximum targets and stop conditions
+  • Human confirmation: ON by default
+```
+
+The AI should classify each visible fruit into **mature-stage**, **young-stage**, or **uncertain**; it then filters the candidate list using the operator's chosen order. For example, a mature-only job must not select a young coconut just because it is easy to reach. A young-only job must not select a mature coconut. If “both” is selected, the application should display the two classes separately and apply the correct harvest method for each only after that method has been engineered and validated.
+
+“Brown” and “green” are visual clues, not universal ground truth: cultivar, lighting, weathering, and intended use can change what counts as harvest-ready. A grower should define the classes and labels for the orchard and product. If the model is uncertain, it must abstain and ask the operator rather than guess. The selected order changes **which targets the AI proposes**; it does not bypass reach, collision, drop-zone, tool, or safety checks. Any fruit high in a 20–30 m crown still requires a separately validated high-reach harvesting mechanism.
+
 ### How the robot should judge maturity
 
 Colour is a useful signal, not a sufficient rule. Brown appearance can be affected by lighting, shadows, age, cultivar, dirt and image quality. The AI should combine visual cues where the dataset supports them and return **uncertain / request human review** when evidence is weak.
