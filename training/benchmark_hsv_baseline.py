@@ -96,7 +96,7 @@ def main():
         "mean_cpu_runtime_ms_per_image": round(float(np.mean(runtimes)), 2),
         "per_image": results,
         "limitations": [
-            "Only two images and 16 single-pass manually drawn boxes; independent label QA is pending.",
+            "Only two images and 15 single-pass manually drawn boxes; independent label QA is pending.",
             "Images are not an independent held-out test set; results do not measure generalization.",
             "This is a simple non-ML reference and is sensitive to overlaps and scene colour.",
             "No trained detector, checkpoint, GPU measurement, RGB-D localization, or field performance is evaluated."
