@@ -14,10 +14,33 @@ def test_strategies_match_reference_for_empty_and_nonempty_workloads() -> None:
     sys.path.insert(0, str(SCRIPT.parent))
     try:
         from adaptive_compute_benchmark import run_benchmark
+
         for size in (0, 1, 17, 1_000):
             report = run_benchmark(size=size, repeats=1, threshold=10)
             assert report["all_outputs_match_reference"] is True
             assert all(report["correctness"].values())
+    finally:
+        sys.path.pop(0)
+
+
+@pytest.mark.parametrize(
+    ("size", "repeats", "threshold", "message"),
+    [
+        (1.5, 1, 1, "size must be a non-negative integer"),
+        (True, 1, 1, "size must be a non-negative integer"),
+        (1, 1.5, 1, "repeats must be a positive integer"),
+        (1, False, 1, "repeats must be a positive integer"),
+        (1, 1, 2.5, "threshold must be a positive integer"),
+        (1, 1, True, "threshold must be a positive integer"),
+    ],
+)
+def test_non_integer_arguments_raise_clear_value_error(size, repeats, threshold, message):
+    sys.path.insert(0, str(SCRIPT.parent))
+    try:
+        from adaptive_compute_benchmark import run_benchmark
+
+        with pytest.raises(ValueError, match=message):
+            run_benchmark(size=size, repeats=repeats, threshold=threshold)
     finally:
         sys.path.pop(0)
 
@@ -28,6 +51,7 @@ def test_strategies_match_reference_for_empty_and_nonempty_workloads() -> None:
         (["--size", "-1"], "size must be a non-negative integer"),
         (["--repeats", "0"], "repeats must be a positive integer"),
         (["--threshold", "0"], "threshold must be a positive integer"),
+        (["--size", "1.5"], "invalid int value"),
     ],
 )
 def test_invalid_arguments_fail_with_cli_error(args: list[str], message: str) -> None:
