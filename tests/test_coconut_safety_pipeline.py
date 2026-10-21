@@ -68,3 +68,51 @@ def test_invalid_depth_is_reported_as_unknown_not_fabricated_pose():
 
     assert result["status"] == "UNKNOWN"
     assert "no valid depth" in result["reason"]
+
+
+# Local detector adapter regression tests. These use fakes and need no model weights.
+from apps.pui89_app.local_detector import (
+    coconut_class_ids,
+    detect_coconuts,
+    resolve_inference_device,
+)
+
+
+def test_coconut_class_ids_accepts_only_explicit_coconut_labels():
+    assert coconut_class_ids({0: "person", 1: "coconut", 2: "green_coconut", 3: "coconuts"}) == {1, 3}
+
+
+def test_device_resolution_is_deterministic_when_cuda_state_is_injected():
+    assert resolve_inference_device("auto", cuda_available=False) == "cpu"
+    assert resolve_inference_device("auto", cuda_available=True) == "0"
+    assert resolve_inference_device("cpu", cuda_available=True) == "cpu"
+
+
+def test_device_resolution_rejects_unknown_device():
+    import pytest
+
+    with pytest.raises(ValueError, match="device must be"):
+        resolve_inference_device("tpu", cuda_available=False)
+
+
+def test_detector_rejects_empty_class_set_before_model_call():
+    import pytest
+
+    with pytest.raises(ValueError, match="coconut class ID"):
+        detect_coconuts(object(), object(), set(), device="cpu")
+
+
+def test_detector_rejects_invalid_confidence_before_model_call():
+    import pytest
+
+    with pytest.raises(ValueError, match="confidence"):
+        detect_coconuts(object(), object(), {0}, confidence=1.5, device="cpu")
+
+
+def test_detector_returns_empty_list_when_model_has_no_results():
+    class FakeModel:
+        def predict(self, **kwargs):
+            assert kwargs["device"] == "cpu"
+            return []
+
+    assert detect_coconuts(FakeModel(), object(), {0}, device="cpu") == []
