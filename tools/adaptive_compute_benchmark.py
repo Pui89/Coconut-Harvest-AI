@@ -52,11 +52,12 @@ def _measure(fn: Callable[[], int], repeats: int) -> dict[str, float | int]:
 
 
 def run_benchmark(size: int, repeats: int, threshold: int) -> dict:
-    if isinstance(size, bool) or size < 0:
+    # bool is a subclass of int in Python; reject it explicitly alongside floats.
+    if type(size) is not int or size < 0:
         raise ValueError("size must be a non-negative integer")
-    if isinstance(repeats, bool) or repeats < 1:
+    if type(repeats) is not int or repeats < 1:
         raise ValueError("repeats must be a positive integer")
-    if isinstance(threshold, bool) or threshold < 1:
+    if type(threshold) is not int or threshold < 1:
         raise ValueError("threshold must be a positive integer")
 
     reference = size * (size - 1) // 2
