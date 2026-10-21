@@ -51,6 +51,8 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Immediate research next steps:** [focused evidence sprint](docs/RESEARCH_EVIDENCE_SPRINT.md) with the first real-image evaluation sequence, exact local commands, reproducibility requirements, and free-first/safety boundaries.
 
+**Limited-compute option:** [lightweight laptop-friendly workflow](docs/LIGHTWEIGHT_LAPTOP_WORKFLOW.md) prioritising CPU tests and data-quality checks before any large model download.
+
 
 
 ## Two parts of the project
