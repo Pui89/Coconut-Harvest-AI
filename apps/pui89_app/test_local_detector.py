@@ -97,12 +97,13 @@ class FakeModel:
     def predict(self, **kwargs):
         assert kwargs["device"] in {"cpu", "0"}
         assert kwargs["imgsz"] == 512
+        assert kwargs["half"] is (kwargs["device"] == "0")
         assert kwargs["verbose"] is False
         return [FakeResult()]
 
 
 def test_detection_filters_other_classes_and_invalid_boxes():
-    detections = detect_coconuts(FakeModel(), object(), {1})
+    detections = detect_coconuts(FakeModel(), object(), {1}, device="cpu")
     assert len(detections) == 1
     assert detections[0]["class_name"] == "coconut"
     assert detections[0]["confidence"] == pytest.approx(0.91)
