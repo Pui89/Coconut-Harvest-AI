@@ -36,7 +36,7 @@ class ReviewLedgerValidationTests(unittest.TestCase):
         self.assertEqual(self.check_rows([row()]), [])
 
     def test_duplicate_ids_and_case_insensitive_filenames_fail(self):
-        errors = self.check_rows([row(), row(candidate_id="0002", filename="COCONUT.JPG")])
+        errors = self.check_rows([row(), row(filename="COCONUT.JPG")])
         self.assertTrue(any("duplicate candidate_id" in error for error in errors))
         self.assertTrue(any("duplicate filename" in error for error in errors))
 
