@@ -47,6 +47,8 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Engineering assurance:** [project requirements, hazard log, verification/validation gates, and evidence rules](docs/ENGINEERING_ASSURANCE_PLAN.md).
 
+**Research evaluation:** [reproducible research evidence checklist](docs/RESEARCH_EVIDENCE_CHECKLIST.md) for dataset controls, held-out metrics, run records, and the boundary between AI benchmarks and physical-robot claims.
+
 
 
 ## Two parts of the project
