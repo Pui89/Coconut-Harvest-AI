@@ -5,8 +5,10 @@ No downloads, installs, network access, or uploads occur.
 Run from the repository root: python scripts/validate_real_image_review.py
 """
 from __future__ import annotations
+
 import argparse
 import csv
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +31,8 @@ def validate_csv(csv_path: Path) -> tuple[int, int, list[str]]:
             "First run: python scripts/prepare_real_image_review.py --download",
         ]
     reviewed_rows = total_rows = 0
+    seen_image_names: set[str] = set()
+    seen_image_hashes: dict[str, str] = {}
     try:
         with csv_path.open("r", newline="", encoding="utf-8-sig") as handle:
             reader = csv.DictReader(handle)
@@ -42,8 +46,34 @@ def validate_csv(csv_path: Path) -> tuple[int, int, list[str]]:
                 if not image_name or Path(image_name).name != image_name or image_name in {".", ".."}:
                     errors.append(f"line {line_number}: image_file must be a simple filename.")
                     continue
-                if not (csv_path.parent / image_name).is_file():
+                duplicate_name = image_name in seen_image_names
+                if duplicate_name:
+                    row_errors.append(
+                        f"line {line_number}: duplicate image_file entry: {image_name}"
+                    )
+                else:
+                    seen_image_names.add(image_name)
+
+                image_path = csv_path.parent / image_name
+                if not image_path.is_file():
                     row_errors.append(f"line {line_number}: image file not found beside CSV: {image_name}")
+                elif not duplicate_name:
+                    try:
+                        digest = hashlib.sha256(image_path.read_bytes()).hexdigest()
+                    except OSError as exc:
+                        row_errors.append(
+                            f"line {line_number}: could not read image file {image_name}: {exc}"
+                        )
+                    else:
+                        previous_name = seen_image_hashes.get(digest)
+                        if previous_name is not None:
+                            row_errors.append(
+                                f"line {line_number}: image content duplicates {previous_name} "
+                                f"even though the filename differs: {image_name}"
+                            )
+                        else:
+                            seen_image_hashes[digest] = image_name
+
                 if not (row.get("source_page") or "").strip():
                     row_errors.append(f"line {line_number}: source_page is blank.")
                 if not (row.get("license") or "").strip():
