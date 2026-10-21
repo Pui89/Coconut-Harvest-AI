@@ -1,7 +1,7 @@
 # Engineering Assurance and Verification Plan
 
 **Status:** engineering process document for a research prototype.  
-**Basis:** practices adapted from public NASA systems-engineering and software-assurance guidance. This is not NASA approval, certification, or a claim of compliance with NASA standards.
+**Basis:** project-defined engineering assurance practices for requirements traceability, hazard tracking, verification, validation, and evidence-based release decisions.
 
 ## 1. Purpose and system boundary
 
@@ -55,10 +55,6 @@ For each result, record commit, environment, command, dataset/model version, see
 
 Prefer local execution and free/open-source tools. Check dependency and dataset licences. Do not add paid APIs, hosted inference, cloud GPUs, subscriptions, or billing-triggering workflows without explicit approval.
 
-## 7. Public reference guidance
+## 7. Review boundary
 
-- [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/system-engineering-handbook-appendix/) — requirements, risk management, and verification/validation matrices.
-- [NASA software engineering and assurance resources](https://www.nasa.gov/intelligent-systems-division/software-management-office/nasa-software-engineering-procedural-requirements-standards-and-related-resources/) — software lifecycle, assurance, and safety.
-- [NASA-STD-8739.8B](https://standards.nasa.gov/standard/nasa/nasa-std-87398) — software assurance and software safety.
-
-These are learning references; this independent project is not represented as NASA-compliant.
+This project-level plan supports disciplined engineering and evidence tracking. It does not replace independent safety, legal, privacy, domain-expert, or operational review.
