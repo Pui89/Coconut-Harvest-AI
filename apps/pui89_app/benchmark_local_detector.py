@@ -65,7 +65,9 @@ def benchmark(model_path: str, image_path: str, device: str, sizes: list[int],
             detection_count = len(detections)
 
         ordered = sorted(samples)
-        p95_index = min(len(ordered) - 1, max(0, int(0.95 * len(ordered) + 0.999) - 1))
+        # Nearest-rank p95: the smallest sample at or above the 95th percentile.
+        import math
+        p95_index = min(len(ordered) - 1, max(0, math.ceil(0.95 * len(ordered)) - 1))
         rows.append({
             "image_size": size,
             "repeats": repeats,
@@ -110,6 +112,8 @@ def main() -> None:
 
     if args.warmup < 0 or args.repeats < 1:
         parser.error("--warmup must be >= 0 and --repeats must be >= 1")
+    if not 0.0 <= args.confidence <= 1.0:
+        parser.error("--confidence must be between 0 and 1")
     if not args.sizes or any(size < 32 or size > 4096 for size in args.sizes):
         parser.error("--sizes must contain values between 32 and 4096")
     report = benchmark(args.model, args.image, args.device, args.sizes,
