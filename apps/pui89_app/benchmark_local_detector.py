@@ -119,7 +119,7 @@ def main() -> None:
     report = benchmark(args.model, args.image, args.device, args.sizes,
                        args.warmup, args.repeats, args.confidence)
     output = Path(args.output).expanduser()
-    output.write_text(json.dumps(report, indent=2) + "\\n", encoding="utf-8")
+    output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
     print(f"Saved report: {output.resolve()}")
 
