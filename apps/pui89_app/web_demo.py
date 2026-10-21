@@ -133,8 +133,8 @@ with st.expander("Optional: run a trusted local coconut detector", expanded=Fals
         inference_image_size = st.selectbox(
             "Model input size",
             options=[384, 512, 640],
-            index=1,
-            help="Smaller sizes are often faster and use less memory, but may miss small coconuts.",
+            index=0,
+            help="Fastest starting point for this 4 GB GPU laptop. If small or distant coconuts are missed, compare 512 and 640 using the same labelled images.",
         )
         detector_confidence = st.slider(
             "Detection confidence threshold", 0.05, 0.95, 0.25, 0.05,
