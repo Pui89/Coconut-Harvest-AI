@@ -116,3 +116,46 @@ def test_detector_returns_empty_list_when_model_has_no_results():
             return []
 
     assert detect_coconuts(FakeModel(), object(), {0}, device="cpu") == []
+
+
+def test_detector_filters_non_coconut_classes_and_returns_pixel_boxes():
+    class FakeTensor:
+        def __init__(self, value):
+            self.value = value
+
+        def detach(self):
+            return self
+
+        def cpu(self):
+            return self
+
+        def tolist(self):
+            return self.value
+
+    class FakeBoxes:
+        xyxy = FakeTensor([[10, 20, 60, 80], [1, 2, 8, 9]])
+        conf = FakeTensor([0.91, 0.99])
+        cls = FakeTensor([1, 0])
+
+    class FakeResult:
+        boxes = FakeBoxes()
+        names = {0: "person", 1: "coconut"}
+
+    class FakeModel:
+        names = {0: "person", 1: "coconut"}
+
+        def predict(self, **kwargs):
+            assert kwargs["conf"] == 0.25
+            assert kwargs["imgsz"] == 512
+            return [FakeResult()]
+
+    detections = detect_coconuts(
+        FakeModel(), object(), {1}, confidence=0.25, image_size=512, device="cpu"
+    )
+
+    assert detections == [{
+        "class_id": 1,
+        "class_name": "coconut",
+        "confidence": 0.91,
+        "bbox_xyxy_pixels": [10.0, 20.0, 60.0, 80.0],
+    }]
