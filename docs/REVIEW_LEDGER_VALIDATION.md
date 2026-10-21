@@ -8,7 +8,7 @@ From the repository root:
 
 ```bash
 python tools/validate_review_ledger.py data/review_ledger.template.csv
-python -m unittest tests/test_validate_review_ledger.py -v
+python -m unittest discover -s tests -p test_validate_review_ledger.py -v
 ```
 
 Copy `data/review_ledger.template.csv` to a new local CSV before adding real review records. Do not overwrite historical review records or place restricted images in Git.
