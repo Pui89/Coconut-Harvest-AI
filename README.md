@@ -21,7 +21,7 @@ The project aims to help an operator review individual coconuts, choose an inten
 
 **Explore:** [Run the prototype](#run-the-local-prototype) · [Current evaluation evidence](#current-evaluation-evidence) · [Development roadmap](#development-roadmap) · [Safety and limitations](#safety-and-limitations)
 
-**Engineering assurance:** [requirements, hazard log, verification/validation gates, and evidence rules](docs/ENGINEERING_ASSURANCE_PLAN.md) — a NASA-guidance-informed plan, not a claim of NASA certification or compliance.
+**Engineering assurance:** [project requirements, hazard log, verification/validation gates, and evidence rules](docs/ENGINEERING_ASSURANCE_PLAN.md).
 
 
 
