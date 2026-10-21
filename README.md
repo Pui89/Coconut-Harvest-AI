@@ -8,6 +8,17 @@
 - **Label orchard images offline:** double-click [`OPEN_COCONUT_ANNOTATOR.bat`](OPEN_COCONUT_ANNOTATOR.bat). Select image files from your computer, draw boxes around visible coconuts, and export the annotation JSON. Images are processed in your browser and are not uploaded by this tool.
 - **Important:** annotation quality and image reuse rights still need human review. Do not use the archived first-pass labels as training data; see [the review batch notes](data/review_batch_2026-10-18/README.md).
 
+## Support, sponsorship and open-source collaboration
+
+PUI89 welcomes technical review, research collaboration, agricultural workflow feedback, rights-cleared image contributions, annotation review, reproducible benchmark work, and scoped sponsorship discussions.
+
+- **Support and sponsorship brief:** [ways to collaborate with PUI89](https://github.com/Pui89/Pui89.github.io/blob/main/SUPPORT_AND_SPONSORSHIP.md)
+- **Project website:** [PUI89 AI Robotics](https://pui89.github.io/)
+- **Contribute code or report an issue:** [GitHub Issues](https://github.com/Pui89/Coconut-Harvest-AI/issues)
+- **Potential farm pilot:** [Coconut Orchard Pilot Brief](https://github.com/Pui89/Pui89.github.io/blob/main/COCONUT_ORCHARD_PILOT_BRIEF.md)
+
+Please include the specific workflow, evidence, or milestone you can help with. Dataset contributions must include source and reuse permissions. No sponsor, field deployment, or performance outcome is implied by this invitation.
+
 ## Latest engineering update — 21 October 2026
 
 - **Benchmark tooling:** the adaptive CPU microbenchmark with no additional package dependencies is available at [`tools/adaptive_compute_benchmark.py`](tools/adaptive_compute_benchmark.py), with regression tests in [`tests/test_adaptive_compute_benchmark.py`](tests/test_adaptive_compute_benchmark.py). It compares synthetic integer-reduction implementations; it is **not** an AI inference, energy-use, or robot-performance benchmark.
