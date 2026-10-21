@@ -9,6 +9,7 @@
 - **Reproducible detector evaluation:** added [`tools/evaluate_coconut_detections.py`](tools/evaluate_coconut_detections.py), unit tests, and a [CSV protocol](docs/REPRODUCIBLE_DETECTION_EVALUATION.md) for evaluating externally produced detector boxes. This tool does not run a model, and no new AI performance result is claimed.
 - **Dataset split-leakage audit:** added [`tools/audit_dataset_split_leakage.py`](tools/audit_dataset_split_leakage.py), tests, and a [manifest guide](docs/DATASET_SPLIT_LEAKAGE_AUDIT.md). It checks recorded SHA-256 values and source-group IDs across splits; it does not compute file hashes or claim improved detector performance.
 - **First real-image benchmark checklist:** added [the end-to-end manual workflow](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md), linking rights review, human annotations, geometry checks, split-leakage audit, and actual detector predictions. It explicitly stops short of claiming results until real inference is run.
+- **Actual image-hash verification:** added [a local SHA-256 verifier](tools/verify_image_manifest_hashes.py), tests, and a [usage guide](docs/VERIFY_IMAGE_MANIFEST_HASHES.md). Unlike the manifest-only audit, it computes hashes from files on disk and flags exact-byte duplicates across splits; it does not detect resized or near-duplicate images.
 
 
 
