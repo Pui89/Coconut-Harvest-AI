@@ -14,7 +14,7 @@ candidate_id,filename,visual_triage,label_status,license_metadata_from_collector
 0013,0013_Grimp_C3_A9_-_cocotier.jpg,exclude,not_applicable,metadata present,no,excluded,"Climber scene; no reliably boxable fruit"
 0014,0014_1280px-Liberia_2C_Africa_-_panoramio__28272_29.jpg,positive_candidate,not_labelled,CC BY 3.0,yes,provisional_only,"Multiple attached coconut clusters visible, but several fruit overlap or are partly occluded by fronds; challenging annotation candidate, not training-ready; attribution to blk24ga recorded"
 0015,0015_1280px-Morros_2C_Maranh_C3_A3o_09.jpg,exclude,not_applicable,metadata present,no,excluded,"Harvesting context; no reliably boxable fruit"
-0016,0016_Agricultural_Research_And_The_Rural_Views_In_Agriuculture_Of_Western_Samoa.jpg,exclude,not_applicable,metadata present,no,excluded,"Low-detail framed landscape image; no reliably boxable fruit"
+0016,0016_1280px-Agricultural_Research_And_The_Rural_Views_In_Agriuculture_Of_Western_Samoa_281_29__3D__E8_A5_BE_E3_82_B5_E3_82_BB.jpg,exclude,not_applicable,metadata present,no,excluded,"Low-detail framed landscape image; no reliably boxable fruit"
 0017,0017_Bhattlem.png,exclude,not_applicable,metadata present,no,excluded,"Plantation context; no reliably boxable fruit"
 0018,0018_1280px-Bobongan-Kokosnussplantage_bei_Perbaoengan_in_der_N_C3_A4he_von_Rantauparapat.jpg,exclude,not_applicable,metadata present,no,excluded,"Map/graphic rather than orchard image"
 0019,0019_1280px-Coconut_Plantation__286066282491_29.jpg,exclude,not_applicable,metadata present,no,excluded,"Wide plantation view; no reliably boxable fruit"
