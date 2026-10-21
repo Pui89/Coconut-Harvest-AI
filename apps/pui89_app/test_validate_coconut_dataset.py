@@ -49,6 +49,15 @@ class ValidateDatasetTests(unittest.TestCase):
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["splits"]["train"]["empty_label_files"], 1)
 
+    def test_unreadable_utf8_label_is_reported_without_crashing(self):
+        self.add_pair()
+        label_path = self.root / "labels" / "train" / "sample.txt"
+        label_path.write_bytes(b"\xff\xfe\xfa")
+        report = validate_dataset(self.root, class_count=1, splits=("train",))
+        self.assertEqual(report["status"], "FAIL")
+        self.assertTrue(any("Cannot read label file" in error["message"] for error in report["errors"]))
+        self.assertEqual(report["splits"]["train"]["empty_label_files"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
