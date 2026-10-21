@@ -2,6 +2,24 @@
 
 This is the shortest honest path from public image candidates to a reproducible, small detector evaluation. It is a manual workflow, not an automatic dataset or trained model. Do not skip rights review, human annotation, or the held-out split just to obtain a metric quickly.
 
+## Windows command prompt note
+
+Run commands from the repository root — the folder containing `README.md`, `apps`, and `tools`. For example, if your clone is stored at that location:
+
+    cd /d C:\\Users\\ACER\\Coconut-Harvest-AI
+    dir
+    python --version
+
+Use `python` or `py`, not `cpython`. If `dir` does not show `apps` and `tools`, locate the cloned repository folder before running a module command.
+
+To annotate images locally, double-click `OPEN_COCONUT_ANNOTATOR.bat` from File Explorer or run it from the repository root. Choose only images you have permission to review; draw boxes around clearly visible individual coconuts and save the exported annotations. Annotation does not itself establish image reuse or training rights.
+
+For the local detector benchmark, check the available options before running:
+
+    python -m apps.pui89_app.benchmark_local_detector --help
+
+This requires a compatible detector checkpoint already on your computer. The command does not download model weights. If no suitable checkpoint is available, report that inference has not yet been run; do not fabricate predictions or metrics.
+
 ## Stage 1 — Fetch candidates only when you choose
 
 From the repository root, run:
