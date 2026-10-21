@@ -92,12 +92,24 @@ def validate_dataset(root: Path, class_count: int, splits: tuple[str, ...] = SPL
                 object_count += 1
                 class_counts[class_value] += 1
 
+        # Count empty label files without re-reading files that already failed to decode.
+        # Keep validation reporting resilient when a label file is unreadable.
+        empty_label_files = 0
+        for stem in sorted(image_stems & label_stems):
+            label_path = label_by_stem[stem]
+            try:
+                if not label_path.read_text(encoding="utf-8").strip():
+                    empty_label_files += 1
+            except (OSError, UnicodeError):
+                # The read error was already recorded in the main validation loop.
+                continue
+
         summary[split] = {
             "images": len(images),
             "label_files": len(labels),
             "matched_images": len(image_stems & label_stems),
             "objects": object_count,
-            "empty_label_files": sum(1 for stem in image_stems & label_stems if not label_by_stem[stem].read_text(encoding="utf-8").strip()),
+            "empty_label_files": empty_label_files,
         }
 
     if not summary.get("train", {}).get("images", 0):
