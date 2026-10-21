@@ -17,6 +17,17 @@ The project aims to help an operator review individual coconuts, choose an inten
 
 ![Coconut Harvest AI workflow overview](docs/images/coconut-harvest-ai-overview.svg)
 
+### Real-world coconut imagery — illustrative references
+
+These source-linked photographs help explain the orchard setting and fruit visibility challenges. **They are illustrative references, not labelled training data or evidence of model performance.** Check each source page before reuse; the photos have not been added to the project's dataset.
+
+| Reference | Intended use and rights |
+|---|---|
+| [Fruiting Coconut Palm Canopy](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg) — [view original image](https://commons.wikimedia.org/wiki/Special:FilePath/Fruiting_Coconut_Palm_Canopy.jpg) | CC0 1.0, according to the source page. Candidate for an orchard-context visual; inspect at full resolution before use. |
+| [Coconut palm plantation, Koh Mak, Thailand](https://commons.wikimedia.org/wiki/File:Koh_Mak_(island),_Thailand,_Coconut_palm_plantation.jpg) — [view original image](https://commons.wikimedia.org/wiki/Special:FilePath/Koh_Mak_(island),_Thailand,_Coconut_palm_plantation.jpg) | Photo by Vyacheslav Argenberg; CC BY 4.0, according to the source page. Attribution is required; verify licence details and record any changes before redistribution. |
+
+**Data-quality rule:** a visually attractive orchard photo is not automatically suitable for detection training. Dataset inclusion requires rights review, original-file checks, target visibility, annotation QA, duplicate/leakage checks, and a reproducible evaluation split.
+
 ## Project at a glance
 
 | Topic | Current position |
