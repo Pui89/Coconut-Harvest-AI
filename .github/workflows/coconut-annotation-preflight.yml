@@ -1,11 +1,16 @@
-name: Coconut annotation preflight
+name: Coconut annotation geometry audit
 
 on:
   push:
     branches: [main]
     paths:
-      - "scripts/preflight_coconut_annotations.py"
-      - "data/review_batch_2026-10-18/annotations_v0.1.json"
+      - "tools/audit_coconut_annotations.py"
+      - "data/review_batch_2026-10-18/annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json"
+      - ".github/workflows/coconut-annotation-preflight.yml"
+  pull_request:
+    paths:
+      - "tools/audit_coconut_annotations.py"
+      - "data/review_batch_2026-10-18/annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json"
       - ".github/workflows/coconut-annotation-preflight.yml"
   workflow_dispatch:
 
@@ -13,7 +18,7 @@ permissions:
   contents: read
 
 jobs:
-  annotation-preflight:
+  annotation-geometry-audit:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -25,18 +30,18 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Validate annotation geometry and report review flags
-        run: python scripts/preflight_coconut_annotations.py
-
-      - name: Save audit report
-        if: always()
+      - name: Audit archived annotation geometry
         run: |
-          python scripts/preflight_coconut_annotations.py > coconut-annotation-preflight.txt 2>&1 || true
+          mkdir -p audit-artifacts
+          python tools/audit_coconut_annotations.py \
+            --annotations data/review_batch_2026-10-18/annotations_ARCHIVE_v0.1_NOT_FOR_TRAINING.json \
+            --output audit-artifacts/annotation-geometry-audit.json
 
-      - name: Upload audit report
+      - name: Upload geometry audit report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coconut-annotation-preflight
-          path: coconut-annotation-preflight.txt
+          name: coconut-annotation-geometry-audit
+          path: audit-artifacts/annotation-geometry-audit.json
+          if-no-files-found: warn
           retention-days: 14
