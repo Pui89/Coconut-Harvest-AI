@@ -60,3 +60,53 @@ def test_same_image_bytes_under_different_names_are_flagged(tmp_path):
         and "renamed-copy.jpg" in error
         for error in errors
     )
+
+
+def test_negative_coconut_count_is_rejected(tmp_path):
+    (tmp_path / "coconut.jpg").write_bytes(b"synthetic image bytes")
+    row = _row("coconut.jpg")
+    row["visible_coconut_count"] = "-1"
+    review_csv = _write_rows(tmp_path, [row])
+
+    total, reviewed, errors = validate_csv(review_csv)
+
+    assert total == 1
+    assert reviewed == 0
+    assert any("visible_coconut_count must be a non-negative whole number" in error for error in errors)
+
+
+def test_blank_count_requires_explicit_uncertainty_note(tmp_path):
+    (tmp_path / "coconut.jpg").write_bytes(b"synthetic image bytes")
+    row = _row("coconut.jpg")
+    row["visible_coconut_count"] = ""
+    review_csv = _write_rows(tmp_path, [row])
+
+    total, reviewed, errors = validate_csv(review_csv)
+
+    assert total == 1
+    assert reviewed == 0
+    assert any("explain uncertainty in review_notes" in error for error in errors)
+
+
+def test_blank_count_is_allowed_when_uncertainty_is_documented(tmp_path):
+    (tmp_path / "coconut.jpg").write_bytes(b"synthetic image bytes")
+    row = _row("coconut.jpg")
+    row["visible_coconut_count"] = ""
+    row["review_notes"] = "uncertain count due to occlusion"
+    review_csv = _write_rows(tmp_path, [row])
+
+    total, reviewed, errors = validate_csv(review_csv)
+
+    assert total == 1
+    assert reviewed == 1
+    assert errors == []
+
+
+def test_empty_review_csv_fails_closed(tmp_path):
+    review_csv = _write_rows(tmp_path, [])
+
+    total, reviewed, errors = validate_csv(review_csv)
+
+    assert total == 0
+    assert reviewed == 0
+    assert errors == []
