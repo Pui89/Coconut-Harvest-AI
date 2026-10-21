@@ -53,6 +53,18 @@ class ReviewLedgerValidationTests(unittest.TestCase):
         errors = self.check_rows([row(decision="maybe")])
         self.assertTrue(any("invalid decision" in error for error in errors))
 
+    def test_blank_source_url_is_rejected(self):
+        errors = self.check_rows([row(source_url=" ")])
+        self.assertTrue(any("source_url is required" in error for error in errors))
+
+    def test_invalid_review_date_is_rejected(self):
+        errors = self.check_rows([row(reviewed_on="2026-02-30")])
+        self.assertTrue(any("valid ISO date (YYYY-MM-DD)" in error for error in errors))
+
+    def test_noncanonical_review_date_is_rejected(self):
+        errors = self.check_rows([row(reviewed_on="2026-1-2")])
+        self.assertTrue(any("valid ISO date (YYYY-MM-DD)" in error for error in errors))
+
     def test_missing_columns_are_reported(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "ledger.csv"
