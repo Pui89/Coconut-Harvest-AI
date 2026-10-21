@@ -4,7 +4,7 @@
 
 This workflow adds real photographs to the **human review and data-preparation stage**. It does not yet detect coconuts automatically. The existing `agents/harvest_planning_agent.py` accepts candidate records; it does not inspect image pixels.
 
-The sample photos are fetched from Wikimedia Commons only when you run the download command. They are not committed to this repository. The repository references these images as CC0 1.0; always check the live source page and licence before reusing or redistributing a file.
+The sample photos are fetched from Wikimedia Commons only when you run the download command. They are not committed to this repository. The repository does not guarantee the current licence status of these references. Verify each live source page and its attribution/licence requirements before reusing or redistributing a file.
 
 ## Requirements
 
@@ -27,7 +27,7 @@ The script creates:
 - `data/real_image_samples/image_review.csv`
 - `data/real_image_samples/SOURCES.md`
 
-The images and review CSV are local working data and are not uploaded to GitHub automatically.
+The images and review CSV are local working data and are not uploaded to GitHub automatically. The downloader rejects empty or non-JPEG responses and files over 25 MiB, writes downloads atomically, and records file size plus a SHA-256 checksum in SOURCES.md.
 
 ## Review the real photographs
 
@@ -46,9 +46,7 @@ The existing rule-based agent can only make a proposal when candidate records co
 
 - [Fruiting Coconut Palm Canopy — source page](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg)
 - [Coconut Plucker plucking coconuts on a tree in Mumbai — source page](https://commons.wikimedia.org/wiki/File:Coconut_Plucker_plucking_coconuts_on_a_tree_in_Mumbai..JPG)
-- [CC0 1.0 legal code](https://creativecommons.org/publicdomain/zero/1.0/)
-
-The original source pages are authoritative for creator and licence information. The script writes a local source manifest as well. If a URL changes or a download fails, open the source page directly and download the image manually; do not bypass attribution or licence requirements.
+The original source pages are authoritative for creator and licence information. The script writes a local source manifest with file size and SHA-256 checksum. A valid JPEG signature and size limit protect against common bad downloads, but they do not prove that the image is safe, suitable for annotation, or legally reusable. If a URL changes or a download fails, open the source page directly and review its current licence.
 
 ## Research reporting template
 
