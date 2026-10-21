@@ -69,6 +69,10 @@ def validate_report(report: Any) -> list[str]:
         for key in keys:
             if key not in value or value[key] in ("", None):
                 errors.append(f"$.{section}.{key} is required")
+        if section == "config" and "seed" in value:
+            seed = value["seed"]
+            if isinstance(seed, bool) or not isinstance(seed, int):
+                errors.append("$.config.seed must be an integer (boolean is not a valid seed)")
     metrics = report["metrics"]
     if not isinstance(metrics, dict) or not metrics:
         errors.append("$.metrics must be a non-empty object")
