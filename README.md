@@ -43,6 +43,10 @@ The project aims to help an operator review individual coconuts, choose an inten
 
 ### Real-world coconut imagery — illustrative references
 
+<a href="https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fruiting_Coconut_Palm_Canopy.jpg?width=1400" alt="Fruiting coconut palm canopy with developing green coconuts; reference photograph for agricultural context" width="100%"></a>
+
+*Fruiting Coconut Palm Canopy — an orchard-context reference photograph. [Open the source and licence details on Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fruiting_Coconut_Palm_Canopy.jpg). This is not a PUI89 field capture, an annotated training image, an AI prediction, or evidence of detector performance.*
+
 These source-linked photographs help explain the orchard setting and fruit visibility challenges. **They are illustrative references, not labelled training data or evidence of model performance.** Check each source page before reuse; the photos have not been added to the project's dataset.
 
 | Reference | Intended use and rights |
