@@ -32,6 +32,10 @@ def main() -> int:
         print(f"ERROR: could not read valid JSON: {exc}", file=sys.stderr)
         return 2
 
+    if not isinstance(payload, dict):
+        print("ERROR: annotation JSON top level must be an object.", file=sys.stderr)
+        return 2
+
     if payload.get("format") != "pui89-coconut-annotations-v1":
         print("ERROR: unsupported annotation format; export JSON from the PUI89 annotator.", file=sys.stderr)
         return 2
@@ -48,9 +52,15 @@ def main() -> int:
     total_boxes = 0
     skipped_empty = 0
 
-    for item in images:
+    for record_index, item in enumerate(images, start=1):
+        if not isinstance(item, dict):
+            print(f"ERROR: image record {record_index} must be an object.", file=sys.stderr)
+            return 2
         filename = item.get("filename")
         boxes = item.get("boxes", [])
+        if not isinstance(boxes, list):
+            print("ERROR: boxes for image record must be a list.", file=sys.stderr)
+            return 2
         if not isinstance(filename, str) or not filename:
             print("ERROR: an image record has no filename.", file=sys.stderr)
             return 2
