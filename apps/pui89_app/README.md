@@ -98,6 +98,16 @@ The adapter checks that the model file exists locally and that its labels includ
 
 If you do not have a trained, licensed coconut model, leave this feature unconfigured. The app's manual-evidence demo remains available. A model running successfully is not proof of accuracy; evaluate predictions on a frozen, labelled test set using [the detection evaluation protocol](../../docs/DETECTION_EVALUATION_PROTOCOL.md).
 
+## Benchmark local detector latency
+
+After installing the optional detector dependencies and configuring a trusted coconut-trained model, benchmark one local image across 384, 512 and 640 pixel inputs:
+
+```bash
+python -m apps.pui89_app.benchmark_local_detector --model "C:/models/coconut.pt" --image "C:/data/orchard-test.jpg" --device auto --repeats 10 --warmup 2 --output coconut_latency_benchmark.json
+```
+
+Replace both example paths with files already on your computer. The script does not download weights or upload images. It reports median, mean and p95 latency with model loading excluded, and saves a JSON report. Start with one image, close other GPU-heavy applications, and repeat under comparable conditions. This measures latency only: detection counts do not establish accuracy. Choose a resolution only after evaluating the same settings on a labelled held-out image set. The benchmark has not been run on your laptop until you execute it locally.
+
 ## End-to-end robot task simulation in the app
 
 The Streamlit UI also includes an optional **End-to-end robot task simulation** panel. It accepts explicitly supplied target evidence (position, uncertainty, track age, timestamp age, clearance, reachability and confidence), applies conservative gates, requires explicit approval before emitting a simulated approach/tool/retract sequence, and lets you download a JSON report.
