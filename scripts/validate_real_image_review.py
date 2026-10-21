@@ -29,6 +29,7 @@ def validate_csv(csv_path: Path) -> tuple[int, int, list[str]]:
             "First run: python scripts/prepare_real_image_review.py --download",
         ]
     reviewed_rows = total_rows = 0
+    seen_image_names: set[str] = set()
     try:
         with csv_path.open("r", newline="", encoding="utf-8-sig") as handle:
             reader = csv.DictReader(handle)
@@ -42,6 +43,12 @@ def validate_csv(csv_path: Path) -> tuple[int, int, list[str]]:
                 if not image_name or Path(image_name).name != image_name or image_name in {".", ".."}:
                     errors.append(f"line {line_number}: image_file must be a simple filename.")
                     continue
+                if image_name in seen_image_names:
+                    row_errors.append(
+                        f"line {line_number}: duplicate image_file entry: {image_name}"
+                    )
+                else:
+                    seen_image_names.add(image_name)
                 if not (csv_path.parent / image_name).is_file():
                     row_errors.append(f"line {line_number}: image file not found beside CSV: {image_name}")
                 if not (row.get("source_page") or "").strip():
