@@ -22,6 +22,19 @@ streamlit run apps/pui89_app/web_demo.py
 
 Your browser should open the local app. Upload an orchard image if you want, adjust the sensor checks and candidate evidence, then click **Analyse candidate**. The JSON result can be downloaded from the page.
 
+### Windows quick launch
+
+From the repository's main folder, double-click `RUN_COCONUT_APP.bat`. It checks that Python and Streamlit are available and starts the local demo. If Streamlit is missing, the launcher prints the install command rather than installing packages silently.
+
+If you use Command Prompt manually, first change into the downloaded repository folder, then run:
+
+```bat
+python -m pip install -r apps\\pui89_app\\requirements.txt
+python -m streamlit run apps\\pui89_app\\web_demo.py
+```
+
+Use `python`, not `cpython`, unless you have specifically installed a command with that name. The launcher does not download model weights or use a hosted inference API.
+
 ## Run the API
 
 ```bash
