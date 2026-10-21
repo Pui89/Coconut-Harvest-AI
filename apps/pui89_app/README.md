@@ -72,7 +72,7 @@ python -m unittest discover -s apps/pui89_app -p 'test_*.py' -v
 
 ## Optional local coconut detector
 
-The demo can run a compatible, user-supplied Ultralytics `.pt` detector locally on CPU. It does **not** automatically download weights, contact a hosted inference API, or send robot commands.
+The demo can run a compatible, user-supplied Ultralytics `.pt` detector locally on CPU or a compatible NVIDIA GPU. The model is cached by Streamlit after loading, and the interface offers `auto`, `cuda`, or `cpu` plus 384/512/640 input sizes. `auto` selects CUDA when PyTorch reports it available and otherwise uses CPU. Smaller inputs may run faster but can reduce detection quality; compare settings on the same labelled held-out set. The reported inference time excludes cached model loading and is not a model-performance benchmark by itself. The app does **not** automatically download weights, contact a hosted inference API, or send robot commands.
 
 Install the optional dependencies:
 
