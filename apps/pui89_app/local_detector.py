@@ -100,6 +100,7 @@ def detect_coconuts(
         conf=confidence,
         imgsz=image_size,
         device=resolved_device,
+        half=(resolved_device == "0"),
         verbose=False,
     )
     detections: list[dict[str, Any]] = []
