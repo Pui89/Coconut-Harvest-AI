@@ -53,13 +53,38 @@ def load_local_coconut_model(model_path: str | Path) -> tuple[Any, set[int]]:
     return model, class_ids
 
 
+def resolve_inference_device(device: str = "auto", *, cuda_available: bool | None = None) -> str:
+    """Resolve device selection to an Ultralytics device string.
+
+    Returns "0" for the first NVIDIA CUDA GPU and "cpu" for CPU execution.
+    cuda_available is injectable for deterministic tests.
+    """
+    requested = str(device).strip().lower()
+    if requested not in {"auto", "cpu", "cuda"}:
+        raise ValueError("device must be 'auto', 'cpu', or 'cuda'")
+    if requested == "cpu":
+        return "cpu"
+    if cuda_available is None:
+        try:
+            import torch
+        except ImportError as exc:
+            if requested == "cuda":
+                raise RuntimeError("CUDA was requested but PyTorch is not installed.") from exc
+            return "cpu"
+        cuda_available = bool(torch.cuda.is_available())
+    if requested == "cuda" and not cuda_available:
+        raise RuntimeError("CUDA was requested, but torch.cuda.is_available() is false.")
+    return "0" if cuda_available else "cpu"
+
+
 def detect_coconuts(
     model: Any,
     image: Any,
     class_ids: set[int],
     *,
     confidence: float = 0.25,
-    image_size: int = 640,
+    image_size: int = 512,
+    device: str = "auto",
 ) -> list[dict[str, Any]]:
     """Run local inference and return coconut bounding boxes in pixel coordinates."""
     if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
@@ -69,11 +94,12 @@ def detect_coconuts(
     if not class_ids:
         raise ValueError("At least one verified coconut class ID is required")
 
+    resolved_device = resolve_inference_device(device)
     results = model.predict(
         source=image,
         conf=confidence,
         imgsz=image_size,
-        device="cpu",
+        device=resolved_device,
         verbose=False,
     )
     detections: list[dict[str, Any]] = []
