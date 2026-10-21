@@ -8,7 +8,21 @@ from copy import deepcopy
 import pytest
 
 from tools.validate_benchmark_report import validate_report
-from test_benchmark_report_validator import valid_report
+
+
+def valid_report():
+    return {
+        "schema_version": "1.0",
+        "project": "coconut-harvest-ai",
+        "run_id": "edge-case-test-0001",
+        "run_date_utc": "2026-10-09T02:00:00Z",
+        "dataset": {"name": "test-dataset", "version": "v1", "split": "held-out"},
+        "model": {"name": "test-model", "version": "commit:abc123"},
+        "hardware": {"platform": "CPU test runner"},
+        "software": {"os": "Ubuntu", "python": "3.12"},
+        "config": {"seed": 42},
+        "metrics": {"perception": {"precision": 0.8}, "systems": {"cycle_time_seconds": 1.0}},
+    }
 
 
 @pytest.mark.parametrize("report", [None, [], "not a report", 7, True])
