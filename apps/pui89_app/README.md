@@ -98,6 +98,24 @@ The adapter checks that the model file exists locally and that its labels includ
 
 If you do not have a trained, licensed coconut model, leave this feature unconfigured. The app's manual-evidence demo remains available. A model running successfully is not proof of accuracy; evaluate predictions on a frozen, labelled test set using [the detection evaluation protocol](../../docs/DETECTION_EVALUATION_PROTOCOL.md).
 
+## Validate a local labelled dataset
+
+Before reporting detector accuracy, validate the structure of a local YOLO-format dataset. Expected layout:
+
+```text
+dataset/
+  images/{train,val,test}/
+  labels/{train,val,test}/
+```
+
+Each label row must contain `class_id x_center y_center width height`, with normalized coordinates. For a one-class coconut dataset:
+
+```bash
+python -m apps.pui89_app.validate_coconut_dataset --root "C:/data/coconut-dataset" --classes 1 --output coconut_dataset_validation.json
+```
+
+The validator checks matching image/label files, class IDs, normalized coordinates, box bounds and empty-label examples. It creates a JSON report locally and exits with a non-zero code if errors are found. Change `--root` to your dataset folder. It does not upload files, assess annotation quality, check train/test leakage, or measure model accuracy. Keep the test split held out until final evaluation.
+
 ## Benchmark local detector latency
 
 After installing the optional detector dependencies and configuring a trusted coconut-trained model, benchmark one local image across 384, 512 and 640 pixel inputs:
