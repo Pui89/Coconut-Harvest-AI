@@ -1,0 +1,41 @@
+name: Coconut dataset promotion gate
+
+on:
+  push:
+    paths:
+      - "tools/coconut_dataset_promotion_gate.py"
+      - "tests/test_coconut_dataset_promotion_gate.py"
+      - "data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv"
+      - "data/review_batch_2026-10-18/candidate_review_2026-10-18.csv"
+      - ".github/workflows/coconut-dataset-promotion-gate.yml"
+  pull_request:
+    paths:
+      - "tools/coconut_dataset_promotion_gate.py"
+      - "tests/test_coconut_dataset_promotion_gate.py"
+      - "data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv"
+      - "data/review_batch_2026-10-18/candidate_review_2026-10-18.csv"
+      - ".github/workflows/coconut-dataset-promotion-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run promotion-gate unit tests
+        run: |
+          python -m pip install pytest
+          python -m pytest -q tests/test_coconut_dataset_promotion_gate.py
+      - name: Audit current candidate batch (expected to remain blocked until review is complete)
+        continue-on-error: true
+        run: |
+          python tools/coconut_dataset_promotion_gate.py \
+            --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv \
+            --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv \
+            --output dataset-promotion-report.json
