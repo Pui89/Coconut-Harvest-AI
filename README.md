@@ -56,6 +56,8 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Engineering assurance:** [project requirements, hazard log, verification/validation gates, and evidence rules](docs/ENGINEERING_ASSURANCE_PLAN.md).
 
+**Dataset promotion gate:** [fail-closed rights + annotation approval checks](docs/COCONUT_DATASET_PROMOTION_GATE.md). This joins the current source-rights and candidate-review ledgers and intentionally blocks training until both record explicit, matching approvals.
+
 **Research evaluation:** [reproducible research evidence checklist](docs/RESEARCH_EVIDENCE_CHECKLIST.md) for dataset controls, held-out metrics, run records, and the boundary between AI benchmarks and physical-robot claims.
 
 **Immediate research next steps:** [focused evidence sprint](docs/RESEARCH_EVIDENCE_SPRINT.md) with the first real-image evaluation sequence, exact local commands, reproducibility requirements, and free-first/safety boundaries.
