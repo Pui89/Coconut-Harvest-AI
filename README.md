@@ -53,6 +53,8 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Limited-compute option:** [lightweight laptop-friendly workflow](docs/LIGHTWEIGHT_LAPTOP_WORKFLOW.md) prioritising CPU tests and data-quality checks before any large model download.
 
+**Hardware-specific plan:** [16 GB RAM / 4 GB GPU compute profile](docs/COMPUTE_PROFILE_16GB_4GB_GPU.md) for this laptop class, including preflight checks, low-memory experiment choices, and evidence boundaries.
+
 
 
 ## Two parts of the project
