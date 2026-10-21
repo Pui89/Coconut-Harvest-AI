@@ -10,7 +10,7 @@
 
 ## Latest engineering update — 21 October 2026
 
-- **Benchmark tooling:** the dependency-free adaptive CPU microbenchmark is available at [`tools/adaptive_compute_benchmark.py`](tools/adaptive_compute_benchmark.py), with regression tests in [`tests/test_adaptive_compute_benchmark.py`](tests/test_adaptive_compute_benchmark.py). It compares synthetic integer-reduction implementations; it is **not** an AI inference, energy-use, or robot-performance benchmark.
+- **Benchmark tooling:** the adaptive CPU microbenchmark with no additional package dependencies is available at [`tools/adaptive_compute_benchmark.py`](tools/adaptive_compute_benchmark.py), with regression tests in [`tests/test_adaptive_compute_benchmark.py`](tests/test_adaptive_compute_benchmark.py). It compares synthetic integer-reduction implementations; it is **not** an AI inference, energy-use, or robot-performance benchmark.
 - **Input validation:** malformed benchmark argument types are now rejected clearly. The change was merged in [PR #36](https://github.com/Pui89/Coconut-Harvest-AI/pull/36).
 - **Verification:** GitHub Actions passed the repository test suite on Python 3.10, 3.11, and 3.12 for the PR head before merge.
 - **Evidence boundary:** this update does not change the initial real-image baseline reported below (precision 0 and recall 0 at IoU ≥ 0.50 on two images). Real-orchard generalization and physical harvesting remain unvalidated.
@@ -49,7 +49,7 @@ These source-linked photographs help explain the orchard setting and fruit visib
 | Available software | Rule-based planning agent, synthetic workflow demo, and manual image-review tools |
 | Physical robot | Proposed concept; complete robot harvesting is not demonstrated |
 | Real-image AI performance | Initial two-image baseline scored 0 precision and 0 recall at IoU ≥ 0.50; more data and reviewed labels are needed |
-| Development approach | Local-first and free/open-source where practical |
+| Development approach | Local-first, using open-source tools where practical |
 | Immediate focus | Rights-cleared data, annotation quality, reproducible evaluation, and simulation |
 
 **Explore:** [Run the prototype](#run-the-local-prototype) · [Current evaluation evidence](#current-evaluation-evidence) · [Development roadmap](#development-roadmap) · [Safety and limitations](#safety-and-limitations)
@@ -60,7 +60,7 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Research evaluation:** [reproducible research evidence checklist](docs/RESEARCH_EVIDENCE_CHECKLIST.md) for dataset controls, held-out metrics, run records, and the boundary between AI benchmarks and physical-robot claims.
 
-**Immediate research next steps:** [focused evidence sprint](docs/RESEARCH_EVIDENCE_SPRINT.md) with the first real-image evaluation sequence, exact local commands, reproducibility requirements, and free-first/safety boundaries.
+**Immediate research next steps:** [focused evidence sprint](docs/RESEARCH_EVIDENCE_SPRINT.md) with the first real-image evaluation sequence, exact local commands, reproducibility requirements, and cost-control and safety boundaries.
 
 **Limited-compute option:** [lightweight laptop-friendly workflow](docs/LIGHTWEIGHT_LAPTOP_WORKFLOW.md) prioritising CPU tests and data-quality checks before any large model download.
 
@@ -103,7 +103,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 - **Real-image review workflow:** prepares a local manual-review sample and annotation sheet; it is not automatic detection.
 - **Annotation overlay review tool:** a local OpenCV script renders existing boxes over original images for human QA; it does not certify annotations or detect fruit.
 - **Robot concept and architecture:** outlines possible perception, target review, planning, and future hardware integration.
-- **Free-first development:** prioritizes local tools and open-source workflows, with no paid API required for the rule-based agent.
+- **Cost-conscious development:** prioritizes local tools and open-source workflows, with no paid API required for the rule-based agent.
 
 ## How the system is intended to work
 
@@ -241,7 +241,7 @@ python agents/harvest_planning_agent.py
 python agents/harvest_planning_agent.py --input examples/agent_candidates.example.json --output agent_report.json
 ```
 
-On Windows, see [Free Windows Setup](docs/FREE_WINDOWS_SETUP.md).
+On Windows, see [Windows Setup Guide](docs/FREE_WINDOWS_SETUP.md).
 
 ### Synthetic end-to-end demo and tests
 
