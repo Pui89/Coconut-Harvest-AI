@@ -7,7 +7,31 @@ from apps.pui89_app.local_detector import (
     coconut_class_ids,
     detect_coconuts,
     load_local_coconut_model,
+    resolve_inference_device,
 )
+
+
+@pytest.mark.parametrize(
+    ("requested", "cuda_available", "expected"),
+    [
+        ("auto", True, "0"),
+        ("auto", False, "cpu"),
+        ("cpu", True, "cpu"),
+        ("cuda", True, "0"),
+    ],
+)
+def test_resolve_inference_device(requested, cuda_available, expected):
+    assert resolve_inference_device(requested, cuda_available=cuda_available) == expected
+
+
+def test_resolve_cuda_when_unavailable_fails_clearly():
+    with pytest.raises(RuntimeError, match="cuda"):
+        resolve_inference_device("cuda", cuda_available=False)
+
+
+def test_resolve_invalid_device_fails():
+    with pytest.raises(ValueError, match="device"):
+        resolve_inference_device("mystery", cuda_available=False)
 
 
 def test_coconut_class_ids_support_dict_and_list_names():
@@ -71,7 +95,8 @@ class FakeModel:
     names = {0: "person", 1: "coconut"}
 
     def predict(self, **kwargs):
-        assert kwargs["device"] == "cpu"
+        assert kwargs["device"] in {"cpu", "0"}
+        assert kwargs["imgsz"] == 512
         assert kwargs["verbose"] is False
         return [FakeResult()]
 
