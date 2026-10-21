@@ -14,7 +14,6 @@ PUI89 welcomes technical review, research collaboration, agricultural workflow f
 
 - **Support and sponsorship brief:** [ways to collaborate with PUI89](https://github.com/Pui89/Pui89.github.io/blob/main/SUPPORT_AND_SPONSORSHIP.md)
 - **Project website:** [PUI89 AI Robotics](https://pui89.github.io/)
-- **Contribute code or report an issue:** [GitHub Issues](https://github.com/Pui89/Coconut-Harvest-AI/issues)
 - **Potential farm pilot:** [Coconut Orchard Pilot Brief](https://github.com/Pui89/Pui89.github.io/blob/main/COCONUT_ORCHARD_PILOT_BRIEF.md)
 
 Please include the specific workflow, evidence, or milestone you can help with. Dataset contributions must include source and reuse permissions. No sponsor, field deployment, or performance outcome is implied by this invitation.
