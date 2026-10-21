@@ -5,10 +5,13 @@ This tool does not determine whether a box matches a real coconut. It flags
 geometry conditions for human review and deliberately does not edit annotations.
 """
 from __future__ import annotations
+
 import argparse
 import json
+import math
 from itertools import combinations
 from pathlib import Path
+from typing import Any
 
 
 def box_iou(a: dict, b: dict) -> float:
@@ -23,31 +26,59 @@ def box_iou(a: dict, b: dict) -> float:
     return inter / union if union > 0 else 0.0
 
 
+def _coordinate_errors(box: Any) -> list[str]:
+    if not isinstance(box, dict):
+        return ["box_must_be_an_object"]
+    errors = []
+    for key in ("x", "y", "w", "h"):
+        value = box.get(key)
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            errors.append(f"{key}_must_be_a_finite_number")
+        elif not math.isfinite(value):
+            errors.append(f"{key}_must_be_a_finite_number")
+    if errors:
+        return errors
+    x, y, w, h = (box[k] for k in ("x", "y", "w", "h"))
+    if w <= 0 or h <= 0:
+        errors.append("non_positive_width_or_height")
+    if x < 0 or y < 0 or x + w > 1 or y + h > 1:
+        errors.append("box_outside_normalized_image_bounds")
+    return errors
+
+
 def audit(path: Path, overlap_threshold: float) -> dict:
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ValueError(f"could not read valid annotation JSON: {exc}") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("annotation JSON top level must be an object")
+    images = payload.get("images")
+    if not isinstance(images, list):
+        raise ValueError("annotation JSON field 'images' must be a list")
+
     results = []
-    for image in payload.get("images", []):
+    for image_index, image in enumerate(images, start=1):
+        if not isinstance(image, dict):
+            raise ValueError(f"images[{image_index - 1}] must be an object")
         filename = image.get("filename", "<missing filename>")
         boxes = image.get("boxes", [])
+        if not isinstance(boxes, list):
+            raise ValueError(f"images[{image_index - 1}].boxes must be a list")
         errors, warnings = [], []
         for idx, box in enumerate(boxes, start=1):
-            try:
-                x, y, w, h = (float(box[k]) for k in ("x", "y", "w", "h"))
-            except (KeyError, TypeError, ValueError) as exc:
-                errors.append({"box": idx, "issue": f"missing_or_non_numeric_coordinate: {exc}"})
+            box_errors = _coordinate_errors(box)
+            if box_errors:
+                errors.extend({"box": idx, "issue": issue} for issue in box_errors)
                 continue
-            if w <= 0 or h <= 0:
-                errors.append({"box": idx, "issue": "non_positive_width_or_height"})
-            if x < 0 or y < 0 or x + w > 1 or y + h > 1:
-                errors.append({"box": idx, "issue": "box_outside_normalized_image_bounds"})
+            x, y, w, h = (box[k] for k in ("x", "y", "w", "h"))
             if any(abs(v) < 1e-9 for v in (x, y)) or abs(x + w - 1) < 1e-9 or abs(y + h - 1) < 1e-9:
                 warnings.append({"box": idx, "issue": "touches_image_border; review truncated-object policy"})
         overlaps = []
         for (i, a), (j, b) in combinations(list(enumerate(boxes, start=1)), 2):
-            try:
-                score = box_iou(a, b)
-            except (KeyError, TypeError, ValueError):
+            if _coordinate_errors(a) or _coordinate_errors(b):
                 continue
+            score = box_iou(a, b)
             if score >= overlap_threshold:
                 overlaps.append({"boxes": [i, j], "iou": round(score, 6),
                                  "issue": "overlap_review_flag_not_automatic_error"})
@@ -78,7 +109,12 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--overlap-iou-warning", type=float, default=0.15)
     args = parser.parse_args()
-    report = audit(args.annotations, args.overlap_iou_warning)
+    if not math.isfinite(args.overlap_iou_warning) or not 0 <= args.overlap_iou_warning <= 1:
+        parser.error("--overlap-iou-warning must be a finite number between 0 and 1")
+    try:
+        report = audit(args.annotations, args.overlap_iou_warning)
+    except ValueError as exc:
+        parser.error(str(exc))
     rendered = json.dumps(report, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
