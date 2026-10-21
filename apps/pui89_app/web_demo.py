@@ -106,7 +106,7 @@ with right:
 
 with st.expander("Optional: run a trusted local coconut detector", expanded=False):
     st.caption(
-        "This optional feature runs a user-supplied model file on the local CPU. "
+        "This optional feature runs a user-supplied model file locally on CPU or a compatible NVIDIA GPU. "
         "It does not download weights, call a hosted API, or control a robot."
     )
     local_model_path = os.environ.get("PUI89_COCONUT_MODEL_PATH", "").strip()
@@ -124,6 +124,18 @@ with st.expander("Optional: run a trusted local coconut detector", expanded=Fals
     elif upload is None:
         st.info("Upload an orchard photo above to run local inference.")
     else:
+        inference_device = st.selectbox(
+            "Inference device",
+            options=["auto", "cuda", "cpu"],
+            index=0,
+            help="Auto uses the NVIDIA GPU when PyTorch CUDA is available; otherwise it uses CPU.",
+        )
+        inference_image_size = st.selectbox(
+            "Model input size",
+            options=[384, 512, 640],
+            index=1,
+            help="Smaller sizes are often faster and use less memory, but may miss small coconuts.",
+        )
         detector_confidence = st.slider(
             "Detection confidence threshold", 0.05, 0.95, 0.25, 0.05,
             key="local_detector_confidence",
@@ -132,12 +144,19 @@ with st.expander("Optional: run a trusted local coconut detector", expanded=Fals
             try:
                 from PIL import Image, ImageDraw
 
-                with st.spinner("Running local inference on CPU..."):
+                from time import perf_counter
+                from apps.pui89_app.local_detector import resolve_inference_device
+                resolved_device = resolve_inference_device(inference_device)
+                device_label = "GPU" if resolved_device == "0" else "CPU"
+                with st.spinner("Running local inference on " + device_label + "..."):
                     model, coconut_ids = _load_cached_local_model(local_model_path)
                     image = Image.open(io.BytesIO(upload.getvalue())).convert("RGB")
+                    inference_started = perf_counter()
                     detections = detect_coconuts(
-                        model, image, coconut_ids, confidence=detector_confidence
+                        model, image, coconut_ids, confidence=detector_confidence,
+                        image_size=inference_image_size, device=inference_device,
                     )
+                    inference_seconds = perf_counter() - inference_started
                 overlay = image.copy()
                 draw = ImageDraw.Draw(overlay)
                 for detection in detections:
@@ -149,7 +168,9 @@ with st.expander("Optional: run a trusted local coconut detector", expanded=Fals
                 report = {
                     "status": "INFERENCE_COMPLETED",
                     "model_file": Path(local_model_path).name,
-                    "inference_device": "cpu",
+                    "inference_device": "cuda:0" if resolved_device == "0" else "cpu",
+                    "model_input_size": inference_image_size,
+                    "inference_seconds_excluding_model_load": round(inference_seconds, 4),
                     "confidence_threshold": detector_confidence,
                     "image_width_pixels": image.width,
                     "image_height_pixels": image.height,
