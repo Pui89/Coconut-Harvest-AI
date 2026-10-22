@@ -15,7 +15,9 @@ on:
       - "agents/**"
       - "tests/test_project_agent.py"
       - "tests/test_evaluate_coconut_detections.py"
+      - "tests/test_annotations_to_ground_truth_csv.py"
       - "tools/evaluate_coconut_detections.py"
+      - "tools/annotations_to_ground_truth_csv.py"
       - ".github/workflows/agent-tests.yml"
   workflow_dispatch:
 
