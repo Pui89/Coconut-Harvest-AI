@@ -107,15 +107,25 @@ class FaultMonitor:
     """
 
     def __init__(self, max_events: int = 500) -> None:
-        if max_events < 1:
-            raise ValueError("max_events must be at least 1")
+        if isinstance(max_events, bool) or not isinstance(max_events, int) or max_events < 1:
+            raise ValueError("max_events must be a positive integer")
         self._max_events = max_events
         self._events: list[dict[str, Any]] = []
         self._lock = RLock()
 
     def report(self, report: FaultReport) -> dict[str, Any]:
-        if not report.code.strip() or not report.message.strip():
-            raise ValueError("fault code and message must not be empty")
+        if not isinstance(report, FaultReport):
+            raise TypeError("report must be a FaultReport")
+        if not isinstance(report.code, str) or not report.code.strip():
+            raise ValueError("fault code must be a non-empty string")
+        if not isinstance(report.message, str) or not report.message.strip():
+            raise ValueError("fault message must be a non-empty string")
+        if not isinstance(report.domain, Domain):
+            raise ValueError("fault domain must be a Domain value")
+        if not isinstance(report.severity, Severity):
+            raise ValueError("fault severity must be a Severity value")
+        if not isinstance(report.source, str) or not report.source.strip():
+            raise ValueError("fault source must be a non-empty string")
         decision = decide_response(report)
         event = {
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
