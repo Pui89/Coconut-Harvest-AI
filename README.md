@@ -18,6 +18,19 @@ Orchard image / sensor measurements → rule-based safety checks → harvest rec
 
 > **Next research milestone — real detector evidence:** review image rights, annotate a small set of distinct orchard images, freeze a held-out test split, run an existing compatible local coconut detector, and publish its actual predictions plus precision/recall/F1 and latency. The current two-image baseline remains at precision 0 and recall 0 at IoU ≥ 0.50 until a new run is completed. [Follow the operator checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md). Do not treat example CSV rows, reference photographs, or latency-only results as accuracy evidence.
 
+
+## Run the agent tests
+
+Run the focused, lightweight unit tests locally with Python 3.10 or newer:
+
+```bash
+python -m pip install pytest
+python -m py_compile agents/project_agent.py tests/test_project_agent.py
+python -m pytest -q tests/test_project_agent.py
+```
+
+A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-AI/actions/workflows/agent-tests.yml) is configured to run the agent tests on Python 3.10, 3.11, and 3.12 when relevant files change. Check the Actions page for the actual run status; adding this workflow does not itself mean the tests have passed.
+
 ## Start here — reviewer quick guide
 
 - **Research case study:** [read the concise problem, current implementation, evidence limits, and proposed evaluation plan](docs/RESEARCH_CASE_STUDY.md).
