@@ -18,13 +18,13 @@ To save a JSON report:
 python scripts\pui89_project_health_check.py --output project_health_report.json
 ```
 
-If pytest is already installed and you explicitly want to run discovered project tests:
+To explicitly run project tests (pytest is used if installed; otherwise the built-in unittest runner is used):
 
 ```bat
 python scripts\pui89_project_health_check.py --run-tests
 ```
 
-If pytest is absent, the script skips the test run and does not install it. The report file is created only when you request `--output`.
+If pytest is absent, the script falls back to Python's built-in unittest discovery. No packages are installed. The report file is created only when you request `--output`.
 
 ## Project-specific automation priorities
 
