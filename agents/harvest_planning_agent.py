@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -76,7 +77,7 @@ def assess_candidate(
     coords = (candidate.x_m, candidate.y_m, candidate.z_m)
     distance: float | None = None
 
-    if not 0.0 <= candidate.confidence <= 1.0:
+    if not math.isfinite(candidate.confidence) or not 0.0 <= candidate.confidence <= 1.0:
         reasons.append("confidence must be between 0 and 1")
     elif candidate.confidence < config.min_confidence:
         reasons.append("confidence below configured threshold")
@@ -100,11 +101,14 @@ def assess_candidate(
             reasons.append("3D position missing; do not plan approach")
     else:
         x, y, z = (float(value) for value in coords)
-        distance = (x * x + y * y + z * z) ** 0.5
-        if distance < config.min_range_m:
-            reasons.append("target is inside minimum range")
-        if distance > config.max_range_m:
-            reasons.append("target is outside configured range")
+        if not all(math.isfinite(value) for value in (x, y, z)):
+            reasons.append("3D position contains a non-finite value; do not plan approach")
+        else:
+            distance = math.sqrt(x * x + y * y + z * z)
+            if distance < config.min_range_m:
+                reasons.append("target is inside minimum range")
+            if distance > config.max_range_m:
+                reasons.append("target is outside configured range")
 
     if candidate.reachable is not True:
         reasons.append("reachability has not been confirmed")
