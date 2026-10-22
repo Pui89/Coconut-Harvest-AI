@@ -66,3 +66,30 @@ class SupervisorTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_malformed_boolean_status_fails_stopped(self):
+        for field in (
+            "perception_ok",
+            "localization_ok",
+            "communication_ok",
+            "safety_monitor_ok",
+            "operator_authorized",
+            "emergency_stop",
+            "hazard_clear",
+            "task_request_valid",
+        ):
+            with self.subTest(field=field):
+                decision = evaluate_status(healthy_status(**{field: "false"}))
+                self.assertEqual(decision.mode, Mode.STOPPED)
+                self.assertTrue(any("non-boolean safety fields" in reason for reason in decision.reasons))
+
+    def test_non_numeric_confidence_fails_safe_hold(self):
+        for value in ("high", None, True):
+            with self.subTest(value=value):
+                self.assertEqual(evaluate_status(healthy_status(confidence=value)).mode, Mode.SAFE_HOLD)
+
+    def test_non_numeric_or_boolean_threshold_is_rejected(self):
+        for value in ("0.8", None, True):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    evaluate_status(healthy_status(), minimum_confidence=value)
