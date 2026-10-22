@@ -20,6 +20,9 @@ on:
       - "tools/annotations_to_ground_truth_csv.py"
       - ".github/workflows/agent-tests.yml"
   workflow_dispatch:
+  schedule:
+    # Weekly regression check; no model downloads or paid services.
+    - cron: "17 2 * * 1"
 
 permissions:
   contents: read
