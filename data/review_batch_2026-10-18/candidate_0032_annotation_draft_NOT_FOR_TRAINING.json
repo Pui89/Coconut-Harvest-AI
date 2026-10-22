@@ -1,0 +1,25 @@
+{
+  "format": "pui89-coconut-annotation-draft-v0.1",
+  "candidate_id": "0032",
+  "filename": "0032_Coconut_in_Coconut_Tree.jpg",
+  "source_page": "https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg",
+  "creator": "Sarmi~Kili",
+  "licence": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+  "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "source_page_checked_on": "2026-10-22",
+  "image_dimensions_source_pixels": [
+    5184,
+    3456
+  ],
+  "coordinate_status": "PROVISIONAL_APPROXIMATIONS_FROM_RENDERED_WEB_PREVIEW; NOT NATIVE-RESOLUTION ANNOTATIONS",
+  "annotation_status": "INCOMPLETE_DRAFT_PENDING_NATIVE_IMAGE_ANNOTATION_AND_INDEPENDENT_VISUAL_QA",
+  "eligible_for_training": false,
+  "boxes_xyxy_source_pixels": [],
+  "notes": [
+    "The original Wikimedia Commons page was reviewed on 2026-10-22. It identifies the creator as Sarmi~Kili and displays CC BY-SA 4.0.",
+    "The image visually contains attached coconuts, but the cluster has substantial overlap and frond occlusion.",
+    "Do not invent exact pixel coordinates from the scaled web preview. The native image must be opened in the repository's offline annotator to create valid boxes.",
+    "This draft deliberately contains no bounding boxes: it records source/rights review and a safe annotation handoff, not completed annotation.",
+    "Do not mark annotation QA as passed or promote this image to training until native-resolution boxes have been created, overlays reviewed, and an independent visual QA pass recorded."
+  ]
+}
