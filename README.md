@@ -451,3 +451,5 @@ The checker verifies repository structure, scans Python source syntax, discovers
 **Focused regression tests:** [Harvest planning safety regression tests](tests/test_harvest_planning_safety.py). Checks missing 3D position, unconfirmed reachability, invalid confidence, occlusion, maturity-stage filtering, survey-only behavior, and configured range limits.
 
 **Evidence boundary:** a syntax scan is not a full test run; passing tests do not establish field performance or safety. Report only verified outcomes and keep proposed features separate from demonstrated results.
+
+**Failure and security response:** see [failure and security response matrix](docs/FAILURE_AND_SECURITY_RESPONSE.md). This records design requirements and evidence boundaries; it does not claim every response is implemented or validated.
