@@ -25,6 +25,7 @@ class YOLO26Detector:
     """
 
     HF_REPO = "Ultralytics/YOLO26"
+    HF_REVISION = "070ac3c"  # Reviewed upstream model commit; update only after review.
 
     def __init__(
         self,
@@ -52,7 +53,7 @@ class YOLO26Detector:
             "1", "true", "yes"
         }
         self.weights_path = hf_hub_download(
-            self.HF_REPO, weights, local_files_only=not allow_download
+            self.HF_REPO, weights, revision=self.HF_REVISION, local_files_only=not allow_download
         )
         self.model = YOLO(self.weights_path)
 
