@@ -1,5 +1,14 @@
 # Coconut Harvest AI
 
+## Local fault-monitoring software (initial implementation)
+
+A small, dependency-light Python module accepts explicit fault reports, suggests conservative responses, and keeps a bounded in-memory event log. It includes automated unit tests and a GitHub Actions test workflow. It is not an antivirus, intrusion detector, gunshot detector, or physical safety controller; hardware shutdown, persistent audit storage, alerts, and real-world threat detection require separate implementations and validation.
+
+- [Fault monitor integration guide](docs/FAULT_MONITOR_INTEGRATION.md)
+- [Fault monitor source](apps/pui89_safety/fault_monitor.py)
+- [Fault monitor tests](tests/test_fault_monitor.py)
+
+
 
 ## Project status — 22 October 2026
 
