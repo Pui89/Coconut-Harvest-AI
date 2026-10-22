@@ -117,6 +117,8 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Engineering assurance:** [project requirements, hazard log, verification/validation gates, and evidence rules](docs/ENGINEERING_ASSURANCE_PLAN.md).
 
+**Experiment records:** use the [reproducible experiment report template](docs/EXPERIMENT_REPORT_TEMPLATE.md) to record each dataset, model, threshold, metric, failure case, and rerun without overstating results.
+
 **Dataset promotion gate:** [fail-closed rights + annotation approval checks](docs/COCONUT_DATASET_PROMOTION_GATE.md). This joins the current source-rights and candidate-review ledgers and intentionally blocks training until both record explicit, matching approvals.
 
 **Research evaluation:** [reproducible research evidence checklist](docs/RESEARCH_EVIDENCE_CHECKLIST.md) for dataset controls, held-out metrics, run records, and the boundary between AI benchmarks and physical-robot claims.
