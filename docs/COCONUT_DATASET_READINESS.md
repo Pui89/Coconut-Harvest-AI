@@ -20,7 +20,7 @@ Several source candidates are still unlabelled. The review ledger describes cand
 
 ## Next no-cost action
 
-1. Start with candidate **0032** as the first conservative annotation attempt, subject to opening the original full-resolution image and checking the recorded source terms again.
+1. **Candidate 0032 source review completed:** the original [Wikimedia Commons page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) was rechecked on 2026-10-22; it names Sarmi~Kili and displays CC BY-SA 4.0. A [not-for-training annotation handoff record](../data/review_batch_2026-10-18/candidate_0032_annotation_draft_NOT_FOR_TRAINING.json) has been added. Native-resolution box annotation is still required; no bounding boxes or training approval have been fabricated.
 2. Annotate only individually distinguishable attached coconuts using `tools/coconut_annotator.html` locally. Do not guess hidden fruit boundaries.
 3. Export annotations outside the tracked source data; run `tools/audit_coconut_annotations.py`, inspect overlays, and request an independent visual QA review.
 4. Update the review and rights ledgers only with real review outcomes. Never mark QA passed or training approved merely because the JSON/box geometry is valid.
