@@ -63,5 +63,28 @@ class AnnotationConversionTests(unittest.TestCase):
             MODULE.convert(self.payload, None, True)
 
 
+    def test_rejects_non_finite_coordinates(self):
+        self.payload["images"][0]["boxes"][0]["x"] = float("nan")
+        with self.assertRaisesRegex(ValueError, "finite numbers"):
+            MODULE.convert(self.payload, None, True)
+
+    def test_rejects_non_integer_image_dimensions(self):
+        self.payload["images"][0]["width"] = 100.5
+        with self.assertRaisesRegex(ValueError, "must be integers"):
+            MODULE.convert(self.payload, None, True)
+
+    def test_rejects_path_traversal_filename(self):
+        self.payload["images"][0]["filename"] = "../orchard_a.jpg"
+        with self.assertRaisesRegex(ValueError, "must be a basename"):
+            MODULE.convert(self.payload, None, True)
+
+    def test_rejects_missing_image_file_when_directory_is_supplied(self):
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp_dir:
+            with self.assertRaisesRegex(ValueError, "image file not found"):
+                MODULE.convert(self.payload, Path(temp_dir), True)
+
+
 if __name__ == "__main__":
     unittest.main()
