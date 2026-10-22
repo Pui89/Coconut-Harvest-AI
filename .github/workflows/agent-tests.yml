@@ -20,6 +20,8 @@ on:
       - "tests/test_annotations_to_ground_truth_csv.py"
       - "tools/evaluate_coconut_detections.py"
       - "tools/annotations_to_ground_truth_csv.py"
+      - "tools/fetch_coconut_candidates.py"
+      - ".github/workflows/fetch-coconut-candidates.yml"
       - ".github/workflows/agent-tests.yml"
   workflow_dispatch:
   schedule:
