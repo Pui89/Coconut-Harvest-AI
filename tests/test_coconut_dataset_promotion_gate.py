@@ -107,3 +107,19 @@ def test_cli_report_file_ends_with_real_newline(tmp_path, monkeypatch, capsys):
     report_text = output_path.read_text(encoding="utf-8")
     assert report_text.endswith("\n")
     assert not report_text.endswith("\\n")
+
+
+def test_blank_filename_blocks_candidate_even_when_both_ledgers_match(tmp_path):
+    rights, review = records()
+    rights["filename"] = ""
+    review["filename"] = ""
+    a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    b = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+    report = evaluate(a, b)
+    candidate = report["candidates"][0]
+    assert not candidate["eligible_for_training"]
+    assert not report["ready_for_training"]
+    assert "filename_present" in candidate["failed_gates"]
+    assert "review_filename_present" in candidate["failed_gates"]
+    assert "review_filename_matches" in candidate["failed_gates"]
+
