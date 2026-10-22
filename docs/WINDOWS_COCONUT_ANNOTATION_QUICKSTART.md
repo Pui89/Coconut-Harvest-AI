@@ -22,7 +22,7 @@ Check that you are in the repository root:
 dir
 ```
 
-The listing should include `README.md`, `tools`, and `OPEN_COCONUT_ANNOTATOR.bat`. Then run:
+The listing should include `README.md`, `tools`, and the two `.bat` launchers. For the guided workflow, double-click `RUN_COCONUT_ANNOTATION_QA.bat` in File Explorer. It opens the annotator, asks for the exported JSON path, runs geometry checks, and only converts to CSV after you explicitly confirm that you personally checked every label and image-use permission. It does not upload images or run a detector.\n\nIf you only want to open the annotator manually, run:
 
 ```bat
 start "" "tools\coconut_annotator.html"
