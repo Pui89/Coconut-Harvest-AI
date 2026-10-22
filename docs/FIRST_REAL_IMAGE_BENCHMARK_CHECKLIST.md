@@ -1,6 +1,6 @@
 # First Real-Image Coconut Benchmark — Operator Checklist
 
-This is the shortest honest path from public image candidates to a reproducible, small detector evaluation. It is a manual workflow, not an automatic dataset or trained model. Do not skip rights review, human annotation, or the held-out split just to obtain a metric quickly.
+This is the shortest honest path from public image candidates to a reproducible, small detector evaluation. It is a manual workflow, not an automatic dataset or trained model. Do not skip rights review, human annotation, or the held-out split just to obtain a metric quickly. For the new bridge from annotator JSON to pixel-coordinate evaluator CSV, follow [Annotation to Benchmark Workflow](ANNOTATION_TO_BENCHMARK_WORKFLOW.md) and use `tools/annotations_to_ground_truth_csv.py`.
 
 ## Windows command prompt note
 
