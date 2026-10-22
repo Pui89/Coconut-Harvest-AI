@@ -25,7 +25,7 @@ class YOLO26Detector:
     """
 
     HF_REPO = "Ultralytics/YOLO26"
-    HF_REVISION = "070ac3c"  # Reviewed upstream model commit; update only after review.
+    HF_REVISION = "4558807"  # Upstream model repository revision observed 2026-10-22.
 
     def __init__(
         self,
