@@ -55,6 +55,7 @@ def evaluate(rights_csv: Path, review_csv: Path) -> dict:
     for candidate_id, row in sorted(rights.items()):
         review = reviews.get(candidate_id)
         gates = {
+            "filename_present": bool(row.get("filename", "").strip()),
             "source_page_present": bool(row.get("source_page_url")),
             "creator_credit_present": bool(row.get("creator_credit")),
             "licence_and_url_present": bool(row.get("licence_as_displayed") and row.get("licence_url")),
@@ -63,7 +64,11 @@ def evaluate(rights_csv: Path, review_csv: Path) -> dict:
             "annotation_qa_passed": row.get("annotation_qa_status", "").lower() == "passed",
             "rights_ledger_training_approved": row.get("training_promotion", "").lower() == "approved",
             "matching_review_record": review is not None,
-            "review_filename_matches": bool(review and review.get("filename") == row.get("filename")),
+            "review_filename_present": bool(review and review.get("filename", "").strip()),
+            "review_filename_matches": bool(
+                review and row.get("filename", "").strip()
+                and review.get("filename", "").strip() == row.get("filename", "").strip()
+            ),
             "review_source_checked": bool(review and review.get("source_page_independently_checked", "").lower() == "yes"),
             "candidate_review_approved": bool(review and review.get("review_decision", "").lower() == "approved"),
             "label_qa_passed": bool(review and review.get("label_status", "").lower() == "qa_passed"),
