@@ -79,7 +79,7 @@ def assess_coconut_for_harvest(
     """
     reasons = []
 
-    if not observation.fruit_id.strip():
+    if not isinstance(observation.fruit_id, str) or not observation.fruit_id.strip():
         reasons.append("invalid_fruit_id")
 
     if not _finite_number(minimum_class_confidence) or not 0.0 <= minimum_class_confidence <= 1.0:
@@ -104,7 +104,11 @@ def assess_coconut_for_harvest(
         reasons.append("location_or_reachability_unverified")
     if not observation.within_verified_workspace:
         reasons.append("outside_or_unknown_verified_workspace")
-    if coords is None or len(coords) != 3 or not all(_finite_number(v) for v in coords):
+    if (
+        not isinstance(coords, (tuple, list))
+        or len(coords) != 3
+        or not all(_finite_number(v) for v in coords)
+    ):
         reasons.append("invalid_or_missing_3d_position")
     if not _finite_number(observation.position_uncertainty_m):
         reasons.append("unknown_position_uncertainty")
