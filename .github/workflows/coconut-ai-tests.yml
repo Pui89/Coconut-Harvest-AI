@@ -39,4 +39,4 @@ jobs:
         run: python -m pip install --upgrade pip pytest numpy
 
       - name: Run focused safety and detector tests
-        run: python -m pytest tests/test_coconut_safety_pipeline.py -q
+        run: python -m pytest tests/test_coconut_safety_pipeline.py tests/test_local_detector.py -q
