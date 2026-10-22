@@ -47,6 +47,8 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 
 ### Work locally on Windows
 
+- **Annotate real coconut images (Windows):** [step-by-step offline annotation quick start](docs/WINDOWS_COCONUT_ANNOTATION_QUICKSTART.md). This avoids the common error of launching `tools\\coconut_annotator.html` from the wrong folder.
+
 - **Run the demo app:** double-click [`RUN_COCONUT_APP.bat`](RUN_COCONUT_APP.bat). It requires Python and the app dependencies to be installed first.
 - **Run a local detector latency benchmark:** double-click [`RUN_COCONUT_DETECTOR_BENCHMARK.bat`](RUN_COCONUT_DETECTOR_BENCHMARK.bat), then enter paths to an existing compatible coconut-trained `.pt` model and a permitted local test image. It checks imports but installs/downloads nothing. It measures latency only—not detection accuracy—and cannot run until you already have suitable model weights.
 - **Label orchard images offline:** double-click [`OPEN_COCONUT_ANNOTATOR.bat`](OPEN_COCONUT_ANNOTATOR.bat). Select image files from your computer, draw boxes around visible coconuts, and export the annotation JSON. Images are processed in your browser and are not uploaded by this tool.
