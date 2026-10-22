@@ -1,5 +1,19 @@
 # Coconut Harvest AI
 
+## Free decision-support agent (current scope)
+
+**Additional cost for this rule-based agent: $0.** It uses the repository's Python code and supplied inputs; it does not require a paid AI API, cloud service, or model download. Local Python/test tooling and GitHub usage remain subject to their own terms and limits.
+
+**What it does:** Checks supplied target confidence, sensor health, depth, reachability, obstacle clearance, and human approval. It does not run a detector or command a robot arm.
+
+```text
+Orchard image / sensor measurements → rule-based safety checks → harvest recommendation or STOP → human approval
+```
+
+- **Run guide:** [Agent guide](docs/AGENT_GUIDE.md)
+- **Important limitation:** this is a rule-based decision-support prototype, not proof of real-world performance. Hardware, optional third-party services, or future model training may have separate costs.
+
+
 > **Product quality standard:** [benchmark protocol and fair comparison criteria](docs/PRODUCT_BENCHMARK_STANDARD.md). This defines what we need to measure; it does not claim market-leading performance.
 
 > **Next research milestone — real detector evidence:** review image rights, annotate a small set of distinct orchard images, freeze a held-out test split, run an existing compatible local coconut detector, and publish its actual predictions plus precision/recall/F1 and latency. The current two-image baseline remains at precision 0 and recall 0 at IoU ≥ 0.50 until a new run is completed. [Follow the operator checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md). Do not treat example CSV rows, reference photographs, or latency-only results as accuracy evidence.
