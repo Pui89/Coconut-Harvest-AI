@@ -427,3 +427,25 @@ The GitHub Actions workflow runs on relevant changes, manual dispatch, and a wee
 4. When a lawful, human-reviewed dataset is ready, run a repeatable baseline and publish measured metrics with the exact data split and environment.
 
 **Gate:** the repository currently documents 34 candidate records and 0 approved for training. Do not train or publish accuracy claims until the current dataset status is rechecked and the approval gate is satisfied. These checks do not validate a physical harvesting robot.
+
+
+---
+
+## Free Local Automation Framework
+
+This repository includes a shared PUI89 health-check script for repeatable, zero-cost local checks.
+
+- [Automation guide](docs/PROJECT_AUTOMATION.md)
+- [Local health-check script](scripts/pui89_project_health_check.py)
+
+Run from the repository root:
+
+```bat
+python scripts\pui89_project_health_check.py
+```
+
+The checker verifies repository structure, scans Python source syntax, discovers test files, and prints a JSON report. It does not install packages, download models, use APIs, or call cloud services. To run tests, explicitly use `--run-tests`; pytest is run only if already installed.
+
+**Project focus:** real-image dataset provenance, annotation integrity, detector evaluation, harvest-agent rules and explicit no-actuator safety boundary.
+
+**Evidence boundary:** a syntax scan is not a full test run; passing tests do not establish field performance or safety. Report only verified outcomes and keep proposed features separate from demonstrated results.
