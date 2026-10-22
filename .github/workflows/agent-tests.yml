@@ -14,6 +14,8 @@ on:
       - "tools/audit_coconut_dataset.py"
       - ".github/workflows/fetch-coconut-candidates.yml"
       - ".github/workflows/agent-tests.yml"
+      - "docs/AI_AGENT_REVIEW_PLAN.md"
+      - "docs/STEP_BY_STEP_TESTING.md"
   pull_request:
     paths:
       - "agents/**"
@@ -27,6 +29,8 @@ on:
       - "tools/audit_coconut_dataset.py"
       - ".github/workflows/fetch-coconut-candidates.yml"
       - ".github/workflows/agent-tests.yml"
+      - "docs/AI_AGENT_REVIEW_PLAN.md"
+      - "docs/STEP_BY_STEP_TESTING.md"
   workflow_dispatch:
   schedule:
     # Weekly regression check; no model downloads or paid services.
