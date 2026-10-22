@@ -1,0 +1,46 @@
+name: Coconut Harvest AI - CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lightweight-validation:
+    name: Python validation (no model downloads)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install test dependency
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Compile Python source
+        run: python -m compileall -q apps tools tests
+
+      - name: Run dependency-light benchmark regression tests
+        run: python -m pytest tests/test_adaptive_compute_benchmark.py
+
+      - name: Verify detector requirements file is present
+        run: test -f apps/pui89_app/requirements-detector.txt
+
+      - name: Report scope
+        run: |
+          echo "This CI run checks Python syntax and CPU benchmark regression tests."
+          echo "It does not download model weights, access private images, or claim coconut detector accuracy."
