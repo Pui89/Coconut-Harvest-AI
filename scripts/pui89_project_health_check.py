@@ -82,7 +82,7 @@ def main() -> int:
             runner = "pytest"
         else:
             # unittest ships with Python; use it as the no-install fallback.
-            command = [sys.executable, "-m", "unittest", "discover", "-v"]
+            command = [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]
             runner = "unittest"
         try:
             result = subprocess.run(
