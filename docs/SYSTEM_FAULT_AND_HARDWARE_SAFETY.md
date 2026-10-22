@@ -45,3 +45,20 @@ For every fault, document: detection signal; maximum detection time; safe output
 ## Current project boundary
 
 The repository contains software decision logic and documentation, not a certified hardware safety controller. This playbook does not prove that physical electrical, mechanical, environmental, or emergency-stop protections exist. Have a qualified robotics/electrical safety professional review the design before connecting or operating hazardous hardware.
+
+## Security, intrusion, and physical-threat scenarios
+
+This project must consider both cyber threats and physical hazards. These are response requirements to design and test—not claims that protections are already installed.
+
+| Threat or incident | Required response to design |
+|---|---|
+| Stolen password, unauthorised login, or account takeover | Use MFA, least privilege, revoke sessions/tokens, rotate exposed credentials, and review audit logs. |
+| Malware, ransomware, destructive virus, or compromised software update | Isolate affected computer/network; stop accepting commands from the compromised component; preserve evidence; restore only from known-good backups and verified software. Never reconnect until checked. |
+| Network attack, spoofed commands, replay, or loss of command integrity | Authenticate and validate commands; reject stale/unauthorised commands; on uncertain control integrity enter the pre-tested safe state. |
+| Physical theft, tampering, or attempted removal | Lock the system where appropriate, protect data at rest, log tamper events, alert the owner if communications are available, and do not physically confront or pursue anyone. |
+| Person enters the work area, threatens the operator, or attempts robbery | Stop hazardous harvesting if safe, keep people clear of the arm/cutter, alert the operator, and follow the site's emergency plan. Prioritise human safety over equipment. |
+| Gunshot, suspected firearm, violent attack, or nearby armed threat | Do not approach, investigate, follow, or confront the threat. If safe, stop the mission and move people to cover/evacuate according to local emergency procedures; contact local emergency services. The robot is not a weapon or a substitute for trained responders. |
+| Fire, deliberate damage, vandalism, or suspected sabotage | Stop operation if safe, isolate energy only if this can be done without exposure, evacuate/keep clear, alert responders, and arrange qualified inspection before restart. |
+| Robot is captured, moved, or its sensors are covered | Treat telemetry and location as untrusted; inhibit hazardous actions where safe, alert operator, and require inspection/re-authorisation before reuse. |
+
+**Do not design the robot to shoot, injure, chase, trap, or autonomously confront a person.** Physical threat response should be alert, safe stop/hold or evacuation, and human emergency procedures.
