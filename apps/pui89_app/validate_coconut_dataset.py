@@ -13,6 +13,7 @@ quality or model accuracy.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import Counter
 from pathlib import Path
@@ -26,6 +27,14 @@ def validate_dataset(root: Path, class_count: int, splits: tuple[str, ...] = SPL
     errors: list[dict[str, str]] = []
     warnings: list[str] = []
     summary: dict[str, dict[str, int]] = {}
+    content_hashes: dict[str, tuple[str, str]] = {}
+    if class_count < 1:
+        return {
+            "status": "FAIL", "dataset_root": str(root), "class_count": class_count,
+            "splits": {}, "errors": [{"path": str(root), "message": "class_count must be >= 1"}],
+            "warnings": [],
+            "scope_note": "Structure and label syntax only; does not verify annotation correctness, split leakage, or model accuracy.",
+        }
 
     for split in splits:
         image_dir = root / "images" / split
@@ -39,6 +48,29 @@ def validate_dataset(root: Path, class_count: int, splits: tuple[str, ...] = SPL
 
         images = sorted(p for p in image_dir.rglob("*") if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS)
         labels = sorted(label_dir.rglob("*.txt"))
+        # Exact-content hashes catch copied images that would otherwise leak across splits.
+        for image_path in images:
+            try:
+                digest = hashlib.sha256()
+                with image_path.open("rb") as image_file:
+                    for chunk in iter(lambda: image_file.read(1024 * 1024), b""):
+                        digest.update(chunk)
+                image_hash = digest.hexdigest()
+            except OSError as exc:
+                errors.append({"path": str(image_path), "message": f"Cannot hash image: {exc}"})
+                continue
+            previous = content_hashes.get(image_hash)
+            if previous:
+                previous_split, previous_path = previous
+                if previous_split != split:
+                    errors.append({
+                        "path": str(image_path),
+                        "message": f"Exact duplicate image content appears in split {previous_split!r}: {previous_path}",
+                    })
+                else:
+                    warnings.append(f"Exact duplicate image content within {split!r}: {image_path} and {previous_path}")
+            else:
+                content_hashes[image_hash] = (split, str(image_path))
         image_by_stem: dict[str, list[Path]] = {}
         for image_path in images:
             image_by_stem.setdefault(image_path.relative_to(image_dir).with_suffix("").as_posix(), []).append(image_path)
