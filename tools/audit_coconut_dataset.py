@@ -63,10 +63,8 @@ def audit(manifest: Any, images_dir: Path, annotations_dir: Path | None = None) 
             if rel.is_absolute() or ".." in rel.parts:
                 errors.append(f"{where}: local_file must be a safe relative path")
                 continue
-            path = images_dir.parent / rel if rel.parts and rel.parts[0] == images_dir.name else images_dir / rel.name
-            # Fetcher records paths relative to repository root, e.g. data/candidate_images/file.jpg.
-            if not path.is_file():
-                path = Path(filename)
+            # Fetcher records repository-relative paths; also support a filename relative to --images-dir.
+            path = rel if rel.is_file() else images_dir / rel.name
             if not path.is_file():
                 errors.append(f"{where}: image file missing: {filename}")
                 continue
