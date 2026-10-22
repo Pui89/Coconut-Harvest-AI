@@ -41,6 +41,19 @@ class HarvestPlanningSafetyTests(unittest.TestCase):
                 result = assess_candidate(self.candidate(confidence=confidence))
                 self.assertEqual(result.status, "REJECTED")
 
+    def test_infinite_confidence_is_rejected(self):
+        result = assess_candidate(self.candidate(confidence=float("inf")))
+        self.assertEqual(result.status, "REJECTED")
+        self.assertTrue(any("confidence must be between 0 and 1" in reason for reason in result.reasons))
+
+    def test_non_finite_3d_position_is_rejected(self):
+        for field, value in (("x_m", float("nan")), ("y_m", float("inf")), ("z_m", float("-inf"))):
+            with self.subTest(field=field):
+                result = assess_candidate(self.candidate(**{field: value}))
+                self.assertEqual(result.status, "REJECTED")
+                self.assertIsNone(result.distance_m)
+                self.assertTrue(any("non-finite" in reason for reason in result.reasons))
+
     def test_occluded_target_is_rejected(self):
         result = assess_candidate(self.candidate(occluded=True))
         self.assertEqual(result.status, "REJECTED")
