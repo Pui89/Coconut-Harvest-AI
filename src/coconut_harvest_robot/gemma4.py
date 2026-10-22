@@ -40,12 +40,14 @@ class Gemma4Reasoner:
         allow_download = os.getenv("PUI89_ALLOW_MODEL_DOWNLOAD", "").strip().lower() in {
             "1", "true", "yes"
         }
-        load_options = {"local_files_only": not allow_download, "revision": MODEL_REVISION}
-        self.processor = AutoProcessor.from_pretrained(model_id, **load_options)
+        self.processor = AutoProcessor.from_pretrained(
+            model_id, local_files_only=not allow_download, revision=MODEL_REVISION
+        )
         self.model = AutoModelForMultimodalLM.from_pretrained(
             model_id,
             device_map=device_map,
-            **load_options,
+            local_files_only=not allow_download,
+            revision=MODEL_REVISION,
         )
 
     def reason(self, prompt: str, image: Optional[Any] = None) -> str:
