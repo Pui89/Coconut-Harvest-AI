@@ -105,5 +105,5 @@ def test_cli_report_file_ends_with_real_newline(tmp_path, monkeypatch, capsys):
     assert main() == 1
     capsys.readouterr()
     report_text = output_path.read_text(encoding="utf-8")
-    assert report_text.endswith("\\n")
-    assert not report_text.endswith("\\\\n")
+    assert report_text.endswith("\n")
+    assert not report_text.endswith("\\n")
