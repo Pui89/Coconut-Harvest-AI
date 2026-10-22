@@ -16,6 +16,7 @@ import re
 import sys
 import time
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -47,8 +48,27 @@ def commons_metadata(title: str) -> dict:
         "titles": title, "prop": "imageinfo", "iiprop": "url|size|extmetadata",
     })
     request = Request(f"{API}?{params}", headers={"User-Agent": USER_AGENT})
-    with urlopen(request, timeout=30) as response:
-        payload = json.loads(response.read().decode("utf-8"))
+    # Wikimedia may temporarily throttle automated requests. Respect Retry-After
+    # when present and retry 429s with bounded backoff rather than failing the
+    # entire candidate batch on the first transient rate limit.
+    for attempt in range(4):
+        try:
+            with urlopen(request, timeout=30) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            break
+        except HTTPError as exc:
+            if exc.code != 429 or attempt == 3:
+                raise
+            retry_after = exc.headers.get("Retry-After")
+            try:
+                wait_seconds = max(1, int(retry_after)) if retry_after else min(30, 5 * (2 ** attempt))
+            except (TypeError, ValueError):
+                wait_seconds = min(30, 5 * (2 ** attempt))
+            print(
+                f"Rate limited for {title}; retry {attempt + 1}/3 in {wait_seconds}s",
+                file=sys.stderr,
+            )
+            time.sleep(wait_seconds)
     pages = payload.get("query", {}).get("pages", [])
     if not pages or pages[0].get("missing"):
         raise ValueError(f"Commons file page not found: {title}")
