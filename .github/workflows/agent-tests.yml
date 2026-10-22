@@ -20,9 +20,11 @@ on:
       - "tests/test_project_agent.py"
       - "tests/test_evaluate_coconut_detections.py"
       - "tests/test_annotations_to_ground_truth_csv.py"
+      - "tests/test_audit_coconut_dataset.py"
       - "tools/evaluate_coconut_detections.py"
       - "tools/annotations_to_ground_truth_csv.py"
       - "tools/fetch_coconut_candidates.py"
+      - "tools/audit_coconut_dataset.py"
       - ".github/workflows/fetch-coconut-candidates.yml"
       - ".github/workflows/agent-tests.yml"
   workflow_dispatch:
