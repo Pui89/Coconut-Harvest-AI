@@ -74,15 +74,19 @@ def main() -> int:
 
     test_run = {"requested": args.run_tests, "status": "NOT_RUN"}
     if args.run_tests:
-        try:
-            import pytest  # noqa: F401
-        except ImportError:
-            test_run["status"] = "SKIPPED"
-            test_run["reason"] = "pytest is not installed; nothing was installed automatically"
+        import importlib.util
+        import subprocess
+
+        if importlib.util.find_spec("pytest") is not None:
+            command = [sys.executable, "-m", "pytest", "-q"]
+            runner = "pytest"
         else:
-            import subprocess
+            # unittest ships with Python; use it as the no-install fallback.
+            command = [sys.executable, "-m", "unittest", "discover", "-v"]
+            runner = "unittest"
+        try:
             result = subprocess.run(
-                [sys.executable, "-m", "pytest", "-q"],
+                command,
                 cwd=ROOT,
                 text=True,
                 capture_output=True,
@@ -90,10 +94,19 @@ def main() -> int:
                 check=False,
             )
             test_run.update({
+                "runner": runner,
                 "status": "PASS" if result.returncode == 0 else "FAIL",
                 "return_code": result.returncode,
                 "stdout": result.stdout[-12000:],
                 "stderr": result.stderr[-6000:],
+            })
+        except subprocess.TimeoutExpired as exc:
+            test_run.update({
+                "runner": runner,
+                "status": "FAIL",
+                "reason": "test command exceeded the 300-second limit",
+                "stdout": str(exc.stdout or "")[-12000:],
+                "stderr": str(exc.stderr or "")[-6000:],
             })
 
     report = {
