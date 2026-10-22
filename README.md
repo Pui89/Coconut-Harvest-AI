@@ -455,10 +455,6 @@ The checker verifies repository structure, scans Python source syntax, discovers
 **Failure and security response:** see [failure and security response matrix](docs/FAILURE_AND_SECURITY_RESPONSE.md). This records design requirements and evidence boundaries; it does not claim every response is implemented or validated.
 
 
-## Windows live camera and local image input
+## Local image input
 
-- **New webcam preview:** [Windows live camera quick start](docs/WINDOWS_LIVE_CAMERA_QUICKSTART.md) and [local webcam script](apps/pui89_app/live_camera_preview.py).
-- Without `--model`, the script displays camera frames only and clearly labels that no AI detection is running.
-- With `--model`, it requires an existing trusted local `.pt` checkpoint whose class labels explicitly include coconut. It does not download weights or send robot commands.
-- The existing Streamlit app can display an uploaded image, but does not analyse image pixels unless a compatible local coconut model is configured.
-- This is a committed workflow, not a claim that it has been run on a user's computer. Live detection accuracy and real-world safety remain unvalidated.
+The existing Streamlit app can display an uploaded image. Image display does not itself perform AI detection; image analysis requires a compatible local coconut model and separate validation. This project does not include a live webcam workflow.
