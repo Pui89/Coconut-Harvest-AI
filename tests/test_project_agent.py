@@ -22,3 +22,8 @@ def test_human_approval_is_required():
 
 def test_rejects_invalid_confidence():
     assert run_agent({"target_detected": True, "confidence": 3, "depth_m": 2}).status == "NEED_DATA"
+
+
+def test_rejects_non_finite_confidence_and_depth():
+    assert run_agent({"target_detected": True, "confidence": float('nan')}).status == "NEED_DATA"
+    assert run_agent({"target_detected": True, "confidence": .95, "depth_m": float('inf')}).status == "NEED_DATA"
