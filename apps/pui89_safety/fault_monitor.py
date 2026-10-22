@@ -126,6 +126,12 @@ class FaultMonitor:
             raise ValueError("fault severity must be a Severity value")
         if not isinstance(report.source, str) or not report.source.strip():
             raise ValueError("fault source must be a non-empty string")
+        if len(report.code) > 128:
+            raise ValueError("fault code must be at most 128 characters")
+        if len(report.message) > 1000:
+            raise ValueError("fault message must be at most 1000 characters")
+        if len(report.source) > 200:
+            raise ValueError("fault source must be at most 200 characters")
         decision = decide_response(report)
         event = {
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
