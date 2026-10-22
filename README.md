@@ -12,7 +12,17 @@
 - **Limits:** CI success verifies software checks only; it does not demonstrate detector accuracy, GPU performance, robot-arm operation, or field harvesting.
 
 
-## Fail-safe operating modes (software prototype)\n\nThe project now defines three modes: AI operation, limited safe operation, and manual recovery. The software selector is a testable decision prototype only; it does not control hardware or replace independent emergency-stop circuitry. See [fail-safe mode design and fault responses](docs/FAIL_SAFE_OPERATING_MODES.md) and [unit tests](tests/test_failsafe.py). Real-world use requires hardware interlocks and validation.\n\n## Free decision-support agent (current scope)
+## Fail-safe operating modes (software prototype)
+
+The project defines three modes: **AI operation**, **limited safe operation**, and **manual recovery**. If AI or perception fails, harvesting must stop; the cutter is never enabled by the software mode selector. Limited movement is considered only when safety sensors, localization, a verified route, operator communication, and battery reserve are confirmed. Otherwise, the robot should wait for manual recovery.
+
+- [Fail-safe mode design and fault responses](docs/FAIL_SAFE_OPERATING_MODES.md)
+- [Fail-safe decision selector](src/coconut_harvest_robot/failsafe.py)
+- [Fail-safe tests](tests/test_failsafe.py)
+
+**Status and limitation:** this is a software decision prototype, not a validated physical robot safety system. Real hardware requires independent emergency-stop circuitry, motor/arm interlocks, and physical validation.
+
+## Free decision-support agent (current scope)
 
 **Additional cost for this rule-based agent: $0.** It uses the repository's Python code and supplied inputs; it does not require a paid AI API, cloud service, or model download. Local Python/test tooling and GitHub usage remain subject to their own terms and limits.
 
