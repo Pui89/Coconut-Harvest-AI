@@ -26,7 +26,7 @@ def python_files(root: Path):
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, help="Optional JSON report path (relative to current directory unless absolute).")
-    parser.add_argument("--run-tests", action="store_true", help="Run pytest only if already installed; does not install it.")
+    parser.add_argument("--run-tests", action="store_true", help="Run tests using pytest if installed, otherwise built-in unittest; installs nothing.")
     args = parser.parse_args()
 
     checks = []
