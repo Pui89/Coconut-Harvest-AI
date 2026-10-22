@@ -6,6 +6,8 @@ on:
     paths:
       - "tools/fetch_coconut_candidates.py"
       - ".github/workflows/fetch-coconut-candidates.yml"
+      - "RUN_COCONUT_ANNOTATION_QA.bat"
+      - "docs/WINDOWS_COCONUT_ANNOTATION_QUICKSTART.md"
   schedule:
     # Weekly candidate refresh; local-time equivalent is 09:25 Thailand on Mondays.
     - cron: "25 2 * * 1"
