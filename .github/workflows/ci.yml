@@ -1,6 +1,8 @@
 name: Python tests
 
 on:
+  schedule:
+    - cron: "17 5 * * 0" # Weekly Sunday check; UTC
   push:
     paths:
       - "src/**"
