@@ -127,3 +127,24 @@ def test_invalid_fault_enum_values_are_rejected():
         monitor.report(FaultReport("BAD_DOMAIN", "security", Severity.CRITICAL, "message"))
     with pytest.raises(ValueError):
         monitor.report(FaultReport("BAD_SEVERITY", Domain.SECURITY, "critical", "message"))
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("code", "C" * 129),
+        ("message", "M" * 1001),
+        ("source", "S" * 201),
+    ],
+)
+def test_overlong_fault_fields_are_rejected(field, value):
+    values = {
+        "code": "VALID_CODE",
+        "domain": Domain.UNKNOWN,
+        "severity": Severity.CRITICAL,
+        "message": "A reported fault",
+        "source": "unit-test",
+    }
+    values[field] = value
+    report = FaultReport(**values)
+    with pytest.raises(ValueError):
+        FaultMonitor().report(report)
