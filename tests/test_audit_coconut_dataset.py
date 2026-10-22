@@ -43,8 +43,7 @@ class DatasetAuditTests(unittest.TestCase):
                 "sha256": "not-the-real-hash", "training_approved": False,
                 "file_page": "https://example.test/file", "license_short_name": "CC BY-SA 4.0",
             }]}
-            # Use a manifest path relative to the test working directory via a safe absolute path
-            manifest["candidates"][0]["local_file"] = str(image)
+            manifest["candidates"][0]["local_file"] = "c1.jpg"
             report = MODULE.audit(manifest, image_dir)
             self.assertFalse(report["passed_structural_checks"])
             self.assertTrue(any("SHA-256 mismatch" in err for err in report["errors"]))
