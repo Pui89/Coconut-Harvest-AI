@@ -63,3 +63,34 @@ def test_invalid_report_rejected():
 def test_invalid_capacity_rejected():
     with pytest.raises(ValueError):
         FaultMonitor(max_events=0)
+
+@pytest.mark.parametrize(
+    ("code", "domain", "message"),
+    [
+        ("AI_PROCESS_CRASH", Domain.SOFTWARE, "AI process stopped unexpectedly"),
+        ("CAMERA_OR_SENSOR_LOST", Domain.SENSOR, "Required sensor heartbeat expired"),
+        ("ELECTRICAL_FAULT", Domain.POWER, "Power subsystem reported a fault"),
+        ("NETWORK_LINK_LOST", Domain.NETWORK, "Required control link was lost"),
+        ("MALWARE_OR_INTEGRITY_ALERT", Domain.SECURITY, "Security monitor reported a critical integrity concern"),
+        ("TAMPERING_OR_THEFT_ALERT", Domain.PHYSICAL, "Tamper or physical-security alarm reported"),
+        ("UNSAFE_ENVIRONMENT", Domain.ENVIRONMENT, "Operating environment is outside verified limits"),
+        ("INPUT_DATA_CORRUPT", Domain.DATA, "Input data failed integrity checks"),
+        ("UNCLASSIFIED_CRITICAL_FAULT", Domain.UNKNOWN, "A critical fault could not be classified"),
+    ],
+)
+def test_critical_fault_scenarios_require_conservative_response(code, domain, message):
+    """A reported critical failure must never recommend continuing hazardous autonomy."""
+    decision = decide_response(FaultReport(code, domain, Severity.CRITICAL, message))
+    assert decision.inhibit_hazardous_actions
+    assert decision.alert_operator
+    assert decision.require_human_review_before_resume
+    assert decision.response is not Response.CONTINUE_WITH_MONITORING
+
+
+def test_network_warning_limits_operation_and_alerts_operator():
+    decision = decide_response(
+        FaultReport("NETWORK_DEGRADED", Domain.NETWORK, Severity.WARNING, "Control link is unstable")
+    )
+    assert decision.response is Response.LIMIT_OPERATION
+    assert decision.alert_operator
+    assert decision.require_human_review_before_resume
