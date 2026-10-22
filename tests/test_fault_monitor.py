@@ -105,3 +105,11 @@ def test_returned_events_and_snapshots_are_defensive_copies():
     snapshot = monitor.snapshot()
     snapshot[0]["decision"]["response"] = "tampered-again"
     assert monitor.snapshot()[0]["decision"]["response"] == Response.ISOLATE_COMPROMISED_COMPONENT.value
+
+
+def test_blank_or_whitespace_report_fields_are_rejected():
+    monitor = FaultMonitor()
+    with pytest.raises(ValueError):
+        monitor.report(FaultReport("   ", Domain.UNKNOWN, Severity.CRITICAL, "message"))
+    with pytest.raises(ValueError):
+        monitor.report(FaultReport("FAULT", Domain.UNKNOWN, Severity.CRITICAL, "   "))
