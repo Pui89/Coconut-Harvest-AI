@@ -14,13 +14,22 @@
 
 ## Fail-safe operating modes (software prototype)
 
-The project defines three modes: **AI operation**, **limited safe operation**, and **manual recovery**. If AI or perception fails, harvesting must stop; the cutter is never enabled by the software mode selector. Limited movement is considered only when safety sensors, localization, a verified route, operator communication, and battery reserve are confirmed. Otherwise, the robot should wait for manual recovery.
+The project defines three modes: **AI operation**, **limited safe operation**, and **manual recovery**. Fault responses are designed to fail conservatively:
+
+| Problem | Expected robot response |
+|---|---|
+| AI model crashes | Stop harvesting and keep the cutter disabled; independent safety monitoring must remain active. |
+| Camera or safety sensor fails | Stop autonomous movement if safe navigation cannot be confirmed; request operator recovery. |
+| Wi-Fi or remote connection is lost | Stop the mission and enter a safe hold; do not continue hazardous work without required supervision. |
+| Battery becomes low | Stop harvesting; return only if the route is verified, navigation is healthy, and sufficient reserve remains. Otherwise request recovery. |
+| Main computer freezes | An independent watchdog and hardware safety circuit must disable hazardous actuators; software alone cannot guarantee this. |
+| Robot gets stuck or tips | Disable cutting, stop or brake movement as appropriate to the physical hazard, alert the operator, and follow a planned recovery procedure. |
 
 - [Fail-safe mode design and fault responses](docs/FAIL_SAFE_OPERATING_MODES.md)
 - [Fail-safe decision selector](src/coconut_harvest_robot/failsafe.py)
 - [Fail-safe tests](tests/test_failsafe.py)
 
-**Status and limitation:** this is a software decision prototype, not a validated physical robot safety system. Real hardware requires independent emergency-stop circuitry, motor/arm interlocks, and physical validation.
+**Status and limitation:** this is a software decision prototype, not a validated physical robot safety system. Real hardware requires independent emergency-stop circuitry, motor/arm interlocks, safe braking/holding behaviour, and staged physical validation.
 
 ## Free decision-support agent (current scope)
 
