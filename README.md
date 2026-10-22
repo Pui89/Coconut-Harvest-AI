@@ -458,3 +458,11 @@ The checker verifies repository structure, scans Python source syntax, discovers
 ## Local image input
 
 The existing Streamlit app can display an uploaded image. Image display does not itself perform AI detection; image analysis requires a compatible local coconut model and separate validation. This project does not include a live webcam workflow.
+
+
+## Autonomous systems (software-level supervisor)
+
+- [Autonomous system architecture, project-specific inputs, tests, and safety limits](docs/AUTONOMOUS_SYSTEMS.md)
+- [Supervisor implementation](pui89_autonomy/supervisor.py) · [unit tests](tests/test_autonomy_supervisor.py)
+
+The supervisor evaluates supplied status values and recommends an advisory mode: autonomous candidate, safe hold, manual recovery, or stopped. It does not acquire sensor data or command hardware. An autonomous-candidate result is not a safety certification; physical systems require independent safety controls and validation.
