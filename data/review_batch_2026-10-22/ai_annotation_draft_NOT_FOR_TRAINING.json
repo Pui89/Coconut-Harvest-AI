@@ -1,0 +1,78 @@
+{
+  "format": "pui89-coconut-annotations-v1",
+  "class_names": [
+    "coconut"
+  ],
+  "created_at": "2026-10-22",
+  "status": "AI-assisted draft only; not human-QA-approved; not approved for training or benchmarking",
+  "source": {
+    "candidate_id": "candidate_0032",
+    "filename": "candidate_0032.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg",
+    "creator": "Sarmi~Kili",
+    "license": "CC BY-SA 4.0",
+    "source_image_sha256": "from the accompanying workflow artifact manifest; recheck before reuse"
+  },
+  "annotation_notes": [
+    "Eight conservative draft boxes were placed around visually distinguishable coconuts.",
+    "Some fruits are occluded and the image is cluttered; boxes may be inaccurate or incomplete.",
+    "An independent human must inspect the original full-resolution image, correct boxes, check missed fruit, and confirm attribution/licence before any training or benchmark use."
+  ],
+  "images": [
+    {
+      "filename": "candidate_0032.jpg",
+      "width": 5184,
+      "height": 3456,
+      "boxes": [
+        {
+          "x": 0.532407,
+          "y": 0.263889,
+          "w": 0.061728,
+          "h": 0.108796
+        },
+        {
+          "x": 0.10571,
+          "y": 0.518519,
+          "w": 0.056327,
+          "h": 0.118056
+        },
+        {
+          "x": 0.168981,
+          "y": 0.520833,
+          "w": 0.052469,
+          "h": 0.125
+        },
+        {
+          "x": 0.635802,
+          "y": 0.552083,
+          "w": 0.060957,
+          "h": 0.116898
+        },
+        {
+          "x": 0.420525,
+          "y": 0.645833,
+          "w": 0.056327,
+          "h": 0.147569
+        },
+        {
+          "x": 0.464506,
+          "y": 0.648148,
+          "w": 0.065586,
+          "h": 0.138889
+        },
+        {
+          "x": 0.503086,
+          "y": 0.706019,
+          "w": 0.060185,
+          "h": 0.138889
+        },
+        {
+          "x": 0.540123,
+          "y": 0.673611,
+          "w": 0.061728,
+          "h": 0.127315
+        }
+      ]
+    }
+  ]
+}
