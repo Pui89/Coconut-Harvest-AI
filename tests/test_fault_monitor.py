@@ -113,3 +113,17 @@ def test_blank_or_whitespace_report_fields_are_rejected():
         monitor.report(FaultReport("   ", Domain.UNKNOWN, Severity.CRITICAL, "message"))
     with pytest.raises(ValueError):
         monitor.report(FaultReport("FAULT", Domain.UNKNOWN, Severity.CRITICAL, "   "))
+
+
+@pytest.mark.parametrize("capacity", [0, -1, 1.5, True])
+def test_invalid_event_capacity_rejected(capacity):
+    with pytest.raises(ValueError):
+        FaultMonitor(max_events=capacity)
+
+
+def test_invalid_fault_enum_values_are_rejected():
+    monitor = FaultMonitor()
+    with pytest.raises(ValueError):
+        monitor.report(FaultReport("BAD_DOMAIN", "security", Severity.CRITICAL, "message"))
+    with pytest.raises(ValueError):
+        monitor.report(FaultReport("BAD_SEVERITY", Domain.SECURITY, "critical", "message"))
