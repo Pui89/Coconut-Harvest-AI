@@ -1,12 +1,5 @@
 # Coconut Harvest AI
 
-## Coconut Harvest AI — Concept visualization
-
-![Concept illustration of a tracked coconut harvesting robot with sensor mast and articulated arm in a coconut orchard.](docs/images/coconut-harvest-concept.svg)
-
-*Illustrative design concept only. This image is not evidence of a built, tested, validated, or operational system. Capabilities shown remain proposed unless separately documented and verified.*
-
-
 ## Local fault-monitoring software (initial implementation)
 
 A small, dependency-light Python module accepts explicit fault reports, suggests conservative responses, and keeps a bounded in-memory event log. It includes automated unit tests and a GitHub Actions test workflow. It is not an antivirus, intrusion detector, gunshot detector, or physical safety controller; hardware shutdown, persistent audit storage, alerts, and real-world threat detection require separate implementations and validation.
