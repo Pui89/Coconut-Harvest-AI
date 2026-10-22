@@ -36,14 +36,49 @@ class SupervisorDecision:
     permitted_next_steps: tuple[str, ...]
 
 
+BOOLEAN_STATUS_FIELDS = (
+    "perception_ok",
+    "localization_ok",
+    "communication_ok",
+    "safety_monitor_ok",
+    "operator_authorized",
+    "emergency_stop",
+    "hazard_clear",
+    "task_request_valid",
+)
+
+
 def evaluate_status(status: SystemStatus, minimum_confidence: float = 0.75) -> SupervisorDecision:
     """Return a conservative advisory mode; never issue physical commands."""
-    if not math.isfinite(minimum_confidence) or not 0.0 <= minimum_confidence <= 1.0:
-        raise ValueError("minimum_confidence must be finite and within [0, 1]")
-    if not math.isfinite(status.confidence) or not 0.0 <= status.confidence <= 1.0:
+    if (
+        isinstance(minimum_confidence, bool)
+        or not isinstance(minimum_confidence, (int, float))
+        or not math.isfinite(minimum_confidence)
+        or not 0.0 <= minimum_confidence <= 1.0
+    ):
+        raise ValueError("minimum_confidence must be a finite number within [0, 1]")
+
+    malformed_fields = [
+        field for field in BOOLEAN_STATUS_FIELDS
+        if not isinstance(getattr(status, field, None), bool)
+    ]
+    if malformed_fields:
+        return SupervisorDecision(
+            Mode.STOPPED,
+            ("status input contains missing or non-boolean safety fields: " + ", ".join(malformed_fields),),
+            ("withhold automated task approval", "maintain stop through an independent safety system", "request human review"),
+        )
+
+    confidence = status.confidence
+    if (
+        isinstance(confidence, bool)
+        or not isinstance(confidence, (int, float))
+        or not math.isfinite(confidence)
+        or not 0.0 <= confidence <= 1.0
+    ):
         return SupervisorDecision(
             Mode.SAFE_HOLD,
-            ("confidence is non-finite or outside [0, 1]",),
+            ("confidence is missing, non-numeric, non-finite, or outside [0, 1]",),
             ("withhold automated task approval", "request human review"),
         )
 
@@ -80,7 +115,7 @@ def evaluate_status(status: SystemStatus, minimum_confidence: float = 0.75) -> S
         blockers.append("required communication link is unavailable")
     if not status.hazard_clear:
         blockers.append("hazard clearance is not confirmed")
-    if status.confidence < minimum_confidence:
+    if confidence < minimum_confidence:
         blockers.append("confidence is below the configured threshold")
     if blockers:
         return SupervisorDecision(
