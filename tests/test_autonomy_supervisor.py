@@ -63,10 +63,6 @@ class SupervisorTests(unittest.TestCase):
         decision = evaluate_status(healthy_status())
         self.assertFalse(any("actuate" in step.lower() or "cut " in step.lower() for step in decision.permitted_next_steps))
 
-
-if __name__ == "__main__":
-    unittest.main()
-
     def test_malformed_boolean_status_fails_stopped(self):
         for field in (
             "perception_ok",
@@ -93,3 +89,7 @@ if __name__ == "__main__":
             with self.subTest(value=value):
                 with self.assertRaises(ValueError):
                     evaluate_status(healthy_status(), minimum_confidence=value)
+
+
+if __name__ == "__main__":
+    unittest.main()
