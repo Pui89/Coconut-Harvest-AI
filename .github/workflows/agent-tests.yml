@@ -5,6 +5,8 @@ on:
     paths:
       - "agents/**"
       - "tests/test_project_agent.py"
+      - "tests/test_evaluate_coconut_detections.py"
+      - "tools/evaluate_coconut_detections.py"
       - ".github/workflows/agent-tests.yml"
   pull_request:
     paths:
@@ -36,4 +38,4 @@ jobs:
       - name: Syntax-check agent and tests
         run: python -m py_compile agents/project_agent.py tests/test_project_agent.py
       - name: Run agent unit tests
-        run: python -m pytest -q tests/test_project_agent.py
+        run: python -m pytest -q tests/test_project_agent.py tests/test_evaluate_coconut_detections.py
