@@ -7,6 +7,7 @@ recommendations. Standard-library only; no network calls.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import math
 from typing import Any
 
 
@@ -42,14 +43,14 @@ def run_agent(observation: dict[str, Any]) -> AgentDecision:
         return AgentDecision("coconut-harvest", "NEED_DATA", "REQUEST_NEW_VIEW",
                              ("No target detection was supplied.",))
     confidence = observation.get("confidence")
-    if not isinstance(confidence, (int, float)) or isinstance(confidence, bool) or not 0 <= confidence <= 1:
+    if not isinstance(confidence, (int, float)) or isinstance(confidence, bool) or not math.isfinite(confidence) or not 0 <= confidence <= 1:
         return AgentDecision("coconut-harvest", "NEED_DATA", "REQUEST_VALID_CONFIDENCE",
                              ("Confidence must be a numeric value from 0 to 1.",))
     if confidence < 0.80:
         return AgentDecision("coconut-harvest", "REVIEW", "REQUEST_SECOND_VIEW",
                              ("Target confidence is below the configured 0.80 review threshold.",))
     depth = observation.get("depth_m")
-    if not isinstance(depth, (int, float)) or isinstance(depth, bool) or depth <= 0:
+    if not isinstance(depth, (int, float)) or isinstance(depth, bool) or not math.isfinite(depth) or depth <= 0:
         return AgentDecision("coconut-harvest", "NEED_DATA", "REQUEST_VALID_DEPTH",
                              ("A positive, valid depth measurement is required.",))
     if observation.get("reachable") is not True:
