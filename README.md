@@ -26,6 +26,7 @@ The project defines three modes: **AI operation**, **limited safe operation**, a
 | Robot gets stuck or tips | Disable cutting, stop or brake movement as appropriate to the physical hazard, alert the operator, and follow a planned recovery procedure. |
 
 - [Fail-safe mode design and fault responses](docs/FAIL_SAFE_OPERATING_MODES.md)
+- [System fault, hardware, electrical, and recovery playbook](docs/SYSTEM_FAULT_AND_HARDWARE_SAFETY.md)
 - [Fail-safe decision selector](src/coconut_harvest_robot/failsafe.py)
 - [Fail-safe tests](tests/test_failsafe.py)
 
