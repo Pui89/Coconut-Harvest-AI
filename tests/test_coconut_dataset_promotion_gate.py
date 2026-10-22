@@ -1,6 +1,6 @@
 import csv
 
-from tools.coconut_dataset_promotion_gate import evaluate
+from tools.coconut_dataset_promotion_gate import evaluate, main
 
 RIGHTS = [
     "candidate_id", "filename", "source_page_url", "creator_credit",
@@ -83,3 +83,27 @@ def test_duplicate_ids_are_structural_error(tmp_path):
     report = evaluate(a, b)
     assert report["errors"]
     assert not report["ready_for_training"]
+
+
+
+def test_cli_report_file_ends_with_real_newline(tmp_path, monkeypatch, capsys):
+    rights, review = records()
+    rights["annotation_qa_status"] = "pending"
+    rights_path = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    review_path = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+    output_path = tmp_path / "report.json"
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "coconut_dataset_promotion_gate",
+            "--rights-csv", str(rights_path),
+            "--review-csv", str(review_path),
+            "--output", str(output_path),
+        ],
+    )
+
+    assert main() == 1
+    capsys.readouterr()
+    report_text = output_path.read_text(encoding="utf-8")
+    assert report_text.endswith("\\n")
+    assert not report_text.endswith("\\\\n")
