@@ -22,6 +22,8 @@
 - **Label orchard images offline:** double-click [`OPEN_COCONUT_ANNOTATOR.bat`](OPEN_COCONUT_ANNOTATOR.bat). Select image files from your computer, draw boxes around visible coconuts, and export the annotation JSON. Images are processed in your browser and are not uploaded by this tool.
 - **Important:** annotation quality and image reuse rights still need human review. Do not use the archived first-pass labels as training data; see [the review batch notes](data/review_batch_2026-10-18/README.md).
 
+- **Commercial path:** [commercialisation roadmap](docs/COMMERCIALISATION_ROADMAP.md) — proposed first customer problem, software-first MVP, discovery questions, evidence gates, and a staged path toward robotics.
+
 ## Support, sponsorship and open-source collaboration
 
 PUI89 welcomes technical review, research collaboration, agricultural workflow feedback, rights-cleared image contributions, annotation review, reproducible benchmark work, and scoped sponsorship discussions.
