@@ -94,3 +94,14 @@ def test_network_warning_limits_operation_and_alerts_operator():
     assert decision.response is Response.LIMIT_OPERATION
     assert decision.alert_operator
     assert decision.require_human_review_before_resume
+
+
+def test_returned_events_and_snapshots_are_defensive_copies():
+    monitor = FaultMonitor()
+    event = monitor.report(FaultReport(
+        "INTEGRITY_FAIL", Domain.SECURITY, Severity.CRITICAL, "Integrity check failed"
+    ))
+    event["decision"]["response"] = "tampered"
+    snapshot = monitor.snapshot()
+    snapshot[0]["decision"]["response"] = "tampered-again"
+    assert monitor.snapshot()[0]["decision"]["response"] == Response.ISOLATE_COMPROMISED_COMPONENT.value
