@@ -1,4 +1,4 @@
-name: YOLOv8 and YOLO11 Hosted Smoke Test
+name: YOLOv8, YOLO11, and YOLO26 Hosted Smoke Test
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install Ultralytics
-        run: python -m pip install --upgrade pip ultralytics
+        run: python -m pip install --upgrade pip 'ultralytics>=8.4,<9.0'
 
       - name: Download public demonstration image
         run: |
@@ -39,7 +39,7 @@ jobs:
           print("Downloaded public Ultralytics demo image for generic inference smoke test.")
           PY
 
-      - name: Run YOLOv8n and YOLO11n inference
+      - name: Run YOLOv8n, YOLO11n, and YOLO26n inference
         run: |
           python - <<'PY'
           import json
@@ -56,7 +56,7 @@ jobs:
               "models": [],
           }
 
-          for model_name in ("yolov8n.pt", "yolo11n.pt"):
+          for model_name in ("yolov8n.pt", "yolo11n.pt", "yolo26n.pt"):
               model = YOLO(model_name)
               start = time.perf_counter()
               prediction = model.predict(source=image, device="cpu", verbose=False)
