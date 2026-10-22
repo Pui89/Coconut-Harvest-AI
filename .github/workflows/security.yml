@@ -51,7 +51,7 @@ jobs:
       - name: Dependency vulnerability audit
         run: pip-audit -r requirements.txt
       - name: Static security analysis
-        run: bandit -r src -ll
+        run: bandit -r src apps/pui89_safety -ll
 
   codeql:
     runs-on: ubuntu-latest
