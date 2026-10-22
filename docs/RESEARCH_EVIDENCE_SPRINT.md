@@ -4,7 +4,7 @@
 
 ## Priority 1 — Make the first real-image result reproducible
 
-Use the existing [first real-image benchmark checklist](FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md) and [research evidence checklist](RESEARCH_EVIDENCE_CHECKLIST.md).
+Use the existing [first real-image benchmark checklist](FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md), [research evidence checklist](RESEARCH_EVIDENCE_CHECKLIST.md), and [experiment record template](EXPERIMENT_RECORD_TEMPLATE.md). Start one copy of the record for every detector run, including failed runs; fill results only from actual outputs.
 
 1. Review image-source rights and suitability before any reuse or redistribution.
 2. Download the optional reference images only if needed for private review:
