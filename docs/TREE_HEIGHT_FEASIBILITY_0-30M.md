@@ -68,6 +68,12 @@ Do not publish a success percentage until the dataset/test protocol is frozen, t
 
 Stop without cutting if height/pose uncertainty is excessive, target is outside the verified reach envelope, the palm/robot is unstable, a collision-free path is unavailable, people/animals enter the exclusion zone, wind exceeds the validated limit, a required sensor/transform is stale or missing, retention/brake/communications fail, or the operator has not approved the task.
 
+## Concept-image brief (not a verified engineering drawing)
+
+**Image status:** no new image file is included by this document change. Use this brief if a separate concept illustration is commissioned/generated later.
+
+> Create a clearly labelled engineering-concept illustration for a coconut-orchard robot feasibility study. Show a compact tracked/wheeled base on level, marked ground; a slim, staged telescopic mast/arm; a sensor head with RGB camera and optional depth/LiDAR modules; and a controlled fruit capture/lowering path. Show the intended 0–30 m tree-height envelope as a measurement/design challenge using clearly separated height bands, not as a claim that one pictured mechanism can safely reach 30 m. Include exclusion-zone symbols for people, animals, overhead electrical lines, wind exposure, nearby structures and unstable ground. Depict the cut tool disabled whenever localization, reachability, stability, sensor health or capture readiness is uncertain. Use dashed outlines and explicit labels for conceptual components; do not show certification marks, NASA logos, claimed load ratings, wind limits, reach accuracy, measured performance, or successful physical harvesting. Add a prominent caption: “CONCEPT ONLY — NOT A BUILT OR VALIDATED ROBOT; 0–30 m IS A DESIGN ENVELOPE, NOT DEMONSTRATED REACH.” Avoid photorealistic presentation that could make the concept look like a verified product.
+
 ## Current status
 
 This document is a feasibility and acceptance plan. It does not claim that any height band has passed physical harvesting tests. The current compact robot artwork is conceptual; real-world success requires a built mechanism, safety review, staged validation and published measurements.
