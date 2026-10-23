@@ -40,11 +40,35 @@ class ModeDecision:
 def select_operating_mode(health: SystemHealth) -> ModeDecision:
     """Select the most conservative mode from explicit health signals.
 
-    Emergency stop or hardware fault always selects manual recovery.
-    Limited mode never permits harvesting or cutter operation.
-    Autonomous limited movement is only suggested when safety sensors,
-    localization, route verification, operator link, and return reserve are OK.
+    Invalid or missing health records fail closed. Emergency stop or hardware
+    fault always selects manual recovery. Full AI operation requires healthy
+    perception/localization plus a verified route, a live operator link, and
+    sufficient return reserve. Limited mode never permits harvesting or cutter
+    operation. This is decision support, not a hardware safety controller.
     """
+    if not isinstance(health, SystemHealth):
+        return ModeDecision(
+            OperatingMode.MANUAL_RECOVERY, False, False, False, True,
+            "System health record is missing or malformed; require manual recovery.",
+        )
+
+    signals = (
+        health.ai_ready,
+        health.perception_ready,
+        health.safety_sensors_ready,
+        health.localization_ready,
+        health.route_verified,
+        health.operator_link_ready,
+        health.battery_return_reserve_ok,
+        health.emergency_stop_active,
+        health.hardware_fault,
+    )
+    if any(type(signal) is not bool for signal in signals):
+        return ModeDecision(
+            OperatingMode.MANUAL_RECOVERY, False, False, False, True,
+            "System health contains a missing or invalid boolean signal; require manual recovery.",
+        )
+
     if health.emergency_stop_active:
         return ModeDecision(
             OperatingMode.MANUAL_RECOVERY, False, False, False, True,
@@ -67,6 +91,9 @@ def select_operating_mode(health: SystemHealth) -> ModeDecision:
         health.ai_ready
         and health.perception_ready
         and health.localization_ready
+        and health.route_verified
+        and health.operator_link_ready
+        and health.battery_return_reserve_ok
     )
     if full_ai_ready:
         return ModeDecision(
