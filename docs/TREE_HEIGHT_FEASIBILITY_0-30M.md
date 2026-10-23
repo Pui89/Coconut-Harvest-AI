@@ -4,6 +4,28 @@
 
 The 0–30 m range is the orchard/tree-height envelope for research planning, **not** a claim that the current robot can reach or harvest every height. The repository's concept illustrations are not photos of a built machine. A vision model may detect fruit at heights that the robot cannot safely access.
 
+## Concept architecture requirements — design only
+
+The system-level concept should compare a **slim telescopic mast/arm with a sensor head** against specialist access methods. A tracked or wheeled mobile base is only a candidate architecture; a ground base with a short arm must not be represented as reaching a tall crown. The intended 0–30 m tree-height envelope is a feasibility/design challenge, not a demonstrated mechanism reach.
+
+| ID | Requirement | Evidence needed before the requirement can be called verified | Current status |
+|---|---|---|---|
+| ORCH-01 | Estimate tree height and each target fruit's 3D location, including uncertainty, calibration and timestamp/freshness. | Labelled held-out data for perception/localization; independent pose ground truth; error distribution by distance, occlusion and lighting. | Not measured for a representative real-orchard set. |
+| ORCH-02 | Plan staged reach using a slim telescopic mast/arm and sensor head only within a separately verified mechanical envelope. | Defined geometry, joint/extension limits, load and deflection analysis, braking/retention, repeatable simulation and staged instrumented tests. | Concept only; dimensions, load capacity and safe reach are unknown. |
+| ORCH-03 | Compare tracked and wheeled base options against orchard terrain and stability constraints. | Measured soil/slope/obstacle envelope, centre-of-mass and tip-risk analysis, stopping/holding tests, and recovery plan. | Not measured; no terrain or slope limits are claimed. |
+| ORCH-04 | Use RGB perception first; use depth and/or LiDAR only when installed, calibrated, healthy and mutually consistent. | Tests for missing, stale, miscalibrated, obstructed and contradictory sensor data; conservative abstention on failure. | Optional sensor concept; no validated sensor-fusion claim. |
+| ORCH-05 | Control fruit after detachment with an engineered capture/retention or lowering method; do not allow an uncontrolled fall. | Verified capture-state sensing, retention/load analysis, controlled drop/failure tests in a safe test fixture, and damage/drop logs. | Concept only; no capture hardware validated. |
+| ORCH-06 | Select fruit using a maturity policy supported by labelled evaluation data; abstain on ambiguous or occluded cases. | Held-out per-stage precision/recall/F1 or confusion matrix, label QA, uncertainty and abstention tests. | Real-world maturity performance not established. |
+| ORCH-07 | Enforce exclusion zones for people/animals, overhead lines, fronds/structures, collision hazards, wind and unstable ground. | Scenario tests plus an independently reviewed site-risk assessment; environmental operating limits measured for the actual design. | Requirements only; numerical wind/terrain limits are unknown. |
+| ORCH-08 | Do not cut if perception, localization, reachability, stability, collision clearance, sensor health, capture readiness, communication or emergency-stop status is missing, stale, contradictory or uncertain. | Negative/fault-injection tests and independent hardware interlocks; human approval alone must never bypass a failed safety gate. | Software checks can be tested; physical interlocks and the complete chain are unverified. |
+
+### Verification and validation checklist
+
+- **Software verification:** test invalid/NaN/Inf coordinates and confidence, stale timestamps, missing or disagreeing sensors, unreachable targets, collision flags, uncertain maturity, unready capture, communications loss and emergency-stop inputs. Every unsafe or unknown state must resolve to `SURVEY_ONLY`, `SAFE_HOLD` or `ABORT_NO_CUT`, never a cut authorization.
+- **Simulation verification:** use deterministic scenarios for each height band, localization uncertainty, occlusion, obstacle/overhead-line exclusion zones, unstable-ground assumptions, changing wind inputs, staged extension and capture failure. Report scenario count and failures; simulation is not physical proof.
+- **Physical validation:** before any cutting or elevated operation, require independent mechanical/safety review, a guarded non-cutting test fixture, rated secondary retention, independent emergency-stop and power isolation, instrumented low-height tests, and a documented recovery plan. Do not test above people. High-height operation requires specialist feasibility review and staged evidence before trials.
+- **Evidence reporting:** label every result as recorded-image evaluation, simulation, or physical hardware. Record commit, command, versions, environment, scenario/data split, sample count, measurements, failures and limitations. If a measurement or acceptance threshold is not defined or available, mark it **not measured** rather than estimating it.
+
 ## Height bands and evidence gates
 
 | Target height | Candidate method to investigate | Current claim | Required gate before cutting |
