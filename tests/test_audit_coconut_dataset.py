@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -55,6 +56,32 @@ class DatasetAuditTests(unittest.TestCase):
         report = MODULE.audit(manifest, Path("data/candidate_images"))
         self.assertFalse(report["passed_structural_checks"])
         self.assertTrue(any("must not self-approve" in err for err in report["errors"]))
+
+
+    def test_rejects_candidate_id_path_traversal_for_annotations(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            annotations_dir = root / "annotations"
+            annotations_dir.mkdir()
+            outside_annotation = root / "escape.json"
+            outside_annotation.write_text(json.dumps({
+                "format": "pui89-coconut-annotations-v1",
+                "images": [{"filename": "image.jpg", "width": 10, "height": 10, "boxes": []}],
+            }), encoding="utf-8")
+
+            manifest = {"candidates": [{
+                "candidate_id": "../escape",
+                "downloaded": False,
+                "training_approved": False,
+                "file_page": "https://example.test/file",
+                "license_short_name": "CC BY-SA 4.0",
+            }]}
+
+            report = MODULE.audit(manifest, root / "images", annotations_dir)
+
+            self.assertFalse(report["passed_structural_checks"])
+            self.assertEqual(report["annotation_files_checked"], 0)
+            self.assertTrue(any("safe filename stem" in err for err in report["errors"]))
 
 
 if __name__ == "__main__":
