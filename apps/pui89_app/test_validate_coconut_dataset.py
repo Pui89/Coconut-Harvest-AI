@@ -19,6 +19,33 @@ class ValidateDatasetTests(unittest.TestCase):
         (self.root / "images" / split / "sample.jpg").write_bytes(b"test image placeholder")
         (self.root / "labels" / split / "sample.txt").write_text(label, encoding="utf-8")
 
+    def test_exact_duplicate_image_across_splits_fails(self):
+        self.add_pair(split="train")
+        # Same bytes under a different filename must not leak into validation.
+        (self.root / "images" / "val" / "copy.jpg").write_bytes(b"test image placeholder")
+        (self.root / "labels" / "val" / "copy.txt").write_text(
+            "0 0.5 0.5 0.2 0.3\\n", encoding="utf-8"
+        )
+        report = validate_dataset(self.root, class_count=1)
+        self.assertEqual(report["status"], "FAIL")
+        self.assertTrue(any(
+            "Exact duplicate image content appears in split" in error["message"]
+            for error in report["errors"]
+        ))
+
+    def test_exact_duplicate_within_split_is_warning_not_cross_split_failure(self):
+        self.add_pair(split="train")
+        (self.root / "images" / "train" / "copy.jpg").write_bytes(
+            b"test image placeholder"
+        )
+        (self.root / "labels" / "train" / "copy.txt").write_text(
+            "0 0.5 0.5 0.2 0.3\\n", encoding="utf-8"
+        )
+        report = validate_dataset(self.root, class_count=1, splits=("train",))
+        self.assertEqual(report["status"], "PASS")
+        self.assertTrue(any("Exact duplicate image content within" in warning
+                            for warning in report["warnings"]))
+
     def test_valid_normalized_box_passes(self):
         self.add_pair()
         report = validate_dataset(self.root, class_count=1, splits=("train",))
