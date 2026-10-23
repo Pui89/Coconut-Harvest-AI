@@ -40,6 +40,54 @@ def test_rgbd_localization_rejects_bad_intrinsics_and_boxes():
         )
 
 
+def test_rgbd_localization_rejects_non_finite_intrinsics():
+    depth = [[1.0 for _ in range(10)] for _ in range(10)]
+    for intrinsics in (
+        CameraIntrinsics(fx_px=float("inf"), fy_px=5, cx_px=5, cy_px=5),
+        CameraIntrinsics(fx_px=5, fy_px=5, cx_px=float("nan"), cy_px=5),
+        CameraIntrinsics(fx_px="5", fy_px=5, cx_px=5, cy_px=5),
+        CameraIntrinsics(fx_px=True, fy_px=5, cx_px=5, cy_px=5),
+    ):
+        with pytest.raises(ValueError, match="finite numeric"):
+            estimate_xyz_from_bbox(depth, (1, 1, 9, 9), intrinsics)
+
+
+@pytest.mark.parametrize("min_valid_samples", [0, -1, 1.5, True])
+def test_rgbd_localization_rejects_invalid_minimum_sample_count(min_valid_samples):
+    depth = [[1.0 for _ in range(10)] for _ in range(10)]
+    with pytest.raises(ValueError, match="positive integer"):
+        estimate_xyz_from_bbox(
+            depth, (1, 1, 9, 9),
+            CameraIntrinsics(fx_px=5, fy_px=5, cx_px=5, cy_px=5),
+            min_valid_samples=min_valid_samples,
+        )
+
+
+def test_rgbd_localization_rejects_ragged_or_non_numeric_depth():
+    intrinsics = CameraIntrinsics(fx_px=5, fy_px=5, cx_px=5, cy_px=5)
+    with pytest.raises(ValueError, match="equal width"):
+        estimate_xyz_from_bbox(
+            [[1.0, 1.0], [1.0]], (0, 0, 2, 2), intrinsics
+        )
+    depth = [[1.0 for _ in range(10)] for _ in range(10)]
+    depth[4][4] = "unknown"
+    with pytest.raises(ValueError, match="non-numeric sample"):
+        estimate_xyz_from_bbox(depth, (1, 1, 9, 9), intrinsics)
+
+
+def test_rgbd_localization_rejects_non_finite_or_malformed_boxes():
+    depth = [[1.0 for _ in range(10)] for _ in range(10)]
+    intrinsics = CameraIntrinsics(fx_px=5, fy_px=5, cx_px=5, cy_px=5)
+    for box in (
+        (1, 1, float("nan"), 9),
+        (1, 1, float("inf"), 9),
+        None,
+        (1, 2, 3),
+    ):
+        with pytest.raises(ValueError, match="bounding box"):
+            estimate_xyz_from_bbox(depth, box, intrinsics)
+
+
 def test_iou_is_one_for_identical_boxes_and_zero_for_disjoint_boxes():
     assert box_iou((0, 0, 10, 10), (0, 0, 10, 10)) == pytest.approx(1)
     assert box_iou((0, 0, 10, 10), (20, 20, 30, 30)) == 0
