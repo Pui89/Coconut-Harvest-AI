@@ -16,9 +16,11 @@ Copy `data/review_ledger.template.csv` to a new local CSV before adding real rev
 Required columns: `candidate_id, filename, decision, reason_code, reviewer, reviewed_on, source_url, rights_status, annotation_status, split`.
 
 - Candidate IDs and filenames must be unique (filename comparison is case-insensitive).
+- Each record requires a reviewer, a non-empty source URL, and a real review date written exactly as `YYYY-MM-DD`.
 - Decision and status values must use the documented controlled vocabularies in the script.
 - Rejected, quarantined, or deferred candidates require a reason code.
 - `approved` is accepted by this validator only when rights are marked `cleared`, annotation status is `reviewed`, and a split is assigned. These fields are assertions recorded by the reviewer, **not independent proof** that the checks occurred.
-- The tool does not inspect image bytes, calculate duplicates, verify URLs/licences, inspect boxes, or establish leakage-safe group splits.
+- A non-empty source URL is a provenance field only: the tool does not fetch URLs or verify licence claims.
+- The tool does not inspect image bytes, calculate duplicates, inspect boxes, or establish leakage-safe group splits.
 
 The validator is a data-quality preflight, not a model benchmark. Only use images for training after independent rights, annotation, integrity, and group-split review.

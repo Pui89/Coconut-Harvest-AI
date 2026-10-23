@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+from datetime import date
 from pathlib import Path
 
 REQUIRED = {
@@ -31,7 +32,7 @@ def validate(path: Path) -> list[str]:
             for line, row in enumerate(reader, start=2):
                 prefix = f"line {line}"
                 values = {key: (row.get(key) or "").strip() for key in REQUIRED}
-                for field in ("candidate_id", "filename", "decision", "reviewer", "reviewed_on"):
+                for field in ("candidate_id", "filename", "decision", "reviewer", "reviewed_on", "source_url"):
                     if not values[field]:
                         errors.append(f"{prefix}: {field} is required")
                 cid = values["candidate_id"]
@@ -44,6 +45,13 @@ def validate(path: Path) -> list[str]:
                     if name in seen_names:
                         errors.append(f"{prefix}: duplicate filename {values['filename']!r} (case-insensitive)")
                     seen_names.add(name)
+                if values["reviewed_on"]:
+                    try:
+                        parsed_date = date.fromisoformat(values["reviewed_on"])
+                        if parsed_date.isoformat() != values["reviewed_on"]:
+                            raise ValueError
+                    except ValueError:
+                        errors.append(f"{prefix}: reviewed_on must be a valid ISO date (YYYY-MM-DD)")
                 decision = values["decision"]
                 if decision and decision not in DECISIONS:
                     errors.append(f"{prefix}: invalid decision {decision!r}")
