@@ -24,7 +24,7 @@ class ValidateDatasetTests(unittest.TestCase):
         # Same bytes under a different filename must not leak into validation.
         (self.root / "images" / "val" / "copy.jpg").write_bytes(b"test image placeholder")
         (self.root / "labels" / "val" / "copy.txt").write_text(
-            "0 0.5 0.5 0.2 0.3\\n", encoding="utf-8"
+            "0 0.5 0.5 0.2 0.3\n", encoding="utf-8"
         )
         report = validate_dataset(self.root, class_count=1)
         self.assertEqual(report["status"], "FAIL")
@@ -39,7 +39,7 @@ class ValidateDatasetTests(unittest.TestCase):
             b"test image placeholder"
         )
         (self.root / "labels" / "train" / "copy.txt").write_text(
-            "0 0.5 0.5 0.2 0.3\\n", encoding="utf-8"
+            "0 0.5 0.5 0.2 0.3\n", encoding="utf-8"
         )
         report = validate_dataset(self.root, class_count=1, splits=("train",))
         self.assertEqual(report["status"], "PASS")
