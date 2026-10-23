@@ -47,7 +47,10 @@ def test_lost_localization_requires_manual_recovery():
 def test_failed_safety_sensor_requires_manual_recovery():
     result = select_operating_mode(healthy(safety_sensors_ready=False))
     assert result.mode is OperatingMode.MANUAL_RECOVERY
+    assert result.harvesting_allowed is False
+    assert result.autonomous_motion_allowed is False
     assert result.cutter_enabled is False
+    assert result.alert_operator is True
 
 
 def test_emergency_stop_overrides_all_other_states():
