@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,11 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _is_safe_candidate_id(candidate_id: str) -> bool:
+    """Allow only portable filename stems before using IDs to locate annotations."""
+    return re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", candidate_id) is not None
 
 
 def audit(manifest: Any, images_dir: Path, annotations_dir: Path | None = None) -> dict:
@@ -84,7 +90,15 @@ def audit(manifest: Any, images_dir: Path, annotations_dir: Path | None = None) 
         if not candidate.get("file_page") or not candidate.get("license_short_name"):
             warnings.append(f"{where}: source page or licence metadata needs manual review")
 
-        if annotations_dir is not None and isinstance(candidate_id, str):
+        safe_candidate_id = (
+            isinstance(candidate_id, str) and _is_safe_candidate_id(candidate_id)
+        )
+        if annotations_dir is not None and isinstance(candidate_id, str) and candidate_id.strip() and not safe_candidate_id:
+            errors.append(
+                f"{where}: candidate_id must be a safe filename stem "
+                "(letters, digits, dot, underscore, hyphen)"
+            )
+        if annotations_dir is not None and safe_candidate_id:
             ann_path = annotations_dir / f"{candidate_id}.json"
             if ann_path.exists():
                 checked_annotations += 1
