@@ -466,3 +466,15 @@ The existing Streamlit app can display an uploaded image. Image display does not
 - [Supervisor implementation](pui89_autonomy/supervisor.py) · [unit tests](tests/test_autonomy_supervisor.py)
 
 The supervisor evaluates supplied status values and recommends an advisory mode: autonomous candidate, safe hold, manual recovery, or stopped. It does not acquire sensor data or command hardware. An autonomous-candidate result is not a safety certification; physical systems require independent safety controls and validation.
+
+## Free-first AI engineering stack
+
+This project adopts a small, cost-controlled toolchain rather than adding multiple overlapping AI platforms.
+
+- **Computer vision:** OpenCV and PyTorch for local image processing and model experiments when the dataset is approved and hardware preflight passes.
+- **Automation:** Python scripts and GitHub Actions for repeatable checks, annotation/data audits, and test summaries; Actions usage remains subject to GitHub quotas.
+- **Testing and observability:** pytest, Ruff where configured, structured run records, versioned manifests, and reproducible benchmark reports.
+- **Agent workflow:** use the existing rule-based decision-support agent first. Add LangGraph or another agent framework only if a concrete multi-step requirement cannot be handled cleanly with current code.
+- **Retrieval:** use repository documentation and ordinary local search first; consider FAISS/Chroma only if a measured retrieval need appears.
+
+**Cost and evidence guardrails:** no paid API, hosted inference, cloud GPU, subscription, or model download is required by this plan. Ask before introducing any cost. Review each model/weight licence separately. Do not begin detector training until image rights, annotations, independent review, and leakage-safe splits pass the existing data gates. CI passing is not detector or physical-robot validation.
