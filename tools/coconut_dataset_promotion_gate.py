@@ -10,6 +10,8 @@ import argparse
 import csv
 import json
 from pathlib import Path
+from urllib.parse import urlparse
+from datetime import date
 
 RIGHTS_REQUIRED = {
     "candidate_id", "filename", "source_page_url", "creator_credit",
@@ -47,6 +49,23 @@ def read_ledger(path: Path, required: set[str]) -> tuple[dict[str, dict[str, str
     return rows_by_id, errors
 
 
+def _is_http_url(value: str) -> bool:
+    """Accept only absolute HTTP(S) URLs with a hostname."""
+    try:
+        parsed = urlparse(value.strip())
+        return parsed.scheme.lower() in {"http", "https"} and bool(parsed.netloc)
+    except ValueError:
+        return False
+
+
+def _is_iso_date(value: str) -> bool:
+    """Require a real ISO calendar date (YYYY-MM-DD)."""
+    try:
+        return date.fromisoformat(value.strip()).isoformat() == value.strip()
+    except (ValueError, TypeError):
+        return False
+
+
 def evaluate(rights_csv: Path, review_csv: Path) -> dict:
     rights, errors = read_ledger(rights_csv, RIGHTS_REQUIRED)
     reviews, review_errors = read_ledger(review_csv, REVIEW_REQUIRED)
@@ -57,8 +76,11 @@ def evaluate(rights_csv: Path, review_csv: Path) -> dict:
         gates = {
             "filename_present": bool(row.get("filename", "").strip()),
             "source_page_present": bool(row.get("source_page_url")),
+            "source_page_is_http_url": _is_http_url(row.get("source_page_url", "")),
             "creator_credit_present": bool(row.get("creator_credit")),
             "licence_and_url_present": bool(row.get("licence_as_displayed") and row.get("licence_url")),
+            "licence_url_is_http_url": _is_http_url(row.get("licence_url", "")),
+            "source_page_check_date_valid": _is_iso_date(row.get("source_page_checked_on", "")),
             "source_page_independently_checked": row.get("independent_page_check", "").lower() == "checked",
             "attribution_recorded": row.get("attribution_recorded", "").lower() == "yes",
             "annotation_qa_passed": row.get("annotation_qa_status", "").lower() == "passed",
