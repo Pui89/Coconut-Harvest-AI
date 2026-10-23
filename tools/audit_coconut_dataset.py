@@ -93,7 +93,12 @@ def audit(manifest: Any, images_dir: Path, annotations_dir: Path | None = None) 
         safe_candidate_id = (
             isinstance(candidate_id, str) and _is_safe_candidate_id(candidate_id)
         )
-        if annotations_dir is not None and isinstance(candidate_id, str) and candidate_id.strip() and not safe_candidate_id:
+        if (
+            annotations_dir is not None
+            and isinstance(candidate_id, str)
+            and candidate_id.strip()
+            and not safe_candidate_id
+        ):
             errors.append(
                 f"{where}: candidate_id must be a safe filename stem "
                 "(letters, digits, dot, underscore, hyphen)"
