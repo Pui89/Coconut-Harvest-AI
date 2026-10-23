@@ -4,6 +4,7 @@ These tests validate manifest bookkeeping only; they do not validate image
 content, annotation quality, dataset licensing, or model performance.
 """
 import csv
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -30,6 +31,49 @@ def row(image_id, filename, split, group_id, sha256):
 
 
 class SplitLeakageAuditEdgeCaseTests(unittest.TestCase):
+    def test_verify_files_detects_manifest_hash_mismatch(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        root = Path(temp.name) / "images"
+        root.mkdir()
+        (root / "one.bin").write_bytes(b"actual image bytes")
+        manifest_temp, manifest = write_manifest([
+            row("one", "one.bin", "train", "session-1", HASH_A),
+        ])
+        self.addCleanup(manifest_temp.cleanup)
+        report = audit_manifest(manifest, verify_files=True, image_root=root)
+        self.assertFalse(report["passed"])
+        self.assertFalse(report["file_hash_checks"][0]["matches"])
+        self.assertTrue(any("does not match file content" in error for error in report["errors"]))
+
+    def test_verify_files_passes_for_actual_sha256(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        root = Path(temp.name) / "images"
+        root.mkdir()
+        content = b"actual image bytes"
+        (root / "one.bin").write_bytes(content)
+        manifest_temp, manifest = write_manifest([
+            row("one", "one.bin", "train", "session-1", hashlib.sha256(content).hexdigest()),
+        ])
+        self.addCleanup(manifest_temp.cleanup)
+        report = audit_manifest(manifest, verify_files=True, image_root=root)
+        self.assertTrue(report["passed"])
+        self.assertTrue(report["file_hash_checks"][0]["matches"])
+
+    def test_verify_files_rejects_path_traversal(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        root = Path(temp.name) / "images"
+        root.mkdir()
+        manifest_temp, manifest = write_manifest([
+            row("one", "../outside.bin", "train", "session-1", HASH_A),
+        ])
+        self.addCleanup(manifest_temp.cleanup)
+        report = audit_manifest(manifest, verify_files=True, image_root=root)
+        self.assertFalse(report["passed"])
+        self.assertTrue(any("outside image root" in error for error in report["errors"]))
+
     def test_header_only_manifest_does_not_pass(self):
         temp, path = write_manifest([])
         self.addCleanup(temp.cleanup)
