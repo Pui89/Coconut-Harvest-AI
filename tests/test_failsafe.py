@@ -1,3 +1,5 @@
+import pytest
+
 from coconut_harvest_robot.failsafe import (
     OperatingMode,
     SystemHealth,
@@ -72,3 +74,48 @@ def test_no_return_battery_reserve_means_manual_recovery():
     result = select_operating_mode(healthy(ai_ready=False, battery_return_reserve_ok=False))
     assert result.mode is OperatingMode.MANUAL_RECOVERY
     assert result.autonomous_motion_allowed is False
+
+
+@pytest.mark.parametrize(
+    "missing_prerequisite",
+    [
+        {"route_verified": False},
+        {"operator_link_ready": False},
+        {"battery_return_reserve_ok": False},
+    ],
+)
+def test_full_ai_operation_requires_route_link_and_return_reserve(missing_prerequisite):
+    result = select_operating_mode(healthy(**missing_prerequisite))
+    assert result.mode is OperatingMode.MANUAL_RECOVERY
+    assert result.harvesting_allowed is False
+    assert result.autonomous_motion_allowed is False
+    assert result.cutter_enabled is False
+    assert result.alert_operator is True
+
+
+@pytest.mark.parametrize(
+    "invalid_signal",
+    [
+        {"ai_ready": None},
+        {"route_verified": 1},
+        {"operator_link_ready": "yes"},
+        {"emergency_stop_active": float("nan")},
+        {"hardware_fault": float("inf")},
+    ],
+)
+def test_invalid_health_signals_fail_closed(invalid_signal):
+    result = select_operating_mode(healthy(**invalid_signal))
+    assert result.mode is OperatingMode.MANUAL_RECOVERY
+    assert result.harvesting_allowed is False
+    assert result.autonomous_motion_allowed is False
+    assert result.cutter_enabled is False
+    assert result.alert_operator is True
+
+
+def test_missing_health_record_fails_closed():
+    result = select_operating_mode(None)
+    assert result.mode is OperatingMode.MANUAL_RECOVERY
+    assert result.harvesting_allowed is False
+    assert result.autonomous_motion_allowed is False
+    assert result.cutter_enabled is False
+    assert result.alert_operator is True
