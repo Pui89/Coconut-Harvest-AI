@@ -5,6 +5,23 @@ from pui89_safety.fault_monitor import (
 )
 
 
+
+def test_decide_response_rejects_non_fault_report():
+    with pytest.raises(TypeError, match="FaultReport"):
+        decide_response(None)
+
+
+@pytest.mark.parametrize(
+    "report",
+    [
+        FaultReport("BAD_DOMAIN", "sensor", Severity.CRITICAL, "bad domain"),
+        FaultReport("BAD_SEVERITY", Domain.SENSOR, "critical", "bad severity"),
+    ],
+)
+def test_decide_response_rejects_invalid_enum_fields(report):
+    with pytest.raises(ValueError, match="fault (domain|severity)"):
+        decide_response(report)
+
 def test_critical_sensor_fault_inhibits_hazardous_actions():
     decision = decide_response(FaultReport("CAMERA_LOST", Domain.SENSOR, Severity.CRITICAL, "Camera unavailable"))
     assert decision.inhibit_hazardous_actions
