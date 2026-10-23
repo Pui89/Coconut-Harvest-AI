@@ -123,3 +123,34 @@ def test_blank_filename_blocks_candidate_even_when_both_ledgers_match(tmp_path):
     assert "review_filename_present" in candidate["failed_gates"]
     assert "review_filename_matches" in candidate["failed_gates"]
 
+
+
+
+def test_non_http_source_or_licence_urls_block_candidate(tmp_path):
+    rights, review = records()
+    rights["source_page_url"] = "javascript:alert(1)"
+    rights["licence_url"] = "file:///private/licence"
+    a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    b = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+    candidate = evaluate(a, b)["candidates"][0]
+    assert not candidate["eligible_for_training"]
+    assert "source_page_is_http_url" in candidate["failed_gates"]
+    assert "licence_url_is_http_url" in candidate["failed_gates"]
+
+
+def test_invalid_source_page_check_date_blocks_candidate(tmp_path):
+    rights, review = records()
+    rights["source_page_checked_on"] = "2026-02-30"
+    a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    b = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+    candidate = evaluate(a, b)["candidates"][0]
+    assert not candidate["eligible_for_training"]
+    assert "source_page_check_date_valid" in candidate["failed_gates"]
+
+
+def test_valid_https_urls_and_iso_date_pass_metadata_checks(tmp_path):
+    rights, review = records()
+    a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    b = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+    candidate = evaluate(a, b)["candidates"][0]
+    assert candidate["eligible_for_training"]
