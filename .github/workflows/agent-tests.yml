@@ -80,9 +80,9 @@ jobs:
         shell: bash
         run: |
           mkdir -p reports
-          if python tools/coconut_dataset_promotion_gate.py \\
-            --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv \\
-            --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv \\
+          if python tools/coconut_dataset_promotion_gate.py \
+            --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv \
+            --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv \
             --output reports/coconut-dataset-readiness.json; then
             echo "result=ready" >> "$GITHUB_OUTPUT"
             echo "Dataset promotion gate: ready (recorded fields only; manual rights/label review still required)."
