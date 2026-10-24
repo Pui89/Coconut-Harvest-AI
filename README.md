@@ -1,5 +1,18 @@
 # Coconut Harvest AI
 
+
+## Current verified status — 25 October 2026
+
+**Stage:** local software, data-quality and evaluation foundations. This repository does not yet demonstrate a validated physical coconut-harvesting robot.
+
+- **SAM 3 segmentation:** the optional local smoke-test script and guide are merged ([PR #80](https://github.com/Pui89/Coconut-Harvest-AI/pull/80)). No SAM 3 inference result has been verified yet. Model weights are downloaded only when the script is run; check compatibility, access terms, disk space and GPU memory first.
+- **Automated checks for the SAM 3 change:** the Python tests, main CI, security checks and Ruff helper review completed successfully for the change's pull-request commit. These checks do not measure segmentation accuracy.
+- **Dataset gate:** the existing project snapshot reports 34 candidate records and 0 approved for training. Resolve label/geometry and source-permission reviews before training or publishing model metrics.
+- **Open review:** the shared fault-monitor contract remains a draft proposal in [PR #79](https://github.com/Pui89/Coconut-Harvest-AI/pull/79); it is not merged into the default branch.
+- **Next:** run the smoke test on one approved local image; review its mask manually; then complete the dataset gate and run a held-out detector benchmark with precision, recall, F1 and latency.
+- **Evidence boundary:** CI success is software evidence only. Coconut detection, maturity classification, 3D targeting, harvest reach, cutting, capture and real-orchard operation remain unvalidated unless separately measured.
+
+
 ![Conceptual coconut harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
 *Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. Reach, stability, tool design, fruit retention, safe lowering, and operation in real orchards remain unvalidated.*
