@@ -10,13 +10,13 @@ From the repository root:
 
 ```bash
 python -m unittest discover -s tests -p "test_evaluate_agentic_workflow.py"
-python tools/evaluate_agentic_workflow.py
+python -m tools.evaluate_agentic_workflow
 ```
 
 To save a report:
 
 ```bash
-python tools/evaluate_agentic_workflow.py --input examples/agentic_workflow.evaluation.json --output agent-evaluation-report.json
+python -m tools.evaluate_agentic_workflow --input examples/agentic_workflow.evaluation.json --output agent-evaluation-report.json
 ```
 
 The report contains case IDs, expected/observed decision status, input hash, pass/fail and timings. The observations themselves are deliberately not copied into the report.
