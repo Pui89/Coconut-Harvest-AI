@@ -51,3 +51,6 @@ Several source candidates are still unlabelled. The review ledger describes cand
 - [Reproducible detection evaluation](REPRODUCIBLE_DETECTION_EVALUATION.md)
 - [Model smoke-test results](model-smoke-test-results.md)
 - [License-first model strategy](LICENSE_FIRST_MODEL_STRATEGY.md)
+
+
+The provenance command's exit status represents source-byte/metadata integrity only. Its JSON separates `failed_provenance_checks` from `approval_gaps`; a provenance pass is not an approval pass, and a draft must remain blocked until actual human QA and the training gate are recorded.
