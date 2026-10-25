@@ -14,6 +14,7 @@ on:
       - "agents/project_agent.py"
       - "tools/evaluate_agentic_workflow.py"
       - "tests/test_evaluate_agentic_workflow.py"
+      - "tests/test_agentic_workflow_stress.py"
       - "examples/agentic_workflow.evaluation.json"
       - "docs/AGENT_EVALUATION_PROTOCOL.md"
       - ".github/workflows/agent-evaluation.yml"
@@ -47,7 +48,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run evaluation-harness unit tests (standard library only)
-        run: python -m unittest discover -s tests -p "test_evaluate_agentic_workflow.py"
+        run: |
+          python -m unittest discover -s tests -p "test_evaluate_agentic_workflow.py"
+          python -m unittest discover -s tests -p "test_agentic_workflow_stress.py"
       - name: Evaluate labelled synthetic scenarios
         run: python -m tools.evaluate_agentic_workflow --input examples/agentic_workflow.evaluation.json --output evaluation-report.json
       - name: Upload synthetic report
