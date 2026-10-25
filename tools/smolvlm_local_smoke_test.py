@@ -8,6 +8,7 @@ for human review, not as a detector result or command.
 from __future__ import annotations
 
 import argparse
+import ctypes
 import hashlib
 import json
 import os
@@ -19,6 +20,29 @@ from pathlib import Path
 from typing import Any
 
 MODEL_ID = "HuggingFaceTB/SmolVLM-256M-Instruct"
+
+
+def available_ram_gib() -> float | None:
+    """Return available physical RAM without a third-party dependency."""
+    try:
+        if os.name == "nt":
+            class MEMORYSTATUSEX(ctypes.Structure):
+                _fields_ = [
+                    ("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
+                    ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
+                    ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                    ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
+                    ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
+                ]
+            status = MEMORYSTATUSEX()
+            status.dwLength = ctypes.sizeof(status)
+            if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
+                return status.ullAvailPhys / (1024 ** 3)
+        page_size = os.sysconf("SC_PAGE_SIZE")
+        available_pages = os.sysconf("SC_AVPHYS_PAGES")
+        return page_size * available_pages / (1024 ** 3)
+    except (AttributeError, OSError, ValueError):
+        return None
 
 
 def sha256_file(path: Path) -> str:
@@ -67,6 +91,15 @@ def run_local_smoke_test(
             + ". The tool will not fetch missing files."
         )
 
+    ram_free_gib = available_ram_gib()
+    if ram_free_gib is None:
+        raise RuntimeError("RAM_PREFLIGHT_UNKNOWN: cannot read available system RAM; run the resource preflight first.")
+    if ram_free_gib < 4.0:
+        raise RuntimeError(
+            f"RAM_PREFLIGHT_BLOCKED: only {ram_free_gib:.2f} GiB available; "
+            "free memory before loading the model or defer this experiment."
+        )
+
     # Set offline flags before importing Hugging Face libraries.
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -79,7 +112,7 @@ def run_local_smoke_test(
         from transformers import AutoModelForVision2Seq, AutoProcessor
     except ImportError as exc:
         raise RuntimeError(
-            "DEPENDENCIES_MISSING: install compatible torch, transformers and Pillow "
+            "DEPENDENCIES_MISSING: install compatible torch, transformers, Pillow and accelerate "
             "manually in an isolated local environment only after reviewing licence and disk/RAM/VRAM."
         ) from exc
 
@@ -99,10 +132,11 @@ def run_local_smoke_test(
             "gpu_name": torch.cuda.get_device_name(0),
             "free_vram_gib_before_load": round(free_vram_gib, 3),
             "total_vram_gib": round(total_bytes / (1024**3), 3),
+            "available_ram_gib_before_load": round(ram_free_gib, 3),
         }
     else:
         device = "cpu"
-        device_summary = {"requested": "cpu", "note": "CPU selected to reduce VRAM pressure."}
+        device_summary = {"requested": "cpu", "note": "CPU selected to reduce VRAM pressure.", "available_ram_gib_before_load": round(ram_free_gib, 3)}
 
     manifest = model_manifest(model_dir)
     model_weight_sha256 = sha256_file(model_dir / "model.safetensors")
