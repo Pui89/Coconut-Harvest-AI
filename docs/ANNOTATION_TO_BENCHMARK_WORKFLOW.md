@@ -6,6 +6,20 @@ The offline annotator exports normalized boxes plus the image dimensions. The be
 
 From the repository root, open `tools/coconut_annotator.html` locally, annotate only individually distinguishable coconuts, export the JSON, and inspect every image at full resolution. Geometry checks do not establish that a box truly matches a coconut; arrange independent human label QA before benchmark use.
 
+
+## Candidate 0032: preserve source metadata during manual review
+
+For the existing candidate-0032 draft, use the local original image with basename `0032_Coconut_in_Coconut_Tree.jpg`:
+
+1. Open `tools/coconut_annotator.html` in a local browser.
+2. Select the byte-identical original image file with that exact basename.
+3. Choose **Import saved JSON** and select `data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json`.
+4. Review and correct every box at full resolution; remove false boxes and add only visibly identifiable missed fruit.
+5. Export the JSON. The annotator preserves the imported source metadata only when the single imported draft and selected image match by filename. Exported files always set `human_qa_acknowledged: false` and `training_approved: false`; export does not assert that a review has passed.
+6. If the source hash is still a placeholder, follow [Coconut Dataset Readiness](COCONUT_DATASET_READINESS.md) to run the source fingerprint check, record SHA-256 only after the fingerprint passes, and rerun the independent provenance audit.
+
+If you annotate multiple images, or the imported source metadata does not match the selected single image, the export deliberately omits the single-source provenance object. Keep that export as an unapproved draft and reconcile its source metadata before any downstream benchmark workflow.
+
 ## 2. Validate the JSON without creating evaluator input
 
 ```powershell
