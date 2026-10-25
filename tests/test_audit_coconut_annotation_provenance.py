@@ -153,4 +153,4 @@ def test_hash_updates_do_not_automatically_approve_training(tmp_path):
     assert report["provenance_passed"] is True
     assert report["human_qa_acknowledged"] is True
     assert report["ready_for_training"] is False
-    assert "training_approved" in report["failed_provenance_checks"]
+    assert "training_approved" in report["approval_gaps"]
