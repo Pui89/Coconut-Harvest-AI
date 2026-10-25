@@ -86,9 +86,15 @@ def run_scenarios(config_path: Path, output_dir: Path) -> dict[str, Any]:
     total_steps = passed_steps = 0
     for scenario in config["scenarios"]:
         sim_time, scenario_ok = 0.0, True
+        world_state: dict[str, Any] = {}
         for index, step in enumerate(scenario["steps"], 1):
             sim_time = round(sim_time + float(step.get("dt_s", 1.0)), 6)
-            state = dict(step.get("state", {}))  # a complete, logged snapshot for this simulated tick
+            # State updates persist within a scenario; each row records the full snapshot.
+            for key in step.get("remove_state_keys", []):
+                world_state.pop(key, None)
+            world_state.update(step.get("state", {}))
+            state = dict(world_state)
+            start = time.perf_counter()
             start = time.perf_counter()
             actual, trace = policy.propose(state, config["action_if_ready"])
             latency_ms = round((time.perf_counter() - start) * 1000.0, 4)
