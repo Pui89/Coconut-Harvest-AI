@@ -3,6 +3,7 @@
 ## Free-first offline engineering tools
 
 - Free offline dataset/annotation checks (provenance, normalized boxes, duplicate hashes): `scripts/free_first_project_tools.py`; tests: `tests/test_free_first_project_tools.py`.
+- Dependency-free precision, recall, F1 and confusion-count metrics for later reproducible model evaluation; no accuracy claims are made until measured on a leakage-safe held-out set.
 
 ## Frontier AI technology and free-first upgrade plan
 
