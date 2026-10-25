@@ -27,7 +27,7 @@ Several source candidates are still unlabelled. The review ledger describes cand
 
    Before editing labels, compare the annotation draft's recorded source hash with the actual local file bytes (the current draft contains a placeholder, so the check should fail until corrected):
 
-       python tools/audit_coconut_annotation_provenance.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\\path\\to\\candidate_0032.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --candidate-id 0032 --output provenance-audit.json
+       python tools/audit_coconut_annotation_provenance.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\path\to\candidate_0032.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --candidate-id 0032 --output provenance-audit.json
 
    Replace the example image path with the exact original image file on the local machine. The tool computes the actual SHA-256 and reports mismatches; it does not edit the annotation JSON, confirm legal rights, approve labels, or authorize training.
 
