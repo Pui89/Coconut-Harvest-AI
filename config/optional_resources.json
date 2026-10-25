@@ -67,6 +67,70 @@
       "license_note": "Apache-2.0 engine; review language data/package details.",
       "official_url": "https://tesseract-ocr.github.io/tessdoc/",
       "limitation": "Not useful for maturity detection by itself."
+    },
+    {
+      "id": "smolagents",
+      "name": "smolagents",
+      "check": "python_module",
+      "module": "smolagents",
+      "distributions": [
+        "smolagents"
+      ],
+      "priority": "optional",
+      "purpose": "Optional local model tool-calling agent; use fixed read-only tools only.",
+      "license_note": "Apache-2.0 library; model, tool and sandbox terms are separate. Local model path avoids hosted inference fees.",
+      "official_url": "https://github.com/huggingface/smolagents",
+      "limitation": "Do not use unrestricted CodeAgent or treat agent-generated code as a security boundary."
+    },
+    {
+      "id": "langgraph",
+      "name": "LangGraph",
+      "check": "python_module",
+      "module": "langgraph",
+      "distributions": [
+        "langgraph"
+      ],
+      "priority": "optional",
+      "purpose": "Optional local stateful workflow/orchestration with explicit branches and review checkpoints.",
+      "license_note": "MIT library; hosted observability/deployment is optional. Keep model provider local to avoid API fees.",
+      "official_url": "https://github.com/langchain-ai/langgraph",
+      "limitation": "Orchestration does not improve perception accuracy by itself and adds dependencies."
+    },
+    {
+      "id": "pydantic-ai",
+      "name": "PydanticAI",
+      "check": "python_module",
+      "module": "pydantic_ai",
+      "distributions": [
+        "pydantic-ai"
+      ],
+      "priority": "optional",
+      "purpose": "Optional typed agent interfaces and test/evaluation helpers.",
+      "license_note": "MIT library; live inference cost depends on provider. Use local provider or test model only.",
+      "official_url": "https://github.com/pydantic/pydantic-ai",
+      "limitation": "Test models validate application logic, not real-world model accuracy."
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama local model runtime",
+      "check": "command",
+      "command": "ollama",
+      "priority": "optional",
+      "purpose": "Optional local inference for a manually selected and already downloaded model.",
+      "license_note": "MIT runtime; each model's licence/size is separate; no hosted API is required.",
+      "official_url": "https://github.com/ollama/ollama",
+      "limitation": "Presence check does not inspect installed model weights; never pull a model without approval and resource/licence review."
+    },
+    {
+      "id": "llama-cpp-cli",
+      "name": "llama.cpp local inference CLI",
+      "check": "command",
+      "command": "llama-cli",
+      "priority": "optional",
+      "purpose": "Alternative local inference runtime for supported GGUF model files.",
+      "license_note": "MIT runtime; exact models and bundled components have separate terms.",
+      "official_url": "https://github.com/ggml-org/llama.cpp",
+      "limitation": "Build/runtime compatibility and model memory use must be checked; optional alternative to Ollama."
     }
   ]
 }
