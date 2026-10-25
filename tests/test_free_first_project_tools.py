@@ -20,6 +20,11 @@ class FreeFirstTests(unittest.TestCase):
         self.assertFalse(result["training_approved"])
         self.assertTrue(any("duplicate" in e["issue"] for e in result["errors"]))
 
+    def test_missing_hash_blocks_dataset_approval(self):
+        row={"image_path":"img.jpg","source_id":"source-1","licence":"CC0",
+             "maturity_class":"mature_green","bbox_xyxy":[0.1,0.2,0.7,0.9]}
+        self.assertFalse(audit_records([row])["training_approved"])
+
     def test_finite_confidence_helper(self):
         self.assertTrue(finite_unit_interval(0.0))
         self.assertFalse(finite_unit_interval(float("nan")))
