@@ -24,6 +24,42 @@ REVIEW_REQUIRED = {
     "source_page_independently_checked", "review_decision", "review_notes",
 }
 
+# These groups organise manual follow-up only. They never change a gate to pass.
+GATE_ACTION_GROUPS = (
+    (
+        "source_rights_and_attribution",
+        (
+            "source_page_present", "source_page_is_http_url",
+            "creator_credit_present", "licence_and_url_present",
+            "licence_url_is_http_url", "source_page_check_date_valid",
+            "source_page_independently_checked", "attribution_recorded",
+        ),
+        "Verify the original source page, creator credit, licence terms and attribution; record only findings that were actually checked.",
+    ),
+    (
+        "record_consistency",
+        (
+            "filename_present", "matching_review_record",
+            "review_filename_present", "review_filename_matches",
+            "review_source_checked",
+        ),
+        "Reconcile the rights and visual-review ledgers; filenames and source-review records must agree.",
+    ),
+    (
+        "human_annotation_review",
+        (
+            "annotation_qa_passed", "label_qa_passed",
+            "candidate_review_approved", "positive_target_candidate",
+        ),
+        "Review the original image and annotations at native resolution, correct boxes, and record an independent human QA decision. Geometry checks alone are not label approval.",
+    ),
+    (
+        "explicit_training_approval",
+        ("rights_ledger_training_approved",),
+        "Record training approval only after rights and independent annotation review are genuinely complete; never auto-approve from metadata alone.",
+    ),
+)
+
 
 def read_ledger(path: Path, required: set[str]) -> tuple[dict[str, dict[str, str]], list[str]]:
     errors: list[str] = []
@@ -106,6 +142,34 @@ def evaluate(rights_csv: Path, review_csv: Path) -> dict:
     if unmatched_reviews:
         errors.append("Review ledger has candidate IDs absent from rights ledger: " + ", ".join(unmatched_reviews))
     eligible = sum(c["eligible_for_training"] for c in candidates)
+    gate_failure_counts: dict[str, int] = {}
+    for candidate in candidates:
+        for gate in candidate["failed_gates"]:
+            gate_failure_counts[gate] = gate_failure_counts.get(gate, 0) + 1
+
+    top_blockers = [
+        {
+            "gate": gate,
+            "affected_candidate_count": count,
+        }
+        for gate, count in sorted(
+            gate_failure_counts.items(), key=lambda item: (-item[1], item[0])
+        )
+    ]
+
+    recommended_next_steps = []
+    for group_name, group_gates, instruction in GATE_ACTION_GROUPS:
+        affected = sum(
+            any(gate in candidate["failed_gates"] for gate in group_gates)
+            for candidate in candidates
+        )
+        if affected:
+            recommended_next_steps.append({
+                "group": group_name,
+                "affected_candidate_count": affected,
+                "instruction": instruction,
+            })
+
     return {
         "format": "pui89-coconut-promotion-gate-v1",
         "rights_ledger": str(rights_csv),
@@ -113,6 +177,9 @@ def evaluate(rights_csv: Path, review_csv: Path) -> dict:
         "candidate_count": len(candidates),
         "eligible_count": eligible,
         "blocked_count": len(candidates) - eligible,
+        "gate_failure_counts": gate_failure_counts,
+        "top_blockers": top_blockers,
+        "recommended_next_steps": recommended_next_steps,
         "ready_for_training": bool(candidates) and not errors and eligible == len(candidates),
         "errors": errors,
         "candidates": candidates,
