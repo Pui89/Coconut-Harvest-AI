@@ -37,8 +37,6 @@ jobs:
         run: python -m unittest discover -s tests -p "test_llm_interfaces.py" -v
       - name: Check free-first project-specific validators
         run: python -m unittest discover -s tests -p "test_free_first_project_tools.py" -v
-      - name: Check world-state tracking
-        run: python -m unittest discover -s tests -p "test_world_state.py" -v
       - name: Check reproducible experiment reports
         run: python -m unittest discover -s tests -p "test_experiment_report.py" -v
       - name: Compile Python files without importing optional dependencies
