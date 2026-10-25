@@ -42,9 +42,12 @@ def required_nonempty_text(value: Any) -> bool:
 def validate_annotation(record: Mapping[str, Any]) -> list[str]:
     """Validate a normalized xyxy box and minimum source provenance fields."""
     errors = []
-    for key in ("image_path", "source_id", "licence"):
+    for key in ("image_path", "source_id", "licence", "sha256"):
         if not required_nonempty_text(record.get(key)):
             errors.append(f"{key} must be supplied and non-empty")
+    digest = record.get("sha256")
+    if required_nonempty_text(digest) and (len(digest) != 64 or any(ch not in "0123456789abcdef" for ch in digest.lower())):
+        errors.append("sha256 must be a 64-character hexadecimal digest")
     box = record.get("bbox_xyxy")
     if not isinstance(box, (list, tuple)) or len(box) != 4:
         errors.append("bbox_xyxy must contain four normalized coordinates")
@@ -94,8 +97,8 @@ def binary_classification_metrics(y_true: Iterable[int | bool], y_pred: Iterable
     truth, predicted = list(y_true), list(y_pred)
     if not truth or len(truth) != len(predicted):
         raise ValueError("y_true and y_pred must be non-empty and have equal lengths")
-    if any(v not in (0, 1, False, True) for v in truth + predicted):
-        raise ValueError("labels must contain only binary 0/1 values")
+    if any(not isinstance(v, bool) and (not isinstance(v, int) or v not in (0, 1)) for v in truth + predicted):
+        raise ValueError("labels must contain only integer 0/1 values or booleans")
     truth = [int(v) for v in truth]
     predicted = [int(v) for v in predicted]
     tp = sum(t == 1 and p == 1 for t, p in zip(truth, predicted))
