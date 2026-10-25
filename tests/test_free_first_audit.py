@@ -39,10 +39,11 @@ def test_audit_is_offline_and_hashes_small_dataset_files(tmp_path: Path) -> None
     assert report["dependencies_installed"] is False
     assert report["model_weights_downloaded"] is False
     assert report["python_syntax_errors"] == []
-    assert report["dataset_files_found"] == 1
-    assert report["dataset_file_inventory"][0]["sha256"] == hashlib.sha256(
-        image.read_bytes()
-    ).hexdigest()
+    assert report["dataset_files_found"] == 2
+    image_record = next(
+        item for item in report["dataset_file_inventory"] if item["path"] == "data/images/sample.jpg"
+    )
+    assert image_record["sha256"] == hashlib.sha256(image.read_bytes()).hexdigest()
     assert report["dataset_documentation_candidates_found"]
 
 
