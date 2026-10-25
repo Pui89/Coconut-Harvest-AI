@@ -83,3 +83,30 @@ def audit_records(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
         "errors": errors,
         "note": "Manifest checks do not establish image rights, label correctness, or model performance; review those independently.",
     }
+
+
+def binary_classification_metrics(y_true: Iterable[int | bool], y_pred: Iterable[int | bool]) -> dict[str, float | int]:
+    """Compute reproducible binary metrics without third-party dependencies.
+
+    Inputs must be equal-length, non-empty sequences containing only 0/1 or bool.
+    This reports metrics; it does not certify a model or set a deployment threshold.
+    """
+    truth, predicted = list(y_true), list(y_pred)
+    if not truth or len(truth) != len(predicted):
+        raise ValueError("y_true and y_pred must be non-empty and have equal lengths")
+    if any(v not in (0, 1, False, True) for v in truth + predicted):
+        raise ValueError("labels must contain only binary 0/1 values")
+    truth = [int(v) for v in truth]
+    predicted = [int(v) for v in predicted]
+    tp = sum(t == 1 and p == 1 for t, p in zip(truth, predicted))
+    tn = sum(t == 0 and p == 0 for t, p in zip(truth, predicted))
+    fp = sum(t == 0 and p == 1 for t, p in zip(truth, predicted))
+    fn = sum(t == 1 and p == 0 for t, p in zip(truth, predicted))
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {
+        "sample_count": len(truth), "tp": tp, "tn": tn, "fp": fp, "fn": fn,
+        "accuracy": (tp + tn) / len(truth), "precision": precision,
+        "recall": recall, "f1": f1,
+    }
