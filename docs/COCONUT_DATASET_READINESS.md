@@ -35,6 +35,8 @@ Several source candidates are still unlabelled. The review ledger describes cand
 
 ## Related tools
 
+- [Image inventory coverage audit](COCONUT_MANIFEST_COVERAGE_AUDIT.md)
+
 - [First real-image benchmark checklist](FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md)
 - [Dataset split-leakage audit](DATASET_SPLIT_LEAKAGE_AUDIT.md)
 - [Reproducible detection evaluation](REPRODUCIBLE_DETECTION_EVALUATION.md)
