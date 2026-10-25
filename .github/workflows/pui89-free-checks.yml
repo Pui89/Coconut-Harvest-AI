@@ -37,8 +37,27 @@ jobs:
         run: python -m unittest discover -s tests -p "test_llm_interfaces.py" -v
       - name: Check free-first project-specific validators
         run: python -m unittest discover -s tests -p "test_free_first_project_tools.py" -v
-      - name: Test offline audit utility
-        run: python -m unittest discover -s tests -p "test_free_first_audit.py" -v
+      - name: Test offline audit utility (stdlib runner)
+        run: |
+          python - <<'PY'
+          import importlib.util
+          import tempfile
+          from pathlib import Path
+
+          path = Path("tests/test_free_first_audit.py")
+          spec = importlib.util.spec_from_file_location("free_first_audit_tests", path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          tests = [
+              module.test_audit_is_offline_and_hashes_small_dataset_files,
+              module.test_audit_reports_python_syntax_errors_without_installing_anything,
+              module.test_audit_skips_virtual_environment_files,
+          ]
+          for test in tests:
+              with tempfile.TemporaryDirectory() as directory:
+                  test(Path(directory))
+              print(f"PASS: {test.__name__}")
+          PY
       - name: Check world state unit tests
         run: python -m unittest discover -s tests -p "test_world_state.py" -v
       - name: Check reproducible experiment reports
