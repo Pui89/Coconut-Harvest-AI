@@ -37,6 +37,22 @@ def validate(path: Path) -> list[str]:
                 for field in ("candidate_id", "filename", "group_id", "decision", "reviewer", "reviewed_on", "source_url"):
                     if not values[field]:
                         errors.append(f"{prefix}: {field} is required")
+                # Catch common untouched template markers before a ledger is treated as reviewed evidence.
+                if values["filename"] and "example" in values["filename"].casefold():
+                    errors.append(f"{prefix}: filename still looks like a template placeholder")
+                if values["group_id"] and "tree_or_source_session" in values["group_id"].casefold():
+                    errors.append(f"{prefix}: group_id still looks like a template placeholder")
+                if values["reviewer"].casefold() in {"reviewer_initials", "your_name", "todo"}:
+                    errors.append(f"{prefix}: reviewer still looks like a template placeholder")
+                if values["source_url"]:
+                    from urllib.parse import urlparse
+                    parsed_source = urlparse(values["source_url"])
+                    if parsed_source.hostname and parsed_source.hostname.casefold() in {
+                        "example.org", "example.com", "example.net"
+                    }:
+                        errors.append(f"{prefix}: source_url uses a reserved example domain; replace it with the real source page")
+                    elif parsed_source.scheme.casefold() not in {"http", "https"} or not parsed_source.hostname:
+                        errors.append(f"{prefix}: source_url must be an absolute HTTP(S) URL")
                 cid = values["candidate_id"]
                 name = values["filename"].casefold()
                 group_id = values["group_id"]
