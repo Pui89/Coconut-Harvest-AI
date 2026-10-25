@@ -1,0 +1,10 @@
+{
+  "scenario_id": "SYNTHETIC-CHECK-ONLY-COCONUT-001",
+  "sensor_ok": true,
+  "target_detected": true,
+  "confidence": 0.74,
+  "depth_m": 6,
+  "reachable": true,
+  "obstacle_clear": true,
+  "human_approved": false
+}

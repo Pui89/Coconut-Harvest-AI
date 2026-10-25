@@ -82,7 +82,9 @@ def run_agentic_workflow(observation: Any) -> dict[str, Any]:
         if not callable(serializer):
             raise TypeError("Project agent returned no structured serializer.")
         decision = serializer()
-    except (AttributeError, TypeError, ValueError, OverflowError):
+    except Exception:
+        # Fail closed at the decision-agent boundary. Do not expose exception
+        # text, which may contain sensitive inputs or environment details.
         trace.append({"step": "project_agent", "status": "failed"})
         return _report(
             project="pui89",

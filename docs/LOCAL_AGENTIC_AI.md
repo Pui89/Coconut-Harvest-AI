@@ -63,3 +63,18 @@ No framework or runtime is installed by this documentation change. Software lice
 ## Safety boundary
 
 An AI proposal is not permission to pick a fruit. Target maturity, cutting position, reachable height (including the 0–30 m concept target), obstacle clearance and all hardware capability claims require independent evidence. The agent must not turn the conceptual reach target into a capability claim.
+
+
+## Run the current local agentic workflow
+
+The current coordinator is intentionally model-optional. To execute its existing deterministic project agent against a synthetic example, run this from the repository root:
+
+    python -m tools.run_agentic_workflow --input examples/agentic_workflow.synthetic.json
+
+Or pipe JSON into it in Windows Command Prompt:
+
+    type examples\agentic_workflow.synthetic.json | python -m tools.run_agentic_workflow
+
+It prints one JSON report containing the project decision, validation trace, evidence SHA-256 and explicit flags stating that no network, model inference, execution or actuator command was used. A result called \`PROPOSAL_READY_FOR_HUMAN_REVIEW\` means a proposal was created; it is **not** a robot-ready or approved action. Inspect the nested \`decision.status\`, \`decision.recommendation\`, \`issues\` and \`trace\`.
+
+The example input is synthetic software-test data only. Values are not real detector outputs, physical sensor measurements, validated water depths, or authorization to operate a robot. Do not use these examples for real harvesting, rescue or screening decisions.
