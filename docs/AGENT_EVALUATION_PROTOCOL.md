@@ -40,3 +40,7 @@ A PASS means only that the checked synthetic cases matched their expected decisi
 - **Coconut Harvest AI:** status checks do not establish coconut detection accuracy, maturity classification accuracy, 0–30 m reach, or a validated harvesting robot.
 - **Multimodal Narcotics Screening AI:** status checks do not identify a substance, establish contraband, infer guilt, or authorize enforcement. Expert human review is required for any real screening workflow.
 - **Extreme Flood Rescue AI:** simulated status checks do not prove flood navigation, buoyancy, waterproofing, victim detection, rescue capability or operation at any particular water depth.
+
+## Adversarial workflow regression
+
+The separate `tests/test_agentic_workflow_stress.py` suite mutates synthetic observations with invalid types, misleading approval values, conflicting safety flags, nested untrusted command-like fields, non-finite numbers, and injected project-agent failures. It asserts review-required output and false network/model/execution/actuator flags. This is a bounded regression matrix, not formal verification or a complete security audit.
