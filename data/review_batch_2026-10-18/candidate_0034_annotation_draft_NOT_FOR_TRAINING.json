@@ -1,0 +1,27 @@
+{
+  "format": "pui89-coconut-annotation-draft-v0.1",
+  "candidate_id": "0034",
+  "filename": "0034_Coconut_fruits.jpg",
+  "source_page": "https://commons.wikimedia.org/wiki/File:Coconut_fruits.jpg",
+  "creator": "Vinshi (Vishwas Suryawanshi)",
+  "licence": "Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)",
+  "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "source_page_checked_on": "2026-10-25",
+  "image_dimensions_source_pixels": [
+    2048,
+    1536
+  ],
+  "coordinate_status": "NO_BOX_COORDINATES; NATIVE-RESOLUTION_ANNOTATION_REQUIRED",
+  "annotation_status": "VISUAL_TRIAGE_ONLY_PENDING_NATIVE_IMAGE_ANNOTATION_AND_INDEPENDENT_VISUAL_QA",
+  "eligible_for_training": false,
+  "boxes_xyxy_source_pixels": [],
+  "notes": [
+    "The Wikimedia Commons source page was opened and inspected on 2026-10-25. It identifies Vinshi (Vishwas Suryawanshi) as the creator and displays CC BY-SA 3.0.",
+    "The original file is listed as 2048 x 1536 pixels. The image shows an attached central bunch of green coconuts, with substantial fruit-to-fruit overlap.",
+    "Some fruit boundaries are obscured by neighboring coconuts, stems, and palm fronds. Background fruit clusters should not be boxed unless each individual fruit is distinguishable at native resolution.",
+    "No bounding-box coordinates are supplied: a scaled browser preview is not a safe basis for exact source-pixel coordinates. Open the original image at native resolution in the local annotation workflow.",
+    "Annotate only individually distinguishable fruit. Do not infer hidden fruit or force a box around ambiguous overlap; record uncertain regions for independent review.",
+    "This file records source metadata and a visual-triage handoff only. It does not represent completed annotation or independent label QA.",
+    "Do not mark annotation QA as passed or promote this image to training until native-resolution boxes are created, rendered overlays are visually checked, an independent review is recorded, and the dataset promotion gate passes."
+  ]
+}
