@@ -1,2 +1,2 @@
 candidate_id,filename,group_id,decision,reason_code,reviewer,reviewed_on,source_url,rights_status,annotation_status,split
-0001,coconut_example.jpg,tree_or_source_session_0001,deferred,source_not_checked,reviewer_initials,2026-10-21,,not_checked,unreviewed,unassigned
+0001,coconut_example.jpg,tree_or_source_session_0001,deferred,source_not_checked,reviewer_initials,2026-10-21,https://example.org/replace-with-real-source-page,not_checked,unreviewed,unassigned
