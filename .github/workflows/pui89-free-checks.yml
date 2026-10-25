@@ -5,7 +5,8 @@ on:
     paths:
       - "pui89_autonomy/**"
       - "tests/**"
-      - "scripts/pui89_project_health_check.py"
+      - "docs/**"
+      - "scripts/**"
       - ".github/workflows/pui89-free-checks.yml"
   pull_request:
     paths:
@@ -36,6 +37,8 @@ jobs:
         run: python -m unittest discover -s tests -p "test_llm_interfaces.py" -v
       - name: Check free-first project-specific validators
         run: python -m unittest discover -s tests -p "test_free_first_project_tools.py" -v
+      - name: Compile Python files without importing optional dependencies
+        run: python -m compileall -q pui89_autonomy scripts tests
       - name: Check project Python syntax and repository structure
         run: python scripts/pui89_project_health_check.py
       - name: Record scope limits
