@@ -1,10 +1,22 @@
 # Free-first Robotics Stack Selection for PUI89
 
-Last reviewed: 25 October 2026
+Last reviewed: 26 October 2026
 
 ## Decision
 
 Keep Phase 1 as the standard-library Python autonomy lab. Do not install a robotics stack or download a VLM as part of this PR. The software below is available without a licence purchase, but installation consumes disk/RAM/CPU/GPU and may require compatible operating systems and hardware. A physical robot, flight controller, sensors, batteries, tools, network access and field testing are not free.
+
+
+## Version-selection note — reviewed 26 October 2026
+
+- **Newer LTS candidate:** ROS 2 Lyrical Luth is supported until May 2031; its Tier 1 operating systems are Ubuntu 26.04 and Windows 11. The Gazebo compatibility matrix lists Lyrical + Gazebo Jetty as the recommended pairing.
+- **Established alternative:** ROS 2 Jazzy + Gazebo Harmonic remains a documented pairing for Ubuntu 24.04 and established tutorials, with Jazzy support scheduled through May 2029.
+- **Documentation caution:** the Gazebo pairing page's compatibility matrix lists Lyrical + Jetty, while its opening new-user paragraph still recommends Jazzy + Harmonic. Verify the distro-specific installation guide before selecting either route; do not mix ROS/Gazebo binary packages.
+- **Isaac ROS 5.0:** announced on 22 September 2026 with agent-ready development workflows and ROS 2 Lyrical support. Its accelerated packages have specific platform and hardware requirements; it is not required for the current software-only phase.
+
+Sources: [ROS 2 Lyrical announcement](https://discourse.openrobotics.org/t/ros-2-lyrical-luth-released/55021), [Gazebo ROS pairing matrix](https://gazebosim.org/docs/jetty/ros_installation/), and [NVIDIA Isaac ROS 5.0 announcement](https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/).
+
+**Decision for the current phase:** continue the standard-library Python lab. Do not install packages or download models in this update. Before a later simulator trial, confirm the operating system, free disk, RAM/VRAM, and the exact supported version pairing. Treat all simulator outputs as simulation evidence only.
 
 ## Recommended shared stack
 
