@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import py_compile
+import tokenize
 import sys
 from pathlib import Path
 
@@ -42,7 +43,8 @@ def main() -> int:
     syntax_errors = []
     for path in files:
         try:
-            source = path.read_text(encoding="utf-8")
+            with tokenize.open(path) as source_file:
+                source = source_file.read()
             compile(source, str(path), "exec")
         except (SyntaxError, UnicodeDecodeError, OSError) as exc:
             syntax_errors.append({"file": str(path.relative_to(ROOT)), "error": str(exc)})
