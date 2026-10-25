@@ -9,13 +9,14 @@ from datetime import date
 from pathlib import Path
 
 REQUIRED = {
-    "candidate_id", "filename", "decision", "reason_code", "reviewer",
+    "candidate_id", "filename", "group_id", "decision", "reason_code", "reviewer",
     "reviewed_on", "source_url", "rights_status", "annotation_status", "split",
 }
 DECISIONS = {"approved", "reject", "quarantine_rights", "quarantine_annotation", "challenge", "deferred"}
 RIGHTS = {"cleared", "unresolved", "not_checked", "not_applicable"}
 ANNOTATIONS = {"reviewed", "unreviewed", "disputed", "not_applicable"}
 SPLITS = {"train", "validation", "test", "challenge", "unassigned"}
+ASSIGNED_SPLITS = {"train", "validation", "test", "challenge"}
 
 
 def validate(path: Path) -> list[str]:
@@ -29,14 +30,16 @@ def validate(path: Path) -> list[str]:
                 return [f"missing required columns: {', '.join(missing)}"]
             seen_ids: set[str] = set()
             seen_names: set[str] = set()
+            group_splits: dict[str, str] = {}
             for line, row in enumerate(reader, start=2):
                 prefix = f"line {line}"
                 values = {key: (row.get(key) or "").strip() for key in REQUIRED}
-                for field in ("candidate_id", "filename", "decision", "reviewer", "reviewed_on", "source_url"):
+                for field in ("candidate_id", "filename", "group_id", "decision", "reviewer", "reviewed_on", "source_url"):
                     if not values[field]:
                         errors.append(f"{prefix}: {field} is required")
                 cid = values["candidate_id"]
                 name = values["filename"].casefold()
+                group_id = values["group_id"]
                 if cid:
                     if cid in seen_ids:
                         errors.append(f"{prefix}: duplicate candidate_id {cid!r}")
@@ -59,14 +62,26 @@ def validate(path: Path) -> list[str]:
                     errors.append(f"{prefix}: invalid rights_status {values['rights_status']!r}")
                 if values["annotation_status"] and values["annotation_status"] not in ANNOTATIONS:
                     errors.append(f"{prefix}: invalid annotation_status {values['annotation_status']!r}")
-                if values["split"] and values["split"] not in SPLITS:
-                    errors.append(f"{prefix}: invalid split {values['split']!r}")
+                split = values["split"]
+                if split and split not in SPLITS:
+                    errors.append(f"{prefix}: invalid split {split!r}")
+                # Keep every view from the same tree/source/session in one assigned split.
+                # Unassigned candidates are not considered part of a training/evaluation split.
+                if group_id and split in ASSIGNED_SPLITS:
+                    previous_split = group_splits.get(group_id)
+                    if previous_split is not None and previous_split != split:
+                        errors.append(
+                            f"{prefix}: group_id {group_id!r} appears in both {previous_split!r} and {split!r}; "
+                            "keep each tree/source/session group in one split"
+                        )
+                    else:
+                        group_splits[group_id] = split
                 if decision == "approved":
                     if values["rights_status"] != "cleared":
                         errors.append(f"{prefix}: approved candidate requires rights_status=cleared")
                     if values["annotation_status"] != "reviewed":
                         errors.append(f"{prefix}: approved candidate requires annotation_status=reviewed")
-                    if values["split"] not in {"train", "validation", "test", "challenge"}:
+                    if split not in ASSIGNED_SPLITS:
                         errors.append(f"{prefix}: approved candidate requires an assigned split")
                 if decision in {"reject", "quarantine_rights", "quarantine_annotation", "deferred"} and not values["reason_code"]:
                     errors.append(f"{prefix}: decision {decision!r} requires reason_code")
