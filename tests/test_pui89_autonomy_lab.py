@@ -31,4 +31,33 @@ class MockVLAGuardTests(unittest.TestCase):
         self.assertFalse(report["hardware_actuation"])
         self.assertEqual(report["model_id"],"HuggingFaceTB/SmolVLM-256M-Instruct")
 
+
+    def test_world_state_persists_and_recovers(self):
+        config = {
+            "schema_version": 1,
+            "project_id": "world-state-test",
+            "action_if_ready": "CONTINUE_SIMULATION_ONLY",
+            "scenarios": [{
+                "id": "fault-and-recovery",
+                "seed": 42,
+                "steps": [
+                    {"state": {"sensors_ok": True, "sensor_data_fresh": True, "confidence": 0.9},
+                     "expected_action": "CONTINUE_SIMULATION_ONLY"},
+                    {"state": {"sensor_data_fresh": False},
+                     "expected_action": "SAFE_HOLD"},
+                    {"state": {"sensor_data_fresh": True},
+                     "expected_action": "CONTINUE_SIMULATION_ONLY"}
+                ]
+            }]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            config_path = root / "scenarios.json"
+            config_path.write_text(json.dumps(config), encoding="utf-8")
+            report = run_scenarios(config_path, root / "reports")
+        self.assertEqual(report["metrics"]["failure_count"], 0)
+        self.assertTrue(report["steps"][1]["state"]["sensors_ok"])
+        self.assertFalse(report["steps"][1]["state"]["sensor_data_fresh"])
+        self.assertTrue(report["steps"][2]["state"]["sensor_data_fresh"])
+
 if __name__ == "__main__": unittest.main()
