@@ -1,0 +1,44 @@
+name: PUI89 Free Local Checks
+
+on:
+  push:
+    paths:
+      - "pui89_autonomy/**"
+      - "tests/**"
+      - "scripts/pui89_project_health_check.py"
+      - ".github/workflows/pui89-free-checks.yml"
+  pull_request:
+    paths:
+      - "pui89_autonomy/**"
+      - "tests/**"
+      - "scripts/pui89_project_health_check.py"
+      - ".github/workflows/pui89-free-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  standard-library-checks:
+    name: No-download safety and interface tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check autonomy supervisor
+        run: python -m unittest discover -s tests -p "test_autonomy_supervisor.py" -v
+      - name: Check vision and action-plan contracts
+        run: python -m unittest discover -s tests -p "test_llm_interfaces.py" -v
+      - name: Check project Python syntax and repository structure
+        run: python scripts/pui89_project_health_check.py
+      - name: Record scope limits
+        run: |
+          echo "## PUI89 Free Checks" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Standard-library tests and Python syntax checks only." >> "$GITHUB_STEP_SUMMARY"
+          echo "- No model downloads, paid APIs, cloud GPU, or hardware commands." >> "$GITHUB_STEP_SUMMARY"
+          echo "- Passing checks do not establish field performance or physical robot safety." >> "$GITHUB_STEP_SUMMARY"
