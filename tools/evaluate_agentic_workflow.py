@@ -1,6 +1,6 @@
 """Evaluate the deterministic project agent against synthetic, labelled scenarios.
 
-This benchmark measures only local decision-workflow latency. It does not run an
+This harness measures only local decision-workflow latency. It does not run an
 ML model, inspect images, measure perception accuracy, access the network, or
 control hardware. See docs/AGENT_EVALUATION_PROTOCOL.md.
 """
@@ -17,7 +17,6 @@ from typing import Any
 
 from agents.agentic_workflow import run_agentic_workflow
 
-
 DEFAULT_INPUT = "examples/agentic_workflow.evaluation.json"
 SIDE_EFFECT_FLAGS = (
     "execution_performed",
@@ -28,6 +27,7 @@ SIDE_EFFECT_FLAGS = (
 
 
 def _reject_constant(value: str) -> None:
+    """Reject non-standard JSON constants such as NaN and Infinity."""
     raise ValueError(f"non-standard JSON constant is not allowed: {value}")
 
 
@@ -40,7 +40,7 @@ def load_scenarios(path: str | Path) -> dict[str, Any]:
 
     try:
         manifest = json.loads(raw, parse_constant=_reject_constant)
-    except (json.JSONDecodeError, ValueError) as exc:
+    except ValueError as exc:
         raise ValueError("evaluation file must contain valid finite JSON") from exc
 
     if not isinstance(manifest, dict):
@@ -77,6 +77,7 @@ def load_scenarios(path: str | Path) -> dict[str, Any]:
 
 
 def _check_invariants(report: Any) -> list[str]:
+    """Return any failures in the review-only workflow contract."""
     failures: list[str] = []
     if not isinstance(report, dict):
         return ["workflow report is not an object"]
@@ -85,7 +86,6 @@ def _check_invariants(report: Any) -> list[str]:
         failures.append("workflow did not return a reviewable proposal")
     if report.get("human_review_required") is not True:
         failures.append("human review is not explicitly required")
-
     for flag in SIDE_EFFECT_FLAGS:
         if report.get(flag) is not False:
             failures.append(f"{flag} must be false")
@@ -113,7 +113,7 @@ def _check_invariants(report: Any) -> list[str]:
 
 
 def evaluate_scenarios(manifest: dict[str, Any]) -> dict[str, Any]:
-    """Run each scenario and report status matching, invariants and latency."""
+    """Run each scenario and report status matches, invariants and latency."""
     rows: list[dict[str, Any]] = []
     latencies: list[float] = []
 
@@ -122,13 +122,17 @@ def evaluate_scenarios(manifest: dict[str, Any]) -> dict[str, Any]:
         try:
             workflow_report = run_agentic_workflow(scenario["observation"])
         except Exception:
-            # Avoid serializing exception text or observations into the report.
+            # Do not serialize exception text or observations into the report.
             workflow_report = None
         elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000
         latencies.append(elapsed_ms)
 
         failures = _check_invariants(workflow_report)
-        decision = workflow_report.get("decision") if isinstance(workflow_report, dict) else None
+        decision = (
+            workflow_report.get("decision")
+            if isinstance(workflow_report, dict)
+            else None
+        )
         observed_status = decision.get("status") if isinstance(decision, dict) else None
         expected_status = scenario["expected_decision_status"]
         if observed_status != expected_status:
@@ -144,7 +148,42 @@ def evaluate_scenarios(manifest: dict[str, Any]) -> dict[str, Any]:
                     if isinstance(workflow_report, dict)
                     else "WORKFLOW_ERROR"
                 ),
-                "project": rows[0].get("project"),
+                "project": (
+                    workflow_report.get("project")
+                    if isinstance(workflow_report, dict)
+                    else None
+                ),
+                "evidence_sha256": (
+                    workflow_report.get("evidence_sha256")
+                    if isinstance(workflow_report, dict)
+                    else None
+                ),
+                "latency_ms": round(elapsed_ms, 3),
+                "passed": not failures,
+                "failures": failures,
+            }
+        )
+
+    total = len(rows)
+    passed = sum(1 for row in rows if row["passed"])
+    sorted_latencies = sorted(latencies)
+    p95_index = max(0, math.ceil(0.95 * len(sorted_latencies)) - 1)
+    metrics = {
+        "scenario_count": total,
+        "passed_count": passed,
+        "failed_count": total - passed,
+        "pass_rate": round(passed / total, 4) if total else 0.0,
+        "mean_latency_ms": round(statistics.fmean(latencies), 3) if latencies else None,
+        "p95_latency_ms": round(sorted_latencies[p95_index], 3) if sorted_latencies else None,
+        "max_latency_ms": round(max(latencies), 3) if latencies else None,
+    }
+
+    return {
+        "schema_version": 1,
+        "evaluation_id": manifest["evaluation_id"],
+        "synthetic_only": True,
+        "result": "PASS" if passed == total else "FAIL",
+        "project": rows[0].get("project"),
         "metrics": metrics,
         "resource_profile": {
             "third_party_packages_required": False,
@@ -168,8 +207,18 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Run a no-dependency synthetic evaluation of the existing local decision workflow."
     )
-    parser.add_argument("--input", default=DEFAULT_INPUT, metavar="PATH", help="synthetic evaluation JSON file")
-    parser.add_argument("--output", default="-", metavar="PATH", help="report path or '-' for stdout")
+    parser.add_argument(
+        "--input",
+        default=DEFAULT_INPUT,
+        metavar="PATH",
+        help="synthetic evaluation JSON file",
+    )
+    parser.add_argument(
+        "--output",
+        default="-",
+        metavar="PATH",
+        help="report path or '-' for stdout",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -188,7 +237,10 @@ def main(argv: list[str] | None = None) -> int:
         except OSError:
             print("evaluation output error: cannot write report file", file=sys.stderr)
             return 2
-        print(f"Evaluation result: {report['result']} ({report['metrics']['passed_count']}/{report['metrics']['scenario_count']} scenarios)")
+        print(
+            f"Evaluation result: {report['result']} "
+            f"({report['metrics']['passed_count']}/{report['metrics']['scenario_count']} scenarios)"
+        )
     return 0 if report["result"] == "PASS" else 1
 
 
