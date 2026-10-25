@@ -79,6 +79,7 @@ def test_archived_or_unapproved_labels_block_candidate(tmp_path):
 def test_report_counts_failed_gates_and_suggests_human_follow_up(tmp_path):
     rights, review = records()
     rights["annotation_qa_status"] = "pending"
+    rights["training_promotion"] = "pending"
     review["label_status"] = "not_reviewed"
     review["review_decision"] = "pending"
     a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
