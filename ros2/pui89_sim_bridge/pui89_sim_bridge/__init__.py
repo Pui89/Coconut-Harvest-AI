@@ -1,1 +1,1 @@
-"""Simulation-only ROS 2 proposal bridge for PUI89."""\n
+"""Simulation-only ROS 2 proposal bridge for PUI89."""
