@@ -1,6 +1,6 @@
 # Coconut Dataset Readiness — Evidence Snapshot
 
-**Snapshot date:** 22 October 2026  
+**Snapshot date:** 26 October 2026  
 **Source:** repository ledgers `data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv` and `data/review_batch_2026-10-18/candidate_review_2026-10-18.csv`.
 
 ## Current status
@@ -22,14 +22,14 @@ Several source candidates are still unlabelled. The review ledger describes cand
 
 ## Next no-cost action
 
-1. **Candidate 0032 source review recorded:** the original [Wikimedia Commons page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) was rechecked on 2026-10-22; the ledger records creator Sarmi~Kili and CC BY-SA 4.0. The older [empty annotation handoff](../data/review_batch_2026-10-18/candidate_0032_annotation_draft_NOT_FOR_TRAINING.json) contains no boxes. A newer [eight-box AI-assisted draft](../data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json) exists, but its coordinates and coverage are **unverified and not ground truth**. The source image SHA-256 also must be checked against the actual downloaded image; the draft currently records a placeholder note rather than a digest.
+1. **Candidate 0032 source review recorded:** the original [Wikimedia Commons page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) was rechecked on 2026-10-22; the ledger records creator Sarmi~Kili and CC BY-SA 4.0. The older [empty annotation handoff](../data/review_batch_2026-10-18/candidate_0032_annotation_draft_NOT_FOR_TRAINING.json) contains no boxes. The newer [eight-box AI-assisted draft](../data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json) has had its candidate ID and filename normalised to match the rights ledger, and its human-QA/training flags are explicitly false. Its coordinates and coverage remain **unverified and not ground truth**. The source image SHA-256 still records a placeholder and must be checked against the actual downloaded image bytes.
 2. Download the original image from the source page, verify attribution/licence and calculate its real SHA-256 locally. Open it at native resolution in `tools/coconut_annotator.html`; import the eight-box draft only as a starting point. Correct each box, remove false boxes, and add only clearly visible missed fruit. Do not guess hidden fruit boundaries.
 
    Before editing labels, compare the annotation draft's recorded source hash with the actual local file bytes (the current draft contains a placeholder, so the check should fail until corrected):
 
-       python tools/audit_coconut_annotation_provenance.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\path\to\candidate_0032.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --candidate-id 0032 --output provenance-audit.json
+       python tools/audit_coconut_annotation_provenance.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --candidate-id 0032 --output provenance-audit.json
 
-   Replace the example image path with the exact original image file on the local machine. The tool computes the actual SHA-256 and reports mismatches; it does not edit the annotation JSON, confirm legal rights, approve labels, or authorize training.
+   Use a local byte-identical copy of the original image whose basename is `0032_Coconut_in_Coconut_Tree.jpg`, matching the filename recorded in the draft and rights ledger. Renaming/copying the original file must not re-encode or edit the image. The tool computes the actual SHA-256 and reports mismatches; the expected current result is a provenance failure until the placeholder digest is manually replaced with the computed digest and the tool is rerun. It does not edit the annotation JSON, confirm legal rights, approve labels, or authorize training.
 
 3. Export the reviewed annotations to a separate file; run `tools/audit_coconut_annotations.py`, inspect overlays, and request an independent visual QA review. Geometry checks alone do not establish correct labels.
 4. Update the review and rights ledgers only with real review outcomes. Never mark QA passed or training approved merely because the JSON/box geometry is valid.
