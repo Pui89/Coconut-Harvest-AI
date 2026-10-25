@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "project_id": "coconut-harvest-ai",
+  "stack": {
+    "ros2": {
+      "distribution": "jazzy",
+      "status": "source_scaffold_only",
+      "installed": false
+    },
+    "gazebo": {
+      "distribution": "harmonic",
+      "status": "starter_world_only",
+      "installed": false,
+      "world": "simulation/gazebo/pui89_world.sdf"
+    },
+    "nav2": {
+      "status": "planned_not_configured",
+      "target": "simulated_ground_base"
+    },
+    "ardupilot_sitl": {
+      "status": "not_selected",
+      "installed": false
+    },
+    "px4_sitl": {
+      "status": "not_selected",
+      "installed": false
+    },
+    "smolvlm": {
+      "model_id": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "license": "Apache-2.0 as listed by publisher",
+      "main_weight_file_bytes": 513000000,
+      "full_repository_size_bytes_approx": 3540000000,
+      "status": "offline_smoke_test_tool_only",
+      "downloaded": false
+    }
+  },
+  "safety": {
+    "physical_actuation": false,
+    "automatic_cutting": false,
+    "vlm_is_not_a_detector": true
+  }
+}
