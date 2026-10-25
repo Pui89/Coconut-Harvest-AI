@@ -1,6 +1,6 @@
 # Frontier technology gap and free-first adoption plan
 
-**Review date:** 25 October 2026  
+**Review date:** 26 October 2026  
 **Purpose:** identify high-value current AI/robotics techniques and adopt them without recurring bills, while keeping project claims evidence-based.
 
 ## Technology direction to adopt
@@ -12,6 +12,20 @@
 - **Simulation, synthetic data and sim-to-real evaluation:** use deterministic scenarios and separate simulation results from real-world evidence.
 - **Uncertainty-aware decisions:** test missing inputs, conflicting sensors, out-of-distribution examples, calibration and abstention. “Unknown” should be a valid output.
 - **Edge-first engineering:** small baselines, reproducible environments, model-size checks, latency/memory measurements and no mandatory cloud dependency.
+
+
+## Technology scout update — 26 October 2026
+
+### Current ROS 2 and Gazebo options
+
+- **ROS 2 Lyrical Luth** was announced on 22 May 2026 as an LTS release supported until May 2031. Its Tier 1 platforms are Ubuntu 26.04 and Windows 11. See the [official ROS announcement](https://discourse.openrobotics.org/t/ros-2-lyrical-luth-released/55021).
+- The current [Gazebo ROS compatibility matrix](https://gazebosim.org/docs/jetty/ros_installation/) lists **ROS 2 Lyrical + Gazebo Jetty** as a recommended pairing. However, the same page's introductory recommendation still names Ubuntu 24.04 + Jazzy + Harmonic. Treat the newer pairing as a verified candidate, not an automatic installation instruction; check the current install steps for the exact operating system and packages.
+- **ROS 2 Jazzy + Gazebo Harmonic** remains a documented pairing for established Ubuntu 24.04 workflows, with Jazzy support scheduled through May 2029. Do not mix packages from different ROS/Gazebo pairings.
+- **NVIDIA Isaac ROS 5.0**, announced on 22 September 2026, adds agent-ready robotics-development workflows and support for ROS 2 Lyrical. It is an optional GPU-accelerated layer, not a prerequisite for these repositories. Check the specific package's supported OS, GPU, RAM, storage, licence and dependencies before considering it. See the [official Isaac ROS 5.0 announcement](https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/).
+
+### PUI89 adoption decision
+
+Keep the standard-library workflow, deterministic tests, evidence reports and human-review gates as the active baseline. Do not install a robotics stack, download model weights or switch operating systems as part of this review. A simulator can be evaluated later after the host OS, free disk, RAM/VRAM and a single supported ROS/Gazebo pairing are confirmed. The immediate project-specific bottleneck remains reviewed data and measured task-specific evidence—not the newest framework.
 
 ## What the repositories have now versus what is still missing
 
