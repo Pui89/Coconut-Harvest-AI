@@ -552,3 +552,12 @@ No automatic cutting command from a vision score alone. A harvest action require
 
 Track the five shared free-first development tasks in [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md). Coconut priority: complete source/license/hash review and annotation geometry checks before training; then establish a leakage-safe local vision baseline. Dataset quality and baseline metrics are not marked complete until recorded evidence is available.
 
+## Engineering update — 26 October 2026
+
+**Current gate: dataset integrity before model claims.** The next deliverable is a reviewable dataset audit, not a headline accuracy number.
+
+- Verify each candidate image's source, licence/permission, attribution and file hash; resolve annotation-geometry warnings and independently review labels before training.
+- Freeze train/validation/test partitions by tree, source and capture session to reduce leakage. Record the dataset version and exact commands used.
+- After the data gate passes, run a reproducible local baseline and report per-maturity-stage precision/recall and applicable mAP, latency, hardware, and failure cases. Until then, leave metrics **NOT MEASURED** rather than estimating them.
+- Keep all AI suggestions behind geometry and safety checks. The 0–30 m orchard/tree-height range is a design challenge, not a demonstrated reach capability; no validated physical robot is claimed.
+- Free-first execution: use existing local tools where possible. Do not automatically download model weights, install large packages, use paid APIs, or start cloud compute.
