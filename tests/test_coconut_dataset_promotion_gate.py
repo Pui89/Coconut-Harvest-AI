@@ -76,6 +76,30 @@ def test_archived_or_unapproved_labels_block_candidate(tmp_path):
     assert "candidate_review_approved" in report["candidates"][0]["failed_gates"]
 
 
+def test_report_counts_failed_gates_and_suggests_human_follow_up(tmp_path):
+    rights, review = records()
+    rights["annotation_qa_status"] = "pending"
+    review["label_status"] = "not_reviewed"
+    review["review_decision"] = "pending"
+    a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    b = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+
+    report = evaluate(a, b)
+
+    assert report["ready_for_training"] is False
+    assert report["gate_failure_counts"]["annotation_qa_passed"] == 1
+    assert report["gate_failure_counts"]["label_qa_passed"] == 1
+    assert report["gate_failure_counts"]["candidate_review_approved"] == 1
+    assert report["top_blockers"] == sorted(
+        report["top_blockers"],
+        key=lambda item: (-item["affected_candidate_count"], item["gate"]),
+    )
+    steps = {item["group"]: item for item in report["recommended_next_steps"]}
+    assert steps["human_annotation_review"]["affected_candidate_count"] == 1
+    assert "independent human QA" in steps["human_annotation_review"]["instruction"]
+    assert "explicit_training_approval" in steps
+
+
 def test_duplicate_ids_are_structural_error(tmp_path):
     rights, review = records()
     a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights, rights])
