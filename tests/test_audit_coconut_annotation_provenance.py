@@ -111,6 +111,25 @@ def test_rights_ledger_metadata_must_match_recorded_source(tmp_path):
     assert "source_metadata_matches_rights_ledger" in report["failed_checks"]
 
 
+def test_candidate_id_mismatch_blocks_provenance_even_when_hash_matches(tmp_path):
+    image = tmp_path / "candidate_0032.jpg"
+    image.write_bytes(b"synthetic image bytes")
+    digest = sha256_file(image)
+    annotations = write_annotation(tmp_path / "annotation.json", image.name, digest)
+    payload = json.loads(annotations.read_text(encoding="utf-8"))
+    payload["source"]["candidate_id"] = "0033"
+    annotations.write_text(json.dumps(payload), encoding="utf-8")
+    rights = write_rights(tmp_path / "rights.csv")
+
+    report = audit(annotations, image, rights, "0032")
+
+    assert report["recorded_source_sha256_matches_actual"] is True
+    assert report["source_candidate_id_present"] is True
+    assert report["source_candidate_id_matches_requested"] is False
+    assert report["provenance_passed"] is False
+    assert "source_candidate_id_matches_requested" in report["failed_checks"]
+
+
 def test_missing_image_fails_with_clear_error(tmp_path):
     annotations = write_annotation(tmp_path / "annotation.json", "missing.jpg", "0" * 64)
     with pytest.raises(ValueError, match="local image file"):
