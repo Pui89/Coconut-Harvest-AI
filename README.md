@@ -2,6 +2,8 @@
 
 ## Free-first offline engineering tools
 
+- **Phased autonomy lab:** [test and simulation guide](docs/PUI89_AUTONOMY_LAB.md); runner: `tools/pui89_autonomy_lab.py`; project scenarios: `simulation/scenarios.json`. Includes logged world-state snapshots, safe-hold/UNKNOWN mock VLA gates, reproducible JSON/CSV reports and an offline model-resource preflight. No model is downloaded or installed automatically; no hardware is controlled.
+
 - Free offline dataset/annotation checks (provenance, normalized boxes, duplicate hashes): `scripts/free_first_project_tools.py`; tests: `tests/test_free_first_project_tools.py`.
 - Dependency-free precision, recall, F1 and confusion-count metrics for later reproducible model evaluation; no accuracy claims are made until measured on a leakage-safe held-out set.
 
