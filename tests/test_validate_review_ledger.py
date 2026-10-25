@@ -6,17 +6,17 @@ from pathlib import Path
 from tools.validate_review_ledger import validate
 
 FIELDS = [
-    "candidate_id", "filename", "decision", "reason_code", "reviewer",
+    "candidate_id", "filename", "group_id", "decision", "reason_code", "reviewer",
     "reviewed_on", "source_url", "rights_status", "annotation_status", "split",
 ]
 
 
 def row(**overrides):
     values = {
-        "candidate_id": "0001", "filename": "coconut.jpg", "decision": "approved",
-        "reason_code": "", "reviewer": "reviewer-a", "reviewed_on": "2026-10-21",
-        "source_url": "https://example.org/source", "rights_status": "cleared",
-        "annotation_status": "reviewed", "split": "train",
+        "candidate_id": "0001", "filename": "coconut.jpg", "group_id": "tree-session-a",
+        "decision": "approved", "reason_code": "", "reviewer": "reviewer-a",
+        "reviewed_on": "2026-10-21", "source_url": "https://example.org/source",
+        "rights_status": "cleared", "annotation_status": "reviewed", "split": "train",
     }
     values.update(overrides)
     return values
@@ -64,6 +64,22 @@ class ReviewLedgerValidationTests(unittest.TestCase):
     def test_noncanonical_review_date_is_rejected(self):
         errors = self.check_rows([row(reviewed_on="2026-1-2")])
         self.assertTrue(any("valid ISO date (YYYY-MM-DD)" in error for error in errors))
+
+    def test_same_group_across_train_and_test_is_rejected(self):
+        first = row(candidate_id="0001", filename="tree_a_1.jpg", group_id="tree-a", split="train")
+        second = row(candidate_id="0002", filename="tree_a_2.jpg", group_id="tree-a", split="test")
+        errors = self.check_rows([first, second])
+        self.assertTrue(any("appears in both 'train' and 'test'" in error for error in errors))
+
+    def test_same_group_within_one_split_is_allowed(self):
+        first = row(candidate_id="0001", filename="tree_a_1.jpg", group_id="tree-a", split="train")
+        second = row(candidate_id="0002", filename="tree_a_2.jpg", group_id="tree-a", split="train")
+        self.assertEqual(self.check_rows([first, second]), [])
+
+    def test_different_groups_can_use_different_splits(self):
+        first = row(candidate_id="0001", filename="tree_a.jpg", group_id="tree-a", split="train")
+        second = row(candidate_id="0002", filename="tree_b.jpg", group_id="tree-b", split="test")
+        self.assertEqual(self.check_rows([first, second]), [])
 
     def test_missing_columns_are_reported(self):
         with tempfile.TemporaryDirectory() as directory:
