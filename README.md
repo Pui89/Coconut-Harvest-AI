@@ -561,3 +561,11 @@ Track the five shared free-first development tasks in [docs/DEVELOPMENT_ROADMAP.
 - After the data gate passes, run a reproducible local baseline and report per-maturity-stage precision/recall and applicable mAP, latency, hardware, and failure cases. Until then, leave metrics **NOT MEASURED** rather than estimating them.
 - Keep all AI suggestions behind geometry and safety checks. The 0–30 m orchard/tree-height range is a design challenge, not a demonstrated reach capability; no validated physical robot is claimed.
 - Free-first execution: use existing local tools where possible. Do not automatically download model weights, install large packages, use paid APIs, or start cloud compute.
+
+## Offline free-first audit tool — 26 October 2026
+
+Run `python tools/free_first_audit.py` from the repository root to create a local inventory using Python's standard library. Optionally save a report with `python tools/free_first_audit.py --json audit-report.json`. The tool does not access the network, install dependencies, download model weights, or upload data. The optional JSON file is written only to your local working copy unless you choose to commit it.
+
+- Prioritise image-source permissions, SHA-256 identity, annotation geometry, independent review and source/tree/session-aware split checks before training.
+- The report inventories data files and hashes manageable files, flags Python syntax errors, and notes candidate dataset documentation. It does **not** verify licences, annotations, model accuracy, physical safety, or real-world performance; a human must review those items.
+- Suggested free/open-source technology is already documented in this repository's adoption plan. Evaluate ROS 2/Gazebo or MoveIt only when the project needs simulation or manipulation integration; these tools are not installed by this audit.
