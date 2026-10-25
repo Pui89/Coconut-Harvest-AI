@@ -144,47 +144,7 @@ def evaluate_scenarios(manifest: dict[str, Any]) -> dict[str, Any]:
                     if isinstance(workflow_report, dict)
                     else "WORKFLOW_ERROR"
                 ),
-                "evidence_sha256": (
-                    workflow_report.get("evidence_sha256")
-                    if isinstance(workflow_report, dict)
-                    else None
-                ),
-                "latency_ms": round(elapsed_ms, 3),
-                "passed": not failures,
-                "failures": failures,
-            }
-        )
-
-    total = len(rows)
-    passed = sum(1 for row in rows if row["passed"])
-    sorted_latencies = sorted(latencies)
-    p95_index = max(0, math.ceil(0.95 * len(sorted_latencies)) - 1)
-    metrics = {
-        "scenario_count": total,
-        "passed_count": passed,
-        "failed_count": total - passed,
-        "pass_rate": round(passed / total, 4) if total else 0.0,
-        "mean_latency_ms": round(statistics.fmean(latencies), 3) if latencies else None,
-        "p95_latency_ms": round(sorted_latencies[p95_index], 3) if sorted_latencies else None,
-        "max_latency_ms": round(max(latencies), 3) if latencies else None,
-    }
-
-    return {
-        "schema_version": 1,
-        "evaluation_id": manifest["evaluation_id"],
-        "synthetic_only": True,
-        "result": "PASS" if passed == total else "FAIL",
-        "project": (
-            rows[0]["workflow_status"] and
-            next(
-                (
-                    # Project name is deliberately not inferred from the repo;
-                    # the coordinator's project id is added below when present.
-                    None
-                ),
-                None,
-            )
-        ),
+                "project": rows[0].get("project"),
         "metrics": metrics,
         "resource_profile": {
             "third_party_packages_required": False,
