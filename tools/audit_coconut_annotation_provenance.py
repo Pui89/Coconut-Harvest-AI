@@ -161,8 +161,7 @@ def audit(
     human_qa_acknowledged = payload.get("human_qa_acknowledged") is True
     training_approved = payload.get("training_approved") is True
 
-    failed_checks = []
-    for name, passed in (
+    provenance_check_results = (
         ("annotation_filename_matches_local_image", annotation_filename_matches),
         ("source_filename_matches_local_image", source_filename_matches),
         ("source_candidate_id_present", source_candidate_id_present),
@@ -172,11 +171,15 @@ def audit(
         ("source_metadata_present", source_metadata_present),
         ("source_page_is_http_url", source_page_is_http_url),
         ("source_metadata_matches_rights_ledger", source_metadata_matches_rights is not False),
-        ("human_qa_acknowledged", human_qa_acknowledged),
-        ("training_approved", training_approved),
-    ):
-        if not passed:
-            failed_checks.append(name)
+    )
+    failed_provenance_checks = [
+        name for name, passed in provenance_check_results if not passed
+    ]
+    approval_gaps = []
+    if not human_qa_acknowledged:
+        approval_gaps.append("human_qa_acknowledged")
+    if not training_approved:
+        approval_gaps.append("training_approved")
 
     return {
         "schema": "pui89-coconut-annotation-provenance-v1",
@@ -200,7 +203,8 @@ def audit(
         "human_qa_acknowledged": human_qa_acknowledged,
         "training_approved": training_approved,
         "ready_for_training": provenance_passed and human_qa_acknowledged and training_approved,
-        "failed_checks": failed_checks,
+        "failed_provenance_checks": failed_provenance_checks,
+        "approval_gaps": approval_gaps,
         "limitations": [
             "This compares local image bytes to a recorded SHA-256 and checks recorded source metadata; it does not access the internet.",
             "It does not decode image dimensions, verify licence legality, or judge annotation correctness.",
