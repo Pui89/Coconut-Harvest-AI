@@ -89,6 +89,35 @@
           "expected_action": "SAFE_HOLD"
         }
       ]
+    },
+    {
+      "id": "camera_fault_and_recovery",
+      "seed": 107,
+      "steps": [
+        {
+          "state": {
+            "sensors_ok": true,
+            "sensor_data_fresh": true,
+            "comms_ok": true,
+            "target_visible": true,
+            "confidence": 0.9,
+            "operator_approved": true
+          },
+          "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
+        },
+        {
+          "state": {
+            "sensor_data_fresh": false
+          },
+          "expected_action": "SAFE_HOLD"
+        },
+        {
+          "state": {
+            "sensor_data_fresh": true
+          },
+          "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
+        }
+      ]
     }
   ]
 }
