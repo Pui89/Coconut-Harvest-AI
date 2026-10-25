@@ -523,3 +523,7 @@ No automatic cutting command from a vision score alone. A harvest action require
 - Model-agnostic input/output validation: [llm_interfaces.py](pui89_autonomy/llm_interfaces.py)
 - The scaffold uses only the Python standard library. It does not download models, call paid APIs, run image inference, or control hardware.
 
+## Development roadmap
+
+Track the five shared free-first development tasks in [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md). Coconut priority: complete source/license/hash review and annotation geometry checks before training; then establish a leakage-safe local vision baseline. Dataset quality and baseline metrics are not marked complete until recorded evidence is available.
+
