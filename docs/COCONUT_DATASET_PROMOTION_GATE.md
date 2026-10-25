@@ -1,6 +1,6 @@
 # Coconut dataset promotion gate
 
-The promotion gate joins the source-rights ledger and candidate-review ledger. It is deliberately fail-closed: **recording a licence is not the same as independent permission review, and valid box geometry is not the same as correct annotation.**
+The promotion gate joins the source-rights ledger and candidate-review ledger. It is deliberately fail-closed: **recording a licence is not the same as independent permission review, and valid box geometry is not the same as correct annotation.** It also rejects duplicate candidate IDs and case-insensitive duplicate filenames within either ledger, because ambiguous file identity can undermine record matching.
 
 ## Run locally (Python standard library only)
 
