@@ -495,3 +495,22 @@ This project adopts a small, cost-controlled toolchain rather than adding multip
 - **Retrieval:** use repository documentation and ordinary local search first; consider FAISS/Chroma only if a measured retrieval need appears.
 
 **Cost and evidence guardrails:** no paid API, hosted inference, cloud GPU, subscription, or model download is required by this plan. Ask before introducing any cost. Review each model/weight licence separately. Do not begin detector training until image rights, annotations, independent review, and leakage-safe splits pass the existing data gates. CI passing is not detector or physical-robot validation.
+
+
+## AI robot upgrade roadmap — evidence-first
+
+This roadmap prioritizes improvements that can be built and checked locally before any physical deployment. It is a plan, not a claim that these capabilities are already implemented.
+
+### Upgrade sequence
+
+1. **Perception quality gate:** finish source/licence checks and independent annotation review before admitting any image to training. Retire ambiguous labels rather than guessing.
+2. **Leakage-safe evaluation:** freeze train/validation/test splits by orchard tree, source and capture session. Report dataset counts, precision, recall, F1/mAP and per-maturity-stage results only after a reproducible run.
+3. **Maturity-aware harvest selection:** keep fruit detection, maturity classification, occlusion/uncertainty and harvestability as separate outputs. Abstain when maturity or geometry is uncertain.
+4. **3D localization and reach planning:** validate RGB-D calibration, depth validity, coordinate transforms, arm reach, collision clearance and tool pose in simulation. The 0–30 m orchard/tree-height range is a design challenge, not a verified robot reach claim.
+5. **Harvest action supervisor:** require independent checks for human/animal presence, stable platform, reachable fruit, cutting-tool state, capture confirmation and emergency stop. Any invalid or missing safety input must stop motion.
+6. **Supervised simulation campaign:** vary lighting, occlusion, canopy density, distance, sensor dropout and tree geometry. Log success/failure counts, localization error, unsafe-action rate and latency; mark unrun tests as NOT RUN.
+7. **Physical validation gate:** only after simulation and bench tests, plan supervised low-risk trials with a real emergency stop and documented risk review. Do not describe a physical robot as validated before those trials.
+
+### Acceptance rule
+
+No automatic cutting command from a vision score alone. A harvest action requires a reviewed target, valid geometry, safety-gate approval and a recoverable stop path. Keep the workflow local-first and free-first; no paid API or cloud GPU is required for this roadmap.
