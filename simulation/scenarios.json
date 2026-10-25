@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "project_id": "coconut-harvest-ai",
+  "confidence_threshold": 0.65,
+  "action_if_ready": "HARVEST_STEP_SIMULATION_ONLY",
+  "project_limit": "Simulated harvesting only; detections do not verify fruit safety, cut location, arm reach, or a physical robot.",
+  "scenarios": [
+    {
+      "id": "nominal_target",
+      "seed": 101,
+      "steps": [
+        {
+          "state": {
+            "sensors_ok": true,
+            "comms_ok": true,
+            "target_visible": true,
+            "target_valid": true,
+            "confidence": 0.92,
+            "operator_approved": true
+          },
+          "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "occluded_target",
+      "seed": 102,
+      "steps": [
+        {
+          "state": {
+            "target_visible": false,
+            "confidence": 0.9
+          },
+          "expected_action": "SEARCH"
+        }
+      ]
+    },
+    {
+      "id": "low_confidence",
+      "seed": 103,
+      "steps": [
+        {
+          "state": {
+            "target_visible": true,
+            "confidence": 0.4
+          },
+          "expected_action": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "stale_camera",
+      "seed": 104,
+      "steps": [
+        {
+          "state": {
+            "sensor_data_fresh": false,
+            "target_visible": true,
+            "confidence": 0.9
+          },
+          "expected_action": "SAFE_HOLD"
+        }
+      ]
+    },
+    {
+      "id": "communications_loss",
+      "seed": 105,
+      "steps": [
+        {
+          "state": {
+            "comms_ok": false,
+            "target_visible": true,
+            "confidence": 0.9
+          },
+          "expected_action": "SAFE_HOLD"
+        }
+      ]
+    },
+    {
+      "id": "emergency_stop",
+      "seed": 106,
+      "steps": [
+        {
+          "state": {
+            "emergency_stop": true,
+            "target_visible": true,
+            "confidence": 0.9
+          },
+          "expected_action": "SAFE_HOLD"
+        }
+      ]
+    }
+  ]
+}
