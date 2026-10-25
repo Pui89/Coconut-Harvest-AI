@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "coconut-agent-baseline-synthetic-v1",
+  "synthetic_only": true,
+  "scenarios": [
+    {
+      "scenario_id": "low-confidence-review",
+      "expected_decision_status": "REVIEW",
+      "observation": {
+        "sensor_ok": true,
+        "target_detected": true,
+        "confidence": 0.74,
+        "depth_m": 6,
+        "reachable": true,
+        "obstacle_clear": true,
+        "human_approved": false
+      }
+    },
+    {
+      "scenario_id": "sensor-failure-stop",
+      "expected_decision_status": "STOP",
+      "observation": {
+        "sensor_ok": false,
+        "target_detected": true,
+        "confidence": 0.96,
+        "depth_m": 4,
+        "reachable": true,
+        "obstacle_clear": true
+      }
+    },
+    {
+      "scenario_id": "target-missing",
+      "expected_decision_status": "NEED_DATA",
+      "observation": {
+        "sensor_ok": true,
+        "target_detected": false
+      }
+    },
+    {
+      "scenario_id": "invalid-confidence",
+      "expected_decision_status": "NEED_DATA",
+      "observation": {
+        "target_detected": true,
+        "confidence": 1.2,
+        "depth_m": 4
+      }
+    },
+    {
+      "scenario_id": "obstacle-not-cleared",
+      "expected_decision_status": "STOP",
+      "observation": {
+        "target_detected": true,
+        "confidence": 0.94,
+        "depth_m": 4,
+        "reachable": true,
+        "obstacle_clear": false
+      }
+    },
+    {
+      "scenario_id": "approval-pending",
+      "expected_decision_status": "AWAITING_APPROVAL",
+      "observation": {
+        "target_detected": true,
+        "confidence": 0.96,
+        "depth_m": 4,
+        "reachable": true,
+        "obstacle_clear": true,
+        "human_approved": false
+      }
+    },
+    {
+      "scenario_id": "approval-recorded-not-actuated",
+      "expected_decision_status": "READY_FOR_EXTERNAL_CONTROLLER",
+      "observation": {
+        "target_detected": true,
+        "confidence": 0.96,
+        "depth_m": 4,
+        "reachable": true,
+        "obstacle_clear": true,
+        "human_approved": true
+      }
+    }
+  ]
+}
