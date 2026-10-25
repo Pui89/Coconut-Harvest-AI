@@ -64,6 +64,7 @@ GATE_ACTION_GROUPS = (
 def read_ledger(path: Path, required: set[str]) -> tuple[dict[str, dict[str, str]], list[str]]:
     errors: list[str] = []
     rows_by_id: dict[str, dict[str, str]] = {}
+    seen_filenames: dict[str, int] = {}
     try:
         with path.open("r", encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
@@ -79,6 +80,16 @@ def read_ledger(path: Path, required: set[str]) -> tuple[dict[str, dict[str, str
                 if candidate_id in rows_by_id:
                     errors.append(f"{path}: line {line}: duplicate candidate_id {candidate_id!r}")
                     continue
+                filename = row.get("filename", "").casefold()
+                if filename:
+                    previous_line = seen_filenames.get(filename)
+                    if previous_line is not None:
+                        errors.append(
+                            f"{path}: line {line}: duplicate filename {row.get('filename', '')!r} "
+                            f"(case-insensitive; first seen on line {previous_line})"
+                        )
+                    else:
+                        seen_filenames[filename] = line
                 rows_by_id[candidate_id] = row
     except (OSError, UnicodeError, csv.Error) as exc:
         errors.append(f"{path}: cannot read ledger: {exc}")
