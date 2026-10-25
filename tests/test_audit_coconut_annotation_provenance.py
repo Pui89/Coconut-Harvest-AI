@@ -79,8 +79,8 @@ def test_placeholder_hash_fails_closed_but_reports_actual_hash(tmp_path):
     assert report["recorded_source_sha256_valid"] is False
     assert report["recorded_source_sha256_matches_actual"] is False
     assert report["provenance_passed"] is False
-    assert "recorded_source_sha256_is_valid" in report["failed_checks"]
-    assert "training_approved" in report["failed_checks"]
+    assert "recorded_source_sha256_is_valid" in report["failed_provenance_checks"]
+    assert "training_approved" in report["approval_gaps"]
 
 
 def test_filename_mismatch_blocks_provenance(tmp_path):
@@ -92,8 +92,8 @@ def test_filename_mismatch_blocks_provenance(tmp_path):
     report = audit(annotations, image)
 
     assert report["provenance_passed"] is False
-    assert "annotation_filename_matches_local_image" in report["failed_checks"]
-    assert "source_filename_matches_local_image" in report["failed_checks"]
+    assert "annotation_filename_matches_local_image" in report["failed_provenance_checks"]
+    assert "source_filename_matches_local_image" in report["failed_provenance_checks"]
 
 
 def test_rights_ledger_metadata_must_match_recorded_source(tmp_path):
@@ -108,7 +108,7 @@ def test_rights_ledger_metadata_must_match_recorded_source(tmp_path):
     assert report["rights_ledger_row_found"] is True
     assert report["source_metadata_matches_rights_ledger"] is False
     assert report["provenance_passed"] is False
-    assert "source_metadata_matches_rights_ledger" in report["failed_checks"]
+    assert "source_metadata_matches_rights_ledger" in report["failed_provenance_checks"]
 
 
 def test_candidate_id_mismatch_blocks_provenance_even_when_hash_matches(tmp_path):
@@ -127,7 +127,7 @@ def test_candidate_id_mismatch_blocks_provenance_even_when_hash_matches(tmp_path
     assert report["source_candidate_id_present"] is True
     assert report["source_candidate_id_matches_requested"] is False
     assert report["provenance_passed"] is False
-    assert "source_candidate_id_matches_requested" in report["failed_checks"]
+    assert "source_candidate_id_matches_requested" in report["failed_provenance_checks"]
 
 
 def test_missing_image_fails_with_clear_error(tmp_path):
@@ -153,4 +153,4 @@ def test_hash_updates_do_not_automatically_approve_training(tmp_path):
     assert report["provenance_passed"] is True
     assert report["human_qa_acknowledged"] is True
     assert report["ready_for_training"] is False
-    assert "training_approved" in report["failed_checks"]
+    assert "training_approved" in report["failed_provenance_checks"]
