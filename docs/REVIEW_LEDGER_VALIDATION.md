@@ -11,7 +11,7 @@ python tools/validate_review_ledger.py data/review_ledger.template.csv
 python -m unittest discover -s tests -p test_validate_review_ledger.py -v
 ```
 
-Copy `data/review_ledger.template.csv` to a new local CSV before adding real review records. Do not overwrite historical review records or place restricted images in Git.
+Copy `data/review_ledger.template.csv` to a new local CSV before adding real review records. The example row contains a placeholder URL and placeholder review identity/date; replace them with truthful source and review details before using it as a real ledger. Do not overwrite historical review records or place restricted images in Git.
 
 Required columns: `candidate_id, filename, group_id, decision, reason_code, reviewer, reviewed_on, source_url, rights_status, annotation_status, split`.
 
