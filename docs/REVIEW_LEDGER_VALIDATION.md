@@ -17,6 +17,7 @@ Required columns: `candidate_id, filename, group_id, decision, reason_code, revi
 
 - Candidate IDs and filenames must be unique (filename comparison is case-insensitive).
 - Every record needs a `group_id` that identifies its shared tree, original source, or capture session. Use a stable identifier, not a different ID for every image.
+- Common untouched template markers are rejected: example filenames, the `tree_or_source_session` placeholder, `reviewer_initials`, and reserved `example.org` / `example.com` / `example.net` source URLs. Source URLs must be absolute HTTP(S) URLs. Replace these with truthful values before treating a ledger as reviewed evidence.
 - The validator rejects an assigned group that appears across different `train`, `validation`, `test`, or `challenge` splits. Keep all images from the same tree/source/session in one split to reduce leakage risk. Unassigned candidates are not yet part of an evaluation split.
 - Each record requires a reviewer, a non-empty source URL, and a real review date written exactly as `YYYY-MM-DD`.
 - Decision and status values must use the documented controlled vocabularies in the script.
