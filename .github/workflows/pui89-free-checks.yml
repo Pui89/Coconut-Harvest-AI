@@ -34,7 +34,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_autonomy_supervisor.py" -v
       - name: Check vision and action-plan contracts
         run: python -m unittest discover -s tests -p "test_llm_interfaces.py" -v
-      - name: Check project Python syntax and repository structure
+      - name: Check free-first project-specific validators\n        run: python -m unittest discover -s tests -p "test_free_first_project_tools.py" -v\n      - name: Check project Python syntax and repository structure
         run: python scripts/pui89_project_health_check.py
       - name: Record scope limits
         run: |
