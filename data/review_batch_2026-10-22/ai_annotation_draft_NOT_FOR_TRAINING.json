@@ -6,8 +6,8 @@
   "created_at": "2026-10-22",
   "status": "AI-assisted draft only; not human-QA-approved; not approved for training or benchmarking",
   "source": {
-    "candidate_id": "candidate_0032",
-    "filename": "candidate_0032.jpg",
+    "candidate_id": "0032",
+    "filename": "0032_Coconut_in_Coconut_Tree.jpg",
     "file_page": "https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg",
     "creator": "Sarmi~Kili",
     "license": "CC BY-SA 4.0",
@@ -16,11 +16,12 @@
   "annotation_notes": [
     "Eight conservative draft boxes were placed around visually distinguishable coconuts.",
     "Some fruits are occluded and the image is cluttered; boxes may be inaccurate or incomplete.",
-    "An independent human must inspect the original full-resolution image, correct boxes, check missed fruit, and confirm attribution/licence before any training or benchmark use."
+    "An independent human must inspect the original full-resolution image, correct boxes, check missed fruit, and confirm attribution/licence before any training or benchmark use.",
+    "Metadata consistency update on 2026-10-26: candidate ID and filename now match the rights ledger. The source SHA-256 remains unverified; coordinates and target coverage remain a draft and are not ground truth."
   ],
   "images": [
     {
-      "filename": "candidate_0032.jpg",
+      "filename": "0032_Coconut_in_Coconut_Tree.jpg",
       "width": 5184,
       "height": 3456,
       "boxes": [
@@ -74,5 +75,7 @@
         }
       ]
     }
-  ]
+  ],
+  "human_qa_acknowledged": false,
+  "training_approved": false
 }

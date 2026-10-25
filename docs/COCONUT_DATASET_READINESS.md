@@ -1,6 +1,6 @@
 # Coconut Dataset Readiness — Evidence Snapshot
 
-**Snapshot date:** 22 October 2026  
+**Snapshot date:** 26 October 2026  
 **Source:** repository ledgers `data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv` and `data/review_batch_2026-10-18/candidate_review_2026-10-18.csv`.
 
 ## Current status
@@ -22,14 +22,22 @@ Several source candidates are still unlabelled. The review ledger describes cand
 
 ## Next no-cost action
 
-1. **Candidate 0032 source review recorded:** the original [Wikimedia Commons page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) was rechecked on 2026-10-22; the ledger records creator Sarmi~Kili and CC BY-SA 4.0. The older [empty annotation handoff](../data/review_batch_2026-10-18/candidate_0032_annotation_draft_NOT_FOR_TRAINING.json) contains no boxes. A newer [eight-box AI-assisted draft](../data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json) exists, but its coordinates and coverage are **unverified and not ground truth**. The source image SHA-256 also must be checked against the actual downloaded image; the draft currently records a placeholder note rather than a digest.
+1. **Candidate 0032 source review recorded:** the original [Wikimedia Commons page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) was rechecked on 2026-10-22; the ledger records creator Sarmi~Kili and CC BY-SA 4.0. The older [empty annotation handoff](../data/review_batch_2026-10-18/candidate_0032_annotation_draft_NOT_FOR_TRAINING.json) contains no boxes. The newer [eight-box AI-assisted draft](../data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json) has had its candidate ID and filename normalised to match the rights ledger, and its human-QA/training flags are explicitly false. Its coordinates and coverage remain **unverified and not ground truth**. The source image SHA-256 still records a placeholder and must be checked against the actual downloaded image bytes.
 2. Download the original image from the source page, verify attribution/licence and calculate its real SHA-256 locally. Open it at native resolution in `tools/coconut_annotator.html`; import the eight-box draft only as a starting point. Correct each box, remove false boxes, and add only clearly visible missed fruit. Do not guess hidden fruit boundaries.
 
-   Before editing labels, compare the annotation draft's recorded source hash with the actual local file bytes (the current draft contains a placeholder, so the check should fail until corrected):
+   Use a local byte-identical copy of the original image whose basename is `0032_Coconut_in_Coconut_Tree.jpg`, matching the draft and rights ledger. The current [Wikimedia Commons file page](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg) reports 8,631,989 bytes, 5,184 × 3,456 pixels, and published SHA-1 `34a77896b7ad78532cd41aadc2c3967220fd91ab`. This helper uses the published SHA-1 and byte size to check that the local file matches that source file, then calculates the SHA-256 used in the project. Do not re-encode or edit the image.
 
-       python tools/audit_coconut_annotation_provenance.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\path\to\candidate_0032.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --candidate-id 0032 --output provenance-audit.json
+   First run a read-only dry run:
 
-   Replace the example image path with the exact original image file on the local machine. The tool computes the actual SHA-256 and reports mismatches; it does not edit the annotation JSON, confirm legal rights, approve labels, or authorize training.
+       python tools/record_coconut_source_hash.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --output source-hash-report.json
+
+   Only if every `source_checks` item passes, repeat the command with `--write-source-sha256`. That explicit option writes only `source.source_image_sha256`; it does not alter boxes, human-QA status, training approval, or the rights ledger. If the published SHA-1 or size differs, stop and manually recheck the Commons file version rather than bypassing the check.
+
+   Then run the independent provenance audit:
+
+       python tools/audit_coconut_annotation_provenance.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg" --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --candidate-id 0032 --output provenance-audit.json
+
+   A provenance pass still does not confirm legal rights, approve labels, or authorize training. Independent full-resolution annotation review remains a separate required step.
 
 3. Export the reviewed annotations to a separate file; run `tools/audit_coconut_annotations.py`, inspect overlays, and request an independent visual QA review. Geometry checks alone do not establish correct labels.
 4. Update the review and rights ledgers only with real review outcomes. Never mark QA passed or training approved merely because the JSON/box geometry is valid.

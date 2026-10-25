@@ -154,3 +154,30 @@ def test_hash_updates_do_not_automatically_approve_training(tmp_path):
     assert report["human_qa_acknowledged"] is True
     assert report["ready_for_training"] is False
     assert "training_approved" in report["approval_gaps"]
+
+
+def test_repository_candidate_0032_draft_metadata_matches_rights_ledger():
+    """Guard the checked-in draft/ledger join without approving its labels."""
+    root = Path(__file__).resolve().parents[1]
+    draft_path = (
+        root / "data" / "review_batch_2026-10-22"
+        / "ai_annotation_draft_NOT_FOR_TRAINING.json"
+    )
+    rights_path = (
+        root / "data" / "review_batch_2026-10-18"
+        / "source_rights_audit_2026-10-19.csv"
+    )
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    with rights_path.open("r", encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    matches = [row for row in rows if row.get("candidate_id") == "0032"]
+
+    assert len(matches) == 1
+    rights_row = matches[0]
+    assert draft["source"]["candidate_id"] == rights_row["candidate_id"] == "0032"
+    assert draft["source"]["filename"] == rights_row["filename"]
+    assert draft["images"][0]["filename"] == rights_row["filename"]
+    assert draft["human_qa_acknowledged"] is False
+    assert draft["training_approved"] is False
+    assert "not human-QA-approved" in draft["status"]
+    # Matching metadata is not a hash, label-quality, rights, or training approval.
