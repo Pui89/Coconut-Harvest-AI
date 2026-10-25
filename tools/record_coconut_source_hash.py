@@ -218,6 +218,15 @@ def main() -> int:
         help="Explicitly write the computed SHA-256 only after the source fingerprint matches.",
     )
     args = parser.parse_args()
+    if args.output is not None:
+        output_path = args.output.resolve()
+        protected_paths = {
+            args.annotations.resolve(),
+            args.image.resolve(),
+            args.rights_csv.resolve(),
+        }
+        if output_path in protected_paths:
+            parser.error("--output must not overwrite the annotation JSON, image, or rights ledger")
     try:
         report = record_source_hash(
             args.annotations,
