@@ -111,6 +111,21 @@ def test_duplicate_ids_are_structural_error(tmp_path):
 
 
 
+def test_duplicate_filenames_are_structural_errors_case_insensitive(tmp_path):
+    rights, review = records()
+    second_rights = dict(rights, candidate_id="A2", filename="COCONUT.JPG")
+    second_review = dict(review, candidate_id="A2", filename="COCONUT.JPG")
+    rights_path = write_csv(tmp_path / "rights.csv", RIGHTS, [rights, second_rights])
+    review_path = write_csv(tmp_path / "review.csv", REVIEWS, [review, second_review])
+
+    report = evaluate(rights_path, review_path)
+
+    assert report["errors"]
+    assert any("duplicate filename" in error and "rights.csv" in error for error in report["errors"])
+    assert any("duplicate filename" in error and "review.csv" in error for error in report["errors"])
+    assert not report["ready_for_training"]
+
+
 def test_cli_report_file_ends_with_real_newline(tmp_path, monkeypatch, capsys):
     rights, review = records()
     rights["annotation_qa_status"] = "pending"
