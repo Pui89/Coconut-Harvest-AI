@@ -15,7 +15,7 @@ def row(**overrides):
     values = {
         "candidate_id": "0001", "filename": "coconut.jpg", "group_id": "tree-session-a",
         "decision": "approved", "reason_code": "", "reviewer": "reviewer-a",
-        "reviewed_on": "2026-10-21", "source_url": "https://example.org/source",
+        "reviewed_on": "2026-10-21", "source_url": "https://commons.wikimedia.org/wiki/File:Test_coconut.jpg",
         "rights_status": "cleared", "annotation_status": "reviewed", "split": "train",
     }
     values.update(overrides)
@@ -56,6 +56,22 @@ class ReviewLedgerValidationTests(unittest.TestCase):
     def test_blank_source_url_is_rejected(self):
         errors = self.check_rows([row(source_url=" ")])
         self.assertTrue(any("source_url is required" in error for error in errors))
+
+    def test_template_placeholders_are_rejected(self):
+        errors = self.check_rows([row(
+            filename="coconut_example.jpg",
+            group_id="tree_or_source_session_0001",
+            reviewer="reviewer_initials",
+            source_url="https://example.org/replace-with-real-source-page",
+        )])
+        self.assertTrue(any("filename still looks like a template placeholder" in error for error in errors))
+        self.assertTrue(any("group_id still looks like a template placeholder" in error for error in errors))
+        self.assertTrue(any("reviewer still looks like a template placeholder" in error for error in errors))
+        self.assertTrue(any("reserved example domain" in error for error in errors))
+
+    def test_non_http_source_url_is_rejected(self):
+        errors = self.check_rows([row(source_url="file:///private/source.jpg")])
+        self.assertTrue(any("absolute HTTP(S) URL" in error for error in errors))
 
     def test_invalid_review_date_is_rejected(self):
         errors = self.check_rows([row(reviewed_on="2026-02-30")])
