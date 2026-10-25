@@ -36,7 +36,7 @@ class WorldStateTracker:
         if previous and ts == previous["timestamp"] and label != previous["label"]:
             previous["label"] = None
             previous["confidence"] = min(previous["confidence"], confidence)
-            previous["source"] = sorted(set(previous["source"] if isinstance(previous["source"], list) else [previous["source"]] + [source]))
+            previous["source"] = str(previous["source"]) + "," + source
             previous["hazard"] = previous["hazard"] or hazard
             previous["conflict"] = True
             return {"accepted": True, "conflict": True, "object_id": oid}
