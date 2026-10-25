@@ -1,7 +1,14 @@
 name: Synthetic agent evaluation
 
+# Keep only the newest run for a branch; branch pushes are covered by PR CI.
+concurrency:
+  group: synthetic-eval-${{ github.event.pull_request.head.ref || github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
+    branches:
+      - main
     paths:
       - "agents/agentic_workflow.py"
       - "agents/project_agent.py"
