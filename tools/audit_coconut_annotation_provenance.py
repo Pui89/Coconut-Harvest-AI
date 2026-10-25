@@ -95,6 +95,15 @@ def audit(
     source_filename = source.get("filename")
     annotation_filename_matches = len(matching_images) == 1
     source_filename_matches = source_filename == image_path.name
+    source_candidate_id = source.get("candidate_id")
+    source_candidate_id_present = (
+        isinstance(source_candidate_id, str) and bool(source_candidate_id.strip())
+    )
+    requested_candidate_id = candidate_id.strip() if isinstance(candidate_id, str) and candidate_id.strip() else None
+    source_candidate_id_matches = (
+        None if requested_candidate_id is None
+        else source_candidate_id == requested_candidate_id
+    )
 
     try:
         actual_sha256 = sha256_file(image_path)
@@ -138,6 +147,8 @@ def audit(
         (
             annotation_filename_matches,
             source_filename_matches,
+            source_candidate_id_present,
+            source_candidate_id_matches is not False,
             recorded_hash_valid,
             hash_matches,
             source_metadata_present,
@@ -154,6 +165,8 @@ def audit(
     for name, passed in (
         ("annotation_filename_matches_local_image", annotation_filename_matches),
         ("source_filename_matches_local_image", source_filename_matches),
+        ("source_candidate_id_present", source_candidate_id_present),
+        ("source_candidate_id_matches_requested", source_candidate_id_matches is not False),
         ("recorded_source_sha256_is_valid", recorded_hash_valid),
         ("recorded_source_sha256_matches_actual_bytes", hash_matches),
         ("source_metadata_present", source_metadata_present),
@@ -176,6 +189,8 @@ def audit(
         "recorded_source_sha256_matches_actual": hash_matches,
         "annotation_filename_matches_local_image": annotation_filename_matches,
         "source_filename_matches_local_image": source_filename_matches,
+        "source_candidate_id_present": source_candidate_id_present,
+        "source_candidate_id_matches_requested": source_candidate_id_matches,
         "source_metadata_present": source_metadata_present,
         "source_page_is_http_url": source_page_is_http_url,
         "rights_ledger_row_found": rights_checks is not None,
