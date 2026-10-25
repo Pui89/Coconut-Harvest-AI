@@ -12,6 +12,8 @@
 
 This is a transparent readiness status, not a failure of the project. The gate is designed to block unreviewed images rather than quietly treat them as valid training data. Re-run the gate whenever the ledgers change; this document is a dated snapshot, not a live report.
 
+The gate's JSON report also includes `gate_failure_counts`, a ranked `top_blockers` list, and `recommended_next_steps` grouped into source rights, record consistency, human annotation review and explicit training approval. These are prioritisation aids only: they do not change eligibility or mark any candidate as reviewed.
+
 ## Why candidates remain blocked
 
 The promotion gate requires all of the following to be recorded consistently in both ledgers: source and creator, licence and URL, independent source-page review, attribution, completed annotation QA, explicit training approval, matching filenames, a positive target decision, and approved label QA. The gate checks recorded fields; it cannot independently determine legal rights or whether boxes are correct.
