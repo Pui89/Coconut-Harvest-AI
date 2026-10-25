@@ -514,3 +514,12 @@ This roadmap prioritizes improvements that can be built and checked locally befo
 ### Acceptance rule
 
 No automatic cutting command from a vision score alone. A harvest action requires a reviewed target, valid geometry, safety-gate approval and a recoverable stop path. Keep the workflow local-first and free-first; no paid API or cloud GPU is required for this roadmap.
+
+## Vision-language and action-planning architecture
+
+**Planned next layer — not yet a connected model:** a vision-language model (VLM) may summarize image context; an action-planning LLM may propose structured high-level steps. The existing detector/classifier, geometry checks and autonomy supervisor remain separate.
+
+- Design and safety contract: [Physical AI Stack](docs/PHYSICAL_AI_STACK.md)
+- Model-agnostic input/output validation: [llm_interfaces.py](pui89_autonomy/llm_interfaces.py)
+- The scaffold uses only the Python standard library. It does not download models, call paid APIs, run image inference, or control hardware.
+
