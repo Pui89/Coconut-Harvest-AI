@@ -1,0 +1,35 @@
+name: Free resource link cleanup
+on:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: free-resource-link-cleanup
+  cancel-in-progress: false
+jobs:
+  audit-and-clean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit links and prune repeatedly dead resource rows
+        env:
+          LINK_AUDIT_FILES: |
+            docs/FREE_FIRST_RESOURCE_CATALOGUE.md
+        run: python .github/scripts/audit_free_resource_links.py
+      - name: Commit audit state, report, and safe removals
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/link-audit-state.json FREE_RESOURCE_LINK_AUDIT.md docs/FREE_FIRST_RESOURCE_CATALOGUE.md
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: audit and prune inactive free resource links"
+            git push
+          else
+            echo "No audit state or catalogue changes to commit."
+          fi
