@@ -1,0 +1,96 @@
+# Engineering Requirements and Evidence Matrix
+
+**Last reviewed:** 2026-10-23  
+**Baseline default-branch commit inspected:** `6c7d5c68e4ee205cff1a0c1d7a0cbfbc4d961d00`  
+**Purpose:** Track what is implemented, what has been tested, and what still needs real evidence. This is an engineering checklist, not a certification or claim of field readiness.
+
+**Evidence rule:** A passing software test verifies only the tested software behavior. It does not establish detector accuracy, legal image rights, physical safety, or successful harvesting. Do not promote dataset candidates or claim performance without the required independent evidence.
+
+## Status definitions
+
+- **Verified:** the named check ran and the result is linked or recorded, within the stated scope.
+- **Failed:** a check ran and did not meet its stated criterion.
+- **Not measured:** the required evidence is unavailable; do not infer a pass.
+- A software-only result never implies physical hardware validation.
+
+## Requirements and evidence matrix
+
+| ID | Requirement / metric | Test method | Dataset / scenario | Baseline / reference | Current measured result | Sample count | Pass criterion and rationale | Evidence URL / artifact | Status | Next action |
+|---|---|---|---|---|---|---:|---|---|---|---|
+| DATA-01 | Candidate source, creator, licence and attribution are traceable | Review each original source page against the rights ledger | Candidate-image ledger | Each source independently reviewed; ledger fields alone do not prove legal permission | 34 candidate records; 0 currently approved for training in the dated readiness snapshot | 34 candidates | Every promoted item must have verified source/reuse terms, attribution and matching review record | [Dataset readiness](COCONUT_DATASET_READINESS.md); `data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv` | **Not measured** — promotion remains blocked | Review original source pages and record item-level decisions |
+| DATA-02 | Labels identify visible coconuts correctly | Inspect original-resolution image and annotation overlay; independent second review | Human-reviewed real images | Independent annotation QA; ambiguous or occluded fruit must not be guessed | Full-set independent label QA not established; 0 candidates approved for training | 34 candidate records; approved labelled set: 0 | Independent review must confirm box geometry, class and visibility before training/evaluation | [Dataset readiness](COCONUT_DATASET_READINESS.md); [annotation QA audit](ANNOTATION_QA_AUDIT_2026-10-19.md) | **Not measured** | Review labels and correct or quarantine disputed annotations |
+| DATA-03 | Train/validation/test split has no known duplicate or source/tree/session leakage | Run hash, filename and group-ID audit on a frozen manifest | Rights-cleared, QA-approved images only | Zero known duplicate/source-group leakage; split must be frozen before tuning | No valid held-out set is documented | 0 held-out approved images | A split is acceptable only after lawful data, labels, group IDs and file hashes are verified | [Split-leakage audit](DATASET_SPLIT_LEAKAGE_AUDIT.md) | **Not measured** | Create and audit the manifest after DATA-01 and DATA-02 pass |
+| DATA-04 | Dataset promotion gate rejects incomplete or malformed evidence | Run promotion-gate regression tests; inspect readiness JSON | Synthetic/fixture CSV ledgers, not legal review | Missing rights, QA or approval must block promotion | Promotion-gate and related CI checks completed successfully on the linked PR branch; real dataset remains blocked | Test fixtures; real approved images: 0 | Every negative fixture must remain blocked; this verifies gate logic, not the truth of source rights | [Evidence-matrix PR checks](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39928084376) · [Python tests](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39928084684) | **Verified** — software gate only | Re-check completed CI after any gate-code changes; review real source pages manually |
+| AI-01 | Detector and maturity performance are measured on a held-out real-coconut set | Compare predictions with human-reviewed ground truth; report per-class precision, recall, F1 and IoU | Frozen held-out real-coconut images | Simple reference: HSV threshold + morphology; IoU threshold 0.50. Existing run is exploratory/in-sample only | Exploratory baseline: precision 0, recall 0, F1 0; 20 predictions, 15 ground-truth boxes; mean CPU runtime 15.12 ms/image. This is not a trained detector or generalization result | 2 images; 15 ground-truth boxes; 20 predictions | Do not set a model-performance gate until labels, task risks and the competition rubric are reviewed; report held-out results and uncertainty | [Exploratory baseline JSON](../data/review_batch_2026-10-18/benchmark_report_v0.1.json) | **Not measured** — representative model performance | Obtain lawful images, independently QA labels, freeze a held-out split, then evaluate a named detector |
+| AI-02 | Performance is reported by maturity, lighting, occlusion and distance where labels support it | Stratified evaluation with sample count per condition | Held-out images with defensible condition labels | Report each supported subgroup; do not infer results for unrepresented conditions | No representative held-out subgroup results available | 0 held-out images with a verified subgroup manifest | Every reported subgroup must show its denominator and limitations; unsupported groups remain unmeasured | [Dataset readiness](COCONUT_DATASET_READINESS.md); [benchmark protocol](EVALUATION_BENCHMARK.md) | **Not measured** | Add condition labels during human review and evaluate only supported strata |
+| ROBOT-01 | Uncertain perception, localization, reachability or safety state cannot authorize a cut | Unit and fault-injection tests for missing, stale, malformed, NaN/Inf and contradictory inputs; independent hardware review for physical chain | Software fixtures; no physical actuator | Unknown/unsafe inputs must abstain or enter safe hold; human approval alone is insufficient | Software preflight/workflow tests pass; physical interlocks, cutter inhibition and complete hardware chain are not verified | 32 application unittest cases in the recorded CI job; physical tests: 0 | All deterministic safety regression cases pass; physical authorization requires independent interlocks and staged tests | [Application CI run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39930657272); [end-to-end workflow tests](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39930656981) | **Verified** — software-only scope | Continue fault injection; specify and independently test hardware interlocks before any actuator integration |
+| ROBOT-02 | 0–30 m tree height is treated as a design envelope, not demonstrated reach | Review concept assumptions; later use staged geometry/simulation and instrumented physical tests | Design concept; simulation/physical cases not yet validated | No assumed reach, payload, wind or terrain limit without analysis and measurements | Concept requirements documented; no validated 30 m mechanism or physical reach evidence | Physical trials: 0 | Keep the range labelled as a feasibility challenge until measured mechanics, stability, retention and safe operation are independently assessed | [0–30 m concept requirements PR](https://github.com/Pui89/Coconut-Harvest-AI/pull/65); [height feasibility plan](TREE_HEIGHT_FEASIBILITY_0-30M.md) | **Not measured** — concept only | Define staged simulation cases and feasibility trades; do not add invented mechanical limits |
+| DEMO-01 | A deterministic local software demo runs from input to JSON output without paid APIs or physical actuators | Run CLI test and validate output/status fields | One checked-in synthetic example | Successful exit; valid JSON; no actuator command; physical harvest remains unverified | CI completed the end-to-end workflow test and application test job; this is a software task-sequence demonstration, not physics simulation | 1 synthetic input in the CLI test | Repeat from a clean environment with documented versions and expected output | [CLI regression test](../apps/pui89_app/test_robot_workflow.py); [end-to-end CI](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39930656981) | **Verified** — software demo only | Keep the command and expected output current; add physics simulation only as a separately labelled next stage |
+| PERF-01 | Runtime/resource use is reproducible for the actual detector and evaluation environment | Record exact command, model hash, device, versions, latency and memory on frozen inputs | Valid held-out image set and an identified model checkpoint | Compare against the named baseline under the same protocol; report uncertainty and limitations | Only the two-image CPU HSV heuristic timing above is available; no trained-model latency, GPU measurement or memory profile is established | 2 exploratory images; trained-model samples: 0 | No extrapolation from heuristic timing to a trained model or robot runtime | [Exploratory baseline JSON](../data/review_batch_2026-10-18/benchmark_report_v0.1.json); [adaptive CPU benchmark scope](ADAPTIVE_COMPUTE_CPU_BENCHMARK.md) | **Not measured** — trained-model resources | Measure after the evaluation set and model checkpoint are frozen |
+| DOC-01 | Public claims match code, tests and evidence | Review README, workflow filters, reports and links at the inspected commit | Repository at baseline commit above | Clearly distinguish implemented, tested, evaluated, conceptual and planned; no formal compliance claim | README describes conceptual hardware and unvalidated physical capabilities; matrix and concept requirements are under review in open PRs | N/A | Any change in claims must cite a real implementation or completed test/evaluation | [README](../README.md); [matrix PR](https://github.com/Pui89/Coconut-Harvest-AI/pull/64) | **Verified** — documentation review only | Refresh status only after checking current HEAD and completed CI |
+
+## External comparison — context only, not a project score
+
+| Reference | Published task and sample | Reported result in the accessible publication page | Hardware / split information available there | Comparability |
+|---|---|---|---|---|
+| [Identifying Coconut Maturity Levels Using CNN and YOLOv8 Deep Learning Algorithms (2025)](https://shmpublisher.com/index.php/joiser/en/article/view/595) | 230 coconut images; two classes (young and mature) | Reports mAP 90.5%, precision 99.3%, recall 94.2% and F1 96.6% | The accessible page does not establish a directly matching held-out split/hardware protocol; downloadable dataset is not provided on that page | **Context only. Not directly comparable.** The labels, data, split and evaluation conditions differ; do not copy these metrics into this project's score |
+| [NASA Systems Engineering Handbook appendix](https://www.nasa.gov/reference/system-engineering-handbook-appendix/) | Guidance for requirements verification matrices and validation planning | Recommends unique requirements, explicit verification approach and separate validation planning | Guidance document, not a detector benchmark | Applicable as a selected process reference, not a certification requirement for this project |
+
+## Release / maturity gate
+
+Use the least advanced label supported by evidence:
+
+1. **Software prototype:** code exists; tests may cover selected behavior.
+2. **Tested software prototype:** named regression tests pass on a recorded commit.
+3. **Evaluated AI prototype:** lawful, labelled, held-out data and reproducible metrics exist.
+4. **Simulation-evaluated system:** repeatable end-to-end simulation results exist and are clearly separated from physical results.
+5. **Physical prototype evaluated:** documented staged physical tests and measured outcomes exist.
+6. **Competition candidate:** the relevant competition rules and task benchmark have been mapped and the prototype has passed those task-specific tests.
+
+Passing CI alone never advances the project to an AI-accuracy or physical-robot claim. The 0–30 m target is not demonstrated reach.
+
+## Reproducibility record template
+
+For each future evaluation, record:
+
+- Commit SHA and date
+- Exact command and dependency/runtime versions
+- Hardware / operating system
+- Dataset version, source groups, split and sample count
+- Baseline and metric definitions
+- Actual output, test result and artifact URL
+- Failures, uncertainty, limitations and next action
+
+## Immediate priority
+
+Keep the coconut dataset blocked for training until rights, annotation correctness, independent QA and leakage-safe splits have been verified. Do not change any candidate to approved merely because a structural checker passes.
+
+## Standards and guidance applicability (self-assessment only)
+
+The references below guide proportionate engineering practice. They are **not** project certification criteria, and the repository does not claim formal compliance with any of them.
+
+| Source / version | Relevant principles | Applicability and rationale | Local artifacts / evidence | Gap and status |
+|---|---|---|---|---|
+| [NASA Systems Engineering Handbook, NASA/SP-2016-6105 Rev 2 (2016)](https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20170001761.pdf) | Requirements definition and traceability; risk management; verification versus validation; technical reviews | Selected practices are useful for this robotics concept, adapted as non-binding guidance rather than aerospace-specific requirements | This matrix; [0–30 m feasibility plan](TREE_HEIGHT_FEASIBILITY_0-30M.md); [validation matrix](VALIDATION_MATRIX.md); safety and fault-response documents | Partial practice adoption. Independent engineering review and complete system-level evidence remain outstanding; no formal compliance claimed |
+| [NASA Software Engineering and Assurance Handbook (SWEHB, current online edition)](https://swehb.nasa.gov/) and [NASA software engineering/assurance resources](https://www.nasa.gov/intelligent-systems-division/software-management-office/nasa-software-engineering-procedural-requirements-standards-and-related-resources/) | Software lifecycle discipline; off-nominal testing; configuration control; objective evidence; assurance and IV&V concepts | Apply selected software-quality and evidence practices where proportionate to this local-first prototype. NASA project requirements are not automatically binding here | Python tests and workflows; dataset promotion gate; regression and fault-injection tests; commit-linked reports | Partial. No independent IV&V or NASA project assurance process is established |
+| [NASA-STD-8739.8B — Software Assurance and Software Safety Standard](https://standards.nasa.gov/standard/nasa/nasa-std-87398) | Software assurance, software safety, and independent verification/validation | Reference for hazard-aware testing and evidence discipline; its formal scope is software created, acquired, provided, or maintained by or for NASA | Safety requirements and software regression tests | Guidance only for this repository; no conformity assessment or compliance claim |
+| [ISO/IEC/IEEE 15288:2023, Edition 2](https://www.iso.org/standard/81702.html) | System life-cycle process framework | Potentially relevant to a system-of-systems robotics concept, but the full standard is paywalled. Use high-level lifecycle/traceability concepts only until scope and access are reviewed | Requirements/evidence matrix and staged concept gates | Not fully assessed; not adopted as a normative checklist; no conformance claim |
+| [ISO/IEC/IEEE 12207:2026, Edition 2](https://www.iso.org/standard/90219.html) | Software life-cycle process framework | Relevant in principle to software development and maintenance. ISO lists the 2026 edition as published in April 2026 and the 2017 edition as withdrawn; the full text is paywalled | Test commands, CI evidence, versioned changes and reproducibility records | Not fully assessed against the full text; no conformance claim |
+
+**Status vocabulary:** (1) *practice adopted* means a selected technique is used; (2) *self-assessed alignment* means evidence has been reviewed against a stated principle; (3) *formal compliance/certification* requires an applicable assessment and is **not claimed** here. Do not convert a passing unit-test suite into a standards-compliance or physical-safety claim.
+
+
+## Internal weighted scorecard — evidence-gated, not a certification
+
+Proposed internal weights only: AI/model performance 25, end-to-end task success 25, safety/fault handling 20, repeatability/reproducibility 15, runtime/resources 10, documentation/evidence 5. No numeric category points are assigned yet because representative task evidence and a predeclared category-level scoring rubric are not sufficient. **N/A is not zero.**
+
+| Category | Weight | Score | Evidence and confidence in status | Missing evidence / next action |
+|---|---:|---|---|---|
+| AI/model performance | 25 | N/A | The 2-image HSV exploratory baseline reports precision/recall/F1 = 0 at IoU ≥ 0.50, with 15 boxes and 20 predictions; it is in-sample, not independently QA'd or held out. High confidence that it cannot support a model score. | Rights-cleared, independently QA'd labels; frozen leakage-safe held-out set; per-stage/condition metrics and failure examples. |
+| End-to-end task success | 25 | N/A | The software workflow demo is not a physical harvest or validated physics simulation. High confidence that harvest success is unmeasured. | Deterministic scenario suite with attempted/successful/aborted counts; later instrumented, supervised physical trials. |
+| Safety/fault handling | 20 | N/A (system-level) | Software fail-safe and localization tests exist; physical interlocks, cutter inhibition, reachability, capture and complete hardware chain remain unverified. Medium-high confidence for software-only scope. | Complete critical hazard-to-test trace; confirm current PR-head CI; independently review and test hardware safeguards before actuation. |
+| Repeatability/reproducibility | 15 | N/A | Multi-version CI evidence exists on earlier review heads; the newest fail-safe PR head has a Python test matrix still running at this review. Medium confidence. | Recheck completed CI for the exact current head; record clean-install rerun, versions, command and artifacts. |
+| Runtime/resources | 10 | N/A | Only the 2-image HSV heuristic's mean CPU time (15.12 ms/image) is recorded; no trained-model or GPU/resource benchmark exists. High confidence. | Measure p50/p95 latency and memory on a frozen labelled set with exact hardware/software metadata. |
+| Documentation/evidence | 5 | N/A | Dataset readiness, concept and evidence-matrix documents exist; the evidence matrix is still on an open PR branch and the README status snapshot is dated 22 October. Medium confidence. | Review/merge documentation through normal review; refresh only with verified new evidence. |
+
+**Verified-row coverage:** 4/11 requirements marked Verified in this matrix branch (36.4%). This is a status-coverage indicator, not a readiness score; the verified rows are limited to software/documentation scope. Real-coconut training approval remains 0 documented candidates.
