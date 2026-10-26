@@ -1,4 +1,4 @@
-name: Free resource link cleanup
+name: Free resource and paid-upgrade cleanup
 on:
   schedule:
     - cron: "17 5 * * 1"
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Audit links and prune repeatedly dead resource rows
+      - name: Audit links and repeated explicit paid-upgrade signals; prune resource rows
         env:
           LINK_AUDIT_FILES: |
             docs/FREE_FIRST_RESOURCE_CATALOGUE.md
@@ -28,7 +28,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .github/link-audit-state.json FREE_RESOURCE_LINK_AUDIT.md docs/FREE_FIRST_RESOURCE_CATALOGUE.md
           if ! git diff --cached --quiet; then
-            git commit -m "chore: audit and prune inactive free resource links"
+            git commit -m "chore: audit free resources and prune paid or inactive rows"
             git push
           else
             echo "No audit state or catalogue changes to commit."
