@@ -44,6 +44,24 @@ Several source candidates are still unlabelled. The review ledger describes cand
 5. Re-run `tools/coconut_dataset_promotion_gate.py`. Keep candidates blocked until every required gate is genuinely satisfied.
 6. After enough distinct, rights-cleared images are approved, split by orchard/source session before training, audit leakage, then evaluate on a frozen held-out test set.
 
+## One-command local preflight
+
+The standard-library-only wrapper combines the geometry audit with the fail-closed rights/review ledger gate. It is read-only: it does not edit annotations, ledgers, source hashes, or approval flags.
+
+Run from the repository root (PowerShell or Command Prompt):
+
+```powershell
+python tools/run_coconut_dataset_preflight.py --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv --output reports/coconut-preflight-report.json
+```
+
+To include the optional read-only source fingerprint check, add both arguments below and replace the path with the actual original image location:
+
+```powershell
+--candidate-0032-annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json --image-0032 "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg"
+```
+
+The report separates geometry errors, recorded-field promotion blockers, and source fingerprint status. The wrapper's exit code is non-zero while the dataset is blocked or incomplete; that is expected for the current unapproved dataset. A clean geometry report is not human visual QA, and a provenance pass does not approve training.
+
 ## What we may claim today
 
 - The repository has tooling for annotation, dataset validation, split-leakage audits, and detector evaluation.
