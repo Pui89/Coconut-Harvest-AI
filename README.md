@@ -2,16 +2,18 @@
 
 **AI-assisted selective coconut harvesting — four fruit/harvest categories, with a 0–30 m tall-palm reach as a long-term design target.**
 
-> **Important status boundary:** The four categories and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
+> **Important status boundary:** The four maturity classes and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
 
 ## Four target categories
 
 The intended workflow lets an operator choose a harvest target and asks the system to detect, classify, assess, and recommend action for each visible fruit or bunch:
 
-1. **Young green coconuts** — identify fruit intended for young-coconut products; harvest only when the operator's maturity and market criteria are met.
-2. **Mature green coconuts** — identify green fruit assessed as mature for the intended use; colour alone must not determine maturity.
-3. **Brown / dry mature coconuts** — identify brown or aging fruit and assess suitability; appearance alone cannot confirm internal quality.
-4. **Mixed-stage bunches** — recognise bunches containing different fruit stages, assess individual targets where visibility permits, and select only the operator-requested fruit. Do not assume every fruit in a bunch is at the same stage.
+1. **Young green coconuts** — identify fruit intended for young-coconut products, subject to defined maturity and market requirements.
+2. **Developing green coconuts** — recognise fruit that is still developing and normally recommend WAIT / REVIEW unless a defined use-case calls for harvesting.
+3. **Mature green coconuts** — identify fruit assessed as mature for the intended use; colour alone must not determine maturity.
+4. **Brown / dry mature coconuts** — identify brown or aging fruit and assess suitability; exterior appearance alone cannot confirm internal quality.
+
+A **mixed-stage bunch is a scene condition, not a maturity class**. Classify visible fruits individually where possible; do not assume every fruit in a bunch is at the same stage.
 
 **Uncertain, hidden, damaged, occluded, or unsafe targets are not a fifth harvest category.** They are rejection / review conditions: mark them unknown, request human review, or stop. Never cut when target identity, reach, stability, clearance, tool readiness, or the required approval is uncertain.
 
@@ -27,6 +29,10 @@ Orchard image and sensor inputs → fruit / bunch detection → four-category cl
 
 This workflow describes the intended system. Components currently implemented in software are identified separately below; the complete physical workflow has not been validated.
 
+
+## Four-class and 0–30 m validation plan
+
+The staged validation gates, class definitions, dataset requirements, reproducible metrics, safe-stop tests, and physical reach evidence needed to progress responsibly are documented in the [Four-Class Coconut Harvesting and 0–30 m Validation Roadmap](docs/FOUR_CLASS_0_30M_VALIDATION_ROADMAP.md). This is a plan, not evidence that these capabilities are already validated.
 
 ## Free-first offline engineering tools
 
@@ -53,7 +59,7 @@ Current gaps, recent technology directions, no-recurring-cost adoption gates, an
 
 ## Current verified status — 26 October 2026
 
-**Stage:** local software, data-quality and evaluation foundations. The four target categories and 0–30 m reach are design goals only; this repository does not yet demonstrate a validated physical coconut-harvesting robot.
+**Stage:** local software, data-quality and evaluation foundations. The four target maturity classes and 0–30 m reach are design goals only; this repository does not yet demonstrate a validated physical coconut-harvesting robot.
 
 - **Synthetic evaluation — 26 October 2026:** the labelled synthetic suite reports 7/7 scenarios passed, and adversarial workflow regression tests are merged. This validates these synthetic software paths only; it does not establish coconut-detection accuracy, harvest success, or physical robot capability.
 
@@ -69,7 +75,7 @@ Current gaps, recent technology directions, no-recurring-cost adoption gates, an
 
 ![Conceptual coconut harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
-*Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The four target categories and 0–30 m range are intended design goals; detection accuracy, maturity classification, reach, stability, cutting, fruit retention, safe lowering, and real-orchard operation remain unvalidated.*
+*Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The four target maturity classes and 0–30 m range are intended design goals; detection accuracy, maturity classification, reach, stability, cutting, fruit retention, safe lowering, and real-orchard operation remain unvalidated.*
 
 ## Optional local Hugging Face vision experiment
 
@@ -275,7 +281,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 **How they connect:** the application may recommend a candidate and a plan; a future robot would still need independently validated localization, reachability, hardware interlocks, human approval, and verified fruit collection. A software recommendation must never directly authorize a physical cut.
 
 
-> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Four target categories are planned: young green, mature green, brown/dry mature, and mixed-stage bunches. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
+> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Four target maturity classes are planned: young green, developing green, mature green, and brown/dry mature. Mixed-stage bunches are a scene condition, not a maturity class. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
 
 ## What the project includes
 
