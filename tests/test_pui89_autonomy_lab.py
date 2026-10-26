@@ -10,7 +10,7 @@ class MockVLAGuardTests(unittest.TestCase):
         for state in ({"emergency_stop": True},{"sensors_ok": False},{"sensor_data_fresh": False},{"comms_ok": False}):
             with self.subTest(state=state): self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"SAFE_HOLD")
     def test_low_confidence_or_conflicting_modalities_abstain(self):
-        for state in ({"confidence":0.2},{"modalities_conflict":True},{"missing_required_modality":True},{"confidence":2.0}):
+        for state in ({"confidence":0.2},{"modalities_conflict":True},{"missing_required_modality":True},{"confidence":2.0},{"confidence":None},{"confidence":"not-a-number"},{"confidence":float("nan")},{"confidence":float("inf")}):
             with self.subTest(state=state): self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"UNKNOWN")
     def test_missing_target_searches(self):
         self.assertEqual(self.policy.propose({"target_visible":False},"SIM_ACTION")[0],"SEARCH")
