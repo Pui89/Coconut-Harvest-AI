@@ -1,6 +1,8 @@
 name: Collect free coconut image candidates
 
 on:
+  schedule:
+    - cron: "13 6 * * 1"
   push:
     paths:
       - ".github/workflows/collect-coconut-candidates.yml"
