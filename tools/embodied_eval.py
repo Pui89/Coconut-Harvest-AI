@@ -23,7 +23,7 @@ def validate_result(result: dict[str, Any]) -> list[str]:
     if missing:
         errors.append("missing required fields: " + ", ".join(missing))
     status = result.get("status")
-    if status is not None and status not in ALLOWED_STATUSES:
+    if status is not None and (not isinstance(status, str) or status not in ALLOWED_STATUSES):
         errors.append(f"status must be one of {sorted(ALLOWED_STATUSES)}")
     violations = result.get("safety_violations", [])
     if not isinstance(violations, list):
