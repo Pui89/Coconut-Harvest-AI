@@ -1,5 +1,18 @@
 # Free Local Project Automation — Coconut Harvest AI
 
+## Shared fast feedback loop
+
+Run the standard-library-only preflight first:
+
+```bat
+python tools\pui89_fast_check.py
+```
+
+It scans Python syntax and checks a few repository-structure markers without installing packages, downloading model weights, calling an API, or using a GPU. To request the full pytest suite, use `python tools\pui89_fast_check.py --pytest`; it runs pytest only if it is already installed and never installs it.
+
+GitHub Actions also runs this quick preflight on relevant pushes and pull requests. It is an early warning, not a substitute for the full project tests, data/licence review, model benchmarks, or physical safety validation. The helper reports issues; it does not automatically rewrite or repair code.
+
+
 ## Purpose
 
 This repository uses the shared PUI89 Free Project Health Check to perform repeatable, local engineering checks. The helper uses only the Python standard library by default and does not install packages, download models, call APIs, use cloud GPUs, or contact external services.
