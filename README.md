@@ -4,6 +4,40 @@
 
 > **Important status boundary:** The four maturity classes and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
 
+## Real palm height: dataset, labels, training and test plan
+
+**Current status:** the repository does not yet contain a verified, height-labelled coconut-palm dataset covering 0–30 m. The photograph above is a real reference image, but it has no independently verified tree-height measurement recorded here. Do not infer height from appearance or use it as a height-labelled training/test example.
+
+### Free research starting points (check terms before reuse)
+
+- [Coconut tree crown — Mendeley Data](https://data.mendeley.com/datasets/w4t73tvrf8/1): described as 400 RGB coconut-crown images and lists CC BY 4.0. The published description does not establish a measured 0–30 m height label for every image. Verify the files, licence, attribution and metadata before adding any image to this repository.
+- [Coconut-cluster detection research (open-access article)](https://pmc.ncbi.nlm.nih.gov/articles/PMC9737954/): describes 900 crown images collected from palms reported to be approximately 8–20 m tall. That reported range is study context, not a verified per-image height label. Check the dataset's separate access and reuse terms before reuse.
+- [Free-licence example of a tall coconut palm](https://commons.wikimedia.org/wiki/File:A_coconut_palm_tree.jpg): useful for visual context and annotation practice only; the source page does not provide a measured height, so it must not be labelled as a particular metre value.
+
+### Proposed height strata
+
+| Height band | Label status | Intended use |
+|---|---|---|
+| 0–5 m | Collect measured examples | Early controlled experiments |
+| >5–10 m | Collect measured examples | Scale and viewpoint variation |
+| >10–15 m | Collect measured examples | Taller-canopy generalisation |
+| >15–20 m | Collect measured examples | High-canopy detection challenges |
+| >20–25 m | Collect measured examples | Very tall palm evaluation |
+| >25–30 m | Collect measured examples | Long-term target evaluation |
+
+These are collection targets, not evidence that any band is currently populated. Record a height value, measurement method, measurement date, uncertainty, source/tree ID, camera distance and viewpoint where available. If the height is unknown, use height_m = null and height_status = unverified; never guess from image pixels alone.
+
+### Annotation and leakage-safe evaluation rules
+
+1. Keep fruit bounding boxes and maturity labels separate from palm-height metadata. Height is a tree/scene attribute, not a fifth fruit class.
+2. Record image provenance, licence, original file hash, tree ID or source/session ID, height evidence and reviewer status.
+3. Keep AI-proposed annotations marked as drafts until human review and independent review are documented.
+4. Split train/validation/test by tree, orchard, capture session or source group—not by near-duplicate frames—so images of the same palm cannot leak across splits.
+5. Report fruit-detection metrics separately for each adequately sampled, height-verified band, plus overall precision, recall, F1/mAP and latency. State sample counts and uncertainty; do not report a band result when there are insufficient eligible examples.
+6. Height-stratified image testing evaluates visual generalisation only. It does not prove a robot can reach, cut, capture, lower fruit or operate safely at that height. Those require separate staged physical tests and risk controls.
+
+**Gate:** no 0–30 m coverage claim until each reported band has traceable, licensed examples, verified height metadata, reviewed labels, tree/source-separated splits and reproducible results. The 0–30 m range remains a long-term design target, not a validated capability.
+
 ## Real coconut-palm photograph
 
 ![Real coconut palm with visible coconuts, photographed in Sri Lanka](https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Coconut_in_Coconut_Tree.jpg/960px-Coconut_in_Coconut_Tree.jpg)
