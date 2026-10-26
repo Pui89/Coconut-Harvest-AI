@@ -4,6 +4,12 @@
 
 > **Important status boundary:** The four maturity classes and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
 
+## Real coconut-palm photograph
+
+![Real coconut palm with visible coconuts, photographed in Sri Lanka](https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Coconut_in_Coconut_Tree.jpg/960px-Coconut_in_Coconut_Tree.jpg)
+
+*Photograph: “Coconut in Coconut Tree” by Sarmi~Kili, taken in Sri Lanka. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg). Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). This is a real orchard photograph, not a robot prototype or proof of detection performance. Image attribution and licence are provided for reuse; annotation boxes and training eligibility remain subject to separate review.*
+
 ## Four target categories
 
 The intended workflow lets an operator choose a harvest target and asks the system to detect, classify, assess, and recommend action for each visible fruit or bunch:
