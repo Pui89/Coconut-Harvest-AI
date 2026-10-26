@@ -9,7 +9,7 @@ description = "Multimodal, safety-controlled coconut harvesting robotics platfor
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "torch>=2.0.0",
+  "torch>=2.13.0",
   "numpy>=1.24.0",
   "transformers>=4.57.0",
   "accelerate>=1.10.0",
