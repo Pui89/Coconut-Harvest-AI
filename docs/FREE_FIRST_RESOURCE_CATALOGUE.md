@@ -63,3 +63,12 @@ The shared core links were spot-checked and responded: GitHub Actions documentat
 **FreeScan.app is optional, not core.** It currently presents a free one-off audit but also offers paid Pro monitoring. Do not pay for it; Lighthouse is the default. If the free audit disappears, the URL stops responding, or a usable $0 option is no longer available, remove its recommendation and website link.
 
 **Maintenance rule:** remove resources from the catalogue and website when they become unavailable, inactive, or require payment for the useful function. Record the date and reason in the next update and prefer a local/open alternative. Do not delete project code or evidence just because an external service retires. This is a spot-check, not continuous monitoring.
+
+## Automatic no-paid-upgrade policy
+
+- Keep the catalogue limited to tools and services that do not require a paid upgrade for the documented use case.
+- The weekly GitHub Actions audit checks curated resource-table URLs for repeated outages and explicit paid-upgrade wording (for example, paid/pro/premium plans or buying credits).
+- A table row is removed after three consecutive checks of an explicit paid-upgrade signal or a failed URL. Inconclusive fetches do not count as evidence.
+- The scan is a conservative text check, not a guarantee: pricing may be JavaScript-rendered or worded differently. Review the generated audit report; do not treat absence of a flag as proof that a tool is free.
+- The automation only removes curated Markdown resource-table rows. It never deletes source code, tests, datasets, evidence, workflows, repository history, or the service account itself.
+- No purchase, subscription, billing activation, or paid API call is made. Local/open-source alternatives are preferred.
