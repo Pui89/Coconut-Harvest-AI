@@ -4,6 +4,19 @@
 
 Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
 
+## Free-first build policy and next upgrade
+
+**Default rule: use existing local tools first; do not add recurring costs.** No paid API, cloud GPU, hosted inference, or automatic model/data download is required for the current workflow.
+
+- **Gate 1 — free checks:** run `python tools/pui89_master_verify.py`; use the existing standard-library tests and CI before installing anything. A tool inventory is not a test pass.
+- **Gate 2 — data before models:** keep all coconut candidates blocked until source/reuse terms, attribution, actual-file SHA-256, annotation geometry and independent review are recorded. Never train on draft labels.
+- **Gate 3 — small reproducible baseline:** use a tiny, licensed, reviewed subset and CPU-compatible baseline first; report the exact split, sample counts, per-class metrics and runtime. Do not download large weights or claim 0–30 m performance without measured height labels and separate robot feasibility evidence.
+- **Gate 4 — approve cost and risk:** before any optional package, model or simulator install, check licence, download size, disk/RAM/VRAM fit and whether it can run offline. Ask before any paid or recurring-cost choice.
+- **Release evidence:** save command, commit, environment, test result, dataset hash, failures and limitations. Keep physical harvesting status **not validated** until independently supported by hardware evidence.
+
+**Next action:** reconcile local image files and real hashes for candidates 0031–0034; then finish rights review and independent annotation QA. The training gate remains closed until the evidence is complete.
+
+
 **AI-assisted selective coconut harvesting — four fruit/harvest categories, with a 0–30 m tall-palm reach as a long-term design target.**
 
 > **Important status boundary:** The four maturity classes and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
