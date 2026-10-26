@@ -1,5 +1,9 @@
 # Coconut Harvest AI
 
+## One-command local verification
+
+Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
+
 **AI-assisted selective coconut harvesting — four fruit/harvest categories, with a 0–30 m tall-palm reach as a long-term design target.**
 
 > **Important status boundary:** The four maturity classes and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
