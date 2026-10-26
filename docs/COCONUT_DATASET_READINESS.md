@@ -62,6 +62,22 @@ To include the optional read-only source fingerprint check, add both arguments b
 
 The report separates geometry errors, recorded-field promotion blockers, and source fingerprint status. The wrapper's exit code is non-zero while the dataset is blocked or incomplete; that is expected for the current unapproved dataset. A clean geometry report is not human visual QA, and a provenance pass does not approve training.
 
+### Windows PowerShell shortcut
+
+A helper script now runs the same read-only preflight using paths relative to the checked-out repository, so you do not need to type the long ledger paths manually. From the repository root, run:
+
+```powershell
+.\scripts\run_coconut_preflight.ps1
+```
+
+To also check the original candidate 0032 file's bytes, supply its actual local path:
+
+```powershell
+.\scripts\run_coconut_preflight.ps1 -Image0032 "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg"
+```
+
+The helper installs nothing, downloads no models, and changes no annotations, source hashes or approval flags. It writes only `reports/coconut-preflight-report.json`. If Python or any required project file is missing, it stops with an error rather than silently skipping checks.
+
 ## What we may claim today
 
 - The repository has tooling for annotation, dataset validation, split-leakage audits, and detector evaluation.
