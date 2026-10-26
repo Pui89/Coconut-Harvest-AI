@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
   "torch>=2.13.0",
+  "pillow>=13.0.0",
   "numpy>=1.24.0",
   "transformers>=4.57.0",
   "accelerate>=1.10.0",
@@ -31,7 +32,3 @@ where = ["src"]
 pythonpath = ["apps"]
 testpaths = ["tests"]
 addopts = "-q"
-
-[tool.ruff]
-line-length = 100
-target-version = "py310"
