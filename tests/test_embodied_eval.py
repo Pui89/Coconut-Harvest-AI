@@ -27,6 +27,11 @@ def test_missing_fields_are_reported():
     )[0]
 
 
+def test_invalid_status_type_is_reported_without_crashing():
+    errors = validate_result(case(status=["pass"]))
+    assert any("status must be one of" in error for error in errors)
+
+
 def test_safety_violation_cannot_be_marked_pass():
     errors = validate_result(case(safety_violations=["entered-no-go-zone"]))
     assert any("cannot have status='pass'" in error for error in errors)
