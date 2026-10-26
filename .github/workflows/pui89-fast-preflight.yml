@@ -1,0 +1,40 @@
+name: PUI89 Fast Preflight
+
+on:
+  push:
+    paths:
+      - "**/*.py"
+      - "tests/**"
+      - "tools/**"
+      - "scripts/**"
+      - ".github/workflows/pui89-fast-preflight.yml"
+  pull_request:
+    paths:
+      - "**/*.py"
+      - "tests/**"
+      - "tools/**"
+      - "scripts/**"
+      - ".github/workflows/pui89-fast-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-fast-preflight-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  syntax-preflight:
+    name: Fast no-install syntax and structure check
+    runs-on: ubuntu-slim
+    timeout-minutes: 3
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run standard-library preflight
+        run: python tools/pui89_fast_check.py
