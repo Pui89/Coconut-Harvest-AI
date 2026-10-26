@@ -1,0 +1,36 @@
+name: Dataset recovery and replacement queue
+on:
+  push:
+    paths:
+      - "data/**"
+      - "tools/dataset_recovery_audit.py"
+      - ".github/workflows/dataset-recovery.yml"
+  pull_request:
+    paths:
+      - "data/**"
+      - "tools/dataset_recovery_audit.py"
+      - ".github/workflows/dataset-recovery.yml"
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recovery-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit dataset rows and create replacement queue
+        run: python tools/dataset_recovery_audit.py
+      - name: Upload recovery report and replacement queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataset-recovery-queue
+          path: reports/dataset-recovery/
+          if-no-files-found: warn
+          retention-days: 30
