@@ -668,3 +668,7 @@ Run `python tools/free_first_audit.py` from the repository root to create a loca
 - Prioritise image-source permissions, SHA-256 identity, annotation geometry, independent review and source/tree/session-aware split checks before training.
 - The report inventories data files and hashes manageable files, flags Python syntax errors, and notes candidate dataset documentation. It does **not** verify licences, annotations, model accuracy, physical safety, or real-world performance; a human must review those items.
 - Suggested free/open-source technology is already documented in this repository's adoption plan. Evaluate ROS 2/Gazebo or MoveIt only when the project needs simulation or manipulation integration; these tools are not installed by this audit.
+
+## Free-first startup toolkit
+
+See [Free-First Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT.md) for cost guardrails, recommended free-first workflows, project-specific validation rules, and evidence standards. The guide does not require paid APIs, subscriptions, cloud GPUs, or automatic model downloads.
