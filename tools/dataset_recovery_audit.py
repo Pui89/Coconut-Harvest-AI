@@ -67,24 +67,20 @@ def main():
                         issues.append({"type":"quarantine_candidate", "manifest":str(manifest), "line":line, "image_path":image, "reasons":reasons, "action":"Exclude from training/scored testing; retain original and queue a replacement candidate. Verify source rights, annotate, independently review, then update manifest."})
                     else:
                         ready += 1
+        if rows_seen == 0:
+            issues.append({"type":"empty_manifest", "file":str(manifest), "reason":"No populated image rows found; this is a template or empty manifest, not a usable dataset.", "action":"Collect source-cleared candidates and record each source/licence before annotation. Do not claim training or test metrics."})
     else:
-        issues.append({"type":"no_manifest", "reason":"No populated data/manifest.csv found; a template is not a dataset.", "action":"Collect source-cleared candidates and record each source and licence before annotation."})
+        issues.append({"type":"no_manifest", "reason":"No data manifest found.", "action":"Create a manifest and record source, licence, checksum, human label review and split before use."})
 
-    # Detect explicitly named non-training drafts and archived labels, without editing them.
     for p in ROOT.glob("data/**/*"):
         if p.is_file() and any(token in p.name.upper() for token in ("NOT_FOR_TRAINING", "ARCHIVE")):
             issues.append({"type":"protected_review_file", "file":p.as_posix(), "reason":"Draft/archive filename indicates it must not be treated as approved training data.", "action":"Keep for audit history; do not use for training. Replace only in the active dataset after a candidate passes review."})
 
     stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
     report = [
-        "# Dataset Recovery Queue", "",
-        "**Generated:** "+stamp, "",
-        "This report is fail-closed: it identifies data that must be excluded from the active training/scored-test path. It does not delete original files, invent labels, approve licences, or promote replacements.", "",
-        "## Summary", "",
-        "- Manifest rows inspected: "+str(rows_seen),
-        "- Rows passing basic manifest checks: "+str(ready),
-        "- Review / quarantine findings: "+str(len(issues)), "",
-        "## Findings", ""
+        "# Dataset Recovery Queue", "", "**Generated:** "+stamp, "",
+        "Fail-closed report: questionable data must stay out of training/scored tests. This tool does not delete original files, invent labels, approve licences, or promote replacements.", "",
+        "## Summary", "", "- Manifest rows inspected: "+str(rows_seen), "- Rows passing basic manifest checks: "+str(ready), "- Review/quarantine findings: "+str(len(issues)), "", "## Findings", ""
     ]
     if issues:
         for i, issue in enumerate(issues, 1):
@@ -94,24 +90,24 @@ def main():
                     report.append("- **"+key.replace("_"," ").title()+":** "+(json.dumps(value, ensure_ascii=False) if isinstance(value,(list,dict)) else str(value)))
             report.append("")
     else:
-        report.append("No manifest blockers detected by these basic checks. Human annotation review and task-specific validation are still required.")
+        report.append("No manifest blockers detected by basic checks. Human annotation review and task-specific validation are still required.")
     report += [
         "## Replacement workflow", "",
-        "1. Keep the original image/annotation and record the reason in this queue; do not erase audit history.",
-        "2. Exclude the flagged sample from training and scored evaluation until corrected.",
-        "3. Add a new candidate only with a verifiable source URL, licence, attribution and checksum.",
-        "4. Have a human create/correct labels and an independent reviewer verify them; automated geometry checks are necessary but cannot confirm semantic correctness.",
-        "5. Assign source/tree/scene/session group and split; check duplicates and leakage.",
+        "1. Preserve the original image/annotation and record the reason; do not erase audit history.",
+        "2. Exclude flagged samples from training and scored evaluation until corrected.",
+        "3. Add replacement candidates only with verifiable source URL, licence, attribution and checksum.",
+        "4. Require human annotation and independent review. Geometry checks cannot establish semantic correctness.",
+        "5. Assign source/tree/scene/session groups and splits; check duplicates and leakage.",
         "6. Promote only through the existing project validation gate. Never replace a difficult but valid test example solely because model performance is poor.",
         "",
         "No paid APIs or cloud model inference are used by this audit."
     ]
     (OUT / "README.md").write_text("\n".join(report)+"\n", encoding="utf-8")
     with (OUT / "replacement_queue.csv").open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["type","manifest","line","image_path","reasons","action","file","reason"])
-        writer.writeheader()
+        fields=["type","manifest","line","image_path","reasons","action","file","reason"]
+        writer=csv.DictWriter(f, fieldnames=fields); writer.writeheader()
         for issue in issues:
-            writer.writerow({k: json.dumps(v, ensure_ascii=False) if isinstance(v,(list,dict)) else v for k,v in issue.items() if k in writer.fieldnames})
+            writer.writerow({k: json.dumps(v, ensure_ascii=False) if isinstance(v,(list,dict)) else v for k,v in issue.items() if k in fields})
     print("Recovery report written to reports/dataset-recovery/README.md")
     print("Rows inspected:", rows_seen, "basic pass:", ready, "findings:", len(issues))
     return 0
