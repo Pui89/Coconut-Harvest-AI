@@ -17,7 +17,7 @@ This catalogue prioritises tools that can be used at $0 without a required subsc
 | Website and performance audit | [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) | Free in Chrome/CLI | Audit is not a guarantee of ranking or conversion |
 | Search performance for your own site | [Google Search Console](https://search.google.com/search-console/about) | Free | Requires site ownership verification; results take time |
 | Public demo / project documentation | [GitHub Pages](https://pages.github.com/) | Free for eligible public-project use | Check GitHub Pages terms; not a backend for a production AI service |
-| Lightweight site audit | [FreeScan.app](https://www.freescan.app/) | Offers a free audit; optional paid features exist | Do not assume continuous monitoring is free |
+| Optional one-off site audit | [FreeScan.app](https://www.freescan.app/) | A free audit is currently offered; not required | Paid Pro monitoring exists; use Lighthouse first and do not pay |
 | Product/customer research | [GitHub Issues](https://docs.github.com/en/issues) and a simple spreadsheet | Free-first | Record only necessary information; get permission before collecting private data |
 
 ## Local AI models: cautious starting point
@@ -54,3 +54,12 @@ Use synthetic or explicitly authorised test data. Document reference methods, fa
 - No paid API, cloud GPU, subscription, ad spend, or automatic account connection without explicit approval.
 - Recheck pricing and licences at the time of use; free tiers and model terms can change.
 - Keep a record of each adopted tool, version, purpose, licence, and any usage limit.
+
+
+## Resource activity check — 26 October 2026
+
+The shared core links were spot-checked and responded: GitHub Actions documentation, pytest, Ruff, pip-audit, Ollama, Hugging Face Models, Lighthouse, and Google Search Console. This checks that pages respond; it does not guarantee future uptime, every feature, or unchanged quotas.
+
+**FreeScan.app is optional, not core.** It currently presents a free one-off audit but also offers paid Pro monitoring. Do not pay for it; Lighthouse is the default. If the free audit disappears, the URL stops responding, or a usable $0 option is no longer available, remove its recommendation and website link.
+
+**Maintenance rule:** remove resources from the catalogue and website when they become unavailable, inactive, or require payment for the useful function. Record the date and reason in the next update and prefer a local/open alternative. Do not delete project code or evidence just because an external service retires. This is a spot-check, not continuous monitoring.
