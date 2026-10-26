@@ -1,5 +1,33 @@
 # Coconut Harvest AI
 
+**AI-assisted selective coconut harvesting — four fruit/harvest categories, with a 0–30 m tall-palm reach as a long-term design target.**
+
+> **Important status boundary:** The four categories and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
+
+## Four target categories
+
+The intended workflow lets an operator choose a harvest target and asks the system to detect, classify, assess, and recommend action for each visible fruit or bunch:
+
+1. **Young green coconuts** — identify fruit intended for young-coconut products; harvest only when the operator's maturity and market criteria are met.
+2. **Mature green coconuts** — identify green fruit assessed as mature for the intended use; colour alone must not determine maturity.
+3. **Brown / dry mature coconuts** — identify brown or aging fruit and assess suitability; appearance alone cannot confirm internal quality.
+4. **Mixed-stage bunches** — recognise bunches containing different fruit stages, assess individual targets where visibility permits, and select only the operator-requested fruit. Do not assume every fruit in a bunch is at the same stage.
+
+**Uncertain, hidden, damaged, occluded, or unsafe targets are not a fifth harvest category.** They are rejection / review conditions: mark them unknown, request human review, or stop. Never cut when target identity, reach, stability, clearance, tool readiness, or the required approval is uncertain.
+
+## Height target: 0–30 m
+
+The product vision is to support harvesting across palms from **0 m to 30 m**, including the full 0–30 m range as an engineering challenge. This is a **long-term design target, not a proven reach specification**. The repository does not yet verify safe access, positioning, cutting, catching, lowering, or recovery at any particular height. Height capability must be validated in staged tests and reported only for the tested configuration and conditions.
+
+Proposed staged validation: ground-level/controlled bench trials first; then measured low-height tests; then progressively higher, secured tests only after the previous safety and performance gates pass. Do not imply that simulation or a concept illustration proves real-world reach.
+
+## Intended harvesting workflow
+
+Orchard image and sensor inputs → fruit / bunch detection → four-category classification with uncertainty → operator target selection → reach, stability, collision, and tool-readiness checks → human approval → controlled harvest only if all gates pass → fruit capture / lowering → result verification and event log.
+
+This workflow describes the intended system. Components currently implemented in software are identified separately below; the complete physical workflow has not been validated.
+
+
 ## Free-first offline engineering tools
 
 - **Free robotics stack selection:** [open-source systems, licence notes and adoption gates](docs/FREE_ROBOTICS_STACK_ADOPTION.md). These are recommendations only; no robotics packages or model weights are installed or downloaded by this PR.
@@ -25,7 +53,7 @@ Current gaps, recent technology directions, no-recurring-cost adoption gates, an
 
 ## Current verified status — 26 October 2026
 
-**Stage:** local software, data-quality and evaluation foundations. This repository does not yet demonstrate a validated physical coconut-harvesting robot.
+**Stage:** local software, data-quality and evaluation foundations. The four target categories and 0–30 m reach are design goals only; this repository does not yet demonstrate a validated physical coconut-harvesting robot.
 
 - **Synthetic evaluation — 26 October 2026:** the labelled synthetic suite reports 7/7 scenarios passed, and adversarial workflow regression tests are merged. This validates these synthetic software paths only; it does not establish coconut-detection accuracy, harvest success, or physical robot capability.
 
@@ -41,7 +69,7 @@ Current gaps, recent technology directions, no-recurring-cost adoption gates, an
 
 ![Conceptual coconut harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
-*Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. Reach, stability, tool design, fruit retention, safe lowering, and operation in real orchards remain unvalidated.*
+*Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The four target categories and 0–30 m range are intended design goals; detection accuracy, maturity classification, reach, stability, cutting, fruit retention, safe lowering, and real-orchard operation remain unvalidated.*
 
 ## Optional local Hugging Face vision experiment
 
@@ -247,7 +275,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 **How they connect:** the application may recommend a candidate and a plan; a future robot would still need independently validated localization, reachability, hardware interlocks, human approval, and verified fruit collection. A software recommendation must never directly authorize a physical cut.
 
 
-> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Reliable all-stage detection, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and autonomous operation at 0–30 m are not demonstrated capabilities. The 0–30 m range is a design challenge, not a proven robot reach specification.
+> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Four target categories are planned: young green, mature green, brown/dry mature, and mixed-stage bunches. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
 
 ## What the project includes
 
