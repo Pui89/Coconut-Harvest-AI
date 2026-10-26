@@ -1,0 +1,28 @@
+# Free local pre-commit checks for Pui89.
+# No hosted API, cloud GPU, subscription, or paid service is required.
+# One-time local setup (when you choose to run it):
+#   python -m pip install pre-commit
+#   pre-commit install
+# Run all checks manually:
+#   pre-commit run --all-files
+# Hooks download their pinned open-source packages on first run.
+# This config does not trigger GitHub Actions or run automatically in the cloud.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.2
+    hooks:
+      - id: ruff
+        args: [--output-format, concise]
+      - id: ruff-format
+        args: [--check]
