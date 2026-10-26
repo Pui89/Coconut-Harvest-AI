@@ -1,0 +1,40 @@
+name: Free cloud-side verification
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "47 6 * * 1"
+  push:
+    paths:
+      - "tools/**"
+      - "tests/**"
+      - ".github/scripts/**"
+      - ".github/workflows/**"
+      - "pyproject.toml"
+      - "requirements*.txt"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: free-cloud-verification
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Standard-library preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Run syntax and verification-tool inventory
+        run: python tools/pui89_master_verify.py --report verification-report.json
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-report-${{ github.run_number }}
+          path: verification-report.json
+          if-no-files-found: warn
+          retention-days: 14
