@@ -1,22 +1,16 @@
 name: Fetch coconut image candidates
 
+# Deliberately manual-only: downloading external images and uploading artifacts
+# must not happen on a schedule or as a side effect of a code/documentation push.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tools/fetch_coconut_candidates.py"
-      - ".github/workflows/fetch-coconut-candidates.yml"
-      - "RUN_COCONUT_ANNOTATION_QA.bat"
-      - "docs/WINDOWS_COCONUT_ANNOTATION_QUICKSTART.md"
-  schedule:
-    # Weekly candidate refresh; local-time equivalent is 09:25 Thailand on Mondays.
-    - cron: "25 2 * * 1"
 
 permissions:
   contents: read
 
 jobs:
   fetch-candidates:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
