@@ -162,6 +162,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 - **Research case study:** [read the concise problem, current implementation, evidence limits, and proposed evaluation plan](docs/RESEARCH_CASE_STUDY.md).
 - **Free/open-source model strategy:** [review license-first model selection and the reproducible coconut benchmark plan](docs/LICENSE_FIRST_MODEL_STRATEGY.md), including the hosted RT-DETR smoke test and license caveats.
 - **Dataset readiness:** [see the current review-gate snapshot](docs/COCONUT_DATASET_READINESS.md): 34 candidate records reviewed, none approved for training yet, with an explicit no-cost annotation next step.
+- **One-command local preflight:** [read-only dataset preflight tool](tools/run_coconut_dataset_preflight.py) combines geometry checks and the rights/review promotion gate; source-byte checking is optional and never auto-approves training.
 - **New image-source shortlist (review only):** [five Wikimedia coconut-image candidates with source-page, attribution, licence, and annotation-review requirements](docs/COCONUT_IMAGE_SOURCE_SHORTLIST_2026-10-22.md). None is automatically approved for training.
 
 - **What works now:** [run the local planning prototype](#run-the-local-prototype), inspect the synthetic workflow, and review the annotation/evaluation tools.
