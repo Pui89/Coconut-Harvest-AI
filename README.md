@@ -30,6 +30,10 @@ Orchard image and sensor inputs → fruit / bunch detection → four-category cl
 This workflow describes the intended system. Components currently implemented in software are identified separately below; the complete physical workflow has not been validated.
 
 
+## Four-class annotation policy
+
+Use the [Four-Class Coconut Annotation Policy](docs/FOUR_CLASS_ANNOTATION_POLICY.md) to label visible fruit consistently, separate maturity classes from occlusion/uncertainty, review AI-proposed boxes, and keep unverified examples out of training. It is a proposed human-review standard, not a claim that the current dataset is approved.
+
 ## Four-class and 0–30 m validation plan
 
 The staged validation gates, class definitions, dataset requirements, reproducible metrics, safe-stop tests, and physical reach evidence needed to progress responsibly are documented in the [Four-Class Coconut Harvesting and 0–30 m Validation Roadmap](docs/FOUR_CLASS_0_30M_VALIDATION_ROADMAP.md). This is a plan, not evidence that these capabilities are already validated.
