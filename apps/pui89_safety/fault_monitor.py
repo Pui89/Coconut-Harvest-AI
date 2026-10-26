@@ -70,7 +70,13 @@ _CRITICAL_RESPONSES = {
 
 
 def decide_response(report: FaultReport) -> FaultDecision:
-    """Return a conservative response suggestion; never controls hardware itself."""
+    """Suggest a conservative response; reject malformed reports explicitly."""
+    if not isinstance(report, FaultReport):
+        raise TypeError("report must be a FaultReport")
+    if not isinstance(report.domain, Domain):
+        raise ValueError("fault domain must be a Domain value")
+    if not isinstance(report.severity, Severity):
+        raise ValueError("fault severity must be a Severity value")
     if report.severity is Severity.CRITICAL:
         response = _CRITICAL_RESPONSES.get(report.domain, Response.STOP_MISSION_AND_ALERT)
         return FaultDecision(
