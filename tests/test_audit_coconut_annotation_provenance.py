@@ -182,6 +182,7 @@ def test_repository_candidate_0032_draft_metadata_matches_rights_ledger():
     assert "not human-QA-approved" in draft["status"]
     # Matching metadata is not a hash, label-quality, rights, or training approval.
 
+
 @pytest.mark.parametrize(
     "bad_url",
     [
