@@ -1,0 +1,36 @@
+name: PUI89 reproducible simulation benchmark
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7 * * 1"
+  push:
+    paths:
+      - "tools/pui89_autonomy_lab.py"
+      - "simulation/scenarios.json"
+      - "tests/test_pui89_autonomy_lab.py"
+      - ".github/workflows/pui89-simulation-benchmark.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-simulation-benchmark
+  cancel-in-progress: true
+
+jobs:
+  simulation-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Run deterministic simulation scenarios
+        run: python tools/pui89_autonomy_lab.py simulate --config simulation/scenarios.json --output-dir reports/simulation
+      - name: Upload JSON and CSV evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pui89-simulation-benchmark
+          path: reports/simulation/
+          if-no-files-found: error
+          retention-days: 14
