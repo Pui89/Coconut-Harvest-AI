@@ -1,0 +1,41 @@
+name: PUI89 Shared Interface Smoke
+
+on:
+  push:
+    paths:
+      - "automation/pui89_contract_smoke.py"
+      - ".github/workflows/pui89-shared-interface-smoke.yml"
+  pull_request:
+    paths:
+      - "automation/pui89_contract_smoke.py"
+      - ".github/workflows/pui89-shared-interface-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-interface-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run shared interface checks and write JSON report
+        run: python automation/pui89_contract_smoke.py --report reports/pui89-contract-smoke.json
+      - name: Preserve report for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pui89-contract-smoke-report
+          path: reports/pui89-contract-smoke.json
+          if-no-files-found: warn
+          retention-days: 7
