@@ -70,6 +70,13 @@ class MockVLA:
             return "REQUEST_HUMAN_REVIEW", ["human_review_required: REQUEST_HUMAN_REVIEW"]
         if state.get("operator_approved", True) is False:
             return "REQUEST_APPROVAL", ["operator_approval_missing: REQUEST_APPROVAL"]
+        # High-impact enforcement-like labels are never emitted by this mock policy.
+        # Screening outputs are triage-only; real-world decisions require lawful,
+        # independently validated procedures and qualified human review.
+        forbidden_action_terms = ("ENFORCEMENT", "DETENTION", "ARREST", "SEIZE", "ACCUSE", "PROSECUTE")
+        action_label = str(ready_action).strip().upper()
+        if any(term in action_label for term in forbidden_action_terms):
+            return "REQUEST_HUMAN_REVIEW", ["high_impact_action_blocked: REQUEST_HUMAN_REVIEW"]
         return ready_action, ["simulated_inputs_passed", "simulation_only_action"]
 
 def validate_config(config: dict[str, Any]) -> None:
