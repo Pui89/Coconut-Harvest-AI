@@ -95,4 +95,35 @@ class MockVLAGuardTests(unittest.TestCase):
         self.assertFalse(report["steps"][1]["state"]["sensor_data_fresh"])
         self.assertTrue(report["steps"][2]["state"]["sensor_data_fresh"])
 
+
+    def test_malformed_scenario_configs_fail_before_output_creation(self):
+        base = {
+            "schema_version": 1,
+            "project_id": "invalid-config-test",
+            "action_if_ready": "SIM_ACTION",
+            "scenarios": [{"id": "one", "steps": [
+                {"state": {}, "expected_action": "SIM_ACTION", "dt_s": 1.0}
+            ]}],
+        }
+        mutations = [
+            lambda c: c.update({"schema_version": True}),
+            lambda c: c.update({"scenarios": [None]}),
+            lambda c: c["scenarios"][0].update({"steps": {"not": "a list"}}),
+            lambda c: c["scenarios"][0]["steps"][0].update({"dt_s": float("nan")}),
+            lambda c: c["scenarios"][0]["steps"][0].update({"dt_s": True}),
+            lambda c: c["scenarios"][0]["steps"][0].update({"remove_state_keys": "sensors_ok"}),
+            lambda c: c["scenarios"][0]["steps"][0].update({"expected_action": 12}),
+            lambda c: c["scenarios"][0].update({"seed": True}),
+        ]
+        for mutate in mutations:
+            with self.subTest(mutate=mutate), tempfile.TemporaryDirectory() as tmp:
+                config = json.loads(json.dumps(base))
+                mutate(config)
+                config_path = Path(tmp) / "scenario.json"
+                config_path.write_text(json.dumps(config), encoding="utf-8")
+                output = Path(tmp) / "out"
+                with self.assertRaises(ValueError):
+                    run_scenarios(config_path, output)
+                self.assertFalse(output.exists())
+
 if __name__ == "__main__": unittest.main()
