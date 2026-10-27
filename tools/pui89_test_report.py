@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 DEFAULT_PATTERN = "test_pui89_world_state.py"
 
 class RecordingResult(unittest.TextTestResult):
@@ -41,7 +43,7 @@ def main() -> int:
     if not tests_dir.is_dir():
         print(f"ERROR: test directory not found: {tests_dir}", file=sys.stderr)
         return 2
-    suite = unittest.defaultTestLoader.discover(start_dir=str(tests_dir), pattern=args.pattern, top_level_dir=str(ROOT))
+    suite = unittest.defaultTestLoader.discover(start_dir=str(tests_dir), pattern=args.pattern)
     stream = io.StringIO()
     result = RecordingRunner(stream=stream, verbosity=2).run(suite)
     report = {
