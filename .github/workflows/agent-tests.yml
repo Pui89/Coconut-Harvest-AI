@@ -112,7 +112,7 @@ jobs:
           fi
       - name: Upload dataset readiness report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coconut-dataset-readiness
           path: reports/coconut-dataset-readiness.json

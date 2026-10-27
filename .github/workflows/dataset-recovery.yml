@@ -28,7 +28,7 @@ jobs:
         run: python tools/dataset_recovery_audit.py
       - name: Upload recovery report and replacement queue
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dataset-recovery-queue
           path: reports/dataset-recovery/

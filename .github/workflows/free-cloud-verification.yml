@@ -32,7 +32,7 @@ jobs:
         run: python tools/pui89_master_verify.py --report verification-report.json
       - name: Upload report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: verification-report-${{ github.run_number }}
           path: verification-report.json
