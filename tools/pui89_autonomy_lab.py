@@ -73,24 +73,52 @@ class MockVLA:
         return ready_action, ["simulated_inputs_passed", "simulation_only_action"]
 
 def validate_config(config: dict[str, Any]) -> None:
-    if config.get("schema_version") != 1 or not config.get("project_id"):
-        raise ValueError("scenario config requires schema_version=1 and project_id")
+    import math
+
+    if not isinstance(config, dict):
+        raise ValueError("scenario config must be an object")
+    if isinstance(config.get("schema_version"), bool) or config.get("schema_version") != 1:
+        raise ValueError("scenario config requires schema_version=1")
+    for key in ("project_id", "action_if_ready"):
+        if not isinstance(config.get(key), str) or not config[key].strip():
+            raise ValueError(f"scenario config requires non-empty string {key}")
+    threshold = config.get("confidence_threshold", 0.65)
+    if isinstance(threshold, bool) or not isinstance(threshold, (int, float)):
+        raise ValueError("confidence_threshold must be a finite number in [0, 1]")
+    if not math.isfinite(threshold) or not 0.0 <= threshold <= 1.0:
+        raise ValueError("confidence_threshold must be a finite number in [0, 1]")
+
     scenarios = config.get("scenarios")
     if not isinstance(scenarios, list) or not scenarios:
         raise ValueError("scenarios must be a non-empty list")
     ids: set[str] = set()
-    for scenario in scenarios:
+    for scenario_index, scenario in enumerate(scenarios, 1):
+        if not isinstance(scenario, dict):
+            raise ValueError(f"scenario {scenario_index} must be an object")
         sid = scenario.get("id")
-        if not sid or sid in ids:
+        if not isinstance(sid, str) or not sid.strip() or sid in ids:
             raise ValueError(f"scenario id missing or duplicated: {sid!r}")
         ids.add(sid)
-        if not scenario.get("steps"):
-            raise ValueError(f"scenario {sid!r} has no steps")
-        for n, step in enumerate(scenario["steps"], 1):
-            if "expected_action" not in step or float(step.get("dt_s", 1.0)) <= 0:
-                raise ValueError(f"scenario {sid!r}, step {n}: expected_action and positive dt_s required")
+        seed = scenario.get("seed", 0)
+        if isinstance(seed, bool) or not isinstance(seed, int):
+            raise ValueError(f"scenario {sid!r}: seed must be an integer")
+        steps = scenario.get("steps")
+        if not isinstance(steps, list) or not steps:
+            raise ValueError(f"scenario {sid!r} steps must be a non-empty list")
+        for n, step in enumerate(steps, 1):
+            if not isinstance(step, dict):
+                raise ValueError(f"scenario {sid!r}, step {n} must be an object")
+            expected = step.get("expected_action")
+            if not isinstance(expected, str) or not expected.strip():
+                raise ValueError(f"scenario {sid!r}, step {n}: expected_action must be a non-empty string")
+            dt_s = step.get("dt_s", 1.0)
+            if isinstance(dt_s, bool) or not isinstance(dt_s, (int, float)) or not math.isfinite(dt_s) or dt_s <= 0:
+                raise ValueError(f"scenario {sid!r}, step {n}: dt_s must be a finite positive number")
             if not isinstance(step.get("state", {}), dict):
                 raise ValueError(f"scenario {sid!r}, step {n}: state must be an object")
+            remove_keys = step.get("remove_state_keys", [])
+            if not isinstance(remove_keys, list) or any(not isinstance(key, str) or not key for key in remove_keys):
+                raise ValueError(f"scenario {sid!r}, step {n}: remove_state_keys must be a list of non-empty strings")
 
 def run_scenarios(config_path: Path, output_dir: Path) -> dict[str, Any]:
     config = json.loads(config_path.read_text(encoding="utf-8"))
@@ -112,7 +140,6 @@ def run_scenarios(config_path: Path, output_dir: Path) -> dict[str, Any]:
                 world_state.pop(key, None)
             world_state.update(step.get("state", {}))
             state = dict(world_state)
-            start = time.perf_counter()
             start = time.perf_counter()
             actual, trace = policy.propose(state, config["action_if_ready"])
             latency_ms = round((time.perf_counter() - start) * 1000.0, 4)
