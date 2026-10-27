@@ -8,7 +8,7 @@ on:
     paths:
       - "tools/pui89_autonomy_lab.py"
       - "simulation/scenarios.json"
-      - "tests/test_pui89_autonomy_lab.py"
+      - "tests/test_pui89_autonomy_lab.py"\n      - "tools/validate_simulation_report.py"
       - ".github/workflows/pui89-simulation-benchmark.yml"
 
 permissions:
@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Run deterministic simulation scenarios
         run: python tools/pui89_autonomy_lab.py simulate --config simulation/scenarios.json --output-dir reports/simulation
-      - name: Upload JSON and CSV evidence
+      - name: Validate benchmark evidence\n        run: python tools/validate_simulation_report.py --config simulation/scenarios.json\n      - name: Upload JSON and CSV evidence
         uses: actions/upload-artifact@v4
         with:
           name: pui89-simulation-benchmark
