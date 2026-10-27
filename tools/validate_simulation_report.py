@@ -81,7 +81,7 @@ def validate(report_path: Path, config_path: Path) -> list[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--report", type=Path, default=Path("reports/simulation/simulation_report.json"))
+    parser.add_argument("--report", type=Path, default=None)
     parser.add_argument("--config", type=Path, default=Path("simulation/scenarios.json"))
     args = parser.parse_args()
     errors = validate(args.report, args.config)
@@ -89,7 +89,7 @@ def main() -> int:
         for error in errors:
             print(f"FAIL: {error}")
         return 1
-    report = json.loads(args.report.read_text(encoding="utf-8"))
+    report = json.loads(report_path.read_text(encoding="utf-8"))
     metrics = report["metrics"]
     print(f"VALID report project={report['project_id']} run_id={report['run_id']} "
           f"scenarios={metrics['scenario_pass_count']}/{metrics['scenario_count']} "
