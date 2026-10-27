@@ -679,3 +679,5 @@ See [Free-First Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT
 See [Marketing, SEO and Sales Playbook](docs/MARKETING_SEO_SALES_PLAYBOOK.md) for a free-first product page, evidence-led messaging, customer discovery, search visibility, and outreach guidance. No marketing subscription or ad spend is required.
 
 See [Free-First Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for curated tools, local model options, testing/security helpers, SEO resources, cost cautions, and project-specific evidence boundaries.
+
+**Recommended technology stack:** [PUI89 Free-First Technology Stack](docs/PUI89_FREE_FIRST_TECH_STACK.md) — stable, local-first tools; dependencies and costs reviewed before adoption.
