@@ -97,7 +97,7 @@ def run_scenarios(config_path: Path, output_dir: Path) -> dict[str, Any]:
     validate_config(config)
     cfg_hash = digest(stable_json(config))
     run_id = digest(f"{ENGINE_VERSION}:{cfg_hash}")[:16]
-    policy = MockVLA(float(config.get("confidence_threshold", 0.65)))
+    policy = MockVLA(config.get("confidence_threshold", 0.65))
     output_dir.mkdir(parents=True, exist_ok=True)
     rows, scenarios_out, failures, timings = [], [], [], []
     actions: dict[str, int] = {}
