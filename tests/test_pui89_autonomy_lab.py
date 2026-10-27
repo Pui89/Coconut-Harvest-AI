@@ -9,6 +9,24 @@ class MockVLAGuardTests(unittest.TestCase):
     def test_estop_sensor_stale_comms_hold(self):
         for state in ({"emergency_stop": True},{"sensors_ok": False},{"sensor_data_fresh": False},{"comms_ok": False}):
             with self.subTest(state=state): self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"SAFE_HOLD")
+    def test_malformed_safety_flags_fail_safe(self):
+        for state in ({"sensors_ok": "false"}, {"comms_ok": 1},
+                      {"operator_approved": "yes"}, {"target_visible": 0},
+                      {"human_review_required": None}):
+            with self.subTest(state=state):
+                self.assertEqual(self.policy.propose(state, "SIM_ACTION")[0], "SAFE_HOLD")
+
+    def test_boolean_confidence_is_not_numeric(self):
+        for value in (True, False):
+            with self.subTest(value=value):
+                self.assertEqual(self.policy.propose({"confidence": value}, "SIM_ACTION")[0], "UNKNOWN")
+
+    def test_invalid_confidence_threshold_rejected(self):
+        for value in (True, -0.1, 1.1, float("nan"), float("inf"), "0.65"):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    MockVLA(value)
+
     def test_low_confidence_or_conflicting_modalities_abstain(self):
         for state in ({"confidence":0.2},{"modalities_conflict":True},{"missing_required_modality":True},{"confidence":2.0},{"confidence":None},{"confidence":"not-a-number"},{"confidence":float("nan")},{"confidence":float("inf")}):
             with self.subTest(state=state): self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"UNKNOWN")

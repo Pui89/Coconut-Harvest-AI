@@ -27,10 +27,26 @@ def digest(value: str) -> str:
 
 class MockVLA:
     """Return action labels for simulation only. There is no robot adapter."""
+    SAFETY_FLAGS = ("emergency_stop", "sensors_ok", "sensor_data_fresh", "comms_ok",
+                    "target_visible", "target_valid", "human_review_required", "operator_approved")
+
     def __init__(self, confidence_threshold: float = 0.65) -> None:
-        self.threshold = confidence_threshold
+        import math
+        if isinstance(confidence_threshold, bool) or not isinstance(confidence_threshold, (int, float)):
+            raise ValueError("confidence_threshold must be a finite number in [0, 1]")
+        if not math.isfinite(confidence_threshold) or not 0.0 <= confidence_threshold <= 1.0:
+            raise ValueError("confidence_threshold must be a finite number in [0, 1]")
+        self.threshold = float(confidence_threshold)
 
     def propose(self, state: dict[str, Any], ready_action: str) -> tuple[str, list[str]]:
+        import math
+        if not isinstance(state, dict):
+            return "SAFE_HOLD", ["state_not_object: SAFE_HOLD"]
+        # Explicit safety flags must be real Booleans; truthy strings/integers
+        # must never be interpreted as safe sensor or approval states.
+        for key in self.SAFETY_FLAGS:
+            if key in state and not isinstance(state[key], bool):
+                return "SAFE_HOLD", [f"malformed_safety_flag:{key}: SAFE_HOLD"]
         if state.get("emergency_stop", False):
             return "SAFE_HOLD", ["emergency_stop: SAFE_HOLD"]
         if not state.get("sensors_ok", True):
@@ -43,11 +59,10 @@ class MockVLA:
             return "UNKNOWN", ["modalities_conflict: UNKNOWN"]
         if state.get("missing_required_modality", False):
             return "UNKNOWN", ["missing_modality: UNKNOWN"]
-        try:
-            confidence = float(state.get("confidence", 1.0))
-        except (TypeError, ValueError, OverflowError):
+        confidence = state.get("confidence", 1.0)
+        if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
             return "UNKNOWN", ["confidence_not_numeric: UNKNOWN"]
-        if not 0.0 <= confidence <= 1.0 or confidence < self.threshold:
+        if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0 or confidence < self.threshold:
             return "UNKNOWN", ["confidence_invalid_or_below_threshold: UNKNOWN"]
         if state.get("target_visible", True) is False or state.get("target_valid", True) is False:
             return "SEARCH", ["target_unavailable: SEARCH"]
