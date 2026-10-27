@@ -42,7 +42,7 @@ concurrency:
 
 jobs:
   smoke:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     timeout-minutes: 3
     steps:
       - name: Checkout
@@ -53,11 +53,3 @@ jobs:
           python-version: "3.12"
       - name: Run shared interface checks and write JSON report
         run: python automation/pui89_contract_smoke.py --report reports/pui89-contract-smoke.json
-      - name: Preserve report for review
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pui89-contract-smoke-report
-          path: reports/pui89-contract-smoke.json
-          if-no-files-found: warn
-          retention-days: 7
