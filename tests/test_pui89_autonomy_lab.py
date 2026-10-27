@@ -27,6 +27,23 @@ class MockVLAGuardTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     MockVLA(value)
 
+    def test_scenario_config_does_not_coerce_invalid_threshold(self):
+        invalid_values = (True, "0.65", None, -0.1, 1.1)
+        for value in invalid_values:
+            with self.subTest(value=value), tempfile.TemporaryDirectory() as tmp:
+                config = {
+                    "schema_version": 1,
+                    "project_id": "threshold-validation-test",
+                    "confidence_threshold": value,
+                    "scenarios": [{"id": "one", "steps": [
+                        {"state": {}, "expected_action": "SIM_ACTION", "dt_s": 1.0}
+                    ]}],
+                }
+                config_path = Path(tmp) / "scenario.json"
+                config_path.write_text(json.dumps(config), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    run_scenarios(config_path, Path(tmp) / "out")
+
     def test_low_confidence_or_conflicting_modalities_abstain(self):
         for state in ({"confidence":0.2},{"modalities_conflict":True},{"missing_required_modality":True},{"confidence":2.0},{"confidence":None},{"confidence":"not-a-number"},{"confidence":float("nan")},{"confidence":float("inf")}):
             with self.subTest(state=state): self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"UNKNOWN")
