@@ -35,11 +35,27 @@ def sha256_file(path: Path) -> str:
 
 
 def _is_http_url(value: Any) -> bool:
+    """Accept well-formed absolute HTTP(S) URLs without credentials.
+
+    This is syntax validation only; it does not verify source ownership,
+    licence terms, reachability, or permission to reuse an image.
+    """
     if not isinstance(value, str):
         return False
+    candidate = value.strip()
+    if not candidate or any(ch.isspace() or ord(ch) < 0x20 for ch in candidate):
+        return False
     try:
-        parsed = urlparse(value.strip())
-        return parsed.scheme.lower() in {"http", "https"} and bool(parsed.netloc)
+        parsed = urlparse(candidate)
+        if parsed.scheme.lower() not in {"http", "https"} or not parsed.hostname:
+            return False
+        # Credentials in source URLs can leak secrets and are not needed for
+        # public provenance records.
+        if parsed.username is not None or parsed.password is not None:
+            return False
+        # Accessing .port forces urllib.parse to reject non-numeric/out-of-range ports.
+        _ = parsed.port
+        return True
     except ValueError:
         return False
 

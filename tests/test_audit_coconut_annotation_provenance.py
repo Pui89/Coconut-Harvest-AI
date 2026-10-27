@@ -181,3 +181,31 @@ def test_repository_candidate_0032_draft_metadata_matches_rights_ledger():
     assert draft["training_approved"] is False
     assert "not human-QA-approved" in draft["status"]
     # Matching metadata is not a hash, label-quality, rights, or training approval.
+
+
+@pytest.mark.parametrize(
+    "bad_url",
+    [
+        "https://",
+        "https:///wiki/File:Example.jpg",
+        "https://example.com:99999/wiki/File:Example.jpg",
+        "https://example.com/wiki/File:Example image.jpg",
+        "https://user:password@example.com/wiki/File:Example.jpg",
+    ],
+)
+def test_malformed_or_credential_bearing_source_url_blocks_provenance(tmp_path, bad_url):
+    image = tmp_path / "candidate_0032.jpg"
+    image.write_bytes(b"synthetic image bytes")
+    annotations = write_annotation(
+        tmp_path / "annotation.json", image.name, sha256_file(image)
+    )
+    payload = json.loads(annotations.read_text(encoding="utf-8"))
+    payload["source"]["file_page"] = bad_url
+    annotations.write_text(json.dumps(payload), encoding="utf-8")
+
+    report = audit(annotations, image)
+
+    assert report["source_page_is_http_url"] is False
+    assert report["provenance_passed"] is False
+    assert "source_page_is_http_url" in report["failed_provenance_checks"]
+
