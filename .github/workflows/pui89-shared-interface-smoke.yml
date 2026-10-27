@@ -3,11 +3,33 @@ name: PUI89 Shared Interface Smoke
 on:
   push:
     paths:
-      - "automation/pui89_contract_smoke.py"
+      - "automation/**"
+      - "src/**"
+      - "apps/**"
+      - "tests/**"
+      - "tools/**"
+      - "training/**"
+      - "flood_robot/**"
+      - "requirements*.txt"
+      - "requirements/**"
+      - "pyproject.toml"
+      - "README.md"
+      - "docs/PUI89_SHARED_AI_CORE_AUTOMATION.md"
       - ".github/workflows/pui89-shared-interface-smoke.yml"
   pull_request:
     paths:
-      - "automation/pui89_contract_smoke.py"
+      - "automation/**"
+      - "src/**"
+      - "apps/**"
+      - "tests/**"
+      - "tools/**"
+      - "training/**"
+      - "flood_robot/**"
+      - "requirements*.txt"
+      - "requirements/**"
+      - "pyproject.toml"
+      - "README.md"
+      - "docs/PUI89_SHARED_AI_CORE_AUTOMATION.md"
       - ".github/workflows/pui89-shared-interface-smoke.yml"
   workflow_dispatch:
 
