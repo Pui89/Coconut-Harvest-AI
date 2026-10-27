@@ -51,6 +51,13 @@ class MockVLAGuardTests(unittest.TestCase):
         self.assertEqual(self.policy.propose({"target_visible":False},"SIM_ACTION")[0],"SEARCH")
     def test_human_review_blocks_nominal_action(self):
         self.assertEqual(self.policy.propose({"human_review_required":True},"ENFORCEMENT_ACTION")[0],"REQUEST_HUMAN_REVIEW")
+
+    def test_high_impact_action_labels_always_require_human_review(self):
+        for action in ("ENFORCEMENT_ACTION", "DETENTION", "ARREST_PERSON", "SEIZE_ITEM", "ACCUSE_SUBJECT", "PROSECUTE_CASE"):
+            with self.subTest(action=action):
+                actual, trace = self.policy.propose({"confidence": 0.99}, action)
+                self.assertEqual(actual, "REQUEST_HUMAN_REVIEW")
+                self.assertIn("high_impact_action_blocked", trace[0])
     def test_simulation_has_stable_id_and_never_actuates(self):
         with tempfile.TemporaryDirectory() as tmp:
             report=run_scenarios(ROOT/"simulation/scenarios.json",Path(tmp))
