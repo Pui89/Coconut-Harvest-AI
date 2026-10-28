@@ -15,7 +15,7 @@ def stable_json(value):
 def validate(report_path: Path, config_path: Path) -> list[str]:
     errors = []
     try:
-        report = json.loads(report_path.read_text(encoding="utf-8"))
+        report = json.loads(args.report.read_text(encoding="utf-8"))
         config = json.loads(config_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         return [f"cannot read report/config JSON: {exc}"]
@@ -81,7 +81,7 @@ def validate(report_path: Path, config_path: Path) -> list[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--report", type=Path, default=None)
+    parser.add_argument("--report", type=Path, required=True, help="Path to the JSON simulation report")
     parser.add_argument("--config", type=Path, default=Path("simulation/scenarios.json"))
     args = parser.parse_args()
     errors = validate(args.report, args.config)
