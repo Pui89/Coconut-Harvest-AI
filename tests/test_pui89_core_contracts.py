@@ -29,6 +29,38 @@ def test_world_state_round_trip_is_json_compatible():
     assert json.loads(json.dumps(snapshot))["task_status"] == "idle"
 
 
+@pytest.mark.parametrize("confidence", [float("nan"), float("inf"), float("-inf"), -0.01, 1.01])
+def test_tracked_object_rejects_invalid_confidence(confidence):
+    with pytest.raises(ValueError):
+        TrackedObject(
+            object_id="target-invalid",
+            label="synthetic-candidate",
+            confidence=confidence,
+        )
+
+
+@pytest.mark.parametrize("confidence", [0.0, 1.0])
+def test_tracked_object_accepts_confidence_boundaries(confidence):
+    item = TrackedObject(
+        object_id="target-boundary",
+        label="synthetic-candidate",
+        confidence=confidence,
+    )
+    assert item.confidence == confidence
+
+
+@pytest.mark.parametrize("field,value", [("object_id", ""), ("label", "")])
+def test_tracked_object_rejects_blank_identity_fields(field, value):
+    arguments = {
+        "object_id": "target-1",
+        "label": "candidate",
+        "confidence": 0.5,
+    }
+    arguments[field] = value
+    with pytest.raises(ValueError):
+        TrackedObject(**arguments)
+
+
 def test_action_proposal_requires_review_and_is_not_executed():
     proposal = propose_action(
         action="inspect_target",
