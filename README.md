@@ -7,6 +7,16 @@
 
 Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
 
+## Shared PUI89 AI Core — verification update (28 October 2026)
+
+This project now shares a common set of software-contract and simulation-evidence checks with the other PUI89 AI applications. The latest test additions check that benchmark validation rejects inconsistent CSV row counts, a success status that conflicts with reported failures, and missing CSV evidence.
+
+- **Scope:** software tests and simulation-report integrity; not physical robot validation.
+- **Safety boundary:** action proposals remain simulation-only; human review is retained where relevant.
+- **Metrics:** publish performance figures only from reproducible runs with recorded scenarios, configuration, sample counts and measurement conditions.
+- **Cross-project report:** [PUI89 Cross-Project Verification Snapshot](https://github.com/Pui89/Pui89.github.io/blob/main/PUI89_CROSS_PROJECT_VERIFICATION.md).
+- **Latest automated checks:** [GitHub Actions](https://github.com/Pui89/Coconut-Harvest-AI/actions).
+
 ## Free-first build policy and next upgrade
 
 **Default rule: use existing local tools first; do not add recurring costs.** No paid API, cloud GPU, hosted inference, or automatic model/data download is required for the current workflow.
