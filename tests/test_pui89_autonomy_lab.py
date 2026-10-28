@@ -17,9 +17,10 @@ class MockVLAGuardTests(unittest.TestCase):
                 self.assertEqual(self.policy.propose(state, "SIM_ACTION")[0], "SAFE_HOLD")
 
     def test_boolean_confidence_is_not_numeric(self):
+        safety = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True}
         for value in (True, False):
             with self.subTest(value=value):
-                self.assertEqual(self.policy.propose({"confidence": value}, "SIM_ACTION")[0], "UNKNOWN")
+                self.assertEqual(self.policy.propose({**safety, "confidence": value}, "SIM_ACTION")[0], "UNKNOWN")
 
     def test_invalid_confidence_threshold_rejected(self):
         for value in (True, -0.1, 1.1, float("nan"), float("inf"), "0.65"):
@@ -45,17 +46,31 @@ class MockVLAGuardTests(unittest.TestCase):
                     run_scenarios(config_path, Path(tmp) / "out")
 
     def test_low_confidence_or_conflicting_modalities_abstain(self):
-        for state in ({"confidence":0.2},{"modalities_conflict":True},{"missing_required_modality":True},{"confidence":2.0},{"confidence":None},{"confidence":"not-a-number"},{"confidence":float("nan")},{"confidence":float("inf")}):
-            with self.subTest(state=state): self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"UNKNOWN")
+        safety = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True}
+        states = ({"confidence":0.2},{"modalities_conflict":True},{"missing_required_modality":True},{"confidence":2.0},{"confidence":None},{"confidence":"not-a-number"},{"confidence":float("nan")},{"confidence":float("inf")})
+        for state in states:
+            with self.subTest(state=state): self.assertEqual(self.policy.propose({**safety, **state},"SIM_ACTION")[0],"UNKNOWN")
+    def test_missing_safety_telemetry_fails_safe(self):
+        complete = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "confidence": 0.95}
+        for key in ("emergency_stop", "sensors_ok", "sensor_data_fresh", "comms_ok"):
+            state = dict(complete)
+            del state[key]
+            with self.subTest(missing=key):
+                action, trace = self.policy.propose(state, "SIM_ACTION")
+                self.assertEqual(action, "SAFE_HOLD")
+                self.assertIn("missing_safety_flag", trace[0])
+
     def test_missing_target_searches(self):
-        self.assertEqual(self.policy.propose({"target_visible":False},"SIM_ACTION")[0],"SEARCH")
+        state = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "target_visible": False}
+        self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"SEARCH")
     def test_human_review_blocks_nominal_action(self):
-        self.assertEqual(self.policy.propose({"human_review_required":True},"ENFORCEMENT_ACTION")[0],"REQUEST_HUMAN_REVIEW")
+        state = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "human_review_required": True}
+        self.assertEqual(self.policy.propose(state,"ENFORCEMENT_ACTION")[0],"REQUEST_HUMAN_REVIEW")
 
     def test_high_impact_action_labels_always_require_human_review(self):
         for action in ("ENFORCEMENT_ACTION", "DETENTION", "ARREST_PERSON", "SEIZE_ITEM", "ACCUSE_SUBJECT", "PROSECUTE_CASE"):
             with self.subTest(action=action):
-                actual, trace = self.policy.propose({"confidence": 0.99}, action)
+                actual, trace = self.policy.propose({"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "confidence": 0.99}, action)
                 self.assertEqual(actual, "REQUEST_HUMAN_REVIEW")
                 self.assertIn("high_impact_action_blocked", trace[0])
     def test_simulation_has_stable_id_and_never_actuates(self):
