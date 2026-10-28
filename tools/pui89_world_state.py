@@ -48,11 +48,11 @@ def assess_observation(
     require_human_review: bool = False,
 ) -> Assessment:
     """Classify one observation for planning; never authorize an actuator."""
-    if not isinstance(now, (int, float)) or not math.isfinite(now):
+    if isinstance(now, bool) or not isinstance(now, (int, float)) or not math.isfinite(now):
         raise ValueError("now must be a finite number")
-    if not isinstance(max_age_seconds, (int, float)) or not math.isfinite(max_age_seconds) or max_age_seconds < 0:
+    if isinstance(max_age_seconds, bool) or not isinstance(max_age_seconds, (int, float)) or not math.isfinite(max_age_seconds) or max_age_seconds < 0:
         raise ValueError("max_age_seconds must be finite and non-negative")
-    if not isinstance(min_confidence, (int, float)) or not math.isfinite(min_confidence) or not 0.0 <= min_confidence <= 1.0:
+    if isinstance(min_confidence, bool) or not isinstance(min_confidence, (int, float)) or not math.isfinite(min_confidence) or not 0.0 <= min_confidence <= 1.0:
         raise ValueError("min_confidence must be finite and between 0 and 1")
 
     reasons: list[str] = []
@@ -62,7 +62,7 @@ def assess_observation(
         reasons.append("missing_source_provenance")
     if observation.observed_at is None:
         reasons.append("missing_timestamp")
-    elif not isinstance(observation.observed_at, (int, float)) or not math.isfinite(observation.observed_at):
+    elif isinstance(observation.observed_at, bool) or not isinstance(observation.observed_at, (int, float)) or not math.isfinite(observation.observed_at):
         return Assessment("REJECT", ("invalid_timestamp",))
     elif observation.observed_at > now:
         return Assessment("REJECT", ("timestamp_in_future",))
@@ -72,7 +72,7 @@ def assess_observation(
     confidence = observation.confidence
     if confidence is None:
         reasons.append("missing_confidence")
-    elif not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
+    elif isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
         return Assessment("REJECT", ("invalid_confidence_range",))
     elif confidence < min_confidence:
         reasons.append("low_confidence")
