@@ -64,5 +64,22 @@ class SimulationReportValidatorTests(unittest.TestCase):
         self.save_report()
         self.assertTrue(any("hardware_actuation" in error for error in validate(self.report_path, self.config_path)))
 
+
+    def test_csv_row_count_mismatch_is_detected(self):
+        with self.csv_path.open("w", newline="", encoding="utf-8") as stream:
+            writer = csv.DictWriter(stream, fieldnames=["project_id", "hardware_actuation"])
+            writer.writeheader()
+        self.assertTrue(any("CSV row count" in error for error in validate(self.report_path, self.config_path)))
+
+    def test_status_conflicting_with_failures_is_detected(self):
+        self.report["status"] = "FAIL"
+        self.save_report()
+        self.assertTrue(any("status conflicts" in error for error in validate(self.report_path, self.config_path)))
+
+    def test_missing_csv_evidence_is_detected(self):
+        self.report["output_files"]["csv"] = str(self.root / "missing.csv")
+        self.save_report()
+        self.assertTrue(any("CSV evidence file not found" in error for error in validate(self.report_path, self.config_path)))
+
 if __name__ == "__main__":
     unittest.main()
