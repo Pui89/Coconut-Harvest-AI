@@ -730,3 +730,7 @@ See the [PUI89 Free-First Engineering Resource Roadmap](docs/PUI89_FREE_RESOURCE
 ## Quality, tolerance and cost gates
 
 See [Quality, Tolerance, Performance, Safety and Cost Gates](docs/QUALITY_TOLERANCE_PERFORMANCE_COST_GATES.md) for measurable acceptance criteria, fault-injection scenarios, human/animal safety requirements and free-first engineering constraints. This is a proposed test plan, not a claim of validated performance or certification.
+
+## Automated verification and evidence
+
+See [Automated Verification and Evidence Report](docs/AUTOMATED_VERIFICATION_AND_EVIDENCE.md) for the standard-library regression suite, failure cases, and limits on interpreting test results.
