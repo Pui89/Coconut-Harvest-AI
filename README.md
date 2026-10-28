@@ -725,3 +725,8 @@ See [Free-First Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for c
 ## Free-first engineering resources
 
 See the [PUI89 Free-First Engineering Resource Roadmap](docs/PUI89_FREE_RESOURCE_ROADMAP.md) for approved-first tools, adoption gates, licence/cost checks and project-specific next steps. The default is to reuse existing Python and GitHub automation; optional packages and model weights are not installed or downloaded automatically.
+
+
+## Quality, tolerance and cost gates
+
+See [Quality, Tolerance, Performance, Safety and Cost Gates](docs/QUALITY_TOLERANCE_PERFORMANCE_COST_GATES.md) for measurable acceptance criteria, fault-injection scenarios, human/animal safety requirements and free-first engineering constraints. This is a proposed test plan, not a claim of validated performance or certification.
