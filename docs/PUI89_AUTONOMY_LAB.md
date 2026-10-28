@@ -13,7 +13,7 @@ python -m unittest discover -s tests -p "test_pui89_autonomy_lab.py" -v
 python tools/pui89_autonomy_lab.py simulate --config simulation/scenarios.json --output-dir reports/simulation
 \`\`\`
 
-The scenario file includes nominal and adverse cases tailored to this project. The runner logs each simulated world-state snapshot, seed label, expected and actual action, guard-rule trace, simulated time, and observed step latency. It emits a JSON report with failure details plus a CSV step ledger. An action mismatch exits with status 1; invalid scenario configuration exits with status 2.
+The scenario file includes nominal and adverse cases tailored to this project. Each action-capable step must explicitly provide `emergency_stop`, `sensors_ok`, `sensor_data_fresh`, and `comms_ok`; missing safety telemetry produces `SAFE_HOLD` instead of being treated as healthy. The runner logs each simulated world-state snapshot, seed label, expected and actual action, guard-rule trace, simulated time, and observed step latency. It emits a JSON report with failure details plus a CSV step ledger. An action mismatch exits with status 1; invalid scenario configuration exits with status 2.
 
 The stable run identifier is a hash of engine version and scenario configuration. Pass rates and action counts are deterministic for fixed scenarios; latency numbers and report timestamps are not. Scenario cases are static and seed labels are recorded for traceability; the current suite does not perform random sampling.
 
