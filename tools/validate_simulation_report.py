@@ -6,11 +6,12 @@ import csv
 import hashlib
 import json
 import re
-import sys
 from pathlib import Path
+
 
 def stable_json(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
 
 def validate(report_path: Path, config_path: Path) -> list[str]:
     errors = []
@@ -79,9 +80,11 @@ def validate(report_path: Path, config_path: Path) -> list[str]:
             errors.append(f"cannot read CSV evidence: {exc}")
     return errors
 
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--report", type=Path, default=None)
+    parser.add_argument("--report", type=Path, required=True,
+                        help="JSON report produced by pui89_autonomy_lab.py simulate")
     parser.add_argument("--config", type=Path, default=Path("simulation/scenarios.json"))
     args = parser.parse_args()
     errors = validate(args.report, args.config)
@@ -89,13 +92,14 @@ def main() -> int:
         for error in errors:
             print(f"FAIL: {error}")
         return 1
-    report = json.loads(report_path.read_text(encoding="utf-8"))
+    report = json.loads(args.report.read_text(encoding="utf-8"))
     metrics = report["metrics"]
     print(f"VALID report project={report['project_id']} run_id={report['run_id']} "
           f"scenarios={metrics['scenario_pass_count']}/{metrics['scenario_count']} "
           f"steps={metrics['step_pass_count']}/{metrics['step_count']} "
           f"failures={metrics['failure_count']} hardware_actuation=false")
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
