@@ -1,14 +1,17 @@
 import csv
 import hashlib
+import io
 import json
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from validate_simulation_report import stable_json, validate  # noqa: E402
+from validate_simulation_report import main, stable_json, validate  # noqa: E402
 
 class SimulationReportValidatorTests(unittest.TestCase):
     def setUp(self):
@@ -63,6 +66,17 @@ class SimulationReportValidatorTests(unittest.TestCase):
         self.report["steps"][0]["hardware_actuation"] = True
         self.save_report()
         self.assertTrue(any("hardware_actuation" in error for error in validate(self.report_path, self.config_path)))
+
+    def test_cli_uses_explicit_report_path(self):
+        output = io.StringIO()
+        argv = [
+            "validate_simulation_report.py",
+            "--report", str(self.report_path),
+            "--config", str(self.config_path),
+        ]
+        with patch("sys.argv", argv), redirect_stdout(output):
+            self.assertEqual(main(), 0)
+        self.assertIn("VALID report project=validator-test", output.getvalue())
 
 if __name__ == "__main__":
     unittest.main()
