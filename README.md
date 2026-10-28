@@ -17,6 +17,10 @@ Run `python tools/pui89_master_verify.py` for a free, standard-library-only Pyth
 - **Gate 4 — approve cost and risk:** before any optional package, model or simulator install, check licence, download size, disk/RAM/VRAM fit and whether it can run offline. Ask before any paid or recurring-cost choice.
 - **Release evidence:** save command, commit, environment, test result, dataset hash, failures and limitations. Keep physical harvesting status **not validated** until independently supported by hardware evidence.
 
+## Product quality and safety roadmap
+
+The [Product Quality and Safety Roadmap](docs/PRODUCT_QUALITY_AND_SAFETY_ROADMAP.md) sets staged safety, reliability, evidence, human-oversight and buyer-readiness gates. It is an engineering plan—not certification or proof of field performance.
+
 **Shared PUI89 AI Core contract:** [project adapter, data-provenance gates, annotation QA, leakage-safe splits and uncertainty-aware safe hold](docs/SHARED_PUI89_AI_CORE_INTEGRATION.md).
 
 **Next action:** reconcile local image files and real hashes for candidates 0031–0034; then finish rights review and independent annotation QA. The training gate remains closed until the evidence is complete.
