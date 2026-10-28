@@ -16,7 +16,9 @@
             "target_visible": true,
             "target_valid": true,
             "confidence": 0.92,
-            "operator_approved": true
+            "operator_approved": true,
+            "emergency_stop": false,
+            "sensor_data_fresh": true
           },
           "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
         }
@@ -29,7 +31,11 @@
         {
           "state": {
             "target_visible": false,
-            "confidence": 0.9
+            "confidence": 0.9,
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "sensor_data_fresh": true,
+            "comms_ok": true
           },
           "expected_action": "SEARCH"
         }
@@ -42,7 +48,11 @@
         {
           "state": {
             "target_visible": true,
-            "confidence": 0.4
+            "confidence": 0.4,
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "sensor_data_fresh": true,
+            "comms_ok": true
           },
           "expected_action": "UNKNOWN"
         }
@@ -56,7 +66,10 @@
           "state": {
             "sensor_data_fresh": false,
             "target_visible": true,
-            "confidence": 0.9
+            "confidence": 0.9,
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "comms_ok": true
           },
           "expected_action": "SAFE_HOLD"
         }
@@ -70,7 +83,10 @@
           "state": {
             "comms_ok": false,
             "target_visible": true,
-            "confidence": 0.9
+            "confidence": 0.9,
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "sensor_data_fresh": true
           },
           "expected_action": "SAFE_HOLD"
         }
@@ -84,7 +100,10 @@
           "state": {
             "emergency_stop": true,
             "target_visible": true,
-            "confidence": 0.9
+            "confidence": 0.9,
+            "sensors_ok": true,
+            "sensor_data_fresh": true,
+            "comms_ok": true
           },
           "expected_action": "SAFE_HOLD"
         }
@@ -101,19 +120,26 @@
             "comms_ok": true,
             "target_visible": true,
             "confidence": 0.9,
-            "operator_approved": true
+            "operator_approved": true,
+            "emergency_stop": false
           },
           "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
         },
         {
           "state": {
-            "sensor_data_fresh": false
+            "sensor_data_fresh": false,
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "comms_ok": true
           },
           "expected_action": "SAFE_HOLD"
         },
         {
           "state": {
-            "sensor_data_fresh": true
+            "sensor_data_fresh": true,
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "comms_ok": true
           },
           "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
         }
