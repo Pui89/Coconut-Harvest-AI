@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
 <title id="title">Coconut Harvest AI — realistic-style low-cost all-stage harvesting robot concept</title>
-<desc id="desc">Concept rendering beside a tall coconut palm representing a 0–30 m orchard challenge. The pictured compact tracked robot and slim telescopic arm are not shown to scale and are not demonstrated to reach the crown. Fruit detection, high-reach access, stability, cutting and safe capture are unvalidated.</desc>
+<desc id="desc">Concept rendering beside a tall coconut palm representing a 0–30 m orchard challenge. The pictured compact tracked robot, jointed telescopic arm and collection basket are concept elements, not to scale and not demonstrated to reach the crown. Fruit detection, high-reach access, stability, cutting and safe capture are unvalidated.</desc>
 <defs>
   <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9bc9df"/><stop offset=".58" stop-color="#d9e9dc"/><stop offset="1" stop-color="#f2e8cf"/></linearGradient>
   <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#87966b"/><stop offset="1" stop-color="#4c6146"/></linearGradient>
@@ -104,7 +104,20 @@
  <!-- guarded cutter/capture fingers concept -->
  <path d="M839 200Q825 220 841 230M864 200Q879 220 861 230" fill="none" stroke="#d7dfdb" stroke-width="6" stroke-linecap="round"/>
  <path d="M841 230Q851 239 861 230" fill="none" stroke="#edb454" stroke-width="5" stroke-linecap="round"/>
- <!-- depth sensors on base -->
+  <!-- proposed coconut-catching / collection basket beside chassis; concept only -->
+ <g id="collection-basket" stroke-linejoin="round">
+  <path d="M790 648L900 648L886 706Q844 720 805 706Z" fill="#344a48" fill-opacity=".88" stroke="#d9e1dc" stroke-width="4"/>
+  <path d="M800 661L894 661M798 674L891 674M796 687L888 687M794 700L885 700" stroke="#a9c6b7" stroke-width="2.5" opacity=".95"/>
+  <path d="M811 650L818 709M835 650L838 714M859 650L857 713M882 650L877 709" stroke="#a9c6b7" stroke-width="2" opacity=".9"/>
+  <path d="M800 648Q844 631 891 648" fill="none" stroke="#f0c56e" stroke-width="4"/>
+  <use href="#coconutGreen" transform="translate(828 641) scale(.52)"/>
+  <use href="#coconutBrown" transform="translate(852 638) scale(.5)"/>
+  <use href="#coconutYellow" transform="translate(872 642) scale(.48)"/>
+  <path d="M786 654L771 670" stroke="#d9e1dc" stroke-width="7" stroke-linecap="round"/>
+  <text x="846" y="739" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">CATCH BASKET</text>
+ </g>
+
+<!-- depth sensors on base -->
  <rect x="742" y="650" width="35" height="18" rx="4" fill="#182b31" stroke="#b9c5c2" stroke-width="2"/><circle cx="752" cy="659" r="4" fill="#56c5e5"/><circle cx="766" cy="659" r="4" fill="#56c5e5"/>
 </g>
 <!-- dotted sensor view to selected mixed-stage bunch -->
