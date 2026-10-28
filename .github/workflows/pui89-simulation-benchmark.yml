@@ -36,7 +36,10 @@ jobs:
       - name: Run deterministic simulation scenarios
         run: python tools/pui89_autonomy_lab.py simulate --config simulation/scenarios.json --output-dir reports/simulation
       - name: Validate benchmark evidence
-        run: python tools/validate_simulation_report.py --config simulation/scenarios.json
+        run: |
+          report="$(find reports/simulation -maxdepth 1 -type f -name 'simulation-report-*.json' -print -quit)"
+          test -n "$report"
+          python tools/validate_simulation_report.py --report "$report" --config simulation/scenarios.json
       - name: Upload JSON and CSV evidence
         uses: actions/upload-artifact@v4
         with:
