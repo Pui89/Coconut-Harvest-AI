@@ -85,6 +85,18 @@ The product vision is to support harvesting across palms from **0 m to 30 m**, i
 
 Proposed staged validation: ground-level/controlled bench trials first; then measured low-height tests; then progressively higher, secured tests only after the previous safety and performance gates pass. Do not imply that simulation or a concept illustration proves real-world reach.
 
+## Proposed harvesting arm and coconut-catching basket
+
+The robot concept includes a **jointed telescopic harvesting arm** and a **fruit-catching / collection basket**. They are proposed engineering components, not a built or validated mechanism.
+
+- **Arm and positioning:** a telescopic mast supports a multi-joint arm for aiming the tool toward an individually selected coconut bunch. Reach planning must account for measured target position, arm load, chassis stability, wind, tree movement, obstacles and the full robot/tool envelope.
+- **Perception at the tool:** a camera/depth-sensor concept near the end effector would help estimate the target and confirm alignment. Sensor readings and maturity predictions must carry uncertainty; unclear or occluded targets go to human review.
+- **Guarded cutting and capture:** a guarded cutter/gripper concept would only be considered after target identity, clearance, stability, tool state and operator approval pass their checks. No cut should be attempted when any required input is missing, stale, conflicting or uncertain.
+- **Basket and controlled lowering:** a receiving basket is intended to retain harvested fruit and reduce uncontrolled drops. A real design still needs a separately engineered and tested transfer/lowering path, load limits, retention, impact protection and a way to prevent fruit or tools from falling.
+- **Height boundary:** the 0–30 m palm range is a long-term design challenge, not a demonstrated arm length or safe operating envelope. The illustration is not to scale and does not prove reach, cutting, capture or operation at any height.
+
+**Current status:** concept only. No physical arm, basket, cutter, lowering mechanism or autonomous harvest has been validated by this repository. Software and synthetic tests cannot establish mechanical feasibility or field safety.
+
 ## Intended harvesting workflow
 
 Orchard image and sensor inputs → fruit / bunch detection → four-category classification with uncertainty → operator target selection → reach, stability, collision, and tool-readiness checks → human approval → controlled harvest only if all gates pass → fruit capture / lowering → result verification and event log.
