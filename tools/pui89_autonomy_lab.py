@@ -47,6 +47,11 @@ class MockVLA:
         for key in self.SAFETY_FLAGS:
             if key in state and not isinstance(state[key], bool):
                 return "SAFE_HOLD", [f"malformed_safety_flag:{key}: SAFE_HOLD"]
+        # Missing safety telemetry is not equivalent to a healthy system.
+        # Require explicit values before any simulated action can be proposed.
+        for key in ("emergency_stop", "sensors_ok", "sensor_data_fresh", "comms_ok"):
+            if key not in state:
+                return "SAFE_HOLD", [f"missing_safety_flag:{key}: SAFE_HOLD"]
         if state.get("emergency_stop", False):
             return "SAFE_HOLD", ["emergency_stop: SAFE_HOLD"]
         if not state.get("sensors_ok", True):
