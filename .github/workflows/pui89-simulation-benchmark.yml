@@ -9,6 +9,7 @@ on:
       - "tools/pui89_autonomy_lab.py"
       - "simulation/scenarios.json"
       - "tests/test_pui89_autonomy_lab.py"
+      - "tests/test_validate_simulation_report.py"
       - "tools/validate_simulation_report.py"
       - ".github/workflows/pui89-simulation-benchmark.yml"
 
