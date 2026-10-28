@@ -15,8 +15,6 @@ on:
       - "pyproject.toml"
       - ".github/workflows/**"
       - "SECURITY.md"
-  schedule:
-    - cron: "23 4 * * 1"
   workflow_dispatch:
 
 permissions:
