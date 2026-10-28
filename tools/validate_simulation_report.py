@@ -15,7 +15,7 @@ def stable_json(value):
 def validate(report_path: Path, config_path: Path) -> list[str]:
     errors = []
     try:
-        report = json.loads(args.report.read_text(encoding="utf-8"))
+        report = json.loads(report_path.read_text(encoding="utf-8"))
         config = json.loads(config_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         return [f"cannot read report/config JSON: {exc}"]
@@ -89,7 +89,7 @@ def main() -> int:
         for error in errors:
             print(f"FAIL: {error}")
         return 1
-    report = json.loads(report_path.read_text(encoding="utf-8"))
+    report = json.loads(args.report.read_text(encoding="utf-8"))
     metrics = report["metrics"]
     print(f"VALID report project={report['project_id']} run_id={report['run_id']} "
           f"scenarios={metrics['scenario_pass_count']}/{metrics['scenario_count']} "
