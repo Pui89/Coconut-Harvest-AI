@@ -73,6 +73,43 @@ class AgenticWorkflowTests(unittest.TestCase):
         self.assertFalse(report["actuator_commands_issued"])
         self.assertTrue(report["human_review_required"])
 
+    def test_policy_gate_rejects_malformed_contract_fields(self):
+        valid = {
+            "project": "test",
+            "status": "READY",
+            "recommendation": "REVIEW_ONLY",
+            "reasons": [],
+            "requires_human_approval": True,
+            "actuator_command": None,
+        }
+        invalid_cases = (
+            ("approval is a string", {"requires_human_approval": "true"}),
+            ("empty actuator command", {"actuator_command": ""}),
+            ("non-string status", {"status": None}),
+            ("non-list reasons", {"reasons": "none"}),
+            ("non-string recommendation", {"recommendation": {"action": "go"}}),
+        )
+        for label, override in invalid_cases:
+            with self.subTest(case=label):
+                decision = {**valid, **override}
+
+                class MalformedDecision:
+                    def to_dict(self):
+                        return decision
+
+                with patch(
+                    "agents.agentic_workflow.run_agent",
+                    return_value=MalformedDecision(),
+                ):
+                    report = run_agentic_workflow({"sensor_ok": True})
+
+                self.assertEqual(report["status"], "BLOCKED_BY_POLICY")
+                self.assertIsNone(report["decision"])
+                self.assertTrue(report["issues"])
+                self.assertTrue(report["human_review_required"])
+                self.assertFalse(report["execution_performed"])
+                self.assertFalse(report["actuator_commands_issued"])
+
 
 if __name__ == "__main__":
     unittest.main()
