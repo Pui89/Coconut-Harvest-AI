@@ -67,5 +67,24 @@ class ObservationGateTests(unittest.TestCase):
             WorldState().update("  ", good())
 
 
+    def test_non_finite_timestamps_are_rejected(self):
+        for timestamp in (float("nan"), float("inf"), float("-inf")):
+            with self.subTest(timestamp=timestamp):
+                result = assess_observation(good(timestamp=timestamp), now=100.0)
+                self.assertEqual(result.status, "REJECT")
+                self.assertIn("invalid_timestamp", result.reasons)
+
+    def test_non_finite_clock_and_age_limits_raise_value_error(self):
+        for kwargs in (
+            {"now": float("nan")},
+            {"now": float("inf")},
+            {"now": 100.0, "max_age_seconds": float("nan")},
+            {"now": 100.0, "max_age_seconds": float("inf")},
+        ):
+            with self.subTest(kwargs=kwargs):
+                with self.assertRaises(ValueError):
+                    assess_observation(good(), **kwargs)
+
+
 if __name__ == "__main__":
     unittest.main()
