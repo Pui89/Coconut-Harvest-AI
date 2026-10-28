@@ -50,10 +50,12 @@ def check_proposal(proposal, state_known, human_approved=False):
         return False, "unknown_world_state"
     if confidence < 0.75:
         return False, "confidence_below_threshold"
-    if proposal.get("requires_human_approval") and not human_approved:
-        return False, "human_approval_required"
     if proposal.get("simulation_only") is not True:
         return False, "simulation_only_required"
+    # Fail closed: approval must be explicitly required AND explicitly granted.
+    # Missing/false approval flags must never silently bypass human review.
+    if proposal.get("requires_human_approval") is not True or human_approved is not True:
+        return False, "human_approval_required"
     return True, "proposal_passed_for_simulation"
 
 
@@ -119,8 +121,36 @@ class ContractTests(unittest.TestCase):
         self.assertFalse(ok)
         self.assertEqual(reason, "simulation_only_required")
 
+    def test_missing_human_approval_requirement_is_rejected(self):
+        proposal = {"action": "observe", "confidence": 0.9, "simulation_only": True}
+        ok, reason = check_proposal(proposal, True, human_approved=True)
+        self.assertFalse(ok)
+        self.assertEqual(reason, "human_approval_required")
+
+    def test_false_human_approval_requirement_is_rejected(self):
+        proposal = {
+            "action": "observe", "confidence": 0.9,
+            "requires_human_approval": False, "simulation_only": True,
+        }
+        ok, reason = check_proposal(proposal, True, human_approved=True)
+        self.assertFalse(ok)
+        self.assertEqual(reason, "human_approval_required")
+
+    def test_unapproved_proposal_is_rejected(self):
+        proposal = {
+            "action": "observe", "confidence": 0.9,
+            "requires_human_approval": True, "simulation_only": True,
+        }
+        ok, reason = check_proposal(proposal, True, human_approved=False)
+        self.assertFalse(ok)
+        self.assertEqual(reason, "human_approval_required")
+
     def test_safe_simulated_proposal_passes(self):
-        ok, reason = check_proposal({"action": "observe", "confidence": 0.9, "simulation_only": True}, True)
+        proposal = {
+            "action": "observe", "confidence": 0.9,
+            "requires_human_approval": True, "simulation_only": True,
+        }
+        ok, reason = check_proposal(proposal, True, human_approved=True)
         self.assertTrue(ok)
         self.assertEqual(reason, "proposal_passed_for_simulation")
 
