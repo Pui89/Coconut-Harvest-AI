@@ -144,6 +144,60 @@
           "expected_action": "HARVEST_STEP_SIMULATION_ONLY"
         }
       ]
+    },
+    {
+      "id": "missing_emergency_stop_telemetry",
+      "seed": 108,
+      "steps": [
+        {
+          "state": {
+            "sensors_ok": true,
+            "sensor_data_fresh": true,
+            "comms_ok": true,
+            "target_visible": true,
+            "target_valid": true,
+            "confidence": 0.95,
+            "operator_approved": true
+          },
+          "expected_action": "SAFE_HOLD"
+        }
+      ]
+    },
+    {
+      "id": "malformed_sensor_boolean",
+      "seed": 109,
+      "steps": [
+        {
+          "state": {
+            "emergency_stop": false,
+            "sensors_ok": "false",
+            "sensor_data_fresh": true,
+            "comms_ok": true,
+            "target_visible": true,
+            "confidence": 0.95,
+            "operator_approved": true
+          },
+          "expected_action": "SAFE_HOLD"
+        }
+      ]
+    },
+    {
+      "id": "boolean_confidence",
+      "seed": 110,
+      "steps": [
+        {
+          "state": {
+            "emergency_stop": false,
+            "sensors_ok": true,
+            "sensor_data_fresh": true,
+            "comms_ok": true,
+            "target_visible": true,
+            "confidence": true,
+            "operator_approved": true
+          },
+          "expected_action": "UNKNOWN"
+        }
+      ]
     }
   ]
 }
