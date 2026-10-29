@@ -120,6 +120,17 @@ class WorldState:
             )
             for item in observations
         ]
+
+        # A missing or malformed timestamp cannot be safely ordered against
+        # other observations. Reject the combined state instead of allowing
+        # max() to raise TypeError or silently selecting a different reading.
+        if any(
+            "missing_timestamp" in result.reasons
+            or "invalid_timestamp" in result.reasons
+            for result in assessments
+        ):
+            return Assessment("REJECT", ("unorderable_observation_timestamp",))
+
         usable = [
             item for item, result in zip(observations, assessments)
             if result.status == "ACCEPT"
