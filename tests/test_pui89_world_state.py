@@ -66,7 +66,6 @@ class ObservationGateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             WorldState().update("  ", good())
 
-
     def test_non_finite_timestamps_are_rejected(self):
         for timestamp in (float("nan"), float("inf"), float("-inf")):
             with self.subTest(timestamp=timestamp):
@@ -84,6 +83,18 @@ class ObservationGateTests(unittest.TestCase):
             with self.subTest(kwargs=kwargs):
                 with self.assertRaises(ValueError):
                     assess_observation(good(), **kwargs)
+
+    def test_unorderable_timestamp_among_observations_fails_closed(self):
+        for timestamp in ("not-a-time", True, None, float("nan")):
+            with self.subTest(timestamp=timestamp):
+                state = WorldState()
+                state.update("target", good("valid", timestamp=99.0))
+                state.update("target", good("malformed", timestamp=timestamp))
+                result = state.assess("target", now=100.0)
+                self.assertEqual(result.status, "REJECT")
+                self.assertIn("unorderable_observation_timestamp", result.reasons)
+                self.assertFalse(result.may_enter_simulation)
+                self.assertFalse(result.may_actuate_hardware)
 
 
 if __name__ == "__main__":
