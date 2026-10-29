@@ -777,3 +777,10 @@ The dataset preflight helper is tools/validate_coconut_dataset.py; its preflight
 ## PUI89 master roadmap and next validation gates
 
 See the [PUI89 Master Roadmap](https://github.com/Pui89/Pui89.github.io/blob/main/PUI89_MASTER_ROADMAP.md) for current status, unfinished work, checks, known issues, the ordered next process and future upgrade levels across all three projects. Project-specific validation boundaries remain documented in [Safety and validation gates](docs/PUI89_SAFETY_AND_VALIDATION_GATES.md).
+
+
+### Latest simulation evidence (29 October 2026)
+
+The [Coconut Simulation Evaluation run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992) completed with **7/7 configured simulation scenarios passed, 9/9 steps passed, and 0 reported failures**. Hardware actuation was disabled. [Simulation report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992/artifacts/12901050654).
+
+**Boundary:** this is simulation-only evidence. It does not establish detector accuracy, physical harvesting capability, real-world safety or validated 0–30 m reach.
