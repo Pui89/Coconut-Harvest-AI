@@ -1,0 +1,76 @@
+name: Coconut Simulation Evaluation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "simulation/**"
+      - "tools/pui89_autonomy_lab.py"
+      - ".github/workflows/coconut-simulation-evaluation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "simulation/**"
+      - "tools/pui89_autonomy_lab.py"
+      - ".github/workflows/coconut-simulation-evaluation.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-simulation-evaluation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  simulate:
+    name: Run reproducible simulation scenarios
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run simulation-only scenarios
+        id: simulation
+        run: |
+          python tools/pui89_autonomy_lab.py simulate \
+            --config simulation/scenarios.json \
+            --output-dir reports/coconut-simulation-run
+
+      - name: Print machine-readable summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          reports = sorted(Path("reports/coconut-simulation-run").glob("simulation-report-*.json"))
+          if not reports:
+              print("SIMULATION_REPORT_MISSING")
+              raise SystemExit(0)
+          report = json.loads(reports[-1].read_text(encoding="utf-8"))
+          print(json.dumps({
+              "status": report.get("status"),
+              "project_id": report.get("project_id"),
+              "run_id": report.get("run_id"),
+              "scenario_config_sha256": report.get("scenario_config_sha256"),
+              "metrics": report.get("metrics"),
+              "failures": report.get("failures"),
+              "hardware_actuation": False,
+              "note": "Simulation-only results; not real-world detector or robot validation."
+          }, indent=2))
+          PY
+
+      - name: Upload simulation reports, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coconut-simulation-report-${{ github.run_id }}
+          path: reports/coconut-simulation-run/
+          if-no-files-found: warn
+          retention-days: 14
