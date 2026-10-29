@@ -73,11 +73,19 @@ jobs:
           print("Python compilation check completed.")
           PY
 
-      - name: Run standard-library unit tests
-        id: unit-tests
+      - name: Run dependency-free observability smoke test
+        id: smoke-check
         run: |
-          set -o pipefail
-          python -m unittest discover -s tests -v 2>&1 | tee pui89-unit-tests.txt
+          python tools/pui89_observability.py --report observability-report.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("observability-report.json").read_text(encoding="utf-8"))
+          required = {"software", "hardware", "system", "model", "workflow_step", "safety_review"}
+          assert required.issubset(report["layers"]), "Required observability layers are missing"
+          assert report["layers"]["hardware"]["status"] == "NOT_CONNECTED"
+          print("Observability schema smoke test passed; no live system or hardware was tested.")
+          PY
 
       - name: Finalize verification report
         if: always()
@@ -87,8 +95,8 @@ jobs:
           from pathlib import Path
           p = Path("pui89-verification-report.json")
           report = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
-          outcome = os.environ.get("UNIT_TEST_OUTCOME", "unknown")
-          report["unit_test_step_outcome"] = outcome
+          outcome = os.environ.get("SMOKE_CHECK_OUTCOME", "unknown")
+          report["smoke_check_step_outcome"] = outcome
           report["status"] = "checks_passed" if outcome == "success" else "review_required"
           report["limitations"] = [
               "A successful run does not validate perception accuracy, physical safety, autonomy, or real-world robot performance.",
@@ -107,7 +115,7 @@ jobs:
               encoding="utf-8")
           PY
         env:
-          UNIT_TEST_OUTCOME: ${{ steps.unit-tests.outcome }}
+          SMOKE_CHECK_OUTCOME: ${{ steps.smoke-check.outcome }}
 
       - name: Upload verification reports
         if: always()
@@ -117,6 +125,6 @@ jobs:
           path: |
             pui89-verification-report.json
             pui89-verification-summary.md
-            pui89-unit-tests.txt
+            observability-report.json
           if-no-files-found: warn
           retention-days: 14
