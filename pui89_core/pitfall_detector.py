@@ -40,7 +40,7 @@ def inspect_state(state: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(required, list) or not isinstance(missing, list):
         findings.append(Finding("INVALID_FIELD_LIST", "BLOCK", "required_fields and missing_fields must be lists."))
     else:
-        actual_missing = sorted({str(x) for x in missing} | {str(x) for x in required if x not in state})
+        actual_missing = sorted({str(x) for x in missing} | {str(x) for x in required if x not in state or state.get(x) is None or state.get(x) == ""})
         for field in actual_missing:
             findings.append(Finding("MISSING_DATA", "BLOCK", f"Required data is missing: {field}", field))
 
