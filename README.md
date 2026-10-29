@@ -7,6 +7,22 @@
 
 Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
 
+
+## Current project status — 29 October 2026
+
+**Overall status: software prototype and evaluation-preparation stage.** The combined PUI89 workflow has verified 13 shared-core tests, 5 detection-evaluator tests and 4 dataset-preflight tests for this project. These tests do not establish detector accuracy.
+
+| Workstream | Current evidence | Status |
+|---|---|---|
+| Shared software core | 13 tests passed in the combined run | **Unit-tested** |
+| Detection metric evaluator | 5 tests passed; evaluates supplied predictions against labelled boxes | **Evaluator tested; AI accuracy not measured** |
+| Dataset preflight tool | 4 tests passed on temporary synthetic fixtures | **Tool unit-tested; real dataset not yet validated by this run** |
+| Real detector benchmark | No confirmed held-out ground-truth/prediction pair in the published run | **NOT RUN / NOT MEASURED** |
+| Four maturity classes and 0–30 m reach | Design targets; no validated full-range detector or physical harvesting robot demonstrated | **Concept / research target** |
+| Arm, cutter, basket and harvest verification | Design and software planning only | **Physical capability not validated** |
+
+**Next gate:** complete source/licence review, manifest and annotation QA on the real dataset, prevent source/tree/session leakage, then run an actual detector on a held-out set and publish precision/recall/F1 with thresholds, counts and failure cases. Do not claim mAP from the single-threshold evaluator.
+
 ## Shared PUI89 AI Core — verification update (28 October 2026)
 
 This project now shares a common set of software-contract and simulation-evidence checks with the other PUI89 AI applications. The latest test additions check that benchmark validation rejects inconsistent CSV row counts, a success status that conflicts with reported failures, and missing CSV evidence.
