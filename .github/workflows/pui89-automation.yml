@@ -1,0 +1,37 @@
+name: PUI89 Automated Verification
+
+on:
+  push:
+    branches: ["main", "automation/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lightweight Python verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run deterministic checks
+        run: python tools/pui89_automation.py
+      - name: Upload verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pui89-verification-report
+          path: verification-report.json
+          if-no-files-found: warn
+          retention-days: 7
