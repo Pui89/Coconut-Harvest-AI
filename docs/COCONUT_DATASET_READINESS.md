@@ -1,6 +1,6 @@
 # Coconut Dataset Readiness — Evidence Snapshot
 
-**Snapshot date:** 26 October 2026  
+**Snapshot date:** 29 October 2026  
 **Source:** repository ledgers `data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv` and `data/review_batch_2026-10-18/candidate_review_2026-10-18.csv`.
 
 ## Current status
@@ -13,6 +13,14 @@
 This is a transparent readiness status, not a failure of the project. The gate is designed to block unreviewed images rather than quietly treat them as valid training data. Re-run the gate whenever the ledgers change; this document is a dated snapshot, not a live report.
 
 The gate's JSON report also includes `gate_failure_counts`, a ranked `top_blockers` list, and `recommended_next_steps` grouped into source rights, record consistency, human annotation review and explicit training approval. These are prioritisation aids only: they do not change eligibility or mark any candidate as reviewed.
+
+## Follow-up source-page check — 29 October 2026
+
+The original Wikimedia Commons page for candidate 0032 was re-opened for this follow-up. It still identifies the creator as Sarmi~Kili and the licence as CC BY-SA 4.0, and lists the original as 5,184 × 3,456 pixels, 8,631,989 bytes, with published SHA-1 `34a77896b7ad78532cd41aadc2c3967220fd91ab`. Source page: https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg.
+
+This online page check confirms the current displayed source metadata only. It does **not** verify the bytes of a local copy or calculate the project SHA-256. The draft annotation's `source_image_sha256` remains a placeholder; its eight boxes remain unreviewed; `human_qa_acknowledged` and `training_approved` remain false. Candidate 0032 is therefore still blocked for training and benchmarking.
+
+The next action still requires the original image file on the user's machine: run the documented `record_coconut_source_hash.py` dry run against that local file, then do a full-resolution human annotation review. Do not replace the placeholder with a guessed digest and do not turn a source-page check into training approval.
 
 ## Why candidates remain blocked
 
