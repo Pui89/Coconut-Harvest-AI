@@ -1,0 +1,140 @@
+name: Coconut Dataset Evidence Audit
+
+on:
+  pull_request:
+    paths:
+      - "data/**"
+      - "tools/audit_coconut_dataset.py"
+      - "tools/audit_dataset_split_leakage.py"
+      - "tools/verify_image_manifest_hashes.py"
+      - "tests/test_audit_coconut_dataset.py"
+      - "tests/test_audit_dataset_split_leakage.py"
+      - "tests/test_verify_image_manifest_hashes.py"
+      - ".github/workflows/coconut-dataset-evidence-audit.yml"
+  push:
+    paths:
+      - "data/**"
+      - "tools/audit_coconut_dataset.py"
+      - "tools/audit_dataset_split_leakage.py"
+      - "tools/verify_image_manifest_hashes.py"
+      - "tests/test_audit_coconut_dataset.py"
+      - "tests/test_audit_dataset_split_leakage.py"
+      - "tests/test_verify_image_manifest_hashes.py"
+      - ".github/workflows/coconut-dataset-evidence-audit.yml"
+  schedule:
+    - cron: "41 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-dataset-evidence-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dataset-evidence:
+    name: Dataset provenance, hashes and split integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run offline evidence checks and create machine-readable report
+        id: audit
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import re
+          import subprocess
+          import sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          suites = [
+              ("dataset_structure", "test_audit_coconut_dataset.py"),
+              ("image_hash_integrity", "test_verify_image_manifest_hashes.py"),
+              ("split_leakage", "test_audit_dataset_split_leakage.py"),
+          ]
+          out = Path("reports/coconut-dataset-evidence")
+          out.mkdir(parents=True, exist_ok=True)
+          results = []
+          for name, pattern in suites:
+              proc = subprocess.run(
+                  [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", pattern, "-v"],
+                  text=True,
+                  stdout=subprocess.PIPE,
+                  stderr=subprocess.STDOUT,
+              )
+              match = re.search(r"Ran (\d+) tests?", proc.stdout)
+              count = int(match.group(1)) if match else 0
+              status = "passed" if proc.returncode == 0 and count > 0 else "failed"
+              log_name = f"{name}.log"
+              (out / log_name).write_text(proc.stdout, encoding="utf-8")
+              results.append({
+                  "check": name,
+                  "test_pattern": pattern,
+                  "status": status,
+                  "return_code": proc.returncode,
+                  "tests_run": count,
+                  "log": log_name,
+              })
+              print(f"{name}: {status} (tests={count}, exit={proc.returncode})")
+          passed = all(item["status"] == "passed" for item in results)
+          report = {
+              "schema_version": "1.0",
+              "project": "Coconut Harvest AI",
+              "generated_at": datetime.now(timezone.utc).isoformat(),
+              "commit": os.environ.get("GITHUB_SHA", "unknown"),
+              "trigger": os.environ.get("GITHUB_EVENT_NAME", "unknown"),
+              "overall_status": "passed" if passed else "failed",
+              "checks": results,
+              "interpretation": {
+                  "scope": "Offline unit tests for dataset structure, local-file hash integrity and recorded split leakage.",
+                  "not_checked": [
+                      "Image visual quality or annotation correctness by a human",
+                      "Independent source-page ownership, current licence terms or permission to reuse",
+                      "Near-duplicate images with different byte hashes",
+                      "Real model precision, recall, latency or physical robot performance"
+                  ],
+                  "approval_policy": "Passing automation does not approve images or annotations for training. Human review and source-rights checks remain separate gates.",
+                  "network_access": False,
+                  "model_downloads": False,
+                  "hardware_actuation": False
+              }
+          }
+          (out / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          lines = [
+              "# Coconut Dataset Evidence Audit",
+              "",
+              f"- Overall status: **{report['overall_status']}**",
+              f"- Commit: {report['commit']}",
+              f"- Generated: {report['generated_at']}",
+              "",
+              "| Check | Status | Tests run |",
+              "|---|---:|---:|",
+          ]
+          lines.extend(f"| {item['check']} | {item['status']} | {item['tests_run']} |" for item in results)
+          lines += ["", "## Boundaries", "", f"- {report['interpretation']['scope']}",
+                    "- Passing checks do not constitute human annotation QA or legal/licence approval.",
+                    "- No network requests, model downloads or hardware actuation are performed."]
+          (out / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          if not passed:
+              raise SystemExit(1)
+          PY
+
+      - name: Upload evidence report and full test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coconut-dataset-evidence-report
+          path: reports/coconut-dataset-evidence/
+          if-no-files-found: warn
+          retention-days: 14
