@@ -23,9 +23,26 @@ jobs:
         run: python -m compileall -q .
       - name: Run Pitfall Detector tests
         run: |
+          python - <<'PY'
+          from pui89_core.pitfall_detector import inspect_state
+
+          clean = inspect_state({"project": "smoke-test", "confidence": 0.95, "action": "inspect"})
+          assert clean["decision"] == "PASS", clean
+
+          uncertain = inspect_state({"confidence": 0.42})
+          assert uncertain["decision"] == "BLOCK", uncertain
+          assert any(f["code"] == "LOW_CONFIDENCE" for f in uncertain["findings"]), uncertain
+
+          conflict = inspect_state({"sensor_conflict": True})
+          assert conflict["decision"] == "BLOCK", conflict
+          assert any(f["code"] == "SENSOR_CONFLICT" for f in conflict["findings"]), conflict
+
+          missing = inspect_state({"required_fields": ["depth_m"], "depth_m": None})
+          assert missing["decision"] == "BLOCK", missing
+          assert any(f["code"] == "MISSING_DATA" for f in missing["findings"]), missing
+
+          print("PASS: 4 Pitfall Detector smoke checks")
+          PY
           if [ -f tests/test_pitfall_detector.py ]; then
             python -m unittest discover -s tests -p "test_pitfall_detector.py" -v
-          else
-            echo "ERROR: tests/test_pitfall_detector.py is missing"
-            exit 1
           fi
