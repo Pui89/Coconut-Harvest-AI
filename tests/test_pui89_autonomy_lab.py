@@ -61,10 +61,10 @@ class MockVLAGuardTests(unittest.TestCase):
                 self.assertIn("missing_safety_flag", trace[0])
 
     def test_missing_target_searches(self):
-        state = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "target_visible": False}
+        state = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "target_visible": False, "confidence": 0.95}
         self.assertEqual(self.policy.propose(state,"SIM_ACTION")[0],"SEARCH")
     def test_human_review_blocks_nominal_action(self):
-        state = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "human_review_required": True}
+        state = {"emergency_stop": False, "sensors_ok": True, "sensor_data_fresh": True, "comms_ok": True, "human_review_required": True, "confidence": 0.95}
         self.assertEqual(self.policy.propose(state,"ENFORCEMENT_ACTION")[0],"REQUEST_HUMAN_REVIEW")
 
     def test_high_impact_action_labels_always_require_human_review(self):
