@@ -744,3 +744,8 @@ See [Quality, Tolerance, Performance, Safety and Cost Gates](docs/QUALITY_TOLERA
 ## Shared PUI89 AI Safety Contract
 
 This project follows the [PUI89 Shared AI Safety Contract](https://github.com/Pui89/Pui89.github.io/blob/main/PUI89_SHARED_SAFETY_CONTRACT.md) for conservative handling of missing, stale, invalid, or conflicting evidence; explicit uncertainty; reproducible simulation records; and clear separation between software tests and real-world validation. Domain-specific safeguards in this repository remain in force.
+
+
+## Safety and validation gates
+
+See [Coconut Harvest AI safety and validation gates](docs/PUI89_SAFETY_AND_VALIDATION_GATES.md) for the evidence requirements, failure scenarios, safety limits and current validation boundaries. These documents distinguish software tests and simulation plans from measured AI performance and real-world validation.
