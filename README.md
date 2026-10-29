@@ -784,3 +784,10 @@ See the [PUI89 Master Roadmap](https://github.com/Pui89/Pui89.github.io/blob/mai
 The [Coconut Simulation Evaluation run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992) completed with **7/7 configured simulation scenarios passed, 9/9 steps passed, and 0 reported failures**. Hardware actuation was disabled. [Simulation report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992/artifacts/12901050654).
 
 **Boundary:** this is simulation-only evidence. It does not establish detector accuracy, physical harvesting capability, real-world safety or validated 0–30 m reach.
+
+
+## Latest automated verification (29 October 2026)
+
+The [lightweight verification run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888) completed successfully. Its report recorded Python 3.11.17, zero Python compile errors, a passing dependency-free observability smoke check, and zero reported failures. [Verification report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888/artifacts/12901395117).
+
+This lightweight job explicitly does **not** run the full dependency-backed unit-test suite. Separately, the selected PUI89 combined run passed 13 shared-core tests, 5 evaluator tests and 4 dataset-preflight tests for this project; the evaluator/preflight tests do not establish detector accuracy or validate the actual dataset. The separate [simulation-only run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992) passed 7/7 configured scenarios and 9/9 steps with hardware actuation disabled. Physical harvesting, detector accuracy and 0–30 m reach remain unvalidated.
