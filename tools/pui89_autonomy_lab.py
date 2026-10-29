@@ -64,7 +64,9 @@ class MockVLA:
             return "UNKNOWN", ["modalities_conflict: UNKNOWN"]
         if state.get("missing_required_modality", False):
             return "UNKNOWN", ["missing_modality: UNKNOWN"]
-        confidence = state.get("confidence", 1.0)
+        if "confidence" not in state:
+            return "UNKNOWN", ["confidence_missing: UNKNOWN"]
+        confidence = state["confidence"]
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
             return "UNKNOWN", ["confidence_not_numeric: UNKNOWN"]
         if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0 or confidence < self.threshold:
