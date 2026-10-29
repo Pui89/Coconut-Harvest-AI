@@ -75,10 +75,9 @@ jobs:
 
       - name: Run standard-library unit tests
         id: unit-tests
-        continue-on-error: true
         run: |
           set -o pipefail
-          python -m unittest discover -v 2>&1 | tee pui89-unit-tests.txt
+          python -m unittest discover -s tests -v 2>&1 | tee pui89-unit-tests.txt
 
       - name: Finalize verification report
         if: always()
@@ -93,7 +92,7 @@ jobs:
           report["status"] = "checks_passed" if outcome == "success" else "review_required"
           report["limitations"] = [
               "A successful run does not validate perception accuracy, physical safety, autonomy, or real-world robot performance.",
-              "The standard-library unittest discovery may find zero tests; inspect the log and add project-specific tests.",
+              "Unit tests are discovered explicitly from the tests directory; a green run only covers the tests present there.",
               "Optional model, hardware, and robotics-simulation tests are not run by this lightweight workflow."
           ]
           p.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
