@@ -41,7 +41,7 @@ def main() -> int:
                 compile_errors.append({"path": str(folder.relative_to(ROOT)), "error": "Python compilation failed"})
 
     tests_dir = ROOT / "tests"
-    suite = unittest.defaultTestLoader.discover(str(tests_dir), top_level_dir=str(ROOT)) if tests_dir.is_dir() else unittest.TestSuite()
+    suite = unittest.defaultTestLoader.discover(str(tests_dir)) if tests_dir.is_dir() else unittest.TestSuite()
     stream = sys.stdout
     result = unittest.TextTestRunner(stream=stream, verbosity=2, resultclass=JsonTestResult).run(suite)
     failures = compile_errors + result.failures_json
