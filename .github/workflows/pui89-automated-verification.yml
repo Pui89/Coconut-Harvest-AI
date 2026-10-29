@@ -1,0 +1,123 @@
+name: PUI89 Automated Verification
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-checks:
+    name: Python syntax and standard-library tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Record repository and runtime details
+        run: |
+          python --version
+          git rev-parse --short HEAD
+          python - <<'PY'
+          import json, os, platform
+          from pathlib import Path
+          files = [str(p) for p in Path(".").rglob("*.py")
+                   if ".git" not in p.parts and ".venv" not in p.parts
+                   and "venv" not in p.parts and "__pycache__" not in p.parts]
+          report = {
+              "project": os.environ.get("GITHUB_REPOSITORY", "unknown"),
+              "commit": os.environ.get("GITHUB_SHA", "unknown"),
+              "python": platform.python_version(),
+              "platform": platform.platform(),
+              "python_files_discovered": len(files),
+              "status": "started",
+              "note": "Syntax and standard-library checks only; not evidence of robot or model performance."
+          }
+          Path("pui89-verification-report.json").write_text(
+              json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Compile Python files
+        run: |
+          python - <<'PY'
+          import compileall, json
+          from pathlib import Path
+          excluded = {".git", ".venv", "venv", "__pycache__"}
+          roots = [p for p in Path(".").iterdir() if p.name not in excluded]
+          failed = []
+          for root in roots:
+              if root.is_dir():
+                  ok = compileall.compile_dir(str(root), quiet=1, force=True,
+                                              rx=None, maxlevels=20)
+                  if not ok:
+                      failed.append(str(root))
+              elif root.suffix == ".py":
+                  if not compileall.compile_file(str(root), quiet=1, force=True):
+                      failed.append(str(root))
+          if failed:
+              print("Compilation failed in: " + ", ".join(failed))
+              raise SystemExit(1)
+          print("Python compilation check completed.")
+          PY
+
+      - name: Run standard-library unit tests
+        id: unit-tests
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python -m unittest discover -v 2>&1 | tee pui89-unit-tests.txt
+
+      - name: Finalize verification report
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path("pui89-verification-report.json")
+          report = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+          outcome = os.environ.get("UNIT_TEST_OUTCOME", "unknown")
+          report["unit_test_step_outcome"] = outcome
+          report["status"] = "checks_passed" if outcome == "success" else "review_required"
+          report["limitations"] = [
+              "A successful run does not validate perception accuracy, physical safety, autonomy, or real-world robot performance.",
+              "The standard-library unittest discovery may find zero tests; inspect the log and add project-specific tests.",
+              "Optional model, hardware, and robotics-simulation tests are not run by this lightweight workflow."
+          ]
+          p.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          Path("pui89-verification-summary.md").write_text(
+              "# PUI89 Automated Verification\n\n"
+              f"- Project: {report.get('project', 'unknown')}\n"
+              f"- Commit: {report.get('commit', 'unknown')}\n"
+              f"- Python: {report.get('python', 'unknown')}\n"
+              f"- Unit-test step: {outcome}\n"
+              f"- Status: {report['status']}\n\n"
+              "This report covers software checks only. It is not evidence of real-world robot or AI performance.\n",
+              encoding="utf-8")
+          PY
+        env:
+          UNIT_TEST_OUTCOME: ${{ steps.unit-tests.outcome }}
+
+      - name: Upload verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pui89-verification-report
+          path: |
+            pui89-verification-report.json
+            pui89-verification-summary.md
+            pui89-unit-tests.txt
+          if-no-files-found: warn
+          retention-days: 14
