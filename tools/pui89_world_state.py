@@ -58,7 +58,7 @@ def assess_observation(
     reasons: list[str] = []
     if observation.value is None:
         return Assessment("REJECT", ("missing_value",))
-    if not observation.source:
+    if not isinstance(observation.source, str) or not observation.source.strip():
         reasons.append("missing_source_provenance")
     if observation.observed_at is None:
         reasons.append("missing_timestamp")
