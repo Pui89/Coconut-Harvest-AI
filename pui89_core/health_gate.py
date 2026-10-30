@@ -19,6 +19,7 @@ REQUIRED_BOOLEAN_FIELDS = (
     "safety_monitor_ok",
     "operator_approved",
 )
+OPTIONAL_BOOLEAN_FIELDS = ("modalities_conflict", "required_modality_missing")
 
 
 def assess_health(
@@ -41,6 +42,10 @@ def assess_health(
         key for key in REQUIRED_BOOLEAN_FIELDS
         if key not in snapshot or not isinstance(snapshot[key], bool)
     ]
+    malformed.extend(
+        key for key in OPTIONAL_BOOLEAN_FIELDS
+        if key in snapshot and not isinstance(snapshot[key], bool)
+    )
     if malformed:
         return _decision("SAFE_HOLD", ["missing_or_malformed:" + ",".join(malformed)])
 
@@ -53,6 +58,23 @@ def assess_health(
     ):
         return _decision("SAFE_HOLD", ["confidence_missing_or_invalid"])
 
+    age_fields = ("sensor_age_seconds", "max_sensor_age_seconds")
+    age_present = [key in snapshot for key in age_fields]
+    if any(age_present):
+        if not all(age_present):
+            return _decision("SAFE_HOLD", ["sensor_age_pair_incomplete"])
+        age, limit = (snapshot[key] for key in age_fields)
+        if any(
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(value)
+            or value < 0
+            for value in (age, limit)
+        ):
+            return _decision("SAFE_HOLD", ["sensor_age_invalid"])
+        if age > limit:
+            return _decision("SAFE_HOLD", ["sensor_observation_expired"])
+
     if snapshot["emergency_stop"]:
         return _decision("STOPPED", ["emergency_stop_active"])
     if not snapshot["safety_monitor_ok"]:
@@ -60,6 +82,10 @@ def assess_health(
 
     if not snapshot["operator_approved"]:
         return _decision("REQUEST_HUMAN_REVIEW", ["operator_approval_missing"])
+    if snapshot.get("modalities_conflict", False):
+        return _decision("REQUEST_HUMAN_REVIEW", ["sensor_modalities_conflict"])
+    if snapshot.get("required_modality_missing", False):
+        return _decision("REQUEST_HUMAN_REVIEW", ["required_sensor_modality_missing"])
 
     blockers = [
         key for key in (
