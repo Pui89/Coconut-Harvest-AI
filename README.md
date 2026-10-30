@@ -8,6 +8,14 @@
 Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
 
 
+## Latest engineering update — 30 October 2026
+
+The dataset evidence audit is now merged and has a successful hosted run: **15 standard-library tests passed** across dataset structure (5), image-hash integrity (5), and split-leakage checks (5). [Open the audit run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40944312469) · [Download/view its workflow artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40944312469).
+
+The merged rule-based simulation evaluation also completed **7/7 scenarios and 9/9 steps, with 0 reported failures**. [Open the simulation run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992).
+
+These results verify the audit tooling and defined software scenarios only. They do not validate image reuse rights, human annotation correctness, detector accuracy, 0–30 m reach, or physical harvesting. The dataset training gate remains closed until provenance, licence, annotation and independent review requirements are satisfied.
+
 ## Current project status — 30 October 2026
 
 **Overall status: software prototype and evaluation-preparation stage.** The combined PUI89 workflow has verified 13 shared-core tests, 5 detection-evaluator tests and 4 dataset-preflight tests for this project. These tests do not establish detector accuracy.
