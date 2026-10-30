@@ -1,0 +1,23 @@
+name: Coconut PUI89 Adaptive Policy Adapter
+on:
+  push:
+    paths:
+      - "tools/pui89_agent_contract.py"
+      - "tools/pui89_adaptive_orchestrator.py"
+      - "tools/pui89_coconut_adapter.py"
+      - "tests/test_pui89_coconut_adapter.py"
+      - ".github/workflows/pui89-coconut-adapter.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  coconut-adapter-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run adapter tests
+        run: PYTHONPATH=tools python -m unittest discover -s tests -p "test_pui89_coconut_adapter.py" -v
