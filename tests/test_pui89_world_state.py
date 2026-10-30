@@ -18,6 +18,16 @@ class ObservationGateTests(unittest.TestCase):
         result = assess_observation(Observation(None, "sensor-A", 99.0, 0.9), now=100.0)
         self.assertEqual(result.status, "REJECT")
 
+    def test_blank_or_non_string_source_requires_review(self):
+        for source in (None, "", " \t\n", 123):
+            with self.subTest(source=source):
+                observation = Observation("target", source, 99.0, 0.95, calibrated=True)
+                result = assess_observation(observation, now=100.0)
+                self.assertEqual(result.status, "REVIEW")
+                self.assertIn("missing_source_provenance", result.reasons)
+                self.assertTrue(result.requires_human_review)
+                self.assertFalse(result.may_actuate_hardware)
+
     def test_stale_observation_requires_review(self):
         result = assess_observation(good(timestamp=80.0), now=100.0)
         self.assertIn("stale_observation", result.reasons)
