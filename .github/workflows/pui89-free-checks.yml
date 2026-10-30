@@ -60,6 +60,8 @@ jobs:
                   test(Path(directory))
               print(f"PASS: {test.__name__}")
           PY
+      - name: Check PUI89 shared world-state contract
+        run: python -m unittest discover -s tests -p "test_pui89_world_state.py" -v
       - name: Check world state unit tests
         run: python -m unittest discover -s tests -p "test_world_state.py" -v
       - name: Check reproducible experiment reports
