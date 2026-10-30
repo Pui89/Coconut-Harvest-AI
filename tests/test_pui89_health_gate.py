@@ -65,6 +65,35 @@ class HealthGateTests(unittest.TestCase):
     def test_non_mapping_input_holds(self):
         self.assertEqual(assess_health(None)["mode"], "SAFE_HOLD")
 
+    def test_conflicting_modalities_request_human_review(self):
+        self.assertEqual(assess_health({**READY, "modalities_conflict": True})["mode"], "REQUEST_HUMAN_REVIEW")
+
+    def test_missing_required_modality_requests_human_review(self):
+        self.assertEqual(assess_health({**READY, "required_modality_missing": True})["mode"], "REQUEST_HUMAN_REVIEW")
+
+    def test_sensor_observation_older_than_limit_holds(self):
+        state = {**READY, "sensor_age_seconds": 5.1, "max_sensor_age_seconds": 5}
+        self.assertEqual(assess_health(state)["mode"], "SAFE_HOLD")
+
+    def test_sensor_observation_at_age_limit_is_accepted(self):
+        state = {**READY, "sensor_age_seconds": 5, "max_sensor_age_seconds": 5}
+        self.assertEqual(assess_health(state)["mode"], "SIMULATION_READY")
+
+    def test_invalid_or_incomplete_sensor_age_holds(self):
+        cases = (
+            {"sensor_age_seconds": 1},
+            {"sensor_age_seconds": True, "max_sensor_age_seconds": 5},
+            {"sensor_age_seconds": -1, "max_sensor_age_seconds": 5},
+            {"sensor_age_seconds": math.inf, "max_sensor_age_seconds": 5},
+        )
+        for extra in cases:
+            with self.subTest(extra=extra):
+                self.assertEqual(assess_health({**READY, **extra})["mode"], "SAFE_HOLD")
+
+    def test_malformed_optional_multimodal_flags_hold(self):
+        for key in ("modalities_conflict", "required_modality_missing"):
+            self.assertEqual(assess_health({**READY, key: "false"})["mode"], "SAFE_HOLD")
+
 
 if __name__ == "__main__":
     unittest.main()
