@@ -1,0 +1,33 @@
+name: PUI89 Health Gate Regression
+
+on:
+  push:
+    paths:
+      - "pui89_core/health_gate.py"
+      - "tests/test_pui89_health_gate.py"
+      - ".github/workflows/pui89-health-gate.yml"
+  pull_request:
+    paths:
+      - "pui89_core/health_gate.py"
+      - "tests/test_pui89_health_gate.py"
+      - ".github/workflows/pui89-health-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-health-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-slim
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run dependency-free health gate regression tests
+        run: python -m unittest discover -s tests -p "test_pui89_health_gate.py" -v
