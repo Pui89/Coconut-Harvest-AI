@@ -802,3 +802,18 @@ The [Coconut Simulation Evaluation run](https://github.com/Pui89/Coconut-Harvest
 The [lightweight verification run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888) completed successfully. Its report recorded Python 3.11.17, zero Python compile errors, a passing dependency-free observability smoke check, and zero reported failures. [Verification report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888/artifacts/12901395117).
 
 This lightweight job explicitly does **not** run the full dependency-backed unit-test suite. Separately, the selected PUI89 combined run passed 13 shared-core tests, 5 evaluator tests and 4 dataset-preflight tests for this project; the evaluator/preflight tests do not establish detector accuracy or validate the actual dataset. The separate [simulation-only run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992) passed 7/7 configured scenarios and 9/9 steps with hardware actuation disabled. Physical harvesting, detector accuracy and 0–30 m reach remain unvalidated.
+
+
+## Shared PUI89 adaptive policy adapter — Coconut integration (31 October 2026)
+
+The first project adapter now maps a caller-supplied coconut maturity observation into the shared PUI89 agent-message and evidence format. It recognizes the four declared labels: `young_green`, `developing`, `mature_green` and `brown_aging`. It routes these records through a project-local snapshot of the shared policy orchestrator.
+
+- [Coconut adapter](tools/pui89_coconut_adapter.py)
+- [Vendored shared agent contract](tools/pui89_agent_contract.py)
+- [Vendored adaptive policy orchestrator](tools/pui89_adaptive_orchestrator.py)
+- [Adapter regression tests](tests/test_pui89_coconut_adapter.py)
+- [Adapter GitHub Actions workflow](.github/workflows/pui89-coconut-adapter.yml)
+
+The vendored shared modules are snapshots of the central PUI89 implementation and must be kept synchronized when the central contract or policy changes. The adapter does not run a coconut detector, assign maturity from pixels, establish confidence calibration, or control a harvesting robot. Test fixtures are synthetic. Every policy result remains simulation-only and explicitly denies physical actuation.
+
+**Verification status:** files have been committed and fetched back from GitHub. The adapter workflow's completed run has not yet been confirmed; do not treat the tests as passed until the Actions run reports success.
