@@ -12,6 +12,7 @@ class ObservationGateTests(unittest.TestCase):
     def test_fresh_high_confidence_observation_is_planning_eligible(self):
         result = assess_observation(good(), now=100.0)
         self.assertEqual(result.status, "ACCEPT")
+        self.assertTrue(result.may_enter_simulation)
         self.assertFalse(result.may_actuate_hardware)
 
     def test_missing_value_is_rejected(self):
@@ -26,36 +27,59 @@ class ObservationGateTests(unittest.TestCase):
                 self.assertEqual(result.status, "REVIEW")
                 self.assertIn("missing_source_provenance", result.reasons)
                 self.assertTrue(result.requires_human_review)
+                self.assertFalse(result.may_enter_simulation)
                 self.assertFalse(result.may_actuate_hardware)
 
     def test_stale_observation_requires_review(self):
         result = assess_observation(good(timestamp=80.0), now=100.0)
         self.assertIn("stale_observation", result.reasons)
         self.assertEqual(result.status, "REVIEW")
+        self.assertFalse(result.may_enter_simulation)
 
     def test_future_timestamp_is_rejected(self):
         result = assess_observation(good(timestamp=101.0), now=100.0)
         self.assertEqual(result.status, "REJECT")
+        self.assertFalse(result.may_enter_simulation)
 
     def test_low_confidence_requires_review(self):
         result = assess_observation(good(confidence=0.2), now=100.0)
         self.assertEqual(result.status, "REVIEW")
+        self.assertFalse(result.may_enter_simulation)
 
     def test_invalid_confidence_is_rejected(self):
         result = assess_observation(good(confidence=1.5), now=100.0)
         self.assertEqual(result.status, "REJECT")
+        self.assertFalse(result.may_enter_simulation)
 
     def test_required_calibration_is_checked(self):
         obs = Observation("target", "sensor-A", 99.0, 0.9, calibrated=None)
         result = assess_observation(obs, now=100.0, require_calibration=True)
         self.assertIn("calibration_unverified", result.reasons)
+        self.assertFalse(result.may_enter_simulation)
 
     def test_explicit_human_review_never_passes_as_accept(self):
         result = assess_observation(good(), now=100.0, require_human_review=True)
         self.assertEqual(result.status, "REVIEW")
+        self.assertFalse(result.may_enter_simulation)
+
+    def test_review_assessments_cannot_enter_task_simulation(self):
+        review_results = (
+            assess_observation(good(source=" "), now=100.0),
+            assess_observation(good(timestamp=80.0), now=100.0),
+            assess_observation(good(confidence=0.2), now=100.0),
+            assess_observation(good(), now=100.0, require_human_review=True),
+        )
+        for result in review_results:
+            with self.subTest(reasons=result.reasons):
+                self.assertEqual(result.status, "REVIEW")
+                self.assertTrue(result.requires_human_review)
+                self.assertFalse(result.may_enter_simulation)
+                self.assertFalse(result.may_actuate_hardware)
 
     def test_unknown_world_state_is_rejected(self):
-        self.assertEqual(WorldState().assess("target", now=100.0).status, "REJECT")
+        result = WorldState().assess("target", now=100.0)
+        self.assertEqual(result.status, "REJECT")
+        self.assertFalse(result.may_enter_simulation)
 
     def test_conflicting_fresh_observations_require_review(self):
         state = WorldState()
@@ -64,6 +88,7 @@ class ObservationGateTests(unittest.TestCase):
         result = state.assess("target", now=100.0)
         self.assertEqual(result.status, "REVIEW")
         self.assertIn("conflicting_fresh_observations", result.reasons)
+        self.assertFalse(result.may_enter_simulation)
 
     def test_matching_fresh_observations_are_consistent(self):
         state = WorldState()
@@ -71,6 +96,7 @@ class ObservationGateTests(unittest.TestCase):
         state.update("target", good("visible", source="camera-B"))
         result = state.assess("target", now=100.0)
         self.assertEqual(result.status, "ACCEPT")
+        self.assertTrue(result.may_enter_simulation)
 
     def test_blank_world_state_key_is_rejected(self):
         with self.assertRaises(ValueError):
@@ -82,6 +108,7 @@ class ObservationGateTests(unittest.TestCase):
                 result = assess_observation(good(timestamp=timestamp), now=100.0)
                 self.assertEqual(result.status, "REJECT")
                 self.assertIn("invalid_timestamp", result.reasons)
+                self.assertFalse(result.may_enter_simulation)
 
     def test_non_finite_clock_and_age_limits_raise_value_error(self):
         for kwargs in (
@@ -105,6 +132,22 @@ class ObservationGateTests(unittest.TestCase):
                 self.assertIn("unorderable_observation_timestamp", result.reasons)
                 self.assertFalse(result.may_enter_simulation)
                 self.assertFalse(result.may_actuate_hardware)
+
+    def test_non_string_world_state_keys_are_rejected_without_mutation(self):
+        for key in (None, 123, [], {}):
+            with self.subTest(key=key):
+                state = WorldState()
+                with self.assertRaises(ValueError):
+                    state.update(key, good())
+                self.assertEqual(state.keys(), ())
+
+    def test_non_observation_payloads_are_rejected_without_mutation(self):
+        for payload in (None, "target", {"value": "target"}):
+            with self.subTest(payload=payload):
+                state = WorldState()
+                with self.assertRaises(TypeError):
+                    state.update("target", payload)
+                self.assertEqual(state.keys(), ())
 
 
 if __name__ == "__main__":

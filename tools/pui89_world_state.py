@@ -30,7 +30,12 @@ class Assessment:
 
     @property
     def may_enter_simulation(self) -> bool:
-        return self.status in {"ACCEPT", "REVIEW"}
+        """Only ACCEPT may enter task-level simulation.
+
+        REVIEW observations may be replayed as inert diagnostic fixtures by a
+        dedicated test harness, but this gate never permits task progression.
+        """
+        return self.status == "ACCEPT"
 
     @property
     def may_actuate_hardware(self) -> bool:
@@ -95,8 +100,10 @@ class WorldState:
     _observations: dict[str, list[Observation]] = field(default_factory=dict)
 
     def update(self, key: str, observation: Observation) -> None:
-        if not key.strip():
-            raise ValueError("world-state key must not be empty")
+        if not isinstance(key, str) or not key.strip():
+            raise ValueError("world-state key must be a non-empty string")
+        if not isinstance(observation, Observation):
+            raise TypeError("observation must be an Observation")
         self._observations.setdefault(key, []).append(observation)
 
     def assess(
