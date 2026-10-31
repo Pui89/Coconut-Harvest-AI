@@ -1,11 +1,24 @@
-name: Coconut PUI89 Adaptive Policy Adapter
+name: Coconut PUI89 Adaptive Policy and Mock Model Adapter Checks
 on:
   push:
     paths:
       - "tools/pui89_agent_contract.py"
       - "tools/pui89_adaptive_orchestrator.py"
       - "tools/pui89_coconut_adapter.py"
+      - "tools/pui89_project_adapter_common.py"
+      - "tools/pui89_coconut_model_adapter.py"
       - "tests/test_pui89_coconut_adapter.py"
+      - "tests/test_pui89_coconut_model_adapter.py"
+      - ".github/workflows/pui89-coconut-adapter.yml"
+  pull_request:
+    paths:
+      - "tools/pui89_agent_contract.py"
+      - "tools/pui89_adaptive_orchestrator.py"
+      - "tools/pui89_coconut_adapter.py"
+      - "tools/pui89_project_adapter_common.py"
+      - "tools/pui89_coconut_model_adapter.py"
+      - "tests/test_pui89_coconut_adapter.py"
+      - "tests/test_pui89_coconut_model_adapter.py"
       - ".github/workflows/pui89-coconut-adapter.yml"
   workflow_dispatch:
 permissions:
@@ -19,5 +32,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run adapter tests
-        run: PYTHONPATH=tools python -m unittest discover -s tests -p "test_pui89_coconut_adapter.py" -v
+      - name: Run existing shared adapter tests
+        env:
+          PYTHONPATH: tools
+        run: python -m unittest discover -s tests -p "test_pui89_coconut_adapter.py" -v
+      - name: Run project mock model adapter tests
+        env:
+          PYTHONPATH: tools
+        run: python -m unittest discover -s tests -p "test_pui89_coconut_model_adapter.py" -v
