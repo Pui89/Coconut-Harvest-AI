@@ -30,7 +30,12 @@ class Assessment:
 
     @property
     def may_enter_simulation(self) -> bool:
-        return self.status in {"ACCEPT", "REVIEW"}
+        """Only ACCEPT may enter task-level simulation.
+
+        REVIEW observations may be replayed as inert diagnostic fixtures by a
+        dedicated test harness, but this gate never permits task progression.
+        """
+        return self.status == "ACCEPT"
 
     @property
     def may_actuate_hardware(self) -> bool:
