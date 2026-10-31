@@ -8,6 +8,12 @@
 Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
 
 
+## Latest engineering update — 1 November 2026
+
+The new PUI89 Evidence Benchmark Engine is now exercised in hosted CI for this project. Its **6 standard-library tests passed**, and the simulation workflow completed successfully while generating a machine-readable evidence-integrity summary. [Open the benchmark-enabled simulation run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/41222933984).
+
+The benchmark checks report structure and metric consistency, hashes the source report and ordered world-state snapshots, and rejects any step that claims hardware actuation. It does not measure real AI accuracy, compare unlike projects, or validate physical performance. [Review the proposed implementation](https://github.com/Pui89/Coconut-Harvest-AI/pulls/160).
+
 ## Latest engineering update — 30 October 2026
 
 The dataset evidence audit is now merged and has a successful hosted run: **15 standard-library tests passed** across dataset structure (5), image-hash integrity (5), and split-leakage checks (5). [Open the audit run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40944312469) · [Download/view its workflow artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40944312469).
