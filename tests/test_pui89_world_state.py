@@ -107,5 +107,21 @@ class ObservationGateTests(unittest.TestCase):
                 self.assertFalse(result.may_actuate_hardware)
 
 
+    def test_non_string_world_state_keys_are_rejected_without_mutation(self):
+        for key in (None, 123, [], {}):
+            with self.subTest(key=key):
+                state = WorldState()
+                with self.assertRaises(ValueError):
+                    state.update(key, good())
+                self.assertEqual(state.keys(), ())
+
+    def test_non_observation_payloads_are_rejected_without_mutation(self):
+        for payload in (None, "target", {"value": "target"}):
+            with self.subTest(payload=payload):
+                state = WorldState()
+                with self.assertRaises(TypeError):
+                    state.update("target", payload)
+                self.assertEqual(state.keys(), ())
+
 if __name__ == "__main__":
     unittest.main()
