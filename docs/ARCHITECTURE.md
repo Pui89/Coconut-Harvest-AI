@@ -1,209 +1,88 @@
-# Technical Architecture
+# Coconut Harvest AI — Software Architecture and Current Implementation Boundary
 
-## System Overview
+**Status: architecture reference for the current software/concept stage.** This document describes intended system boundaries and distinguishes repository software from proposed robot hardware. It is not a description of a completed autonomous robot.
 
-The coconut harvest robot is a vision-to-action pipeline that combines perception, planning, and control for autonomous fruit harvesting.
+## 1. Current system boundary
 
-## Core Components
+The repository currently contains software foundations for:
+- image/data provenance review and dataset preflight;
+- maturity-label and annotation workflow design;
+- detection-metric evaluation utilities (evaluation tooling, not a trained detector result);
+- rule-based task and fail-safe decision logic;
+- simulation-oriented scenarios and evidence-report validation;
+- automated tests and continuous-integration checks.
 
-### 1. Vision System
+The repository does **not** currently establish a trained, independently evaluated coconut detector, calibrated RGB-D perception, a validated 3D orchard map, a built robotic arm, a guarded cutter, a collection basket, a controlled lowering mechanism, or a field-tested harvesting robot.
 
-**CoconutDetector**
-- Input: RGB image (variable resolution)
-- Output: bounding boxes + ripeness scores
-- Architecture: lightweight CNN (ResNet18 backbone)
-- Real-time inference: ~50ms on GPU
+## 2. Intended high-level workflow
 
-**DepthAnalyzer**
-- Input: depth map + RGB
-- Output: 3D point cloud + height estimates
-- Handles:
-  - Camera intrinsic calibration
-  - Depth noise filtering
-  - Point cloud registration
+1. **Image intake:** accept a permitted image with traceable source metadata.
+2. **Input-quality gate:** check image availability and quality; reject unusable or ambiguous inputs.
+3. **Perception (future model gate):** a detector may propose fruit locations and maturity labels only after a licensed dataset, human-reviewed annotations, and held-out evaluation are available.
+4. **Uncertainty and review:** represent unknown, occluded, conflicting, stale, or low-confidence observations explicitly; request human review rather than guessing.
+5. **Task proposal:** software may produce a non-actuating recommendation such as review, wait, or candidate target.
+6. **Simulation/evidence record:** test decision logic in defined scenarios and record inputs, outputs, failures, configuration and evidence hashes.
+7. **Hardware integration (future, gated):** any physical sensing, positioning, cutting, capture or lowering system requires separate mechanical design, risk assessment, independent safety functions and staged validation by qualified specialists.
 
-**TreeSegmentation**
-- Input: RGB + depth
-- Output: trunk mask + branch geometry
-- Uses U-Net style segmentation
-- Produces: 3D canopy boundary estimate
+## 3. Conceptual components and status
 
-### 2. Spatial Reasoning
+| Component | Intended responsibility | Current status |
+|---|---|---|
+| Image/data provenance | Record source, licence review, file hash and review state | Software/documentation tools; each asset still needs individual approval |
+| Maturity taxonomy | Four working labels: young green, developing green, mature green, brown/aging | Project label scheme; annotation quality and class performance not established |
+| Coconut detector | Propose fruit boxes and class scores | No validated detector accuracy claim |
+| Depth/3D perception | Estimate target geometry and distance | Future integration; no calibrated sensor performance claimed |
+| Height metadata | Store measured palm height separately from fruit maturity | Protocol and template; no verified 0–30 m dataset claim |
+| Task/fail-safe logic | Reject missing/uncertain inputs and select review/hold outcomes | Software logic and tests; not a hardware safety controller |
+| Arm, cutter, basket, lowering path | Physical positioning, guarded cutting and controlled capture | Design concept only; not built or physically validated |
+| Simulation/evidence reports | Exercise software scenarios and validate report integrity | Software tests/CI; simulation does not prove field capability |
+| Human oversight | Review uncertain targets and authorise any future staged test | Required design principle; no autonomous harvesting claim |
 
-**SpatialFeatureExtractor**
-- Fuses vision features with geometric information
-- Outputs 3D-aware feature maps
-- Components:
-  - feature pyramid (multi-scale)
-  - depth weighting
-  - geometric normalization
+## 4. Four maturity labels
 
-**ReachabilityAnalyzer**
-- Checks if target is within robot workspace
-- Computes minimum distance to obstacles
-- Estimates approach angle feasibility
-- Safety margin enforcement (configurable)
+- **Young green**
+- **Developing green**
+- **Mature green**
+- **Brown / aging**
 
-### 3. Motion Planning
+Colour alone is not sufficient to establish maturity. Cultivar, intended product, lighting, occlusion and field conditions can affect visual appearance. Unknown or obscured fruit must remain unknown/review—not be forced into a class.
 
-**TrajectoryPlanner**
-- RRT* based collision-free path planning
-- Input: start pose + target pose + obstacle map
-- Output: smooth joint-space trajectory
-- Includes: velocity/acceleration profiling
+A mixed-stage bunch is a scene condition, not a fifth maturity label. Where possible, assess individual visible fruits separately.
 
-**KinematicSolver**
-- 6-DOF inverse kinematics
-- Handles robot arm configuration
-- Multiple solution branches
-- Jacobian-based velocity control
+## 5. Safety and actuation boundary
 
-### 4. Action Execution
+The current software workflow is non-actuating. A recommendation, test pass, simulation result or diagram must never be interpreted as permission to move a physical arm or activate a cutter.
 
-**ActionModel**
-- Neural network for grasp quality prediction
-- Predicts:
-  - gripper force required
-  - cutting angle
-  - retraction speed
-  - drop position
+Before any hardware integration, the project requires:
+- documented intended use, operating envelope and hazard analysis;
+- measured geometry, load, stability and collision-clearance evidence;
+- guarded tools, retention/lowering design and independent safety functions;
+- tested emergency stop, safe hold, loss-of-link and power-fault behavior;
+- qualified engineering review and staged tests in a secured environment;
+- human approval and a documented recovery procedure.
 
-**RobotController**
-- Motor command generation
-- Feedback control loop
-- Force/torque monitoring
-- Real-time status logging
+Missing, stale, conflicting or uncertain safety-critical information must block the proposed task and trigger review/hold.
 
-## Data Flow
+## 6. Performance reporting
 
-```
-┌─────────────────────┐
-│  Camera / Orchard   │
-│  RGB + Depth input  │
-└──────────┬──────────┘
-           │
-           v
-┌──────────────────────────┐
-│ Preprocessing            │
-│ - normalization          │
-│ - geometric alignment    │
-└──────────┬───────────────┘
-           │
-           v
-┌──────────────────────────┐
-│ Vision Pipeline          │
-│ - coconut detection      │
-│ - tree segmentation      │
-│ - depth analysis         │
-└──────────┬───────────────┘
-           │
-           v
-┌──────────────────────────┐
-│ Spatial Reasoning        │
-│ - 3D localization        │
-│ - reachability check     │
-│ - obstacle map           │
-└──────────┬───────────────┘
-           │
-           v
-┌──────────────────────────┐
-│ Motion Planning          │
-│ - trajectory generation  │
-│ - kinematics solving     │
-│ - collision checking     │
-└──────────┬───────────────┘
-           │
-           v
-┌──────────────────────────┐
-│ Action Execution         │
-│ - gripper control        │
-│ - cutting mechanism      │
-│ - result logging         │
-└──────────────────────────┘
-```
+Do not publish detector accuracy, inference latency, reach, throughput, harvest rate or field reliability unless measured on a defined configuration and reproducible evaluation set. Reports should include dataset/source status, sample counts, split method, class-wise precision/recall/F1 or appropriate detection metrics, thresholds, failure cases, uncertainty and measurement conditions.
 
-## Class Hierarchy
+Software unit tests validate code behavior under test conditions only. Synthetic scenarios validate only the scenarios encoded. Neither establishes real-world perception, mechanical feasibility or safety.
 
-```
-HarvestPipeline (orchestrator)
-├── VisionEncoder
-├── TreeVisionEncoder
-├── SpatialFeatureExtractor
-├── CoconutDetector
-├── TreeSegmentation
-├── DepthAnalyzer
-├── ReachabilityAnalyzer
-├── TrajectoryPlanner
-├── KinematicSolver
-├── ActionModel
-└── RobotController
-```
+## 7. Engineering standards and references
 
-## Configuration
+The project uses the following as **design and review references**, not as claims of compliance or certification:
 
-All system parameters are centralized in `RobotConfig`:
+- [ISO 12100 — Safety of machinery: risk assessment and risk reduction](https://www.iso.org/standard/51528.html): a starting point for machinery hazard identification and risk reduction where applicable.
+- [ISO 10218-1:2025 — Industrial robots: safety requirements](https://www.iso.org/standard/73933.html) and [ISO 10218-2:2025 — Industrial robot applications and robot cells](https://www.iso.org/standard/73934.html): applicability to a future mobile/agricultural robot must be assessed by qualified specialists.
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework): useful lifecycle guidance for AI validity, reliability, safety, transparency and accountability.
 
-```python
-@dataclass(frozen=True)
-class RobotConfig:
-    # Image processing
-    image_size: tuple[int, int] = (256, 256)
-    depth_scale: float = 1000.0  # mm per depth unit
-    
-    # Robot specs
-    arm_reach_m: float = 2.8
-    arm_dof: int = 6
-    max_height_m: float = 14.0
-    
-    # End effector
-    gripper_force_n: float = 150.0
-    cutting_force_n: float = 500.0
-    
-    # Planning
-    planning_timeout_s: float = 5.0
-    rrt_iterations: int = 2000
-    safety_margin_m: float = 0.15
-    
-    # Action model
-    action_dim: int = 8
-    vocab_size: int = 256
-```
+The applicable standards depend on the final machine, intended use, workplace, jurisdiction and integration. Obtain qualified review of the current editions and relevant Thai/target-market requirements before any pilot or sale. Referencing a standard does not mean the project meets it.
 
-## Performance Metrics
+## 8. Related project documents
 
-- **Detection latency**: ~50ms per frame (GPU)
-- **Planning time**: 1-5s per target
-- **Trajectory execution**: 10-30s per fruit
-- **Throughput**: 50-100 coconuts/hour (estimated)
-- **Accuracy**: 92% ripeness detection on test set
-
-## Integration Points
-
-### ROS Integration
-The system can be integrated with ROS via:
-```python
-from ros_bridge import ROSRobotController
-robot = ROSRobotController(node_name="harvest_robot")
-```
-
-### Hardware Support
-- **Arm**: Universal Robots UR10e, ABB IRB6700, custom 6-DOF arms
-- **Gripper**: custom adaptive gripper with force feedback
-- **Camera**: Intel RealSense D455, Azure Kinect, FLIR cameras
-- **Cutting**: servo-driven cutting mechanism or pneumatic shear
-
-## Testing Strategy
-
-- Unit tests for each module
-- Integration tests for full pipeline
-- Simulation tests in Gazebo
-- Real orchard validation
-
-See `tests/` for test suite.
-
-## References
-
-- RRT* Path Planning: Karaman & Frazzoli (2011)
-- Inverse Kinematics: DH Convention & Jacobian methods
-- Object Detection: YOLO / Faster R-CNN variants
-- Semantic Segmentation: U-Net / DeepLab
+- [Product quality and safety roadmap](PRODUCT_QUALITY_AND_SAFETY_ROADMAP.md)
+- [System fault and hardware safety playbook](SYSTEM_FAULT_AND_HARDWARE_SAFETY.md)
+- [Height-labeling protocol](height-labeling-protocol.md)
+- [Shared PUI89 AI Core integration](SHARED_PUI89_AI_CORE_INTEGRATION.md)
+- [Evidence benchmark and simulation reports](../reports/)
