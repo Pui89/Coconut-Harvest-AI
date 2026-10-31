@@ -5,7 +5,7 @@ on:
   pull_request:
     paths:
       - "simulation/**"
-      - "tools/pui89_autonomy_lab.py"
+      - "tools/pui89_autonomy_lab.py"\n      - "tools/pui89_evidence_benchmark.py"\n      - "tests/test_pui89_evidence_benchmark.py"
       - ".github/workflows/coconut-simulation-evaluation.yml"
   push:
     branches: [main]
@@ -65,6 +65,13 @@ jobs:
               "note": "Simulation-only results; not real-world detector or robot validation."
           }, indent=2))
           PY
+
+      - name: Build evidence benchmark and verify report integrity
+        run: |
+          python -m unittest discover -s tests -p 'test_pui89_evidence_benchmark.py' -v
+          REPORT=$(find reports/coconut-simulation-run -maxdepth 1 -name 'simulation-report-*.json' -print -quit)
+          test -n "$REPORT"
+          python tools/pui89_evidence_benchmark.py --report "$REPORT" --output reports/pui89-evidence-benchmark.json
 
       - name: Upload simulation reports, including failures
         if: always()
