@@ -51,6 +51,8 @@ def build_review_envelope(*, project_id: str, request: dict[str, Any],
             raise ValueError(f"evidence.{key} must be a non-empty string")
     if evidence.get("evidence_kind") != "synthetic":
         raise ValueError("mock adapters accept synthetic evidence only")
+    if not evidence["source_ref"].startswith("synthetic://"):
+        raise ValueError("mock evidence source_ref must use the synthetic:// scheme")
     evidence_time = parse_timestamp(evidence.get("timestamp"))
     if evidence_time > request_time:
         raise ValueError("evidence timestamp cannot be later than request timestamp")
