@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-<title id="title">Coconut Harvest AI — realistic-style low-cost all-stage harvesting robot concept</title>
-<desc id="desc">Concept rendering beside a tall coconut palm representing a 0–30 m orchard challenge. The pictured compact tracked robot, jointed telescopic arm and collection basket are concept elements, not to scale and not demonstrated to reach the crown. Fruit detection, high-reach access, stability, cutting and safe capture are unvalidated.</desc>
+<title id="title">Coconut Harvest AI — conceptual harvesting robot with four coconut maturity stages</title>
+<desc id="desc">Concept rendering beside a tall coconut palm representing a 0–30 m orchard challenge. The pictured compact tracked robot, jointed telescopic arm and collection basket are concept elements, not to scale and not demonstrated to reach the crown. The four maturity labels are conceptual categories; cultivar-specific visual boundaries and automated classification require validation. Fruit detection, high-reach access, stability, cutting and safe capture are unvalidated.</desc>
 <defs>
   <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#9bc9df"/><stop offset=".58" stop-color="#d9e9dc"/><stop offset="1" stop-color="#f2e8cf"/></linearGradient>
   <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#87966b"/><stop offset="1" stop-color="#4c6146"/></linearGradient>
@@ -129,12 +129,13 @@
  <text x="82" y="88" fill="#ffffff" font-size="30" font-weight="700">COCONUT HARVEST AI</text>
  <text x="82" y="119" fill="#c9e1d4" font-size="19">Low-cost, slim-arm all-stage concept</text>
  <text x="82" y="145" fill="#f0c56e" font-size="15">ENGINEERING VISUAL • NOT A BUILT ROBOT</text>
- <rect x="60" y="200" width="300" height="128" rx="14" fill="#ffffff" opacity=".9"/>
- <text x="82" y="232" font-size="20" font-weight="700" fill="#20373a">Per-fruit AI selection</text>
- <circle cx="88" cy="260" r="8" fill="#6eac45"/><text x="108" y="266" font-size="17" fill="#2c403d">Young green</text>
- <circle cx="88" cy="288" r="8" fill="#c8b84c"/><text x="108" y="294" font-size="17" fill="#2c403d">Mature green / yellow-green</text>
- <circle cx="88" cy="316" r="8" fill="#895637"/><text x="108" y="322" font-size="17" fill="#2c403d">Brown / dry</text>
- <path d="M360 260L480 260L590 330" fill="none" stroke="#f7f8e9" stroke-width="2.5" stroke-dasharray="6 6"/>
+ <rect x="60" y="190" width="300" height="190" rx="14" fill="#ffffff" opacity=".94"/>
+ <text x="82" y="222" font-size="20" font-weight="700" fill="#20373a">Four maturity stages</text>
+ <circle cx="88" cy="250" r="8" fill="#6eac45"/><text x="108" y="256" font-size="17" fill="#2c403d">01  Young Green</text>
+ <circle cx="88" cy="280" r="8" fill="#8ebc43"/><text x="108" y="286" font-size="17" fill="#2c403d">02  Developing</text>
+ <circle cx="88" cy="310" r="8" fill="#c8b84c"/><text x="108" y="316" font-size="17" fill="#2c403d">03  Mature Green</text>
+ <circle cx="88" cy="340" r="8" fill="#895637"/><text x="108" y="346" font-size="17" fill="#2c403d">04  Brown-Aging</text>
+ <path d="M360 280L480 280L590 330" fill="none" stroke="#f7f8e9" stroke-width="2.5" stroke-dasharray="6 6"/>
  <rect x="55" y="785" width="890" height="77" rx="14" fill="#152b2d" opacity=".92"/>
  <text x="80" y="816" fill="#ffffff" font-size="18" font-weight="700">Design priorities</text>
  <text x="80" y="843" fill="#d7e5d9" font-size="16">Slim arm • modular mast • low-cost sensors • guarded tool • tracked base + stabilizers</text>
