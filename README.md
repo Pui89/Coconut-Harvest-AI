@@ -60,6 +60,17 @@ On 30 October, the shared observation-provenance guard was tightened to reject n
 - **Gate 4 — approve cost and risk:** before any optional package, model or simulator install, check licence, download size, disk/RAM/VRAM fit and whether it can run offline. Ask before any paid or recurring-cost choice.
 - **Release evidence:** save command, commit, environment, test result, dataset hash, failures and limitations. Keep physical harvesting status **not validated** until independently supported by hardware evidence.
 
+## Engineering standards, architecture and project evidence
+
+The [current software architecture](docs/ARCHITECTURE.md) separates implemented software checks from proposed perception and robot hardware. The [project overview diagram](docs/images/coconut-harvest-ai-overview.svg) is a concept/workflow illustration, not evidence of a completed machine.
+
+**Standards used as design references (not compliance claims):**
+- [ISO 12100](https://www.iso.org/standard/51528.html) — machinery risk assessment and risk reduction.
+- [ISO 10218-1:2025](https://www.iso.org/standard/73933.html) and [ISO 10218-2:2025](https://www.iso.org/standard/73934.html) — industrial robot and application safety; applicability to a future agricultural/mobile system requires qualified review.
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) — AI risk lifecycle guidance.
+
+The applicable standards and legal requirements must be confirmed for the final design, intended use and jurisdiction. Referencing a standard is not certification. The robot, arm, cutter, basket, lowering mechanism, calibrated perception and 0–30 m harvesting capability are **not physically validated**. See the [Product Quality and Safety Roadmap](docs/PRODUCT_QUALITY_AND_SAFETY_ROADMAP.md) and [System Fault and Hardware Safety Playbook](docs/SYSTEM_FAULT_AND_HARDWARE_SAFETY.md).
+
 ## Product quality and safety roadmap
 
 The [Product Quality and Safety Roadmap](docs/PRODUCT_QUALITY_AND_SAFETY_ROADMAP.md) sets staged safety, reliability, evidence, human-oversight and buyer-readiness gates. It is an engineering plan—not certification or proof of field performance.
