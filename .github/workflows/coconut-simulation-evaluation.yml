@@ -5,7 +5,9 @@ on:
   pull_request:
     paths:
       - "simulation/**"
-      - "tools/pui89_autonomy_lab.py"\n      - "tools/pui89_evidence_benchmark.py"\n      - "tests/test_pui89_evidence_benchmark.py"
+      - "tools/pui89_autonomy_lab.py"
+      - "tools/pui89_evidence_benchmark.py"
+      - "tests/test_pui89_evidence_benchmark.py"
       - ".github/workflows/coconut-simulation-evaluation.yml"
   push:
     branches: [main]
