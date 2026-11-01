@@ -24,7 +24,7 @@ def write_csv(path, fields, rows):
 
 def records():
     rights = dict(candidate_id="A1", filename="coconut.jpg",
-        source_page_url="https://example.org/photo", creator_credit="Photographer",
+        source_page_url="https://commons.wikimedia.org/wiki/File:Example_coconut.jpg", creator_credit="Photographer",
         licence_as_displayed="CC BY 4.0", licence_url="https://creativecommons.org/licenses/by/4.0/",
         source_page_checked_on="2026-10-21", independent_page_check="checked",
         attribution_recorded="yes", annotation_qa_status="passed", training_promotion="approved")
@@ -176,6 +176,20 @@ def test_non_http_source_or_licence_urls_block_candidate(tmp_path):
     assert not candidate["eligible_for_training"]
     assert "source_page_is_http_url" in candidate["failed_gates"]
     assert "licence_url_is_http_url" in candidate["failed_gates"]
+
+
+def test_reserved_example_domains_block_source_and_licence_records(tmp_path):
+    rights, review = records()
+    rights["source_page_url"] = "https://sub.example.org/photo"
+    rights["licence_url"] = "https://example.com/licence"
+    a = write_csv(tmp_path / "rights.csv", RIGHTS, [rights])
+    b = write_csv(tmp_path / "review.csv", REVIEWS, [review])
+
+    candidate = evaluate(a, b)["candidates"][0]
+
+    assert not candidate["eligible_for_training"]
+    assert "source_page_not_reserved_example_domain" in candidate["failed_gates"]
+    assert "licence_url_not_reserved_example_domain" in candidate["failed_gates"]
 
 
 def test_invalid_source_page_check_date_blocks_candidate(tmp_path):

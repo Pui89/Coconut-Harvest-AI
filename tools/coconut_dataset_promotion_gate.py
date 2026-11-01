@@ -105,6 +105,16 @@ def _is_http_url(value: str) -> bool:
         return False
 
 
+def _is_reserved_example_domain(value: str) -> bool:
+    """Reject reserved example domains so placeholder URLs cannot pass a rights gate."""
+    try:
+        hostname = (urlparse(value.strip()).hostname or "").lower().rstrip(".")
+    except ValueError:
+        return True
+    reserved = ("example.com", "example.org", "example.net")
+    return any(hostname == domain or hostname.endswith("." + domain) for domain in reserved)
+
+
 def _is_iso_date(value: str) -> bool:
     """Require a real ISO calendar date (YYYY-MM-DD)."""
     try:
@@ -124,9 +134,11 @@ def evaluate(rights_csv: Path, review_csv: Path) -> dict:
             "filename_present": bool(row.get("filename", "").strip()),
             "source_page_present": bool(row.get("source_page_url")),
             "source_page_is_http_url": _is_http_url(row.get("source_page_url", "")),
+            "source_page_not_reserved_example_domain": not _is_reserved_example_domain(row.get("source_page_url", "")),
             "creator_credit_present": bool(row.get("creator_credit")),
             "licence_and_url_present": bool(row.get("licence_as_displayed") and row.get("licence_url")),
             "licence_url_is_http_url": _is_http_url(row.get("licence_url", "")),
+            "licence_url_not_reserved_example_domain": not _is_reserved_example_domain(row.get("licence_url", "")),
             "source_page_check_date_valid": _is_iso_date(row.get("source_page_checked_on", "")),
             "source_page_independently_checked": row.get("independent_page_check", "").lower() == "checked",
             "attribution_recorded": row.get("attribution_recorded", "").lower() == "yes",
