@@ -16,6 +16,7 @@ Exit code 0 means every row in the supplied rights ledger is eligible. Exit code
 
 - Source page, creator/credit, displayed licence and licence URL are recorded.
 - Source page is independently checked; attribution is recorded.
+- Source and licence URLs must not use reserved placeholder domains such as `example.com`, `example.org` or `example.net`.
 - Annotation QA is explicitly `passed` in the rights ledger and `qa_passed` in the review ledger.
 - Training promotion is explicitly `approved` in the rights ledger and the review decision is `approved`.
 - The same candidate ID and filename appear in both ledgers.
