@@ -15,7 +15,7 @@ SEE -> UNDERSTAND -> LOCATE -> PREDICT -> PLAN -> SAFETY CHECK -> ACT -> VERIFY 
 | Vision reasoning | Gemma 4 31B IT | Image/video understanding, spatial reasoning and task interpretation |
 | 3D geometry | Open3D + RGB-D/LiDAR | Point clouds, 3D localization and semantic maps |
 | VLA / action | NVIDIA GR00T, SmolVLA, OpenVLA, pi0 family | Convert observations and task intent into robot actions |
-| Navigation | ROS 2 Nav2 / ROS 2 Nav2 | Base navigation and waypoint-level reasoning |
+| Navigation | ROS 2 Nav2 | Base navigation and waypoint-level reasoning |
 | Manipulation | MoveIt 2 + OMPL/RRT* | IK, collision checking and motion planning |
 | Simulation | Isaac Sim + Isaac Lab | Digital twin, synthetic data, domain randomization and sim-to-real |
 | Deployment | PyTorch + Transformers + ONNX/TensorRT/vLLM | Training and efficient inference |
