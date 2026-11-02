@@ -21,8 +21,6 @@ perception:
 vision_language:
   model_family: gemma-4-31B-it
   model_id: google/gemma-4-31B-it
-  alternatives:
-    - qwen3-vl
   enabled: true
   role: multimodal_scene_reasoning_and_task_interpretation
   runtime: transformers
@@ -65,10 +63,8 @@ simulation:
 advanced_models:
   vision_language_reasoning:
     - google/gemma-4-31B-it
-    - qwen3-vl
   generative_simulation:
     - LTX-2.5-Diffusers
-    - MiniMax-H3-Turbo-LoRA
   action_candidates:
     - NVIDIA-GR00T-N1.7-3B
     - FLUX-3-Action-Base
