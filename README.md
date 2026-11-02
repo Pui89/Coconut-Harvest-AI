@@ -848,3 +848,22 @@ The first project adapter now maps a caller-supplied coconut maturity observatio
 The vendored shared modules are snapshots of the central PUI89 implementation and must be kept synchronized when the central contract or policy changes. The adapter does not run a coconut detector, assign maturity from pixels, establish confidence calibration, or control a harvesting robot. Test fixtures are synthetic. Every policy result remains simulation-only and explicitly denies physical actuation.
 
 **Verification status:** files have been committed and fetched back from GitHub. The adapter workflow's completed run has not yet been confirmed; do not treat the tests as passed until the Actions run reports success.
+
+## Strategic adoption — why partner with this project
+
+**The opportunity:** help develop a safer, evidence-led approach to selective coconut harvesting, beginning with a clearly bounded software and dataset-validation programme before any field deployment.
+
+**Why it matters:** coconut harvesting can involve difficult access, height-related work and repeated manual effort. A future assistive system could help operators assess fruit maturity and plan a harvest workflow—but its usefulness must be demonstrated with representative data and controlled trials.
+
+**What a partner can support now**
+- **Data and research partners:** review image provenance and reuse rights, contribute properly documented images, and independently check maturity labels.
+- **Agricultural partners:** help define real farm workflows, palm-height measurements, operator needs and practical success criteria.
+- **Engineering and funding partners:** support a staged feasibility study, baseline detector evaluation and safe prototype requirements.
+
+**Evidence before promises:** the repository currently demonstrates software checks and evaluation foundations, not a validated coconut detector or a physical harvesting robot. Four maturity categories and 0–30 m reach are design targets, not proven performance. The dataset training gate remains closed until rights, labels and independent review are complete.
+
+**Next collaboration milestone:** agree on a small, rights-cleared and independently reviewed dataset with measured palm-height metadata, then publish a reproducible baseline and failure analysis.
+
+**Explore a collaboration:** open a [GitHub Discussion](https://github.com/Pui89/Coconut-Harvest-AI/discussions) or contact the PUI89 project owner through the public GitHub profile. A useful first conversation is a short review of the data, field requirements or evaluation plan—no purchase commitment is implied.
+
+*Partner message: help turn a practical agricultural challenge into a measurable, responsibly developed engineering programme.*
