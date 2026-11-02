@@ -3,8 +3,6 @@ reasoning:
   model_family: gemma4
   role: multimodal_high_level_task_reasoning
   runtime: transformers
-  alternatives:
-    - Qwen3-VL
   tasks:
     - target_selection
     - ripeness_and_quality_reasoning
