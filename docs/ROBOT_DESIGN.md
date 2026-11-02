@@ -13,7 +13,7 @@ This branch adds a concrete simulation/prototyping robot model for the coconut-h
 
 ## AI/control architecture
 
-Sensors feed YOLO + SAM3 + tracking and a 3D tree/branch/fruit world model. Qwen3-VL performs high-level reasoning and active-perception requests. GR00T, FLUX 3 Action and SmolVLA can propose candidate actions. A deterministic safety gate validates workspace, collision, human exclusion, joint limits, velocity, force/torque and emergency-stop conditions before ROS 2 / MoveIt 2 execution.
+Sensors feed YOLO + SAM3 + tracking and a 3D tree/branch/fruit world model. Gemma 4 31B IT performs high-level reasoning and active-perception requests. GR00T, FLUX 3 Action and SmolVLA can propose candidate actions. A deterministic safety gate validates workspace, collision, human exclusion, joint limits, velocity, force/torque and emergency-stop conditions before ROS 2 / MoveIt 2 execution.
 
 ## Simulation
 
