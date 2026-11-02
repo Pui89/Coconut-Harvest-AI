@@ -10,14 +10,6 @@ Use LTX-2.5 as an offline video/audio world-simulation and dataset-augmentation 
 
 It is **not** a runtime robot controller.
 
-## 2. MiniMax H3 Turbo LoRA
-
-**Source:** Pepe104/MiniMax-H3-Turbo-LoRa-UNCENSORED
-
-Use the Space as an offline audio-visual scenario generator for rare orchard events, difficult visibility conditions and recovery/failure datasets. Any production use must pass license, provenance, content and safety review.
-
-It is **not** a runtime robot controller.
-
 ## 3. NVIDIA GR00T N1.7 3B
 
 **Source:** nvidia/GR00T-N1.7-3B
@@ -56,7 +48,7 @@ YOLO + SAM3 + tracking
         v
 3D tree / branch / fruit world model
         |
-        +--> Qwen3-VL reasoning
+        +--> Gemma-4-31B-it reasoning
         |        |
         |        +--> active perception
         |        +--> uncertainty / target verification
@@ -92,7 +84,7 @@ Action verification -> memory update
 ```
 Isaac Sim / Isaac Lab
        +
-LTX-2.5 / MiniMax H3
+LTX-2.5
        |
        v
 Rare-event orchard video/audio
