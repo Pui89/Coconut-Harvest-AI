@@ -17,17 +17,6 @@ generative_simulation:
     runtime_robot_control: false
     license_review_required: true
 
-  - name: MiniMax-H3-Turbo-LoRA
-    source: Pepe104/MiniMax-H3-Turbo-LoRa-UNCENSORED
-    role: offline_audio_visual_scenario_generation
-    uses:
-      - rare_orchard_events
-      - difficult_visibility_scenarios
-      - audio_visual_dataset_augmentation
-      - recovery_and_failure_scenarios
-    runtime_robot_control: false
-    production_safety_review_required: true
-
 vision_language_reasoning:
   - name: Gemma-4-31B-it
     source: google/gemma-4-31B-it
@@ -79,13 +68,13 @@ action_models:
 integration:
   architecture: >
     RGB/RGB-D/LiDAR/IMU -> YOLO + SAM3 + tracking -> 3D tree/branch/fruit world model
-    -> Gemma-4-31B-it / Qwen3-VL reasoning -> active perception + future prediction
+    -> Gemma-4-31B-it reasoning -> active perception + future prediction
     -> GR00T N1.7 / FLUX 3 Action candidate actions -> deterministic safety gate
     -> ROS2/Nav2 + MoveIt2/RRT* -> arm/tool controller -> verify harvest -> memory update
 
   synthetic_data:
     pipeline: >
-      Isaac Sim/Isaac Lab + LTX-2.5 + MiniMax-H3
+      Isaac Sim/Isaac Lab + LTX-2.5
       -> rare-event orchard video/audio -> perception/reasoning/action datasets
       -> LeRobot training and evaluation
 
