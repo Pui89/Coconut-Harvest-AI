@@ -319,16 +319,30 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 - **Commercial path:** [commercialisation roadmap](docs/COMMERCIALISATION_ROADMAP.md) — proposed first customer problem, software-first MVP, discovery questions, evidence gates, and a staged path toward robotics.
 - **Customer discovery:** [orchard interview guide](docs/ORCHARD_CUSTOMER_DISCOVERY.md) — a 15-minute, no-cost interview script and evidence/consent rules to test whether the problem is real before building more.
 
-## Support, sponsorship and open-source collaboration
+## Strategic partnerships, funding and collaboration
 
-PUI89 welcomes technical review, research collaboration, agricultural workflow feedback, rights-cleared image contributions, annotation review, reproducible benchmark work, and scoped sponsorship discussions.
+### Help advance practical agricultural AI
 
-- **Support and sponsorship brief:** [ways to collaborate with PUI89](https://github.com/Pui89/Pui89.github.io/blob/main/SUPPORT_AND_SPONSORSHIP.md)
-- **Project website:** [PUI89 AI Robotics](https://pui89.github.io/)
-- **Potential farm pilot:** [Coconut Orchard Pilot Brief](https://github.com/Pui89/Pui89.github.io/blob/main/COCONUT_ORCHARD_PILOT_BRIEF.md)
+Coconut Harvest AI is an evidence-first software and robotics concept for coconut inspection and harvesting workflows. We are interested in conversations with organisations that can help validate the problem, strengthen the evidence, and define a responsible development pathway.
 
-Please include the specific workflow, evidence, or milestone you can help with. Dataset contributions must include source and reuse permissions. No sponsor, field deployment, or performance outcome is implied by this invitation.
+**Who we would like to hear from**
+- **Plantations, growers and agricultural organisations** — workflow discovery, operator requirements, orchard access under agreed conditions, and feedback on harvesting priorities.
+- **Agricultural equipment and robotics companies** — engineering review, mechanical design advice, integration options, and potential in-kind support.
+- **Universities and research teams** — computer vision, agricultural robotics, annotation quality, benchmark design, safety and independent evaluation.
+- **Grant makers and innovation programmes** — support for clearly scoped milestones such as rights-cleared data preparation, reviewed annotations, benchmark development, or simulation and prototype engineering.
 
+**Potential first collaboration**
+Define one orchard workflow and measurable acceptance criteria; confirm permissions and data provenance; build a reviewed benchmark; then evaluate software and simulation results before proposing any physical trial. A pilot or field trial would require separate written agreement, risk assessment, appropriate equipment and authorisation.
+
+**Current boundary:** this repository contains software, evaluation tools and a proposed robot design. It is not a commercially released harvesting product. Detector accuracy, 0–30 m operation, physical harvesting, worker/animal safety and field performance are not established by the software tests or simulation evidence described above.
+
+**Start a conversation**
+- [Strategic partnership and funding enquiries](https://pui89.github.io/support.html#partner-pathways)
+- [ภาษาไทย: ความร่วมมือเชิงกลยุทธ์](https://pui89.github.io/support-th.html#partner-pathways)
+- [PUI89 project website](https://pui89.github.io/)
+- [PUI89 support and sponsorship brief](https://github.com/Pui89/Pui89.github.io/blob/main/SUPPORT_AND_SPONSORSHIP.md)
+
+Please describe the agricultural problem, the relevant operating context, the contribution or support available, and the milestone you would like to explore. No funding, customer relationship, deployment or performance outcome is implied by an enquiry. Any data access, costs, intellectual property, responsibilities and pilot scope must be agreed in writing before work begins.
 ## Latest engineering update — 21 October 2026
 
 - **Benchmark tooling:** the adaptive CPU microbenchmark with no additional package dependencies is available at [`tools/adaptive_compute_benchmark.py`](tools/adaptive_compute_benchmark.py), with regression tests in [`tests/test_adaptive_compute_benchmark.py`](tests/test_adaptive_compute_benchmark.py). It compares synthetic integer-reduction implementations; it is **not** an AI inference, energy-use, or robot-performance benchmark.
