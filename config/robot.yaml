@@ -25,7 +25,7 @@ sensors:
 compute:
   edge_gpu: true
   perception: [yolo, sam3]
-  reasoning: [qwen3-vl]
+  reasoning: [gemma-4-31b-it]
   action_candidates: [groot, flux-3-action-base, smolvla]
   future_prediction: [v-jepa2]
 

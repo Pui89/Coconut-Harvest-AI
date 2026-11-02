@@ -1,6 +1,6 @@
 # Reasoning Layer and Next Steps
 
-The coconut robot now has a high-level reasoning adapter designed for Qwen3-VL or another vision-language reasoning model.
+The coconut robot now has a high-level reasoning adapter designed for Gemma 4 31B IT or another vision-language reasoning model.
 
 ## Layered architecture
 

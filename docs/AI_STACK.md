@@ -12,10 +12,10 @@ SEE -> UNDERSTAND -> LOCATE -> PREDICT -> PLAN -> SAFETY CHECK -> ACT -> VERIFY 
 |---|---|---|
 | Fast detection | YOLO family | Real-time coconut, person, animal and obstacle detection |
 | Segmentation | SAM 3 | Instance/semantic segmentation and video tracking |
-| Vision reasoning | Qwen3-VL | Image/video understanding, spatial reasoning and task interpretation |
+| Vision reasoning | Gemma 4 31B IT | Image/video understanding, spatial reasoning and task interpretation |
 | 3D geometry | Open3D + RGB-D/LiDAR | Point clouds, 3D localization and semantic maps |
 | VLA / action | NVIDIA GR00T, SmolVLA, OpenVLA, pi0 family | Convert observations and task intent into robot actions |
-| Navigation | ROS 2 Nav2 / Qwen-RobotNav | Base navigation and waypoint-level reasoning |
+| Navigation | ROS 2 Nav2 | Base navigation and waypoint-level reasoning |
 | Manipulation | MoveIt 2 + OMPL/RRT* | IK, collision checking and motion planning |
 | Simulation | Isaac Sim + Isaac Lab | Digital twin, synthetic data, domain randomization and sim-to-real |
 | Deployment | PyTorch + Transformers + ONNX/TensorRT/vLLM | Training and efficient inference |
@@ -103,7 +103,7 @@ Suggested node boundaries:
 - lidar_node
 - yolo_detector
 - sam_segmenter
-- qwen_vlm
+- gemma_vlm
 - world_model
 - ripeness_estimator
 - anomaly_detector

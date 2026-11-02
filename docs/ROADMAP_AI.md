@@ -13,7 +13,7 @@
 - 3D coconut localization and reachability scoring.
 
 ## Phase 3 — Vision-language reasoning
-- Add Qwen3-VL adapter.
+- Add Gemma 4 31B IT adapter.
 - Convert natural-language harvest requests into structured goals.
 - Add scene-questioning and uncertainty reporting.
 

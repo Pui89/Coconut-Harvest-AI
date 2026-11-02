@@ -22,7 +22,7 @@ class ReasoningDecision:
 
 
 class CoconutReasoner:
-    """Adapter boundary for Gemma 4 31B IT, Qwen3-VL, or another VLM/reasoning model."""
+    """Adapter boundary for Gemma 4 31B IT or another VLM/reasoning model."""
 
     def __init__(
         self,
