@@ -1,10 +1,13 @@
 name: PUI89 Shared Intelligence Contract
 on:
+  pull_request:
+    paths:
+      - "schemas/pui89-intelligence-report.schema.json"
+      - "docs/PUI89_SHARED_INTELLIGENCE_WORKFLOW.md"
+      - "tests/test_pui89_shared_workflow_contract.py"
+      - ".github/workflows/pui89-shared-intelligence-contract.yml"
   push:
     branches: [main]
-    paths: ["schemas/pui89-intelligence-report.schema.json", "docs/PUI89_SHARED_INTELLIGENCE_WORKFLOW.md", "tests/test_pui89_shared_workflow_contract.py", ".github/workflows/pui89-shared-intelligence-contract.yml"]
-  pull_request:
-    paths: ["schemas/pui89-intelligence-report.schema.json", "docs/PUI89_SHARED_INTELLIGENCE_WORKFLOW.md", "tests/test_pui89_shared_workflow_contract.py", ".github/workflows/pui89-shared-intelligence-contract.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -17,6 +20,6 @@ jobs:
         with:
           python-version: "3.11"
       - name: Validate JSON syntax
-        run: python -m json.tool schemas/pui89-intelligence-report.schema.json > /dev/null
+        run: python -c "import json; json.load(open('schemas/pui89-intelligence-report.schema.json', encoding='utf-8'))"
       - name: Run dependency-free contract tests
         run: python -m unittest discover -s tests -p 'test_pui89_shared_workflow_contract.py' -v
