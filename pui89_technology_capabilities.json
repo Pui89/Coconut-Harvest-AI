@@ -1,0 +1,215 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "Coconut Harvest AI",
+    "repository": "Pui89/Coconut-Harvest-AI",
+    "domain": "Agricultural perception and harvesting-assistance research",
+    "project_focus": [
+      "four-stage coconut maturity assessment",
+      "fruit and bunch localisation",
+      "3D scene understanding and safe reach planning",
+      "worker and animal separation",
+      "harvest capture/drop-zone risk assessment"
+    ]
+  },
+  "strategy": "Free-first, local-first, evidence-first advanced AI and robotics roadmap.",
+  "execution_policy": {
+    "local_first": true,
+    "paid_apis_allowed": false,
+    "subscriptions_allowed": false,
+    "cloud_gpu_required": false,
+    "automatic_model_downloads": false,
+    "hardware_actuation_from_ci": false,
+    "network_access_from_audit": false,
+    "dependency_installation_in_ci": false,
+    "note": "CI uses Python standard library for this registry audit. Existing project workflows and dependencies are not modified."
+  },
+  "technology_candidates": [
+    {
+      "name": "ROS 2 Jazzy / Nav2",
+      "purpose": "robot middleware and navigation",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "Gazebo Harmonic",
+      "purpose": "robot physics and environment simulation",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "OpenCV",
+      "purpose": "computer vision and image processing",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "ONNX Runtime",
+      "purpose": "portable local inference",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "PyTorch",
+      "purpose": "deep-learning research and training",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "SLAM Toolbox",
+      "purpose": "mapping and localisation",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "Qdrant",
+      "purpose": "optional local vector retrieval for evidence search",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    },
+    {
+      "name": "Isaac Sim",
+      "purpose": "optional advanced robotics simulation",
+      "adoption": "OPTIONAL_RESEARCH",
+      "license_review": "REQUIRED_BEFORE_ADOPTION"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "multimodal_perception",
+      "name": "Multimodal perception and sensor fusion",
+      "description": "Images, text, audio and sensor streams; missing and conflicting modalities must remain explicit.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "world_state_model",
+      "name": "World-state model and temporal event tracking",
+      "description": "Track entities, locations, timestamps, state changes and stale observations; never invent missing state.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "uncertainty_calibration",
+      "name": "Uncertainty, abstention and calibration",
+      "description": "Expose confidence limits, calibration status and UNKNOWN/REVIEW_REQUIRED outcomes.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "digital_twin_simulation",
+      "name": "Digital twin and physics-based simulation",
+      "description": "Use reproducible synthetic scenarios; simulation results are not field validation.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "slam_navigation",
+      "name": "SLAM, mapping and autonomous navigation",
+      "description": "Optional robotics integration; only activate with a compatible simulator/hardware profile and safety review.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "motion_task_planning",
+      "name": "Motion, manipulation and mission planning",
+      "description": "Generate plans and safety constraints; no direct hardware actuation from this audit system.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "predictive_fault_detection",
+      "name": "Predictive fault and anomaly detection",
+      "description": "Monitor sensor freshness, communication, battery and system-health signals where available.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "agent_workflows",
+      "name": "Tool-using agents and supervised workflows",
+      "description": "Agents may propose and evaluate tasks; require allowlisted tools, bounded actions and human approval for consequential actions.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "multi_agent_coordination",
+      "name": "Multi-agent and multi-robot coordination",
+      "description": "Research/simulation only until communication, arbitration and fail-safe behaviour are validated.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "safety_verification",
+      "name": "Safety verification and fail-safe decision gates",
+      "description": "Fail closed on missing or invalid safety signals; retain emergency-stop priority and human override.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "local_inference",
+      "name": "Offline/local model inference adapters",
+      "description": "Optional only; no model download or runtime activation by CI; check memory, hardware and license first.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    },
+    {
+      "id": "evidence_provenance",
+      "name": "Evidence provenance and reproducible reports",
+      "description": "Record source, timestamp, version, dataset split, metric, test conditions and limitations.",
+      "status": "ROADMAP",
+      "implementation_evidence": [],
+      "license_review": "REQUIRED_BEFORE_ADOPTION",
+      "activation": "DISABLED_BY_DEFAULT"
+    }
+  ],
+  "safety_boundary": {
+    "no_hardware_actuation": true,
+    "human_review_for_high_impact": true,
+    "missing_or_invalid_safety_signals": "SAFE_HOLD",
+    "uncertain_or_conflicting_evidence": "UNKNOWN_OR_REVIEW_REQUIRED",
+    "model_and_simulation_claims": "No capability is considered implemented or validated solely because it appears in this registry.",
+    "project_specific_limitations": "No cutting, gripping, actuator or robot movement is authorised by this software roadmap. Maturity labels and harvesting recommendations require representative, licensed, labelled field data and human confirmation."
+  },
+  "reporting": {
+    "required_fields": [
+      "project",
+      "commit",
+      "capability_id",
+      "status",
+      "evidence_reference",
+      "license_review",
+      "test_conditions",
+      "limitations"
+    ],
+    "allowed_status": [
+      "ROADMAP",
+      "FOUNDATION",
+      "PROTOTYPE",
+      "VERIFIED",
+      "BLOCKED"
+    ],
+    "verified_requires": "Reproducible test evidence, defined metrics, dataset/test conditions, review and an evidence reference."
+  }
+}
