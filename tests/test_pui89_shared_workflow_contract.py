@@ -9,6 +9,11 @@ class SharedWorkflowContractTests(unittest.TestCase):
         schema = json.loads((ROOT / "schemas/pui89-intelligence-report.schema.json").read_text(encoding="utf-8"))
         self.assertEqual(set(schema["properties"]["project"]["enum"]), {"coconut-harvest-ai", "flood-rescue-ai", "multimodal-narcotics-screening-ai", "homeguard-ai-nomad"})
 
+    def test_observations_require_value_and_provenance(self):
+        schema = json.loads((ROOT / "schemas/pui89-intelligence-report.schema.json").read_text(encoding="utf-8"))
+        observation = schema["properties"]["world_state"]["properties"]["observations"]["items"]
+        self.assertTrue({"name", "value", "source"} <= set(observation["required"]))
+
     def test_report_requires_evidence_and_safety(self):
         schema = json.loads((ROOT / "schemas/pui89-intelligence-report.schema.json").read_text(encoding="utf-8"))
         self.assertTrue({"world_state", "evidence", "uncertainty", "risks", "recommendations", "safety_gate", "verification"} <= set(schema["required"]))
