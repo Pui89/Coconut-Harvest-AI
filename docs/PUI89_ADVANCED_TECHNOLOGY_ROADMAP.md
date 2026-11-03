@@ -1,83 +1,94 @@
-# PUI89 Advanced Technology Roadmap
+# PUI89 Advanced Technology Implementation Plan
 
 **Project:** Coconut Harvest AI  
-**Engineering status:** capability roadmap and governance specification; not a claim that all listed technology is implemented.  
-**Operating principle:** free-first, local-first, evidence-first.
+**Scope:** all four PUI89 applications, coordinated through one shared AI Core contract  
+**Priority:** core first  
+**Cost policy:** strict zero-paid-services, local-first, no automatic downloads  
+**Status:** implementation plan and evidence index; not a claim that every advanced capability is implemented.
 
-## Mission
+## 1. Architecture decision
 
-Integrate advanced AI and robotics capabilities through a shared PUI89 engineering approach while preserving each project's domain-specific design. This repository's capability registry is the machine-readable source of truth for this roadmap.
+PUI89 already contains reusable intelligence foundations. Do not create a second world-state engine, health gate, autonomy supervisor, reporting library, or simulation framework inside this project. Reuse the current implementations and make this project a domain adapter to the shared PUI89 report contract.
 
-## Capabilities tracked
+The cross-project contract is `schemas/pui89-intelligence-report.schema.json`. It must be byte-identical across all four repositories and cover the four project identifiers. This repository's existing domain-specific schemas remain in place and may extend the common contract; do not replace them.
 
-1. **Multimodal perception and sensor fusion** — Images, text, audio and sensor streams; missing and conflicting modalities must remain explicit.
-2. **World-state model and temporal event tracking** — Track entities, locations, timestamps, state changes and stale observations; never invent missing state.
-3. **Uncertainty, abstention and calibration** — Expose confidence limits, calibration status and UNKNOWN/REVIEW_REQUIRED outcomes.
-4. **Digital twin and physics-based simulation** — Use reproducible synthetic scenarios; simulation results are not field validation.
-5. **SLAM, mapping and autonomous navigation** — Optional robotics integration; only activate with a compatible simulator/hardware profile and safety review.
-6. **Motion, manipulation and mission planning** — Generate plans and safety constraints; no direct hardware actuation from this audit system.
-7. **Predictive fault and anomaly detection** — Monitor sensor freshness, communication, battery and system-health signals where available.
-8. **Tool-using agents and supervised workflows** — Agents may propose and evaluate tasks; require allowlisted tools, bounded actions and human approval for consequential actions.
-9. **Multi-agent and multi-robot coordination** — Research/simulation only until communication, arbitration and fail-safe behaviour are validated.
-10. **Safety verification and fail-safe decision gates** — Fail closed on missing or invalid safety signals; retain emergency-stop priority and human override.
-11. **Offline/local model inference adapters** — Optional only; no model download or runtime activation by CI; check memory, hardware and license first.
-12. **Evidence provenance and reproducible reports** — Record source, timestamp, version, dataset split, metric, test conditions and limitations.
+## 2. Existing foundations to reuse
 
-## Technology candidates (not installed by this change)
+- `pui89_core/world_state.py`
+- `pui89_core/health_gate.py`
+- `pui89_core/planning.py`
+- `pui89_core/reporting.py`
+- `pui89_autonomy/supervisor.py`
+- `pui89_autonomy/experiment_report.py`
 
-- ROS 2 Jazzy / Nav2 — robot middleware and navigation.
-- Gazebo Harmonic — physics-based robot and environment simulation.
-- OpenCV — computer vision.
-- ONNX Runtime — portable local inference.
-- PyTorch — deep-learning research.
-- SLAM Toolbox — mapping and localisation.
-- Qdrant — optional local evidence retrieval.
-- NVIDIA Isaac Sim — optional advanced robotics simulation.
+Existing simulation and verification assets:
+- `apps/pui89_app/test_local_to_simulation.py`
+- `tests/test_gazebo_world_contract.py`
 
-These are candidates for evaluation, not approved dependencies. Check the exact version, licence, hardware requirements, redistribution terms, security posture and commercial-use obligations before adoption. This change does not install packages, download models, enable cloud services or add paid services.
+Existing domain adapters and evidence sources:
+- `apps/pui89_app/local_first_pipeline.py`
+- `docs/PUI89_COCONUT_MODEL_ADAPTER.md`
 
-## Project-specific engineering focus
+Other established PUI89 documents remain authoritative for detailed design, including `docs/PUI89_AI_CORE_CONTRACT.md`, `docs/PUI89_SHARED_CORE_CONTRACT.md`, `docs/PUI89_SHARED_INTELLIGENCE_WORKFLOW.md`, `docs/PUI89_SAFETY_AND_VALIDATION_GATES.md`, `docs/PUI89_FREE_FIRST_TECH_STACK.md`, and `docs/PUI89_ZERO_COST_UPGRADE_POLICY.md` where present. This plan links those sources instead of duplicating their implementation.
 
-- four-stage coconut maturity assessment
-- fruit and bunch localisation
-- 3D scene understanding and safe reach planning
-- worker and animal separation
-- harvest capture/drop-zone risk assessment
+## 3. Domain adapter responsibilities
 
-## Automation
+- maturity-stage assessment
+- coconut bunch localisation
+- worker/animal separation
+- safe reach and capture-zone planning
 
-The GitHub Actions workflow `.github/workflows/pui89-advanced-technology-audit.yml` checks the registry and governance policy on relevant pushes, pull requests and manual dispatch. It uses Python's standard library only and uploads a small JSON audit report.
+The adapter translates domain observations into the shared world-state, evidence, uncertainty, risk, recommendation, safety-gate and verification fields. It must preserve missing data, timestamps, source identity, sensor quality and modality disagreement. It must not invent observations or convert uncertainty into a positive finding.
 
-The audit verifies registry integrity and policy constraints. It does **not** prove model accuracy, simulation fidelity, physical safety or product readiness.
+## 4. Core-first implementation sequence
 
-## Evidence and status rules
+1. **Contract convergence:** keep the same report schema in all four projects; validate JSON syntax and project identifiers.
+2. **Core reuse:** call existing world-state, health-gate, planning, reporting and supervisor functions. Avoid parallel implementations.
+3. **Adapter conformance:** map this project's existing outputs to the common report format without removing domain-specific schemas.
+4. **Evidence and uncertainty:** record provenance, timestamps, calibration state, limitations, unknowns and conflicting inputs.
+5. **Safety and human review:** fail closed on missing safety signals; keep high-impact decisions human-reviewed; prohibit CI and report tooling from issuing hardware commands.
+6. **Deterministic regression:** test normal, missing, stale, malformed, conflicting, fault and recovery cases using fixed fixtures/seeds.
+7. **Simulation integration:** use existing simulation workflows first. Add simulator-specific tests only where the simulator is already configured and licensed.
+8. **Optional advanced adapters:** evaluate multimodal models, local inference, SLAM, motion planning, predictive monitoring and agent tools one at a time after license, resource and acceptance checks.
 
-- `ROADMAP`: planned; not implemented.
-- `FOUNDATION`: supporting interfaces or documentation exist; capability not yet validated.
-- `PROTOTYPE`: a prototype exists; evaluation is incomplete.
-- `VERIFIED`: reproducible evidence is linked and reviewed against defined acceptance criteria.
-- `BLOCKED`: blocked by missing data, licensing, safety, hardware or other prerequisites.
+## 5. Technology adoption gates
 
-A capability cannot be marked `VERIFIED` without evidence references. Keep uncertain outputs as `UNKNOWN` or `REVIEW_REQUIRED`; do not silently convert them into positive detections.
+Candidates include OpenCV, ONNX Runtime, PyTorch, ROS 2, Nav2, Gazebo, SLAM Toolbox and optional local vector retrieval. They are not mandatory dependencies and are not installed by this plan.
 
-## Cost, licensing and safety boundaries
+Before adoption, record:
+- exact project, version and licence;
+- commercial-use and redistribution implications;
+- local CPU/RAM/disk requirements;
+- offline behaviour and model/data provenance;
+- measurable acceptance criteria and fallback behaviour.
 
-- No paid API, subscription, cloud GPU or unapproved spend.
-- No automatic model downloads or dependency installation in this audit workflow.
-- Review licences before adopting or distributing any model, dataset, library or simulator.
-- No direct hardware actuation from CI or from this registry.
-- Missing or invalid safety signals must fail closed to `SAFE_HOLD`.
-- High-impact decisions require qualified human review.
+For ROS 2 simulation, the official compatibility pairing for ROS 2 Jazzy is Gazebo Harmonic. Use the existing repository's configured distribution rather than upgrading the stack blindly. See https://gazebosim.org/docs/latest/ros_installation/ and https://gazebosim.org/docs/harmonic/install/.
 
-## Project-specific limitations
+## 6. Strict execution policy
 
-No cutting, gripping, actuator or robot movement is authorised by this software roadmap. Maturity labels and harvesting recommendations require representative, licensed, labelled field data and human confirmation.
+- No paid APIs, subscriptions, cloud GPU or paid hosted databases.
+- No automatic model or dataset downloads.
+- No dependency installation in the lightweight registry audit.
+- Do not introduce a new dependency when existing code or the Python standard library is sufficient.
+- Review model, dataset and package licences before use.
+- No physical actuator commands from CI, tests, agents or report generation.
+- Unknown or conflicting evidence must produce an explicit review/hold state.
 
-## Next engineering sequence
+## 7. Automated verification and evidence
 
-1. Keep the shared report contract and safety gates consistent.
-2. Implement and test capability adapters one at a time.
-3. Add deterministic simulation scenarios where the relevant simulator is configured.
-4. Benchmark against licensed, documented datasets and fixed evaluation splits.
-5. Record failures, uncertainty, resource use and limitations.
-6. Promote a capability's status only when the evidence supports it.
+This project retains its existing test and security workflows. The advanced-technology audit checks only registry integrity and cost/safety policy. The shared-report contract tests check schema validity and project coverage. Existing domain regression and simulation tests remain the source of project-specific verification.
+
+Each report should record project, commit, schema version, capability status, evidence references, test conditions, limitations and result. A capability is `FOUNDATION` when supporting code exists, `PROTOTYPE` when an executable prototype exists, and `VERIFIED` only when defined acceptance criteria pass with reproducible evidence. Documentation or a passing registry audit alone never qualifies as verification.
+
+## 8. Release gates
+
+A change is ready for merge only when:
+- shared schema is valid and matches the other project copies;
+- new audit and shared-contract tests pass;
+- existing project tests pass or pre-existing failures are explicitly isolated and tracked;
+- no paid service, auto-download or unreviewed dependency was introduced;
+- all physical-safety and performance claims remain within the evidence.
+
+## 9. Current project limitations
+
+Coconut maturity and localisation remain dependent on approved representative data; harvesting mechanics and field safety are not validated.
