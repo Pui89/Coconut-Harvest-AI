@@ -1,0 +1,51 @@
+name: PUI89 Advanced Technology Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "pui89_technology_capabilities.json"
+      - "pui89_technology_audit.py"
+      - "tests/test_pui89_technology_audit.py"
+      - "docs/PUI89_ADVANCED_TECHNOLOGY_ROADMAP.md"
+      - ".github/workflows/pui89-advanced-technology-audit.yml"
+  pull_request:
+    paths:
+      - "pui89_technology_capabilities.json"
+      - "pui89_technology_audit.py"
+      - "tests/test_pui89_technology_audit.py"
+      - "docs/PUI89_ADVANCED_TECHNOLOGY_ROADMAP.md"
+      - ".github/workflows/pui89-advanced-technology-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-technology-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  registry-audit:
+    name: Free-first policy and capability registry audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python (standard library only)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate registry and cost/safety policy
+        run: python pui89_technology_audit.py --report pui89-technology-audit-report.json
+      - name: Run dependency-free audit tests
+        run: python -m unittest discover -s tests -p "test_pui89_technology_audit.py" -v
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pui89-technology-audit-report
+          path: pui89-technology-audit-report.json
+          if-no-files-found: warn
+          retention-days: 14
