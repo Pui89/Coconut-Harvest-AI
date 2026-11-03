@@ -78,36 +78,46 @@
     {
       "id": "multimodal_perception",
       "name": "Multimodal perception and sensor fusion",
-      "description": "Images, text, audio and sensor streams; missing and conflicting modalities must remain explicit.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Images, text, audio and sensor streams; missing and conflicting modalities must remain explicit. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "apps/pui89_app/local_first_pipeline.py",
+        "docs/PUI89_COCONUT_MODEL_ADAPTER.md"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
     {
       "id": "world_state_model",
       "name": "World-state model and temporal event tracking",
-      "description": "Track entities, locations, timestamps, state changes and stale observations; never invent missing state.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Track entities, locations, timestamps, state changes and stale observations; never invent missing state. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "pui89_core/world_state.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
     {
       "id": "uncertainty_calibration",
       "name": "Uncertainty, abstention and calibration",
-      "description": "Expose confidence limits, calibration status and UNKNOWN/REVIEW_REQUIRED outcomes.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Expose confidence limits, calibration status and UNKNOWN/REVIEW_REQUIRED outcomes. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "pui89_core/health_gate.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
     {
       "id": "digital_twin_simulation",
       "name": "Digital twin and physics-based simulation",
-      "description": "Use reproducible synthetic scenarios; simulation results are not field validation.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Use reproducible synthetic scenarios; simulation results are not field validation. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "apps/pui89_app/test_local_to_simulation.py",
+        "tests/test_gazebo_world_contract.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
@@ -123,9 +133,11 @@
     {
       "id": "motion_task_planning",
       "name": "Motion, manipulation and mission planning",
-      "description": "Generate plans and safety constraints; no direct hardware actuation from this audit system.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Generate plans and safety constraints; no direct hardware actuation from this audit system. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "pui89_core/planning.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
@@ -141,9 +153,11 @@
     {
       "id": "agent_workflows",
       "name": "Tool-using agents and supervised workflows",
-      "description": "Agents may propose and evaluate tasks; require allowlisted tools, bounded actions and human approval for consequential actions.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Agents may propose and evaluate tasks; require allowlisted tools, bounded actions and human approval for consequential actions. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "pui89_autonomy/supervisor.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
@@ -177,9 +191,11 @@
     {
       "id": "evidence_provenance",
       "name": "Evidence provenance and reproducible reports",
-      "description": "Record source, timestamp, version, dataset split, metric, test conditions and limitations.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Record source, timestamp, version, dataset split, metric, test conditions and limitations. Existing foundation identified; this does not imply a complete or validated capability.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "pui89_core/reporting.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     }
