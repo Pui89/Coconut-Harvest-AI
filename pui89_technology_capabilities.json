@@ -144,9 +144,11 @@
     {
       "id": "predictive_fault_detection",
       "name": "Predictive fault and anomaly detection",
-      "description": "Monitor sensor freshness, communication, battery and system-health signals where available.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Monitor sensor freshness, communication, battery and system-health signals where available. Existing fault-monitor foundation; predictive accuracy is not yet established.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "apps/pui89_safety/fault_monitor.py"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
@@ -173,9 +175,12 @@
     {
       "id": "safety_verification",
       "name": "Safety verification and fail-safe decision gates",
-      "description": "Fail closed on missing or invalid safety signals; retain emergency-stop priority and human override.",
-      "status": "ROADMAP",
-      "implementation_evidence": [],
+      "description": "Fail closed on missing or invalid safety signals; retain emergency-stop priority and human override. Existing fail-closed software gate; not hardware safety certification.",
+      "status": "FOUNDATION",
+      "implementation_evidence": [
+        "pui89_core/health_gate.py",
+        "docs/PUI89_AI_CORE_CONTRACT.md"
+      ],
       "license_review": "REQUIRED_BEFORE_ADOPTION",
       "activation": "DISABLED_BY_DEFAULT"
     },
