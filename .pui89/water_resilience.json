@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "project": "Coconut Harvest AI",
+  "exposure": "Rain, irrigation splash, humidity, mud and washdown exposure around agricultural equipment",
+  "sensors": [
+    "internal_leak_sensor",
+    "enclosure_humidity_sensor",
+    "electronics_temperature_sensor",
+    "battery_health_monitor"
+  ],
+  "temperature_limit_c": 60,
+  "physical_validation": "NOT_PERFORMED",
+  "hardware_integration": "NOT_CONFIRMED",
+  "ip_rating": "NOT_CLAIMED",
+  "project_notes": "Protect vision computers, battery, motor drivers, connectors and harvest actuators. Do not assume the entire robot is immersion-rated."
+}\n
