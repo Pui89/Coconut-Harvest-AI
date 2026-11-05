@@ -1,0 +1,46 @@
+name: PUI89 Water Resilience Checks
+
+on:
+  push:
+    branches: [main, "feature/**"]
+    paths:
+      - ".pui89/water_resilience.json"
+      - "pui89_water_resilience/**"
+      - ".github/workflows/water-resilience.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".pui89/water_resilience.json"
+      - "pui89_water_resilience/**"
+      - ".github/workflows/water-resilience.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "23 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  water-resilience-contract:
+    name: Water-resilience software contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run standard-library checks
+        run: |
+          python pui89_water_resilience/check.py \
+            --report water-resilience-report.json \
+            --summary "$GITHUB_STEP_SUMMARY"
+      - name: Upload machine-readable report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pui89-water-resilience-report
+          path: water-resilience-report.json
+          if-no-files-found: error
+          retention-days: 14
