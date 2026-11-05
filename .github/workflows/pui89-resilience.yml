@@ -1,0 +1,60 @@
+name: PUI89 Resilience Policy
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pui89-resilience-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-resilience-profile:
+    name: Validate PUI89 resilience declarations
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Validate standard and project profile
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          standard = Path("docs/PUI89_RESILIENCE_STANDARD.md")
+          profile = Path(".github/pui89-resilience.json")
+          required = {
+              "cybersecurity", "water_environment", "fire_heat_power",
+              "communications", "ai_data", "mechanical", "human_mission"
+          }
+          errors = []
+          if not standard.is_file():
+              errors.append(f"Missing required standard: {standard}")
+          if not profile.is_file():
+              errors.append(f"Missing required project profile: {profile}")
+          if errors:
+              raise SystemExit("\n".join(errors))
+
+          try:
+              data = json.loads(profile.read_text(encoding="utf-8"))
+          except Exception as exc:
+              raise SystemExit(f"Invalid JSON profile: {exc}")
+
+          for key in ("schema_version", "standard", "project", "project_type",
+                      "status", "protection_domains", "project_specific_hazards"):
+              if key not in data:
+                  errors.append(f"Missing profile field: {key}")
+          domains = data.get("protection_domains", {})
+          missing = sorted(required - set(domains))
+          if missing:
+              errors.append("Missing protection domains: " + ", ".join(missing))
+          if not isinstance(data.get("project_specific_hazards"), list) or not data.get("project_specific_hazards"):
+              errors.append("project_specific_hazards must be a non-empty list")
+          if data.get("standard") != "PUI89-TOTAL-RESILIENCE":
+              errors.append("Unexpected standard identifier")
+          if errors:
+              raise SystemExit("\n".join(errors))
+          print("PUI89 resilience declarations are present and structurally valid.")
+          print("NOTE: this check does not certify physical resistance or deployment safety.")
+          PY
