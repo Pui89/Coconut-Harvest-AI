@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "standard": "PUI89-TOTAL-RESILIENCE",
+  "project": "Coconut Harvest AI",
+  "project_type": "agricultural-ai-and-robot-concept",
+  "status": "policy-baseline-only; physical protections not verified",
+  "protection_domains": {
+    "cybersecurity": "credentials, dependencies, model/data provenance, unauthorized actuator commands",
+    "water_environment": "rain, humidity, mud, dust, corrosion, washdown exposure; enclosure rating not established",
+    "fire_heat_power": "battery management, overcurrent, motor/controller temperature, short circuit",
+    "communications": "sensor disconnection, stale timestamps, network loss, GPS/position uncertainty",
+    "ai_data": "four-stage coconut maturity classification, uncertain/out-of-distribution images, annotation provenance, false detections",
+    "mechanical": "falling coconuts, arm/cutter limits, jam detection, load limits, unintended movement",
+    "human_mission": "worker/animal exclusion zones, guarded cutting, emergency stop, safe stop and recovery"
+  },
+  "project_specific_hazards": [
+    "falling fruit",
+    "working at palm height within the project's 0-30 m concept scope",
+    "cutting/pulling mechanism",
+    "worker and animal proximity",
+    "rain and tropical humidity"
+  ]
+}
