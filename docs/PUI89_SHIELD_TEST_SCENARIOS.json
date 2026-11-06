@@ -71,6 +71,28 @@
       "domain": "mechanical",
       "expected_warning": "CRITICAL_OR_UNKNOWN_DEGRADED",
       "expected_behavior": "Inhibit operation that depends on the unavailable safety function until inspected."
+    },
+    {
+      "id": "COCO-001",
+      "name": "Worker enters cutter safety envelope",
+      "domain": "mechanical",
+      "expected_warning": "CRITICAL",
+      "expected_behavior": "Inhibit cutting proposal and request operator review; no autonomous motion is executed."
+    },
+    {
+      "id": "COCO-002",
+      "name": "Falling fruit hazard near worker or animal",
+      "domain": "human_mission",
+      "expected_warning": "WARNING",
+      "expected_behavior": "Issue a traceable warning and require the project-specific exclusion-zone response."
+    },
+    {
+      "id": "COCO-003",
+      "name": "Cutter jam or arm overload",
+      "domain": "mechanical",
+      "expected_warning": "WARNING_OR_CRITICAL_PROJECT_DEFINED",
+      "expected_behavior": "Detect abnormal load from validated inputs; request controlled safe-state procedure and inspection."
     }
-  ]
+  ],
+  "project": "coconut-harvest-ai"
 }
