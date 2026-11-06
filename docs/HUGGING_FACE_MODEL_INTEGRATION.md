@@ -53,3 +53,10 @@ The first run fails clearly if the model is not already cached. It will not sile
 - Preserve source, timestamp, image quality, model ID/revision, prompt, threshold, raw output, uncertainty and human-review outcome in the project's evidence records.
 - Unknown, conflicting, low-quality or out-of-distribution results must remain unknown and go to human review.
 - No real-world accuracy, safety, certification or product capability is claimed by adding this adapter.
+
+
+## Robotics VLA research checkpoint — arm manipulation only
+
+The project also records [`lerobot/smolvla_base`](https://huggingface.co/lerobot/smolvla_base), a real 450M-parameter Vision-Language-Action checkpoint released under Apache-2.0. It is a research starting point for manipulation, not a ready-made coconut-harvesting policy. The model card describes it as a base model intended to be fine-tuned to a specific task.
+
+An opt-in loader is provided at [`pui89_models/smolvla.py`](../pui89_models/smolvla.py). It uses local cache only by default and returns unexecuted action proposals. It does not connect to hardware. A compatible LeRobot observation/action schema, representative robot-arm dataset, fine-tuning, simulator, safety case and independent evaluation are required. It is not evidence that the proposed 0–30 m arm or harvesting system works.
