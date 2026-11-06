@@ -1,4 +1,4 @@
-name: PUI89 Resilience Policy
+name: PUI89 Resilience and SHIELD Policy
 on:
   push:
   pull_request:
@@ -10,13 +10,13 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate-resilience-profile:
-    name: Validate PUI89 resilience declarations
+    name: Validate PUI89 resilience and SHIELD declarations
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Validate standard and project profile
+      - name: Validate standard, risk profile and warning contract
         run: |
           python - <<'PY'
           import json
@@ -24,9 +24,20 @@ jobs:
 
           standard = Path("docs/PUI89_RESILIENCE_STANDARD.md")
           profile = Path(".github/pui89-resilience.json")
-          required = {
+          required_domains = {
               "cybersecurity", "water_environment", "fire_heat_power",
               "communications", "ai_data", "mechanical", "human_mission"
+          }
+          required_states = {
+              "NORMAL", "ADVISORY", "WARNING", "CRITICAL",
+              "EMERGENCY", "UNKNOWN_DEGRADED"
+          }
+          required_event_fields = {
+              "event_id", "schema_version", "project", "component",
+              "observed_at", "source_id", "value", "unit", "quality",
+              "evidence_refs", "uncertainty", "hazard", "severity",
+              "warning_state", "decision", "rationale",
+              "human_approval_required", "software_version"
           }
           errors = []
           if not standard.is_file():
@@ -42,19 +53,49 @@ jobs:
               raise SystemExit(f"Invalid JSON profile: {exc}")
 
           for key in ("schema_version", "standard", "project", "project_type",
-                      "status", "protection_domains", "project_specific_hazards"):
+                      "status", "protection_domains", "project_specific_hazards",
+                      "shield_system"):
               if key not in data:
                   errors.append(f"Missing profile field: {key}")
+
           domains = data.get("protection_domains", {})
-          missing = sorted(required - set(domains))
-          if missing:
-              errors.append("Missing protection domains: " + ", ".join(missing))
-          if not isinstance(data.get("project_specific_hazards"), list) or not data.get("project_specific_hazards"):
-              errors.append("project_specific_hazards must be a non-empty list")
+          if not isinstance(domains, dict):
+              errors.append("protection_domains must be an object")
+              domains = {}
+          missing_domains = sorted(required_domains - set(domains))
+          if missing_domains:
+              errors.append("Missing protection domains: " + ", ".join(missing_domains))
+
           if data.get("standard") != "PUI89-TOTAL-RESILIENCE":
               errors.append("Unexpected standard identifier")
+          if not isinstance(data.get("project_specific_hazards"), list) or not data.get("project_specific_hazards"):
+              errors.append("project_specific_hazards must be a non-empty list")
+
+          shield = data.get("shield_system", {})
+          if not isinstance(shield, dict):
+              errors.append("shield_system must be an object")
+              shield = {}
+          for key in ("status", "warning_states", "required_event_fields",
+                      "fail_safe_rules", "physical_validation",
+                      "project_specific_warning_focus"):
+              if key not in shield:
+                  errors.append(f"Missing shield_system field: {key}")
+
+          states = set(shield.get("warning_states", []))
+          if required_states - states:
+              errors.append("Missing warning states: " + ", ".join(sorted(required_states - states)))
+          event_fields = set(shield.get("required_event_fields", []))
+          if required_event_fields - event_fields:
+              errors.append("Missing warning event fields: " + ", ".join(sorted(required_event_fields - event_fields)))
+          if not shield.get("fail_safe_rules"):
+              errors.append("fail_safe_rules must be a non-empty list")
+          if not shield.get("project_specific_warning_focus"):
+              errors.append("project_specific_warning_focus must be a non-empty list")
+          if shield.get("physical_validation") != "NOT_VERIFIED":
+              errors.append("physical_validation must remain NOT_VERIFIED until supported by physical evidence")
+
           if errors:
               raise SystemExit("\n".join(errors))
-          print("PUI89 resilience declarations are present and structurally valid.")
-          print("NOTE: this check does not certify physical resistance or deployment safety.")
+          print("PUI89 resilience and SHIELD declarations are present and structurally valid.")
+          print("NOTE: this policy check does not certify physical resistance, cybersecurity, sensor performance or deployment safety.")
           PY
