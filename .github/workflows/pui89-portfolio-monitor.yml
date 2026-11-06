@@ -2,8 +2,6 @@ name: PUI89 Portfolio Monitor
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 2 * * *"
   pull_request:
     paths:
       - ".github/workflows/pui89-portfolio-monitor.yml"
@@ -25,7 +23,7 @@ concurrency:
 
 jobs:
   portfolio-snapshot:
-    name: Read-only three-project status snapshot
+    name: Read-only four-project status snapshot
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -37,10 +35,5 @@ jobs:
         env:
           PYTHONDONTWRITEBYTECODE: "1"
 
-      - name: Upload JSON and Markdown report
-        uses: actions/upload-artifact@v7
-        with:
-          name: pui89-portfolio-status-${{ github.run_number }}
-          path: portfolio-status/
-          if-no-files-found: error
-          retention-days: 30
+      - name: Publish portfolio report in workflow summary
+        run: cat portfolio-status/portfolio-status.md >> "$GITHUB_STEP_SUMMARY"

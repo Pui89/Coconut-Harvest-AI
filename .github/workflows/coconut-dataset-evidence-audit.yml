@@ -21,8 +21,6 @@ on:
       - "tests/test_audit_dataset_split_leakage.py"
       - "tests/test_verify_image_manifest_hashes.py"
       - ".github/workflows/coconut-dataset-evidence-audit.yml"
-  schedule:
-    - cron: "41 3 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -137,4 +135,4 @@ jobs:
           name: coconut-dataset-evidence-report
           path: reports/coconut-dataset-evidence/
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 7

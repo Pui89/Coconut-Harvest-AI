@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only PUI89 portfolio monitor for the three public project repositories.
+"""Read-only PUI89 portfolio monitor for the four public project repositories.
 
 Uses only Python's standard library and GitHub's public REST API. It does not
 change repositories, merge pull requests, deploy software, or infer AI readiness.
@@ -18,6 +18,7 @@ REPOSITORIES = (
     "Pui89/Coconut-Harvest-AI",
     "Pui89/Extreme-Flood-Rescue-AI",
     "Pui89/Multimodal-Narcotics-Screening-AI",
+    "Pui89/Homeguard-Ai-Nomad",
 )
 API = "https://api.github.com"
 
