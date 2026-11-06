@@ -60,11 +60,26 @@ def monitor(repo: str) -> dict:
             }
             for run in runs[:10]
         ]
-        completed = [run for run in runs if run.get("status") == "completed"
-                     and run.get("conclusion") not in ("cancelled", "skipped")]
+        # Ignore GitHub's Dependabot dynamic-update runs: they are dependency
+        # maintenance jobs, not evidence that a PUI89 project verification ran.
+        project_runs = [
+            run for run in runs
+            if run.get("event") in {"push", "pull_request", "workflow_dispatch", "schedule"}
+            and not str(run.get("path", "")).startswith("dynamic/dependabot/")
+        ]
+        completed = [
+            run for run in project_runs
+            if run.get("status") == "completed"
+            and run.get("conclusion") not in ("cancelled", "skipped")
+        ]
+        result["recent_project_workflow_count"] = len(project_runs)
+        result["recent_project_workflow_failures"] = sum(
+            run.get("status") == "completed" and run.get("conclusion") == "failure"
+            for run in project_runs
+        )
         result["latest_completed_check"] = (
             {key: completed[0].get(key) for key in
-             ("name", "head_branch", "conclusion", "created_at", "html_url")}
+             ("name", "head_branch", "conclusion", "created_at", "html_url", "event", "path")}
             if completed else None
         )
     except (urllib.error.URLError, TimeoutError, ValueError) as exc:
@@ -125,11 +140,15 @@ def main() -> int:
         latest = item.get("latest_completed_check")
         if latest:
             lines.append(
-                f"- Latest non-cancelled completed workflow: **{latest.get('conclusion', 'UNKNOWN')}** "
+                f"- Latest completed project CI workflow: **{latest.get('conclusion', 'UNKNOWN')}** "
                 f"({latest.get('name')}, {latest.get('head_branch')}) — {latest.get('html_url')}"
             )
         else:
-            lines.append("- Latest non-cancelled completed workflow: **NOT FOUND**")
+            lines.append("- Latest completed project CI workflow: **NOT FOUND**")
+        lines.append(
+            f"- Recent project workflow failures (up to 20 fetched runs): "
+            f"**{item.get('recent_project_workflow_failures', 'UNKNOWN')}**"
+        )
         if item["errors"]:
             lines += ["- Retrieval issues: " + "; ".join(item["errors"])]
         if item.get("open_pull_requests"):
