@@ -867,3 +867,20 @@ The vendored shared modules are snapshots of the central PUI89 implementation an
 **Explore a collaboration:** open a [GitHub Discussion](https://github.com/Pui89/Coconut-Harvest-AI/discussions) or contact the PUI89 project owner through the public GitHub profile. A useful first conversation is a short review of the data, field requirements or evaluation plan—no purchase commitment is implied.
 
 *Partner message: help turn a practical agricultural challenge into a measurable, responsibly developed engineering programme.*
+
+## Hugging Face model candidates — Non-Chinese origin only
+
+**PUI89 mandatory rule:** use only models with verified non-Chinese developer and checkpoint provenance. Unknown or unclear origin means exclude. This section is a candidate list only; no weights have been downloaded, installed, or evaluated.
+
+| Candidate checkpoint | Research role | Status |
+|---|---|---|
+| [microsoft/Florence-2-base](https://huggingface.co/microsoft/Florence-2-base) | Fruit/bunch image descriptions, candidate object localization and OCR support | CANDIDATE — review required |
+| [facebook/dinov2-base](https://huggingface.co/facebook/dinov2-base) | Visual feature extraction for maturity-class research and image similarity | CANDIDATE — review required |
+| [google/siglip2-base-patch16-224](https://huggingface.co/google/siglip2-base-patch16-224) | Text-image similarity and zero-shot category exploration | CANDIDATE — review required |
+
+Maturity classification must be trained and evaluated on rights-cleared, independently reviewed coconut images. Generic models cannot establish maturity, harvest readiness or 0–30 m performance.
+
+**Adoption gates:** verify the exact checkpoint's developer, origin, immutable revision, model-card and file licence, training-data disclosures, code/dependency security, file format, hardware fit and total cost before any download or execution. No paid APIs, hosted inference, cloud GPUs, automatic downloads or direct physical control. Florence-2 requires extra source review because its documented loader uses trust_remote_code=True. All models remain research-only until independently evaluated and approved.
+
+**Shared policy:** [PUI89 Hugging Face Model Policy](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_HUGGINGFACE_MODEL_POLICY.md).
+
