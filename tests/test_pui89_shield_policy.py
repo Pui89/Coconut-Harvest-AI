@@ -91,7 +91,8 @@ class ShieldContractTests(unittest.TestCase):
     def test_scenario_catalog_is_explicitly_not_test_evidence(self):
         catalog = json.loads((ROOT / "docs/PUI89_SHIELD_TEST_SCENARIOS.json").read_text(encoding="utf-8"))
         self.assertEqual(catalog["status"], "scenario_catalog_only_not_simulation_evidence")
-        self.assertGreaterEqual(len(catalog["scenarios"]), 10)
+        self.assertIn("project", catalog)
+        self.assertGreaterEqual(len(catalog["scenarios"]), 13)
 
     def test_six_project_matrix_covers_vehicle_projects_and_existing_projects(self):
         matrix = (ROOT / "docs/PUI89_SHIELD_PROJECT_IMPLEMENTATION_MATRIX.md").read_text(encoding="utf-8")
