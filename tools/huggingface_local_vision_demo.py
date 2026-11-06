@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 MODEL_ID = "google/owlvit-base-patch32"
-MODEL_REVISION = "main"
+MODEL_REVISION = "cbc355fb364588351c5d51c7f74465e8e7ec6f72"
 PROJECT = "Coconut-Harvest-AI"
 DEFAULT_LABELS = ["coconut fruit","coconut bunch","coconut palm tree","person","ladder","harvesting tool"]
 TASK_SCOPE = "Coconut and worker scene localization only; not maturity grading, harvest readiness, height measurement, or safe cutting."
