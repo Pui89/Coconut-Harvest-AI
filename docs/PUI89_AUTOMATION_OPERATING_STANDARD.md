@@ -8,7 +8,7 @@ Applies to this repository and future PUI89 projects.
 - Prefer local, standard-library checks and existing dependencies.
 - No paid APIs, hosted inference, cloud GPUs, paid runners, subscriptions, automatic model/data downloads, or hardware actuation.
 - No scheduled CI jobs or recurring network jobs by default. Keep CI event-driven (pull request, relevant push, manual dispatch).
-- No automatic artifact uploads by default. Keep workflow permissions least-privilege and execution bounded.
+- Upload evidence artifacts only when necessary; never upload raw/private data or credentials, and use the shortest practical retention (target 7 days). Prefer workflow summaries for small reports. Keep workflow permissions least-privilege and execution bounded.
 - If cost, licence, privacy, or resource impact is uncertain, disable the feature pending review.
 
 ## Standard process
