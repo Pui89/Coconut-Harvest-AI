@@ -867,3 +867,22 @@ The vendored shared modules are snapshots of the central PUI89 implementation an
 **Explore a collaboration:** open a [GitHub Discussion](https://github.com/Pui89/Coconut-Harvest-AI/discussions) or contact the PUI89 project owner through the public GitHub profile. A useful first conversation is a short review of the data, field requirements or evaluation plan—no purchase commitment is implied.
 
 *Partner message: help turn a practical agricultural challenge into a measurable, responsibly developed engineering programme.*
+
+## Real Hugging Face model integration — offline OWL-ViT
+
+This repository now contains an executable inference adapter for the real Hugging Face checkpoint **[google/owlvit-base-patch32](https://huggingface.co/google/owlvit-base-patch32)**. It runs zero-shot, text-conditioned object detection against a local image and writes a JSON evidence report with image SHA-256, model ID/revision, candidate labels, scores and bounding boxes.
+
+**Run after manually preparing a compatible local environment and caching the checkpoint:**
+
+```bash
+python tools/huggingface_local_vision_demo.py path/to/local-image.jpg --json-out reports/hf-owlvit-report.json
+```
+
+- Default device is CPU; CUDA is opt-in with `--device cuda`.
+- Both model and processor use `local_files_only=True`; safetensors are required. The model revision is pinned to `cbc355fb364588351c5d51c7f74465e8e7ec6f72`. The safetensors weights are approximately 613 MB; check disk/RAM before any manual download. The script does not download weights, install packages, call hosted inference, or upload images.
+- Candidate labels are configured for this project's domain and can be overridden with repeated `--label` arguments.
+- The model card declares Apache-2.0 and describes OWL-ViT as zero-shot text-conditioned object detection. Review the exact checkpoint files, upstream licence and data disclosures before commercial release.
+- **Status:** executable integration code added; model inference has not been run because weights and optional dependencies were not downloaded or installed. No accuracy, safety or field-performance claim is made.
+- Output is an uncertain observation for human review only. It cannot authorize robot/vehicle actuation or consequential decisions.
+
+The report builder is covered by standard-library tests in `tests/test_huggingface_local_vision_demo.py`; these tests validate report/safety metadata, not model accuracy.
