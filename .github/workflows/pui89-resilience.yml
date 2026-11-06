@@ -1,7 +1,15 @@
 name: PUI89 Resilience and SHIELD Policy
 on:
-  push:
   pull_request:
+    paths:
+      - "docs/PUI89_RESILIENCE_STANDARD.md"
+      - "docs/PUI89_SHIELD*"
+      - "docs/templates/PUI89_SHIELD*"
+      - ".github/pui89-resilience.json"
+      - ".github/workflows/pui89-resilience.yml"
+      - "schemas/pui89-shield*"
+      - "pui89_shield_policy.py"
+      - "tests/test_pui89_shield_policy.py"
   workflow_dispatch:
 permissions:
   contents: read
