@@ -896,3 +896,5 @@ This repository now includes real Hugging Face checkpoint adapters in [`pui89_mo
 - **Intel DPT-Hybrid:** `Intel/dpt-hybrid-midas` for relative scene depth where appropriate; not calibrated distance or physical depth.
 - **Zero-cost default:** no packages or model weights are installed/downloaded automatically; CPU-only inference, local cache only by default, no hosted inference API or cloud GPU.
 - **Evidence status:** adapter code is added; model inference and project-specific accuracy are NOT YET TESTED. Outputs remain uncertain observations for human review, never actuator commands.
+
+- **Robotics VLA research (arm manipulation only):** [LeRobot SmolVLA adapter](pui89_models/smolvla.py) · [integration notes](docs/HUGGING_FACE_MODEL_INTEGRATION.md). Requires task-specific data/fine-tuning and simulation; no hardware control.
