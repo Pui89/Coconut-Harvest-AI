@@ -41,4 +41,4 @@ jobs:
           name: pui89-water-resilience-report
           path: water-resilience-report.json
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 7
