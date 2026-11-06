@@ -135,4 +135,4 @@ jobs:
           name: coconut-dataset-evidence-report
           path: reports/coconut-dataset-evidence/
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 7
