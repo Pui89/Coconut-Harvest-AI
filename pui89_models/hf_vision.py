@@ -11,7 +11,7 @@ import os
 from typing import Iterable
 
 OWLV2_MODEL_ID = "google/owlv2-base-patch16-ensemble"
-DEPTH_MODEL_ID = "depth-anything/Depth-Anything-V2-Small-hf"
+DEPTH_MODEL_ID = "Intel/dpt-hybrid-midas"
 
 
 def _local_only(allow_download: bool) -> bool:
