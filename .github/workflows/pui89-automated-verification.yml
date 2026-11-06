@@ -127,4 +127,4 @@ jobs:
             pui89-verification-summary.md
             observability-report.json
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 7
