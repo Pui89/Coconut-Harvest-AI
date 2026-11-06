@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "status": "scenario_catalog_only_not_simulation_evidence",
+  "scenarios": [
+    {
+      "id": "SHIELD-001",
+      "name": "Missing or stale sensor input",
+      "domain": "ai_data",
+      "expected_warning": "UNKNOWN_DEGRADED",
+      "expected_behavior": "Do not interpret missing data as safe; restrict affected proposal and request project-defined safe state or human review."
+    },
+    {
+      "id": "SHIELD-002",
+      "name": "Conflicting sensor observations",
+      "domain": "ai_data",
+      "expected_warning": "UNKNOWN_DEGRADED",
+      "expected_behavior": "Preserve both sources and uncertainty; do not silently average or select a favorable reading."
+    },
+    {
+      "id": "SHIELD-003",
+      "name": "Confirmed imminent hazard with evidence",
+      "domain": "human_mission",
+      "expected_warning": "EMERGENCY",
+      "expected_behavior": "Trigger only the independently validated project-specific emergency procedure; notify responsible human."
+    },
+    {
+      "id": "SHIELD-004",
+      "name": "High-severity hazard with traceable evidence",
+      "domain": "physical_safety",
+      "expected_warning": "WARNING",
+      "expected_behavior": "Notify operator and apply project-specific restrictions; no generic actuator command."
+    },
+    {
+      "id": "SHIELD-005",
+      "name": "Critical hazard with traceable evidence",
+      "domain": "physical_safety",
+      "expected_warning": "CRITICAL",
+      "expected_behavior": "Request validated project-specific safe state; hardware protection must not depend solely on AI."
+    },
+    {
+      "id": "SHIELD-006",
+      "name": "Network or positioning loss",
+      "domain": "communications",
+      "expected_warning": "UNKNOWN_DEGRADED",
+      "expected_behavior": "Reject stale remote commands and apply the project's tested local degraded mode."
+    },
+    {
+      "id": "SHIELD-007",
+      "name": "Thermal or battery anomaly",
+      "domain": "fire_heat_power",
+      "expected_warning": "WARNING_OR_CRITICAL_PROJECT_DEFINED",
+      "expected_behavior": "Use independent battery and electrical protection; AI warning is supplemental only."
+    },
+    {
+      "id": "SHIELD-008",
+      "name": "Water ingress or moisture detected",
+      "domain": "water_environment",
+      "expected_warning": "WARNING_OR_CRITICAL_PROJECT_DEFINED",
+      "expected_behavior": "Use validated isolation and shutdown procedure; do not claim ingress protection without physical tests."
+    },
+    {
+      "id": "SHIELD-009",
+      "name": "Tamper or unauthorized enclosure access",
+      "domain": "cybersecurity",
+      "expected_warning": "WARNING",
+      "expected_behavior": "Log integrity event, protect credentials and request authorized inspection."
+    },
+    {
+      "id": "SHIELD-010",
+      "name": "Emergency stop circuit unavailable",
+      "domain": "mechanical",
+      "expected_warning": "CRITICAL_OR_UNKNOWN_DEGRADED",
+      "expected_behavior": "Inhibit operation that depends on the unavailable safety function until inspected."
+    }
+  ]
+}
