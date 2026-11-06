@@ -1,20 +1,262 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "title":"PUI89 Shared Intelligence Report",
-  "type":"object",
-  "required":["schema_version","project","generated_at","stage","world_state","evidence","uncertainty","risks","recommendations","safety_gate","verification"],
-  "properties":{
-    "schema_version":{"const":"1.0"},
-    "project":{"enum":["coconut-harvest-ai","flood-rescue-ai","multimodal-narcotics-screening-ai","homeguard-ai-nomad"]},
-    "generated_at":{"type":"string","format":"date-time"},
-    "stage":{"enum":["proposed","implemented","tested","simulated","validated"]},
-    "world_state":{"type":"object","required":["summary","observations"],"properties":{"summary":{"type":"string"},"observations":{"type":"array","items":{"type":"object","required":["name","value","source"],"properties":{"name":{"type":"string"},"value":{},"source":{"type":"string"},"observed_at":{"type":"string"},"quality":{"enum":["unknown","low","medium","high"]}}}}}},
-    "evidence":{"type":"array","items":{"type":"object","required":["id","description","status"],"properties":{"id":{"type":"string"},"description":{"type":"string"},"status":{"enum":["unverified","reviewed","verified","rejected"]},"uri":{"type":"string"},"limitations":{"type":"array","items":{"type":"string"}}}}},
-    "uncertainty":{"type":"array","items":{"type":"object","required":["topic","reason"],"properties":{"topic":{"type":"string"},"reason":{"type":"string"},"confidence":{"type":"number","minimum":0,"maximum":1}}}},
-    "risks":{"type":"array","items":{"type":"object","required":["risk","severity","mitigation"],"properties":{"risk":{"type":"string"},"severity":{"enum":["low","medium","high","critical","unknown"]},"mitigation":{"type":"string"}}}},
-    "recommendations":{"type":"array","items":{"type":"object","required":["action","basis"],"properties":{"action":{"type":"string"},"basis":{"type":"string"},"requires_human_approval":{"type":"boolean"}}}},
-    "safety_gate":{"type":"object","required":["decision","reason"],"properties":{"decision":{"enum":["allow_simulation","allow_limited_action","require_human_review","stop"]},"reason":{"type":"string"},"human_approval":{"type":"boolean"}}},
-    "verification":{"type":"object","required":["status","checks"],"properties":{"status":{"enum":["not_run","passed","failed","inconclusive"]},"checks":{"type":"array","items":{"type":"object","required":["name","result"],"properties":{"name":{"type":"string"},"result":{"enum":["passed","failed","skipped","not_run"]},"evidence_id":{"type":"string"}}}}}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PUI89 Shared Intelligence Report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "generated_at",
+    "stage",
+    "world_state",
+    "evidence",
+    "uncertainty",
+    "risks",
+    "recommendations",
+    "safety_gate",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "project": {
+      "enum": [
+        "coconut-harvest-ai",
+        "flood-rescue-ai",
+        "multimodal-narcotics-screening-ai",
+        "homeguard-ai-nomad"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "stage": {
+      "enum": [
+        "proposed",
+        "implemented",
+        "tested",
+        "simulated",
+        "validated"
+      ]
+    },
+    "world_state": {
+      "type": "object",
+      "required": [
+        "summary",
+        "observations"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "value",
+              "source"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {},
+              "source": {
+                "type": "string"
+              },
+              "observed_at": {
+                "type": "string"
+              },
+              "quality": {
+                "enum": [
+                  "unknown",
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "unverified",
+              "reviewed",
+              "verified",
+              "rejected"
+            ]
+          },
+          "uri": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "topic",
+          "reason"
+        ],
+        "properties": {
+          "topic": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "risk",
+          "severity",
+          "mitigation"
+        ],
+        "properties": {
+          "risk": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical",
+              "unknown"
+            ]
+          },
+          "mitigation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "action",
+          "basis"
+        ],
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "basis": {
+            "type": "string"
+          },
+          "requires_human_approval": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "safety_gate": {
+      "type": "object",
+      "required": [
+        "decision",
+        "reason"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "allow_simulation",
+            "allow_limited_action",
+            "require_human_review",
+            "stop"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "human_approval": {
+          "type": "boolean"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "status",
+        "checks"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_run",
+            "passed",
+            "failed",
+            "inconclusive"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "result"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "result": {
+                "enum": [
+                  "passed",
+                  "failed",
+                  "skipped",
+                  "not_run"
+                ]
+              },
+              "evidence_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
   },
-  "additionalProperties":false
+  "additionalProperties": false
 }
