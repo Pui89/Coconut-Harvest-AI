@@ -11,7 +11,7 @@ from pui89_shield_policy import (
 )
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class ShieldWarningPolicyTests(unittest.TestCase):
