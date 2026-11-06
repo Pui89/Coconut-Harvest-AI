@@ -73,6 +73,20 @@ def test_non_list_images_fails_with_clear_cli_error(tmp_path: Path) -> None:
     assert "'images' must be a list" in result.stderr
 
 
+def test_non_object_image_fails_with_clear_cli_error(tmp_path: Path) -> None:
+    result = run_payload(tmp_path, {"images": [None]})
+    assert result.returncode == 2
+    assert "images[0] must be an object" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
+def test_non_list_boxes_fails_with_clear_cli_error(tmp_path: Path) -> None:
+    result = run_payload(tmp_path, {"images": [{"filename": "fixture.jpg", "boxes": {"x": 0.1}}]})
+    assert result.returncode == 2
+    assert "images[0].boxes must be a list" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
 def test_non_object_box_is_recorded_as_geometry_error(tmp_path: Path) -> None:
     result = run_audit(tmp_path, [None])
     assert result.returncode == 1
