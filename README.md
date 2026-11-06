@@ -867,3 +867,8 @@ The vendored shared modules are snapshots of the central PUI89 implementation an
 **Explore a collaboration:** open a [GitHub Discussion](https://github.com/Pui89/Coconut-Harvest-AI/discussions) or contact the PUI89 project owner through the public GitHub profile. A useful first conversation is a short review of the data, field requirements or evaluation plan—no purchase commitment is implied.
 
 *Partner message: help turn a practical agricultural challenge into a measurable, responsibly developed engineering programme.*
+
+
+## Commercial product readiness
+
+This project follows the [PUI89 Commercial Product & Company-Readiness Standard](PUI89_COMMERCIAL_PRODUCT_STANDARD.md). Commercial use of original materials is governed by the root [LICENSE](LICENSE); third-party assets retain their own terms. Commercial readiness, safety, certification and product performance must be demonstrated with evidence before sale or deployment.
