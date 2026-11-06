@@ -19,5 +19,53 @@
     "cutting/pulling mechanism",
     "worker and animal proximity",
     "rain and tropical humidity"
-  ]
+  ],
+  "shield_system": {
+    "status": "architecture_baseline; implementation_and_physical_validation_not_verified",
+    "warning_states": [
+      "NORMAL",
+      "ADVISORY",
+      "WARNING",
+      "CRITICAL",
+      "EMERGENCY",
+      "UNKNOWN_DEGRADED"
+    ],
+    "required_event_fields": [
+      "event_id",
+      "schema_version",
+      "project",
+      "component",
+      "observed_at",
+      "source_id",
+      "value",
+      "unit",
+      "quality",
+      "evidence_refs",
+      "uncertainty",
+      "hazard",
+      "severity",
+      "warning_state",
+      "decision",
+      "rationale",
+      "human_approval_required",
+      "software_version"
+    ],
+    "fail_safe_rules": [
+      "missing_stale_invalid_implausible_or_conflicting_inputs_must_not_be_treated_as_safe",
+      "AI_outputs_are_proposals_and_must_not_bypass_project_safety_gates",
+      "critical_hardware_protection_must_be_independent_of_AI_software_where_required",
+      "project_specific_safe_state_must_be_defined_for_sensor_or_communication_loss",
+      "human_authority_is_required_for_high_risk_recovery_and_reset",
+      "no_physical_actuation_or_deployment_without_separate_authorization_and_validation"
+    ],
+    "physical_validation": "NOT_VERIFIED",
+    "project_specific_warning_focus": [
+      "worker_and_animal_proximity",
+      "falling_fruit",
+      "cutter_jam_and_mechanical_overload",
+      "rain_moisture_and_corrosion",
+      "motor_battery_heat",
+      "localization_and_depth_sensor_uncertainty"
+    ]
+  }
 }
