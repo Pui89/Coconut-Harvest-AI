@@ -81,8 +81,8 @@ def detect_objects(image, labels: Iterable[str], *, threshold: float = 0.15,
     ]
 
 
-def load_depth_anything_v2(*, allow_download: bool = False):
-    """Load the small Transformers-compatible Depth Anything V2 checkpoint."""
+def load_dpt_hybrid(*, allow_download: bool = False):
+    """Load the small Transformers-compatible Intel DPT-Hybrid checkpoint."""
     try:
         from transformers import AutoImageProcessor, AutoModelForDepthEstimation
     except ImportError as exc:
@@ -108,7 +108,7 @@ def estimate_relative_depth(image, *, allow_download: bool = False):
     import torch
     import torch.nn.functional as F
 
-    processor, model = load_depth_anything_v2(allow_download=allow_download)
+    processor, model = load_dpt_hybrid(allow_download=allow_download)
     inputs = processor(images=image, return_tensors="pt")
     with torch.inference_mode():
         outputs = model(**inputs)
@@ -126,6 +126,6 @@ __all__ = [
     "DEPTH_MODEL_ID",
     "load_owlv2",
     "detect_objects",
-    "load_depth_anything_v2",
+    "load_dpt_hybrid",
     "estimate_relative_depth",
 ]
