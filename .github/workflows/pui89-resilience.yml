@@ -99,3 +99,5 @@ jobs:
           print("PUI89 resilience and SHIELD declarations are present and structurally valid.")
           print("NOTE: this policy check does not certify physical resistance, cybersecurity, sensor performance or deployment safety.")
           PY
+      - name: Run PUI89 SHIELD regression tests
+        run: python -m unittest discover -s tests -p 'test_pui89_shield_policy.py' -v
