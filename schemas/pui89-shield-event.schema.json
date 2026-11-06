@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PUI89 SHIELD Warning Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "schema_version",
+    "project",
+    "component",
+    "observed_at",
+    "source_id",
+    "value",
+    "unit",
+    "quality",
+    "evidence_refs",
+    "uncertainty",
+    "hazard",
+    "severity",
+    "warning_state",
+    "decision",
+    "rationale",
+    "human_approval_required",
+    "software_version"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "component": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {},
+    "unit": {
+      "type": "string"
+    },
+    "quality": {
+      "enum": [
+        "unknown",
+        "invalid",
+        "stale",
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "known",
+            "unknown",
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "hazard": {
+      "type": "string",
+      "minLength": 1
+    },
+    "severity": {
+      "enum": [
+        "unknown",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "warning_state": {
+      "enum": [
+        "NORMAL",
+        "ADVISORY",
+        "WARNING",
+        "CRITICAL",
+        "EMERGENCY",
+        "UNKNOWN_DEGRADED"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "monitor",
+        "notify",
+        "require_human_review",
+        "request_safe_state",
+        "emergency_response",
+        "no_action"
+      ]
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "human_approval_required": {
+      "type": "boolean"
+    },
+    "software_version": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
