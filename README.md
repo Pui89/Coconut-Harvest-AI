@@ -879,7 +879,7 @@ python tools/huggingface_local_vision_demo.py path/to/local-image.jpg --json-out
 ```
 
 - Default device is CPU; CUDA is opt-in with `--device cuda`.
-- Both model and processor use `local_files_only=True`; safetensors are required. The script does not download weights, install packages, call hosted inference, or upload images.
+- Both model and processor use `local_files_only=True`; safetensors are required. The model revision is pinned to `cbc355fb364588351c5d51c7f74465e8e7ec6f72`. The safetensors weights are approximately 613 MB; check disk/RAM before any manual download. The script does not download weights, install packages, call hosted inference, or upload images.
 - Candidate labels are configured for this project's domain and can be overridden with repeated `--label` arguments.
 - The model card declares Apache-2.0 and describes OWL-ViT as zero-shot text-conditioned object detection. Review the exact checkpoint files, upstream licence and data disclosures before commercial release.
 - **Status:** executable integration code added; model inference has not been run because weights and optional dependencies were not downloaded or installed. No accuracy, safety or field-performance claim is made.
