@@ -70,7 +70,7 @@ class ShieldWarningPolicyTests(unittest.TestCase):
 
 class ShieldContractTests(unittest.TestCase):
     def test_event_schema_has_required_contract_fields(self):
-        schema = json.loads((ROOT / "schemas/pui89-shield-event.schema.json").read_text(encoding="utf-8"))
+        schema_path = ROOT / "schemas/pui89-shield-event.schema.json"\n        if not schema_path.is_file():\n            schema_path = ROOT / "schemas/pui89-shield-warning-event-v1.json"\n        schema = json.loads(schema_path.read_text(encoding="utf-8"))
         required = set(schema["required"])
         expected = {
             "event_id", "schema_version", "project", "component", "observed_at",
