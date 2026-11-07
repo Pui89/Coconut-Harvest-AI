@@ -350,7 +350,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 - **New image-source shortlist (review only):** [five Wikimedia coconut-image candidates with source-page, attribution, licence, and annotation-review requirements](docs/COCONUT_IMAGE_SOURCE_SHORTLIST_2026-10-22.md). None is automatically approved for training.
 
 - **What works now:** [run the local planning prototype](#run-the-local-prototype), inspect the synthetic workflow, and review the annotation/evaluation tools.
-- **What the evidence says:** [read the measured baseline](#current-evaluation-evidence), including the two-image HSV smoke test and its zero precision/recall result at IoU ≥ 0.50.
+- **What the evidence says:** [read the measured baseline](#current-evaluation-evidence), including the two-image HSV smoke test, where precision and recall were both 0 at IoU ≥ 0.50.
 - **What comes next:** [follow the real-image benchmark checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md) to establish image rights, review labels, run an existing compatible detector, and record reproducible results.
 - **What is not yet proven:** a reliable trained coconut detector, generalisation across orchards, maturity classification, calibrated 3D targeting, or a physical robot harvesting coconuts.
 
@@ -880,7 +880,7 @@ The [Coconut Simulation Evaluation run](https://github.com/Pui89/Coconut-Harvest
 
 ## Latest automated verification (29 October 2026)
 
-The [lightweight verification run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888) completed successfully. Its report recorded Python 3.11.17, zero Python compile errors, a passing standard-library-only observability smoke check, and zero reported failures. [Verification report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888/artifacts/12901395117).
+The [lightweight verification run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888) completed successfully. Its report recorded Python 3.11.17, no Python compile errors, a passing standard-library-only observability smoke check, and no reported failures. [Verification report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888/artifacts/12901395117).
 
 This lightweight job explicitly does **not** run the full dependency-backed unit-test suite. Separately, the selected PUI89 combined run passed 13 shared-core tests, 5 evaluator tests and 4 dataset-preflight tests for this project; the evaluator/preflight tests do not establish detector accuracy or validate the actual dataset. The separate [simulation-only run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992) passed 7/7 configured scenarios and 9/9 steps with hardware actuation disabled. Physical harvesting, detector accuracy and 0–30 m reach remain unvalidated.
 
@@ -920,7 +920,7 @@ The vendored shared modules are snapshots of the central PUI89 implementation an
 
 ## Real Hugging Face model integration — offline OWL-ViT
 
-This repository now contains an executable inference adapter for the real Hugging Face checkpoint **[google/owlvit-base-patch32](https://huggingface.co/google/owlvit-base-patch32)**. It runs zero-shot, text-conditioned object detection against a local image and writes a JSON evidence report with image SHA-256, model ID/revision, candidate labels, scores and bounding boxes.
+This repository now contains an executable inference adapter for the real Hugging Face checkpoint **[google/owlvit-base-patch32](https://huggingface.co/google/owlvit-base-patch32)**. It runs text-conditioned object detection without task-specific training against a local image and writes a JSON evidence report with image SHA-256, model ID/revision, candidate labels, scores and bounding boxes.
 
 **Run after manually preparing a compatible local environment and caching the checkpoint:**
 
@@ -931,7 +931,7 @@ python tools/huggingface_local_vision_demo.py path/to/local-image.jpg --json-out
 - Default device is CPU; CUDA is opt-in with `--device cuda`.
 - Both model and processor use `local_files_only=True`; safetensors are required. The model revision is pinned to `cbc355fb364588351c5d51c7f74465e8e7ec6f72`. The safetensors weights are approximately 613 MB; check disk/RAM before any manual download. The script does not download weights, install packages, call hosted inference, or upload images.
 - Candidate labels are configured for this project's domain and can be overridden with repeated `--label` arguments.
-- The model card declares Apache-2.0 and describes OWL-ViT as zero-shot text-conditioned object detection. Review the exact checkpoint files, upstream licence and data disclosures before commercial release.
+- The model card declares Apache-2.0 and describes OWL-ViT as a text-conditioned object detector that can propose labels without task-specific detector training. Review the exact checkpoint files, upstream licence and data disclosures before commercial release.
 - **Status:** executable integration code added; model inference has not been run because weights and optional dependencies were not downloaded or installed. No accuracy, safety or field-performance claim is made.
 - Output is an uncertain observation for human review only. It cannot authorize robot/vehicle actuation or consequential decisions.
 
