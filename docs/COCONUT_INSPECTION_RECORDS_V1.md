@@ -1,6 +1,6 @@
 # Coconut Inspection Records v1 — implementation slice
 
-**Status:** implemented on a feature branch; not yet merged or integrated into the Streamlit screen. This is a local persistence layer, not a complete customer-ready application.
+**Status:** implemented on a feature branch and connected to a local-first Streamlit inspection screen. Not yet merged. This is an early software increment, not a complete customer-ready application.
 
 ## What is included
 
@@ -62,8 +62,8 @@ The tests use generated synthetic PNG bytes and temporary directories. They do n
 
 ## Known gaps before MVP completion
 
-- The Streamlit UI does not yet create/open these records or connect its image uploader and annotation controls to this store.
-- Existing offline bounding-box annotator integration is not implemented here.
+- The Streamlit UI now creates/reopens records, imports images, records human labels and optional normalized boxes, shows revision history, and exports JSON. The UI has not yet had a full manual usability walkthrough.
+- The existing offline drawing annotator is not yet embedded; this screen currently accepts optional normalized box coordinates as manual inputs.
 - The report is JSON only; a designed operator-facing printable report remains future work.
 - The record store is single-user/local-workspace oriented; concurrent multi-user writes and encrypted storage are not implemented.
 - Rights status is recorded as supplied; it is not legal verification or permission to train.
