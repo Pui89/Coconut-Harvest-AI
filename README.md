@@ -910,3 +910,9 @@ This repository now includes real Hugging Face checkpoint adapters in [`pui89_mo
 - **Evidence status:** adapter code is added; model inference and project-specific accuracy are NOT YET TESTED. Outputs remain uncertain observations for human review, never actuator commands.
 
 - **Robotics VLA research (arm manipulation only):** [LeRobot SmolVLA adapter](pui89_models/smolvla.py) · [integration notes](docs/HUGGING_FACE_MODEL_INTEGRATION.md). Requires task-specific data/fine-tuning and simulation; no hardware control.
+
+## AI Agents and Hugging Face integration
+
+- **Shared roadmap:** [AI Agent and Hugging Face Integration](docs/AI_AGENT_HUGGING_FACE_ROADMAP.md)
+- **Machine-readable candidate registry:** [config/huggingface-model-registry.yaml](config/huggingface-model-registry.yaml)
+- **Status:** research candidates only; no model weights are downloaded and no paid inference is enabled.
