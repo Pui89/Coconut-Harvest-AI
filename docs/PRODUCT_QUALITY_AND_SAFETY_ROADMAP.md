@@ -9,6 +9,23 @@ coconut arm, guarded cutter, collection basket and lowering system; four maturit
 **Required conservative behavior:** No cut unless target, maturity, measured geometry, reach, arm/base stability, collision clearance, tool guard, basket readiness, retention/lowering path, communication health and human approval all pass.
 
 
+
+## Environmental, water-ingress and fire-risk validation
+
+**Current status: NOT VALIDATED.** No enclosure ingress rating, rain/flood tolerance, fire resistance, battery thermal-safety result or environmental operating limit is claimed for a physical Coconut Harvest AI system.
+
+Before any outdoor or powered prototype test, define the actual operating environment and obtain qualified review of the enclosure, connectors, cable entries, moving joints, sensors, battery, charging arrangement and electrical isolation. Record the selected test standard and acceptance criteria for the exact design; do not assign an IP rating or fire-resistance class by assumption.
+
+Required evidence gates:
+
+1. **Water and dust exposure:** specify rain, splash, washdown, humidity, dust and drainage exposure from the intended farm use; assess ingress paths and condensation; test representative assembled hardware using a documented method. Keep powered and unpowered tests distinct, inspect internally after exposure, and record failures. Do not test in standing water or operate damaged/wet electrical equipment.
+2. **Electrical and battery protection:** document battery chemistry, protection circuitry, fusing, isolation, connector ratings, charging controls, temperature limits and emergency disconnect. Verify these against the selected components and qualified design review before energising the prototype.
+3. **Fire and thermal hazards:** assess battery fault, overcharge, short circuit, stalled motor, cutter friction, hot surfaces, wiring faults and charging faults. Define detection, isolation, evacuation and responder procedures. Any abuse or fault-injection testing must use a qualified, controlled test facility—not an improvised farm or office test.
+4. **Post-exposure function:** after each environmental test, inspect seals, insulation, corrosion, sensor windows, brakes, guards, emergency stop and safety interlocks; repeat the relevant electrical and functional checks before any further operation.
+5. **Evidence record:** publish the hardware revision, component/BOM identifiers, test method, environmental conditions, instruments and calibration, pass/fail criteria, results, failures, reviewer and limitations. A component datasheet, concept rendering or software test is not system-level validation.
+
+Until these gates are completed, the project must be described as a software/evaluation-preparation prototype with a proposed outdoor robot concept. Do not advertise it as waterproof, weatherproof, fireproof, fire-resistant or safe for wet operation.
+
 ## Cross-project quality gates
 
 1. **Requirements and hazard analysis:** define intended use, prohibited use, users, operating environment, measurable acceptance criteria, foreseeable misuse, hazards, emergency procedures and stop-work authority with qualified domain experts.
