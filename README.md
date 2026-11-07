@@ -990,3 +990,20 @@ This is an evidence-weighted commercial-readiness estimate, not a code-completio
 **Status boundary:** Software tests and simulations do not establish a built, certified, field-tested or commercially validated physical product. Real-world claims require separate, traceable validation.
 
 <!-- PUI89_DAILY_PROGRESS:END -->
+
+
+---
+
+## Security, malware and supply-chain protection
+
+Security policy: [SECURITY.md](SECURITY.md). Report suspected vulnerabilities privately; do not publish exploit details or secrets in public issues.
+
+Project-specific controls and review requirements:
+- Treat uploaded orchard images, annotations, metadata, archives and imported files as untrusted; validate file signatures, decoded content, dimensions, sizes and paths before processing.
+- Preserve image hashes and provenance; do not treat a user-entered rights status as legal verification.
+- Review Python packages, model files, datasets and GitHub Actions before adoption; check licences, maintainers, source and integrity.
+- Never commit credentials, private farm imagery, personal data or operational secrets.
+- No AI output may bypass human review or directly command a physical cutter, arm, vehicle or robot.
+- Keep CI permissions least-privilege; do not expose secrets to untrusted pull-request code.
+
+A scan or passing test is evidence only for the checks actually run; it does not prove the repository is free of malware or vulnerabilities.
