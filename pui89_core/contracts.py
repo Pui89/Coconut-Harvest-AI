@@ -45,7 +45,7 @@ def _timestamp(value: Any, field_name: str) -> None:
 
 
 def _choice(value: Any, choices: set[str], field_name: str) -> None:
-    if value not in choices:
+    if not isinstance(value, str) or value not in choices:
         raise ValueError(f"{field_name} must be one of {sorted(choices)}")
 
 
@@ -122,7 +122,12 @@ class Observation:
                 raise ValueError("uncertainty.reason must be text")
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        data = asdict(self)
+        if self.payload_ref is None:
+            data.pop("payload_ref")
+        if self.uncertainty is None:
+            data.pop("uncertainty")
+        return data
 
 
 @dataclass(frozen=True)
@@ -158,7 +163,12 @@ class WorldStateRecord:
             _string_list(self.unknown, "unknown")
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        data = asdict(self)
+        if self.known is None:
+            data.pop("known")
+        if self.unknown is None:
+            data.pop("unknown")
+        return data
 
 
 @dataclass(frozen=True)
@@ -228,4 +238,7 @@ class FailureReport:
             raise ValueError("affected_component must be text or null")
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        data = asdict(self)
+        if self.affected_component is None:
+            data.pop("affected_component")
+        return data
