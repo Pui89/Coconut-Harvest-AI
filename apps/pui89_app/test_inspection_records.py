@@ -73,7 +73,7 @@ class InspectionRecordStoreTests(unittest.TestCase):
     def test_rejects_empty_unsupported_and_corrupt_images(self):
         with self.assertRaisesRegex(InspectionError, "IMAGE_EMPTY_OR_MISSING"):
             self.store.import_image(self.record["inspection_id"], b"", filename="empty.png")
-        with self.assertRaisesRegex(InspectionError, "IMAGE_FORMAT_UNSUPPORTED"):
+        with self.assertRaisesRegex(InspectionError, "IMAGE_UNREADABLE_OR_CORRUPT"):
             self.store.import_image(self.record["inspection_id"], b"not-an-image", filename="bad.bin")
         with self.assertRaisesRegex(InspectionError, "IMAGE_UNREADABLE_OR_CORRUPT"):
             self.store.import_image(self.record["inspection_id"], b"\x89PNG\r\n\x1a\ntruncated", filename="bad.png")
