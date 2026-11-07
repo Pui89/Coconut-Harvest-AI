@@ -6,12 +6,14 @@ on:
       - "apps/pui89_app/inspection_records.py"
       - "apps/pui89_app/test_inspection_records.py"
       - "apps/pui89_app/web_demo.py"
+      - "apps/pui89_app/web_demo.py"
       - "docs/COCONUT_INSPECTION_RECORDS_V1.md"
       - ".github/workflows/coconut-inspection-records.yml"
   push:
     paths:
       - "apps/pui89_app/inspection_records.py"
       - "apps/pui89_app/test_inspection_records.py"
+      - "apps/pui89_app/web_demo.py"
       - "docs/COCONUT_INSPECTION_RECORDS_V1.md"
       - ".github/workflows/coconut-inspection-records.yml"
 
