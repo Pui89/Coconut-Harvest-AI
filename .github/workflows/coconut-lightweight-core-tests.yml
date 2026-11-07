@@ -6,7 +6,7 @@ on:
       - "pui89_core/**"
       - "pui89_autonomy/**"
       - "tools/pui89_world_state.py"
-      - "tests/test_pui89_core_contracts.py"
+      - "tests/test_pui89_core_contracts.py"\n      - "tests/test_pui89_shared_contracts.py"\n      - "tools/pui89_coconut_contract_adapter.py"
       - "tests/test_pui89_world_state.py"
       - "tests/test_world_state.py"
       - ".github/workflows/coconut-lightweight-core-tests.yml"
