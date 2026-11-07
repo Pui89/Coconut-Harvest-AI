@@ -1,5 +1,10 @@
 # Coconut Harvest AI
 
+## Open-source-first engineering
+
+PUI89 prioritises open-source software, transparent licensing, reproducible workflows and evidence-led collaboration. Model weights, datasets, hosted services and hardware are assessed separately for provenance, licence terms, security, data handling, resource requirements and intended use. Public availability alone does not establish permission for reuse or commercial deployment.
+
+
 > **PUI89 engineering standard:** [Simple, Safe and Professional](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_SIMPLE_SAFE_PROFESSIONAL_STANDARD.md) — shared guidance for usability, safety, evidence, privacy and maintainable engineering.
 
 
@@ -102,12 +107,12 @@ On 30 October, the shared observation-provenance guard was tightened to reject n
 
 ## local-first build policy and next upgrade
 
-**Default rule: use existing local tools first; do not add recurring costs.** The current workflow prioritises local execution and explicit review of external services.
+**Default rule: use existing local tools first; do not add recurring service dependencies.** The current workflow prioritises local execution and explicit review of external services.
 
 - **Gate 1 — existing checks:** run `python tools/pui89_master_verify.py`; use the existing standard-library tests and CI before installing anything. A tool inventory is not a test pass.
 - **Gate 2 — data before models:** keep all coconut candidates blocked until source/reuse terms, attribution, actual-file SHA-256, annotation geometry and independent review are recorded. Never train on draft labels.
 - **Gate 3 — small reproducible baseline:** use a tiny, licensed, reviewed subset and CPU-compatible baseline first; report the exact split, sample counts, per-class metrics and runtime. Do not download large weights or claim 0–30 m performance without measured height labels and separate robot feasibility evidence.
-- **Gate 4 — approve cost and risk:** before any optional package, model or simulator install, check licence, download size, disk/RAM/VRAM fit and whether it can run offline. Ask before any paid or recurring-cost choice.
+- **Gate 4 — approve resource and licence requirements:** before any optional package, model or simulator install, check licence, download size, disk/RAM/VRAM fit and whether it can run offline. Ask before any external service or recurring commitment.
 - **Release evidence:** save command, commit, environment, test result, dataset hash, failures and limitations. Keep physical harvesting status **not validated** until independently supported by hardware evidence.
 
 ## Engineering standards, architecture and project evidence
@@ -230,7 +235,7 @@ The staged validation gates, class definitions, dataset requirements, reproducib
 - **Phased autonomy lab:** [test and simulation guide](docs/PUI89_AUTONOMY_LAB.md); runner: `tools/pui89_autonomy_lab.py`; project scenarios: `simulation/scenarios.json`. Includes logged world-state snapshots, safe-hold/UNKNOWN mock VLA gates, reproducible JSON/CSV reports and an offline model-resource preflight. No model is downloaded or installed automatically; no hardware is controlled.
 
 - offline dataset/annotation checks (provenance, normalized boxes, duplicate hashes): `scripts/free_first_project_tools.py`; tests: `tests/test_free_first_project_tools.py`. For candidate 0032, `tools/record_coconut_source_hash.py` can verify a local file against the source page's published SHA-1 and byte size, then record SHA-256 only with explicit `--write-source-sha256`; tests: `tests/test_record_coconut_source_hash.py`. `tools/audit_coconut_annotation_provenance.py` independently checks the recorded hash and rights metadata. Neither tool approves human QA or training.
-- Dependency-free precision, recall, F1 and confusion-count metrics for later reproducible model evaluation; no accuracy claims are made until measured on a leakage-safe held-out set.
+- standard-library-only precision, recall, F1 and confusion-count metrics for later reproducible model evaluation; no accuracy claims are made until measured on a leakage-safe held-out set.
 
 - Shared world-state tracker: `pui89_autonomy/world_state.py` tracks time-stamped observations, hazards, stale data, low confidence and conflicting labels; uncertain tracks remain unknown.
 - Reproducible experiment report builder: `pui89_autonomy/experiment_report.py` summarizes supplied metrics, dataset SHA-256, code version and latency samples without inventing missing measurements.
@@ -240,7 +245,7 @@ The staged validation gates, class definitions, dataset requirements, reproducib
 
 ## Frontier AI technology and local-first upgrade plan
 
-Current gaps, recent technology directions, no-recurring-cost adoption gates, and project-specific next steps: [Frontier technology gap and local-first plan](docs/FRONTIER_TECHNOLOGY_GAP_AND_FREE_PLAN.md). No large model or simulator is installed automatically; verify licences, download size, hardware fit and costs first. Project-specific implementation priorities: [Frontier AI upgrade plan](docs/FRONTIER_AI_UPGRADE_PLAN.md).
+Current gaps, recent technology directions, open-source-first adoption gates, and project-specific next steps: [Frontier technology gap and local-first plan](docs/FRONTIER_TECHNOLOGY_GAP_AND_FREE_PLAN.md). No large model or simulator is installed automatically; verify licences, download size, hardware fit and resource requirements first. Project-specific implementation priorities: [Frontier AI upgrade plan](docs/FRONTIER_AI_UPGRADE_PLAN.md).
 
 
 ## Current verified status — 26 October 2026
@@ -310,7 +315,7 @@ The project defines three modes: **AI operation**, **limited safe operation**, a
 
 ## Decision-support agent (current scope)
 
-**Additional cost for this rule-based agent: $0.** It uses the repository's Python code and supplied inputs; it does not require a paid AI API, cloud service, or model download. Local Python/test tooling and GitHub usage remain subject to their own terms and limits.
+**This rule-based agent uses the repository's Python code and supplied inputs.** It does not call a hosted AI API or cloud service, or download model weights. Local Python/test tooling and GitHub usage remain subject to their own terms and limits.
 
 **What it does:** Checks supplied target confidence, sensor health, depth, reachability, obstacle clearance, and human approval. It does not run a detector or command a robot arm.
 
@@ -319,7 +324,7 @@ Orchard image / sensor measurements → rule-based safety checks → harvest rec
 ```
 
 - **Run guide:** [Agent guide](docs/AGENT_GUIDE.md)
-- **Important limitation:** this is a rule-based decision-support prototype, not proof of real-world performance. Hardware, optional third-party services, or future model training may have separate costs.
+- **Important limitation:** this is a rule-based decision-support prototype, not proof of real-world performance. Hardware, optional third-party services, or future model training may have separate funding requirements.
 
 
 > **Product quality standard:** [benchmark protocol and fair comparison criteria](docs/PRODUCT_BENCHMARK_STANDARD.md). This defines what we need to measure; it does not claim market-leading performance.
@@ -350,7 +355,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 - **New image-source shortlist (review only):** [five Wikimedia coconut-image candidates with source-page, attribution, licence, and annotation-review requirements](docs/COCONUT_IMAGE_SOURCE_SHORTLIST_2026-10-22.md). None is automatically approved for training.
 
 - **What works now:** [run the local planning prototype](#run-the-local-prototype), inspect the synthetic workflow, and review the annotation/evaluation tools.
-- **What the evidence says:** [read the measured baseline](#current-evaluation-evidence), including the two-image HSV smoke test and its zero precision/recall result at IoU ≥ 0.50.
+- **What the evidence says:** [read the measured baseline](#current-evaluation-evidence), including the two-image HSV smoke test, where precision and recall were both 0 at IoU ≥ 0.50.
 - **What comes next:** [follow the real-image benchmark checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md) to establish image rights, review labels, run an existing compatible detector, and record reproducible results.
 - **What is not yet proven:** a reliable trained coconut detector, generalisation across orchards, maturity classification, calibrated 3D targeting, or a physical robot harvesting coconuts.
 
@@ -392,7 +397,7 @@ Define one orchard workflow and measurable acceptance criteria; confirm permissi
 - [PUI89 project website](https://pui89.github.io/)
 - [PUI89 support and sponsorship brief](https://github.com/Pui89/Pui89.github.io/blob/main/SUPPORT_AND_SPONSORSHIP.md)
 
-Please describe the agricultural problem, the relevant operating context, the contribution or support available, and the milestone you would like to explore. No funding, customer relationship, deployment or performance outcome is implied by an enquiry. Any data access, costs, intellectual property, responsibilities and pilot scope must be agreed in writing before work begins.
+Please describe the agricultural problem, the relevant operating context, the contribution or support available, and the milestone you would like to explore. No funding, customer relationship, deployment or performance outcome is implied by an enquiry. Any data access, funding and resource requirements, intellectual property, responsibilities and pilot scope must be agreed in writing before work begins.
 ## Latest engineering update — 21 October 2026
 
 - **Benchmark tooling:** the adaptive CPU microbenchmark with no additional package dependencies is available at [`tools/adaptive_compute_benchmark.py`](tools/adaptive_compute_benchmark.py), with regression tests in [`tests/test_adaptive_compute_benchmark.py`](tests/test_adaptive_compute_benchmark.py). It compares synthetic integer-reduction implementations; it is **not** an AI inference, energy-use, or robot-performance benchmark.
@@ -451,7 +456,7 @@ These source-linked photographs help explain the orchard setting and fruit visib
 
 **Research evaluation:** [reproducible research evidence checklist](docs/RESEARCH_EVIDENCE_CHECKLIST.md) for dataset controls, held-out metrics, run records, and the boundary between AI benchmarks and physical-robot claims.
 
-**Immediate research next steps:** [focused evidence sprint](docs/RESEARCH_EVIDENCE_SPRINT.md) with the first real-image evaluation sequence, exact local commands, reproducibility requirements, and cost-control and safety boundaries.
+**Immediate research next steps:** [focused evidence sprint](docs/RESEARCH_EVIDENCE_SPRINT.md) with the first real-image evaluation sequence, exact local commands, reproducibility requirements, and resource, licence and safety boundaries.
 
 **Limited-compute option:** [lightweight laptop-friendly workflow](docs/LIGHTWEIGHT_LAPTOP_WORKFLOW.md) prioritising CPU tests and data-quality checks before any large model download.
 
@@ -679,7 +684,7 @@ See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). The optional s
 - [End-to-end simulation guide](docs/END_TO_END_SIMULATION.md)
 - [Robot workflow guide](docs/END_TO_END_ROBOT_WORKFLOW.md)
 - [Planning agent guide](agents/README.md)
-- [Cost safety and billing policy](docs/COST_SAFETY_AND_BILLING.md)
+- [Resource, service and billing policy](docs/COST_SAFETY_AND_BILLING.md)
 - [CI and test runs](https://github.com/Pui89/Coconut-Harvest-AI/actions)
 
 ## Collaboration
@@ -749,7 +754,7 @@ The supervisor evaluates supplied status values and recommends an advisory mode:
 
 ## local-first AI engineering stack
 
-This project adopts a small, cost-controlled toolchain rather than adding multiple overlapping AI platforms.
+This project adopts a small, resource-conscious toolchain rather than adding multiple overlapping AI platforms.
 
 - **Computer vision:** OpenCV and PyTorch for local image processing and model experiments when the dataset is approved and hardware preflight passes.
 - **Automation:** Python scripts and GitHub Actions for repeatable checks, annotation/data audits, and test summaries; Actions usage remains subject to GitHub quotas.
@@ -812,11 +817,11 @@ Run `python tools/free_first_audit.py` from the repository root to create a loca
 
 See [local-first Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT.md) for resource-adoption checks, recommended local-first workflows, project-specific validation rules, and evidence standards. The guide does not require paid APIs, subscriptions, cloud GPUs, or automatic model downloads.
 
-See [Marketing, SEO and Sales Playbook](docs/MARKETING_SEO_SALES_PLAYBOOK.md) for a local-first product page, evidence-led messaging, customer discovery, search visibility, and outreach guidance. No marketing subscription or ad spend is required.
+See [Marketing, SEO and Sales Playbook](docs/MARKETING_SEO_SALES_PLAYBOOK.md) for a local-first product page, evidence-led messaging, customer discovery, search visibility, and outreach guidance. Prioritise evidence-led organic outreach, partner channels and clear project documentation.
 
-See [local-first Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for curated tools, local model options, testing/security helpers, SEO resources, cost cautions, and project-specific evidence boundaries.
+See [local-first Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for curated tools, local model options, testing/security helpers, SEO resources, resource cautions, and project-specific evidence boundaries.
 
-**Recommended technology stack:** [PUI89 local-first Technology Stack](docs/PUI89_FREE_FIRST_TECH_STACK.md) — stable, local-first tools; dependencies and costs reviewed before adoption.
+**Recommended technology stack:** [PUI89 local-first Technology Stack](docs/PUI89_FREE_FIRST_TECH_STACK.md) — stable, local-first tools; dependencies and resource requirements reviewed before adoption.
 
 ## Engineering maturity level — 27 October 2026
 
@@ -842,12 +847,12 @@ See [local-first Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for 
 
 ## local-first engineering resources
 
-See the [PUI89 local-first Engineering Resource Roadmap](docs/PUI89_FREE_RESOURCE_ROADMAP.md) for approved-first tools, adoption gates, licence/cost checks and project-specific next steps. The default is to reuse existing Python and GitHub automation; optional packages and model weights are not installed or downloaded automatically.
+See the [PUI89 local-first Engineering Resource Roadmap](docs/PUI89_FREE_RESOURCE_ROADMAP.md) for approved-first tools, adoption gates, licence and resource checks and project-specific next steps. The default is to reuse existing Python and GitHub automation; optional packages and model weights are not installed or downloaded automatically.
 
 
-## Quality, tolerance and cost gates
+## quality, tolerance, resource and performance gates
 
-See [Quality, Tolerance, Performance, Safety and Cost Gates](docs/QUALITY_TOLERANCE_PERFORMANCE_COST_GATES.md) for measurable acceptance criteria, fault-injection scenarios, human/animal safety requirements and local-first engineering constraints. This is a proposed test plan, not a claim of validated performance or certification.
+See [quality, tolerance, performance and safety gates](docs/QUALITY_TOLERANCE_PERFORMANCE_COST_GATES.md) for measurable acceptance criteria, fault-injection scenarios, human/animal safety requirements and local-first engineering constraints. This is a proposed test plan, not a claim of validated performance or certification.
 
 ## Shared PUI89 AI Safety Contract
 
@@ -880,7 +885,7 @@ The [Coconut Simulation Evaluation run](https://github.com/Pui89/Coconut-Harvest
 
 ## Latest automated verification (29 October 2026)
 
-The [lightweight verification run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888) completed successfully. Its report recorded Python 3.11.17, zero Python compile errors, a passing dependency-free observability smoke check, and zero reported failures. [Verification report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888/artifacts/12901395117).
+The [lightweight verification run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888) completed successfully. Its report recorded Python 3.11.17, no Python compile errors, a passing standard-library-only observability smoke check, and no reported failures. [Verification report artifact](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881602888/artifacts/12901395117).
 
 This lightweight job explicitly does **not** run the full dependency-backed unit-test suite. Separately, the selected PUI89 combined run passed 13 shared-core tests, 5 evaluator tests and 4 dataset-preflight tests for this project; the evaluator/preflight tests do not establish detector accuracy or validate the actual dataset. The separate [simulation-only run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/40881372992) passed 7/7 configured scenarios and 9/9 steps with hardware actuation disabled. Physical harvesting, detector accuracy and 0–30 m reach remain unvalidated.
 
@@ -920,7 +925,7 @@ The vendored shared modules are snapshots of the central PUI89 implementation an
 
 ## Real Hugging Face model integration — offline OWL-ViT
 
-This repository now contains an executable inference adapter for the real Hugging Face checkpoint **[google/owlvit-base-patch32](https://huggingface.co/google/owlvit-base-patch32)**. It runs zero-shot, text-conditioned object detection against a local image and writes a JSON evidence report with image SHA-256, model ID/revision, candidate labels, scores and bounding boxes.
+This repository now contains an executable inference adapter for the real Hugging Face checkpoint **[google/owlvit-base-patch32](https://huggingface.co/google/owlvit-base-patch32)**. It runs text-conditioned object detection without task-specific training against a local image and writes a JSON evidence report with image SHA-256, model ID/revision, candidate labels, scores and bounding boxes.
 
 **Run after manually preparing a compatible local environment and caching the checkpoint:**
 
@@ -931,7 +936,7 @@ python tools/huggingface_local_vision_demo.py path/to/local-image.jpg --json-out
 - Default device is CPU; CUDA is opt-in with `--device cuda`.
 - Both model and processor use `local_files_only=True`; safetensors are required. The model revision is pinned to `cbc355fb364588351c5d51c7f74465e8e7ec6f72`. The safetensors weights are approximately 613 MB; check disk/RAM before any manual download. The script does not download weights, install packages, call hosted inference, or upload images.
 - Candidate labels are configured for this project's domain and can be overridden with repeated `--label` arguments.
-- The model card declares Apache-2.0 and describes OWL-ViT as zero-shot text-conditioned object detection. Review the exact checkpoint files, upstream licence and data disclosures before commercial release.
+- The model card declares Apache-2.0 and describes OWL-ViT as a text-conditioned object detector that can propose labels without task-specific detector training. Review the exact checkpoint files, upstream licence and data disclosures before commercial release.
 - **Status:** executable integration code added; model inference has not been run because weights and optional dependencies were not downloaded or installed. No accuracy, safety or field-performance claim is made.
 - Output is an uncertain observation for human review only. It cannot authorize robot/vehicle actuation or consequential decisions.
 
@@ -1000,4 +1005,4 @@ Project-specific controls and review requirements:
 - No AI output may bypass human review or directly command a physical cutter, arm, vehicle or robot.
 - Keep CI permissions least-privilege; do not expose secrets to untrusted pull-request code.
 
-A scan or passing test is evidence only for the checks actually run; it does not prove the repository is free of malware or vulnerabilities.
+A scan or passing test is evidence only for the checks actually run; it does not establish whether the repository contains malware or vulnerabilities.
