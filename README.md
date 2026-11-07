@@ -4,6 +4,24 @@
 
 <table><tr><td align="center"><strong>English website</strong><br><a href="https://pui89.github.io/coconut.html"><img src="https://pui89.github.io/qr/coconut-en.png" width="160" alt="Coconut Harvest AI English website QR code"></a><br><a href="https://pui89.github.io/coconut.html">Open English website</a></td><td align="center"><strong>เว็บไซต์ภาษาไทย</strong><br><a href="https://pui89.github.io/coconut-th.html"><img src="https://pui89.github.io/qr/coconut-th.png" width="160" alt="QR Code เว็บไซต์ภาษาไทย Coconut Harvest AI"></a><br><a href="https://pui89.github.io/coconut-th.html">เปิดเว็บไซต์ภาษาไทย</a></td></tr></table>
 
+## PUI89 product maturity snapshot — 7 November 2026
+
+**Strategic direction: From AI Projects to AI Products.**  
+**Current maturity: Grade 2 — Engineering Foundation.** This project has tested software and evidence tooling, but it has not yet reached validated research performance or product-ready hardware.
+
+| Area | Verified position |
+|---|---|
+| Software foundation | Shared-core checks, dataset preflight and evaluation tools are present; the 1 November evidence-benchmark workflow reported 6 standard-library tests passing. |
+| Synthetic evaluation | Earlier recorded rule-based evaluation completed 7/7 scenarios and 9/9 steps; this is scenario/software evidence only. |
+| Dataset and model | Real-image rights, provenance, annotation quality and held-out detector performance are not yet fully established. No validated detector accuracy is claimed. |
+| Physical product | Four maturity categories, selective harvesting, arm/cutter/basket and 0–30 m reach remain design/research targets. No working harvesting robot or field-harvest capability is demonstrated. |
+
+**Next product gate:** complete image-by-image source/licence and attribution review, real-file hash and annotation QA, leakage-safe dataset splits, then evaluate a defined detector on an independently held-out labelled set. Publish per-class precision/recall/F1, sample counts, thresholds, failure cases and runtime before advancing to hardware feasibility.
+
+**Product discipline:** keep the training gate closed until data evidence is complete; distinguish software tests, model measurements, simulation and physical validation. No paid API, cloud GPU, automatic model download or physical robot actuation is part of this update.
+
+
+
 ## Project website
 
 - **English:** https://pui89.github.io/coconut.html
