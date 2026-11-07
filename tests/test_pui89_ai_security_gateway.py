@@ -1,4 +1,8 @@
+import sys
 import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
 from pui89_ai_security_gateway import (
     inspect_exchange, inspect_text, inspect_tool_call,
