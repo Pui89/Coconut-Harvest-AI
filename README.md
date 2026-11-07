@@ -1,5 +1,9 @@
 # Coconut Harvest AI
 
+## Project website QR codes
+
+<table><tr><td align="center"><strong>English website</strong><br><a href="https://pui89.github.io/coconut.html"><img src="https://pui89.github.io/qr/coconut-en.png" width="160" alt="Coconut Harvest AI English website QR code"></a><br><a href="https://pui89.github.io/coconut.html">Open English website</a></td><td align="center"><strong>เว็บไซต์ภาษาไทย</strong><br><a href="https://pui89.github.io/coconut-th.html"><img src="https://pui89.github.io/qr/coconut-th.png" width="160" alt="QR Code เว็บไซต์ภาษาไทย Coconut Harvest AI"></a><br><a href="https://pui89.github.io/coconut-th.html">เปิดเว็บไซต์ภาษาไทย</a></td></tr></table>
+
 ## Project website
 
 - **English:** https://pui89.github.io/coconut.html
