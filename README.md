@@ -1,5 +1,31 @@
 # Coconut Harvest AI
 
+## Commercial readiness progress
+
+**50% — evidence-based commercial-readiness estimate**  
+**Target: 100% = ready for an appropriately scoped commercial release or formal commercial procurement submission.** This is not a code-completion percentage, a sales forecast, or a claim of product certification. Scores are provisional and based on the evidence currently documented in this repository; they must be revised when new evidence is verified.
+
+The repository documents a software/evaluation-preparation prototype: shared-core and benchmark tests, dataset audit and synthetic scenario results. A trained detector with held-out real-data accuracy is not established; the 0–30 m dataset and physical harvesting system remain unvalidated.
+
+| Readiness gate | Weight | Evidence credit |
+|---|---:|---:|
+| Product purpose & requirements | 10 | 10 |
+| Architecture & engineering design | 10 | 9 |
+| Working software baseline | 15 | 11 |
+| Reproducible tests & evaluation | 15 | 13 |
+| Integrated product prototype | 15 | 0 |
+| Safety, reliability & real-world validation | 15 | 2 |
+| Licensing, IP & regulatory readiness | 10 | 3 |
+| Commercial release package & support | 10 | 2 |
+| **Total** | **100** | **50** |
+
+**What 100% requires:** a defined product and acceptance criteria; integrated release candidate; reproducible performance and reliability evidence; appropriate safety and real-world validation; verified rights/licences and applicable regulatory conformity; manufacturing/deployment, pricing, warranty, maintenance, user documentation and support arrangements. A score of 100% is awarded only after all applicable release gates are evidenced and reviewed. Partner or research discussions may happen earlier, but must be labelled as development-stage collaboration—not a ready-to-sell product.
+
+**Next commercial-readiness gate:** close the missing evidence above, beginning with project-specific working-product validation and safety evidence. Never count a planned feature, concept image, tool inventory, synthetic-only result or unrun test as a completed gate.
+
+_Last readiness review: 7 November 2026. This estimate can rise or fall as evidence changes._
+
+
 ## Project website QR codes
 
 <table><tr><td align="center"><strong>English website</strong><br><a href="https://pui89.github.io/coconut.html"><img src="https://pui89.github.io/qr/coconut-en.png" width="160" alt="Coconut Harvest AI English website QR code"></a><br><a href="https://pui89.github.io/coconut.html">Open English website</a></td><td align="center"><strong>เว็บไซต์ภาษาไทย</strong><br><a href="https://pui89.github.io/coconut-th.html"><img src="https://pui89.github.io/qr/coconut-th.png" width="160" alt="QR Code เว็บไซต์ภาษาไทย Coconut Harvest AI"></a><br><a href="https://pui89.github.io/coconut-th.html">เปิดเว็บไซต์ภาษาไทย</a></td></tr></table>
