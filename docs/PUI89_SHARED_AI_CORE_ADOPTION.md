@@ -26,7 +26,7 @@
 Run the existing lightweight core workflow, or locally run:
 
 ```bash
-python -m unittest tests.test_pui89_shared_contracts -v
+python -m unittest discover -s tests -p "test_pui89_shared_contracts.py" -v
 ```
 
 No new runtime dependency, model download, paid API, cloud GPU or hardware command is introduced.
