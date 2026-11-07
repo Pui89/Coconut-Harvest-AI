@@ -963,3 +963,30 @@ This project follows the shared [PUI89 Efficient Engineering Standard](https://g
 **Project focus:** Measure image-pipeline RAM, CPU, startup and inference latency; track model/application footprint; later measure energy per inspection task on real hardware. Preserve detector accuracy, four-class maturity evaluation, dataset provenance and leakage-safe splits.
 
 Track relevant RAM, CPU/GPU, latency, storage and network measurements using documented workloads and comparable environments. Record power (W/Wh), battery runtime and temperature only when suitable physical instruments and hardware are available. External services, datasets and model downloads require explicit review before adoption. Efficiency changes must preserve accuracy, safety, evidence integrity, privacy and security. Unmeasured physical performance must be labelled **not measured**.
+
+<!-- PUI89_DAILY_PROGRESS:START -->
+## Daily project progress
+
+**🟡 50% — Developing evidence stage**  
+**Evidence score:** 50/100 · **Review date:** 7 November 2026 (Asia/Bangkok)  
+**Progress graph:** 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 50%
+
+This is an evidence-weighted commercial-readiness estimate, not a code-completion percentage, sales forecast, certification, or measured real-world performance. Scores change only when repository evidence is reviewed and the evidence credits below are updated. The daily run refreshes the review date; it never increases the score merely because time has passed.
+
+| Readiness gate | Evidence credit | Visual score |
+|---|---:|---|
+| Purpose & requirements | 10/10 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 |
+| Architecture & engineering | 9/10 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ |
+| Working software baseline | 11/15 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ |
+| Reproducible tests & evaluation | 13/15 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ |
+| Integrated product prototype | 0/15 | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
+| Safety & real-world validation | 2/15 | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
+| Licensing & regulatory readiness | 3/10 | 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ |
+| Release package & support | 2/10 | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ |
+| **Total** | **50/100** | **🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜** |
+
+**Next milestone:** Improve the lowest-scoring applicable gate with reproducible project-specific evidence. Planned work, concept artwork, unrun tests, synthetic-only results and tool inventories do not earn evidence credit.
+
+**Status boundary:** Software tests and simulations do not establish a built, certified, field-tested or commercially validated physical product. Real-world claims require separate, traceable validation.
+
+<!-- PUI89_DAILY_PROGRESS:END -->

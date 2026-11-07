@@ -1,0 +1,35 @@
+name: Daily evidence-led project progress
+
+on:
+  schedule:
+    - cron: "40 16 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: daily-project-progress
+  cancel-in-progress: false
+
+jobs:
+  refresh-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Refresh progress date and graph
+        run: python tools/update_project_progress.py
+      - name: Open or update protected-branch review
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/daily-project-progress
+          delete-branch: true
+          title: "chore: refresh daily project progress date"
+          commit-message: "chore: refresh daily project progress date"
+          body: |
+            Automated daily refresh of the evidence-led README progress panel.
+            Scores are calculated from the reviewed evidence credits in docs/project-progress.json.
+            The scheduled job updates the review date and graph only; it does not inflate scores.

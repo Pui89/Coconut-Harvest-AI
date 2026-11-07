@@ -1,0 +1,35 @@
+{
+  "project": "Coconut Harvest AI",
+  "score_basis": "weighted_evidence_credits",
+  "review_timezone": "Asia/Bangkok",
+  "evidence_credit": [
+    10,
+    9,
+    11,
+    13,
+    0,
+    2,
+    3,
+    2
+  ],
+  "gate_weights": [
+    10,
+    10,
+    15,
+    15,
+    15,
+    15,
+    10,
+    10
+  ],
+  "gate_names": [
+    "Purpose & requirements",
+    "Architecture & engineering",
+    "Working software baseline",
+    "Reproducible tests & evaluation",
+    "Integrated product prototype",
+    "Safety & real-world validation",
+    "Licensing & regulatory readiness",
+    "Release package & support"
+  ]
+}
