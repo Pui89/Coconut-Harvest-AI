@@ -1,0 +1,83 @@
+schema_version: 1
+project: "Coconut Harvest AI"
+policy:
+  zero_cost_only: true
+  non_chinese_source_preference: true
+  automatic_downloads: false
+  hosted_inference: false
+  cloud_gpu: false
+  commit_model_weights: false
+  trust_remote_code: false
+  unrestricted_agent_execution: false
+  physical_actuation: false
+  human_review_required_for_safety_critical_decisions: true
+
+status_legend:
+  candidate: "Research candidate only; not installed or approved"
+  deferred: "Not for initial implementation"
+  approved: "May be used only after all adoption gates are documented"
+
+components:
+  - id: smolagents
+    kind: agent_framework
+    publisher: Hugging Face
+    source: https://github.com/huggingface/smolagents
+    status: candidate
+    purpose: "Optional structured agent orchestration with allowlisted tools"
+    automatic_install: false
+    licence_review: required
+    security_review: required
+
+  - id: florence-2-base
+    kind: vision_language_model
+    publisher: Microsoft
+    source: https://huggingface.co/microsoft/Florence-2-base
+    status: candidate
+    purpose: "Evaluate supported visual understanding tasks"
+    automatic_download: false
+    revision_pin: required
+    model_card_review: required
+    licence_review: required
+    code_review: required
+    hardware_fit_review: required
+    benchmark_required: true
+
+  - id: owlv2-base-patch16
+    kind: object_detection_model
+    publisher: Google
+    source: https://huggingface.co/google/owlv2-base-patch16
+    status: candidate
+    purpose: "Compare text-conditioned object detection on labelled project data"
+    automatic_download: false
+    revision_pin: required
+    model_card_review: required
+    licence_review: required
+    code_review: required
+    hardware_fit_review: required
+    benchmark_required: true
+
+  - id: smolvla-base
+    kind: vision_language_action_model
+    publisher: Hugging Face LeRobot
+    source: https://huggingface.co/lerobot/smolvla_base
+    status: deferred
+    purpose: "Simulation-only VLA research; no physical robot control"
+    automatic_download: false
+    revision_pin: required
+    model_card_review: required
+    licence_review: required
+    simulator_safety_review: required
+    benchmark_required: true
+
+  - id: phi-4-mini-instruct
+    kind: language_model
+    publisher: Microsoft
+    source: https://huggingface.co/microsoft/Phi-4-mini-instruct
+    status: deferred
+    purpose: "Optional local reasoning evaluation after hardware fit assessment"
+    automatic_download: false
+    revision_pin: required
+    model_card_review: required
+    licence_review: required
+    hardware_fit_review: required
+    benchmark_required: true
