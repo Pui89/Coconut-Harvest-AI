@@ -276,6 +276,26 @@ class InspectionRecordStore:
         self._save(record)
         return item
 
+    def read_image(self, inspection_id: str, image_sha256: str) -> bytes:
+        """Read one stored image after checking its recorded digest."""
+        if not isinstance(image_sha256, str) or not _SHA_PATTERN.fullmatch(image_sha256):
+            raise InspectionError("IMAGE_SHA256_INVALID")
+        record = self._read(inspection_id)
+        item = next((entry for entry in record["images"] if entry["sha256"] == image_sha256), None)
+        if item is None:
+            raise InspectionError("IMAGE_NOT_FOUND")
+        inspection_dir = self._record_path(inspection_id).parent.resolve()
+        image_path = (inspection_dir / item["stored_path"]).resolve()
+        if inspection_dir not in image_path.parents or not image_path.is_file():
+            raise InspectionError("STORED_IMAGE_MISSING_OR_PATH_INVALID")
+        try:
+            payload = image_path.read_bytes()
+        except OSError as exc:
+            raise InspectionError("STORED_IMAGE_UNREADABLE") from exc
+        if hashlib.sha256(payload).hexdigest() != image_sha256:
+            raise InspectionError("STORED_IMAGE_HASH_MISMATCH")
+        return payload
+
     def add_annotation(
         self,
         inspection_id: str,
