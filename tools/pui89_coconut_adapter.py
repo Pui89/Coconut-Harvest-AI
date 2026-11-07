@@ -45,6 +45,7 @@ def build_coconut_message(*, observation_id, source_ref, timestamp,
             "evidence_ids": [observation_id],
         }],
         "confidence": confidence,
+        "confidence_interpretation": "uncalibrated",
         "uncertainty": uncertainty or ["caller-supplied label; not independently verified"],
         "limitations": limitations or [
             "Adapter does not run or validate an AI detector.",
