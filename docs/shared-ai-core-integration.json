@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Evidence register for PUI89 Shared AI Core integration. No item counts as integrated until its implementation and tests are linked.",
+  "items": [
+    {"id": "observation-contract", "name": "Machine-readable Observation contract", "status": "not_verified", "evidence_ref": null},
+    {"id": "world-state-contract", "name": "Machine-readable WorldState contract", "status": "not_verified", "evidence_ref": null},
+    {"id": "action-proposal-contract", "name": "Machine-readable ActionProposal contract", "status": "not_verified", "evidence_ref": null},
+    {"id": "failure-report-contract", "name": "Machine-readable FailureReport contract", "status": "not_verified", "evidence_ref": null},
+    {"id": "uncertainty-abstention", "name": "Uncertainty propagation and abstention tests", "status": "not_verified", "evidence_ref": null},
+    {"id": "provenance-safety", "name": "Evidence provenance and safety-gate integration", "status": "not_verified", "evidence_ref": null}
+  ],
+  "verification_rule": "Set status to verified only after implementation, reproducible test evidence and a repository-relative evidence_ref are reviewed. Do not award credit for plans or documentation alone."
+}
