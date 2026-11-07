@@ -491,9 +491,9 @@ try:
             selected_image = next(
                 item for item in active_record["images"] if item["sha256"] == selected_image_hash
             )
-            image_file = inspection_store._record_path(selected_inspection_id).parent / selected_image["stored_path"]
+            image_bytes = inspection_store.read_image(selected_inspection_id, selected_image_hash)
             st.image(
-                image_file.read_bytes(),
+                image_bytes,
                 caption=f"Preserved source image · SHA-256 {selected_image_hash}",
                 use_container_width=True,
             )
