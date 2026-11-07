@@ -1,5 +1,24 @@
 # Coconut Harvest AI
 
+
+## PUI89 — Intelligent Systems. Verifiable Decisions. Safer Outcomes.
+
+PUI89 develops intelligent software and next-generation robotic systems for practical challenges across agriculture, emergency response, multimodal inspection, home environments and mobility. Our engineering approach integrates perception, contextual reasoning, decision intelligence, safety engineering and evidence-led validation.
+
+### Engineering capabilities
+
+- **Perception and sensing:** visual, spatial and multimodal information processing.
+- **Context and reasoning:** world-state representation, uncertainty handling and evidence alignment.
+- **Decision intelligence:** structured recommendations, action proposals and human approval boundaries.
+- **Safety engineering:** risk-aware operating limits, safe-state logic and failure reporting.
+- **Verification and assurance:** reproducible tests, benchmark records, provenance and traceable engineering evidence.
+
+### Technology governance
+
+PUI89 selects and integrates technologies according to capability, provenance, security, licence obligations, maintainability, interoperability and operational suitability. Product claims are grounded in documented implementation and validation rather than a list of underlying components. Required third-party notices and attributions remain in the appropriate technical and legal records.
+
+**Development principle:** distinguish implemented capabilities, tested software behaviour, simulation results, proposed designs and independently validated real-world performance. A concept or passing software test is not represented as a commercially validated physical product.
+
 ## Commercial readiness progress
 
 **50% — evidence-based commercial-readiness estimate**  
@@ -209,7 +228,7 @@ The staged validation gates, class definitions, dataset requirements, reproducib
 
 ## local-first offline engineering tools
 
-- **Robotics stack selection:** [open-source systems, licence notes and adoption gates](docs/FREE_ROBOTICS_STACK_ADOPTION.md). These are recommendations only; no robotics packages or model weights are installed or downloaded by this PR.
+- **Robotics stack selection:** [selected systems, licence notes and adoption gates](docs/FREE_ROBOTICS_STACK_ADOPTION.md). These are recommendations only; no robotics packages or model weights are installed or downloaded by this PR.
 - **local agentic AI:** [optional agents, local runtimes, licence notes and safety gates](docs/LOCAL_AGENTIC_AI.md); discover what's already installed with `python tools/check_optional_resources.py`. No models or packages are downloaded automatically.
 - **Model-optional agentic workflow:** `agents/agentic_workflow.py` sequences input validation, the existing decision agent, a policy gate and an evidence-hash report; it requires human review and never runs actions.
 - **Run the local agentic workflow:** `python -m tools.run_agentic_workflow --input examples/agentic_workflow.synthetic.json` — standard-library only; synthetic inputs, review output, no model download or actuator control.
@@ -329,7 +348,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 ## Start here — reviewer quick guide
 
 - **Research case study:** [read the concise problem, current implementation, evidence limits, and proposed evaluation plan](docs/RESEARCH_CASE_STUDY.md).
-- **open-source model strategy:** [review license-first model selection and the reproducible coconut benchmark plan](docs/LICENSE_FIRST_MODEL_STRATEGY.md), including the hosted RT-DETR smoke test and license caveats.
+- **selected model strategy:** [review license-first model selection and the reproducible coconut benchmark plan](docs/LICENSE_FIRST_MODEL_STRATEGY.md), including the hosted RT-DETR smoke test and license caveats.
 - **Dataset readiness:** [see the current review-gate snapshot](docs/COCONUT_DATASET_READINESS.md): 34 candidate records reviewed, none approved for training yet, with an explicit annotation next step.
 - **One-command local preflight:** [read-only dataset preflight tool](tools/run_coconut_dataset_preflight.py) combines geometry checks and the rights/review promotion gate; source-byte checking is optional and never auto-approves training.
 - **Windows shortcut:** run `.\scripts\run_coconut_preflight.ps1` from the repository root to generate `reports/coconut-preflight-report.json`; optional `-Image0032 "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg"` adds the read-only source-byte check. No packages/models are installed or downloaded, and no approval fields are changed.
@@ -425,7 +444,7 @@ These source-linked photographs help explain the orchard setting and fruit visib
 | Available software | Rule-based planning agent, synthetic workflow demo, and manual image-review tools |
 | Physical robot | Proposed concept; complete robot harvesting is not demonstrated |
 | Real-image AI performance | Initial two-image baseline scored 0 precision and 0 recall at IoU ≥ 0.50; more data and reviewed labels are needed |
-| Development approach | Local-first, using open-source tools where practical |
+| Development approach | Local-first, using selected tools where practical |
 | Immediate focus | Rights-cleared data, annotation quality, reproducible evaluation, and simulation |
 
 **Explore:** [Run the prototype](#run-the-local-prototype) · [Current evaluation evidence](#current-evaluation-evidence) · [Development roadmap](#development-roadmap) · [Safety and limitations](#safety-and-limitations)
@@ -481,7 +500,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 - **Real-image review workflow:** prepares a local manual-review sample and annotation sheet; it is not automatic detection.
 - **Annotation overlay review tool:** a local OpenCV script renders existing boxes over original images for human QA; it does not certify annotations or detect fruit.
 - **Robot concept and architecture:** outlines possible perception, target review, planning, and future hardware integration.
-- **Resource-conscious development:** prioritizes local tools and open-source workflows.
+- **Resource-conscious development:** prioritizes local tools and selected workflows.
 
 ## How the system is intended to work
 
@@ -671,7 +690,7 @@ See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). The optional s
 
 ## Collaboration
 
-Feedback and collaboration are welcome from coconut growers, agricultural cooperatives, agricultural machinery developers, robotics engineers, and open-source contributors. Useful contributions include rights-cleared orchard imagery, annotation review, reproducible benchmarks, simulation testing, and safety-focused engineering review.
+Feedback and collaboration are welcome from coconut growers, agricultural cooperatives, agricultural machinery developers, robotics engineers, and selected contributors. Useful contributions include rights-cleared orchard imagery, annotation review, reproducible benchmarks, simulation testing, and safety-focused engineering review.
 
 ## Licence and third-party assets
 
@@ -793,7 +812,7 @@ Run `python tools/free_first_audit.py` from the repository root to create a loca
 
 - Prioritise image-source permissions, SHA-256 identity, annotation geometry, independent review and source/tree/session-aware split checks before training.
 - The report inventories data files and hashes manageable files, flags Python syntax errors, and notes candidate dataset documentation. It does **not** verify licences, annotations, model accuracy, physical safety, or real-world performance; a human must review those items.
-- Suggested open-source technology is already documented in this repository's adoption plan. Evaluate ROS 2/Gazebo or MoveIt only when the project needs simulation or manipulation integration; these tools are not installed by this audit.
+- Suggested selected technology is already documented in this repository's adoption plan. Evaluate ROS 2/Gazebo or MoveIt only when the project needs simulation or manipulation integration; these tools are not installed by this audit.
 
 ## local-first startup toolkit
 
