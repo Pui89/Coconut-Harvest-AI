@@ -1,5 +1,24 @@
 # Coconut Harvest AI
 
+
+## PUI89 — Intelligent Systems. Verifiable Decisions. Safer Outcomes.
+
+PUI89 develops intelligent software and next-generation robotic systems for practical challenges across agriculture, emergency response, multimodal inspection, home environments and mobility. Our engineering approach brings together perception, contextual reasoning, decision support, safety controls and evidence-led evaluation in a coherent system architecture.
+
+### Engineering capabilities
+
+- **Perception and sensing:** visual, spatial and multimodal information processing.
+- **Context and reasoning:** world-state representation, uncertainty handling and evidence alignment.
+- **Decision intelligence:** structured recommendations, action proposals and human approval boundaries.
+- **Safety engineering:** risk-aware operating limits, safe-state logic and failure reporting.
+- **Verification and assurance:** reproducible tests, benchmark records, provenance and traceable engineering evidence.
+
+### Technology governance
+
+PUI89 selects and integrates technologies according to capability, provenance, security, licence obligations, maintainability, interoperability and operational suitability. Product claims are based on documented implementation and validation—not on a list of underlying components. Required third-party notices and attributions are retained in the appropriate technical and legal records.
+
+**Development principle:** distinguish implemented capabilities, tested software behaviour, simulation results, proposed designs and independently validated real-world performance. A concept or passing software test is not represented as a commercially validated physical product.
+
 ## Commercial readiness progress
 
 **50% — evidence-based commercial-readiness estimate**  
@@ -39,11 +58,9 @@ _Last readiness review: 7 November 2026. This estimate can rise or fall as evide
 
 
 
-> **Free-source / cost guard:** [PUI89 zero-cost upgrade policy](docs/PUI89_ZERO_COST_UPGRADE_POLICY.md) — no paid API, cloud GPU, scheduled jobs, or automatic model downloads by default.
-
 ## One-command local verification
 
-Run `python tools/pui89_master_verify.py` for a free, standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
+Run `python tools/pui89_master_verify.py` for a standard-library-only Python syntax scan and inventory of this project's key verification tools. Add `--report verification-report.json` to save a JSON report. Use `--pytest` only when you want to run the full installed test suite; it installs nothing. The helper does not download models, call hosted APIs, change datasets, or control hardware. Tool presence is not proof that a gate passed, and software checks do not establish real-world performance.
 
 
 ## Latest engineering update — 1 November 2026
@@ -88,15 +105,11 @@ On 30 October, the shared observation-provenance guard was tightened to reject n
 - **Cross-project report:** [PUI89 Cross-Project Verification Snapshot](https://github.com/Pui89/Pui89.github.io/blob/main/PUI89_CROSS_PROJECT_VERIFICATION.md).
 - **Latest automated checks:** [GitHub Actions](https://github.com/Pui89/Coconut-Harvest-AI/actions).
 
-## Free-first build policy and next upgrade
+## Technology governance and next engineering gates
 
-**Default rule: use existing local tools first; do not add recurring costs.** No paid API, cloud GPU, hosted inference, or automatic model/data download is required for the current workflow.
+Technology additions are reviewed for provenance, security, licence obligations, compatibility, resource requirements and operational risk before adoption. Existing verification workflows are preferred where suitable; optional hosted services, model downloads or recurring commitments require explicit review and approval. Product claims remain tied to recorded implementation and validation evidence.
 
-- **Gate 1 — free checks:** run `python tools/pui89_master_verify.py`; use the existing standard-library tests and CI before installing anything. A tool inventory is not a test pass.
-- **Gate 2 — data before models:** keep all coconut candidates blocked until source/reuse terms, attribution, actual-file SHA-256, annotation geometry and independent review are recorded. Never train on draft labels.
-- **Gate 3 — small reproducible baseline:** use a tiny, licensed, reviewed subset and CPU-compatible baseline first; report the exact split, sample counts, per-class metrics and runtime. Do not download large weights or claim 0–30 m performance without measured height labels and separate robot feasibility evidence.
-- **Gate 4 — approve cost and risk:** before any optional package, model or simulator install, check licence, download size, disk/RAM/VRAM fit and whether it can run offline. Ask before any paid or recurring-cost choice.
-- **Release evidence:** save command, commit, environment, test result, dataset hash, failures and limitations. Keep physical harvesting status **not validated** until independently supported by hardware evidence.
+
 
 ## Engineering standards, architecture and project evidence
 
@@ -126,11 +139,11 @@ The [Product Quality and Safety Roadmap](docs/PRODUCT_QUALITY_AND_SAFETY_ROADMAP
 
 **Current status:** the repository does not yet contain a verified, height-labelled coconut-palm dataset covering 0–30 m. The photograph above is a real reference image, but it has no independently verified tree-height measurement recorded here. Do not infer height from appearance or use it as a height-labelled training/test example.
 
-### Free research starting points (check terms before reuse)
+### Research references and dataset sources (check terms before reuse)
 
 - [Coconut tree crown — Mendeley Data](https://data.mendeley.com/datasets/w4t73tvrf8/1): described as 400 RGB coconut-crown images and lists CC BY 4.0. The published description does not establish a measured 0–30 m height label for every image. Verify the files, licence, attribution and metadata before adding any image to this repository.
 - [Coconut-cluster detection research (open-access article)](https://pmc.ncbi.nlm.nih.gov/articles/PMC9737954/): describes 900 crown images collected from palms reported to be approximately 8–20 m tall. That reported range is study context, not a verified per-image height label. Check the dataset's separate access and reuse terms before reuse.
-- [Free-licence example of a tall coconut palm](https://commons.wikimedia.org/wiki/File:A_coconut_palm_tree.jpg): useful for visual context and annotation practice only; the source page does not provide a measured height, so it must not be labelled as a particular metre value.
+- [Licensed example of a tall coconut palm](https://commons.wikimedia.org/wiki/File:A_coconut_palm_tree.jpg): useful for visual context and annotation practice only; the source page does not provide a measured height, so it must not be labelled as a particular metre value.
 
 ### Proposed height strata
 
@@ -208,9 +221,9 @@ Use the [Four-Class Coconut Annotation Policy](docs/FOUR_CLASS_ANNOTATION_POLICY
 
 The staged validation gates, class definitions, dataset requirements, reproducible metrics, safe-stop tests, and physical reach evidence needed to progress responsibly are documented in the [Four-Class Coconut Harvesting and 0–30 m Validation Roadmap](docs/FOUR_CLASS_0_30M_VALIDATION_ROADMAP.md). This is a plan, not evidence that these capabilities are already validated.
 
-## Free-first offline engineering tools
+## existing-tool-first offline engineering tools
 
-- **Free robotics stack selection:** [open-source systems, licence notes and adoption gates](docs/FREE_ROBOTICS_STACK_ADOPTION.md). These are recommendations only; no robotics packages or model weights are installed or downloaded by this PR.
+- **Free robotics stack selection:** [third-party systems, licence notes and adoption gates](docs/FREE_ROBOTICS_STACK_ADOPTION.md). These are recommendations only; no robotics packages or model weights are installed or downloaded by this PR.
 - **Free local agentic AI:** [optional agents, local runtimes, licence notes and safety gates](docs/LOCAL_AGENTIC_AI.md); discover what's already installed with `python tools/check_optional_resources.py`. No models or packages are downloaded automatically.
 - **Model-optional agentic workflow:** `agents/agentic_workflow.py` sequences input validation, the existing decision agent, a policy gate and an evidence-hash report; it requires human review and never runs actions.
 - **Run the local agentic workflow:** `python -m tools.run_agentic_workflow --input examples/agentic_workflow.synthetic.json` — standard-library only; synthetic inputs, review output, no model download or actuator control.
@@ -226,9 +239,9 @@ The staged validation gates, class definitions, dataset requirements, reproducib
 
 - **Full robotics stack integration:** [ROS 2 Jazzy, Gazebo Harmonic, Nav2, optional autopilot choice, and offline SmolVLM test](docs/PUI89_FULL_ROBOTICS_STACK_INTEGRATION.md). Starter worlds and source scaffolding are provided; the robotics stack is not installed or hardware-validated.
 
-## Frontier AI technology and free-first upgrade plan
+## Frontier AI technology and existing-tool-first upgrade plan
 
-Current gaps, recent technology directions, no-recurring-cost adoption gates, and project-specific next steps: [Frontier technology gap and free-first plan](docs/FRONTIER_TECHNOLOGY_GAP_AND_FREE_PLAN.md). No large model or simulator is installed automatically; verify licences, download size, hardware fit and costs first. Project-specific implementation priorities: [Frontier AI upgrade plan](docs/FRONTIER_AI_UPGRADE_PLAN.md).
+Current gaps, recent technology directions, no-recurring-cost adoption gates, and project-specific next steps: [Frontier technology gap and existing-tool-first plan](docs/FRONTIER_TECHNOLOGY_GAP_AND_FREE_PLAN.md). No large model or simulator is installed automatically; verify licences, download size, hardware fit and costs first. Project-specific implementation priorities: [Frontier AI upgrade plan](docs/FRONTIER_AI_UPGRADE_PLAN.md).
 
 
 ## Current verified status — 26 October 2026
@@ -330,7 +343,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 ## Start here — reviewer quick guide
 
 - **Research case study:** [read the concise problem, current implementation, evidence limits, and proposed evaluation plan](docs/RESEARCH_CASE_STUDY.md).
-- **Free/open-source model strategy:** [review license-first model selection and the reproducible coconut benchmark plan](docs/LICENSE_FIRST_MODEL_STRATEGY.md), including the hosted RT-DETR smoke test and license caveats.
+- **Free/third-party model strategy:** [review license-first model selection and the reproducible coconut benchmark plan](docs/LICENSE_FIRST_MODEL_STRATEGY.md), including the hosted RT-DETR smoke test and license caveats.
 - **Dataset readiness:** [see the current review-gate snapshot](docs/COCONUT_DATASET_READINESS.md): 34 candidate records reviewed, none approved for training yet, with an explicit no-cost annotation next step.
 - **One-command local preflight:** [read-only dataset preflight tool](tools/run_coconut_dataset_preflight.py) combines geometry checks and the rights/review promotion gate; source-byte checking is optional and never auto-approves training.
 - **Windows shortcut:** run `.\scripts\run_coconut_preflight.ps1` from the repository root to generate `reports/coconut-preflight-report.json`; optional `-Image0032 "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg"` adds the read-only source-byte check. No packages/models are installed or downloaded, and no approval fields are changed.
@@ -426,7 +439,7 @@ These source-linked photographs help explain the orchard setting and fruit visib
 | Available software | Rule-based planning agent, synthetic workflow demo, and manual image-review tools |
 | Physical robot | Proposed concept; complete robot harvesting is not demonstrated |
 | Real-image AI performance | Initial two-image baseline scored 0 precision and 0 recall at IoU ≥ 0.50; more data and reviewed labels are needed |
-| Development approach | Local-first, using open-source tools where practical |
+| Development approach | Local-first, using third-party tools where practical |
 | Immediate focus | Rights-cleared data, annotation quality, reproducible evaluation, and simulation |
 
 **Explore:** [Run the prototype](#run-the-local-prototype) · [Current evaluation evidence](#current-evaluation-evidence) · [Development roadmap](#development-roadmap) · [Safety and limitations](#safety-and-limitations)
@@ -482,7 +495,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 - **Real-image review workflow:** prepares a local manual-review sample and annotation sheet; it is not automatic detection.
 - **Annotation overlay review tool:** a local OpenCV script renders existing boxes over original images for human QA; it does not certify annotations or detect fruit.
 - **Robot concept and architecture:** outlines possible perception, target review, planning, and future hardware integration.
-- **Cost-conscious development:** prioritizes local tools and open-source workflows, with no paid API required for the rule-based agent.
+- **Cost-conscious development:** prioritizes local tools and third-party workflows, with no paid API required for the rule-based agent.
 
 ## How the system is intended to work
 
@@ -672,7 +685,7 @@ See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). The optional s
 
 ## Collaboration
 
-Feedback and collaboration are welcome from coconut growers, agricultural cooperatives, agricultural machinery developers, robotics engineers, and open-source contributors. Useful contributions include rights-cleared orchard imagery, annotation review, reproducible benchmarks, simulation testing, and safety-focused engineering review.
+Feedback and collaboration are welcome from coconut growers, agricultural cooperatives, agricultural machinery developers, robotics engineers, and third-party contributors. Useful contributions include rights-cleared orchard imagery, annotation review, reproducible benchmarks, simulation testing, and safety-focused engineering review.
 
 ## Licence and third-party assets
 
@@ -684,7 +697,7 @@ Check the repository's licence and each third-party dataset, image, model, and d
 A local, standard-library-only agent module is available in [`agents/project_agent.py`](agents/project_agent.py), with focused tests in [`tests/test_project_agent.py`](tests/test_project_agent.py) and integration notes in [`docs/AGENT_GUIDE.md`](docs/AGENT_GUIDE.md). It produces reviewable recommendations from supplied observations; it does not run a perception model, call a hosted API, or issue actuator commands. These rules and tests are not evidence of trained-model accuracy or real-world validation.
 
 
-## Automation roadmap (free-first)
+## Automation roadmap (existing-tool-first)
 
 The GitHub Actions workflow runs on relevant changes, manual dispatch, and a weekly schedule. Each test run writes test counts to the workflow summary; inspect the run logs if a report is missing.
 
@@ -701,7 +714,7 @@ The GitHub Actions workflow runs on relevant changes, manual dispatch, and a wee
 
 ## Free Local Automation Framework
 
-This repository includes a shared PUI89 health-check script for repeatable, zero-cost local checks.
+This repository includes a shared PUI89 health-check script for repeatable, cost-governed local checks.
 
 - [Automation guide](docs/PROJECT_AUTOMATION.md)
 - [Local health-check script](scripts/pui89_project_health_check.py)
@@ -735,7 +748,7 @@ The existing Streamlit app can display an uploaded image. Image display does not
 
 The supervisor evaluates supplied status values and recommends an advisory mode: autonomous candidate, safe hold, manual recovery, or stopped. It does not acquire sensor data or command hardware. An autonomous-candidate result is not a safety certification; physical systems require independent safety controls and validation.
 
-## Free-first AI engineering stack
+## existing-tool-first AI engineering stack
 
 This project adopts a small, cost-controlled toolchain rather than adding multiple overlapping AI platforms.
 
@@ -764,7 +777,7 @@ This roadmap prioritizes improvements that can be built and checked locally befo
 
 ### Acceptance rule
 
-No automatic cutting command from a vision score alone. A harvest action requires a reviewed target, valid geometry, safety-gate approval and a recoverable stop path. Keep the workflow local-first and free-first; no paid API or cloud GPU is required for this roadmap.
+No automatic cutting command from a vision score alone. A harvest action requires a reviewed target, valid geometry, safety-gate approval and a recoverable stop path. Keep the workflow local-first and existing-tool-first; no paid API or cloud GPU is required for this roadmap.
 
 ## Vision-language and action-planning architecture
 
@@ -776,7 +789,7 @@ No automatic cutting command from a vision score alone. A harvest action require
 
 ## Development roadmap
 
-Track the five shared free-first development tasks in [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md). Coconut priority: complete source/license/hash review and annotation geometry checks before training; then establish a leakage-safe local vision baseline. Dataset quality and baseline metrics are not marked complete until recorded evidence is available.
+Track the five shared existing-tool-first development tasks in [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md). Coconut priority: complete source/license/hash review and annotation geometry checks before training; then establish a leakage-safe local vision baseline. Dataset quality and baseline metrics are not marked complete until recorded evidence is available.
 
 ## Engineering update — 26 October 2026
 
@@ -786,25 +799,25 @@ Track the five shared free-first development tasks in [docs/DEVELOPMENT_ROADMAP.
 - Freeze train/validation/test partitions by tree, source and capture session to reduce leakage. Record the dataset version and exact commands used.
 - After the data gate passes, run a reproducible local baseline and report per-maturity-stage precision/recall and applicable mAP, latency, hardware, and failure cases. Until then, leave metrics **NOT MEASURED** rather than estimating them.
 - Keep all AI suggestions behind geometry and safety checks. The 0–30 m orchard/tree-height range is a design challenge, not a demonstrated reach capability; no validated physical robot is claimed.
-- Free-first execution: use existing local tools where possible. Do not automatically download model weights, install large packages, use paid APIs, or start cloud compute.
+- existing-tool-first execution: use existing local tools where possible. Do not automatically download model weights, install large packages, use paid APIs, or start cloud compute.
 
-## Offline free-first audit tool — 26 October 2026
+## Offline existing-tool-first audit tool — 26 October 2026
 
 Run `python tools/free_first_audit.py` from the repository root to create a local inventory using Python's standard library. Optionally save a report with `python tools/free_first_audit.py --json audit-report.json`. The tool does not access the network, install dependencies, download model weights, or upload data. The optional JSON file is written only to your local working copy unless you choose to commit it.
 
 - Prioritise image-source permissions, SHA-256 identity, annotation geometry, independent review and source/tree/session-aware split checks before training.
 - The report inventories data files and hashes manageable files, flags Python syntax errors, and notes candidate dataset documentation. It does **not** verify licences, annotations, model accuracy, physical safety, or real-world performance; a human must review those items.
-- Suggested free/open-source technology is already documented in this repository's adoption plan. Evaluate ROS 2/Gazebo or MoveIt only when the project needs simulation or manipulation integration; these tools are not installed by this audit.
+- Suggested free/third-party technology is already documented in this repository's adoption plan. Evaluate ROS 2/Gazebo or MoveIt only when the project needs simulation or manipulation integration; these tools are not installed by this audit.
 
-## Free-first startup toolkit
+## existing-tool-first startup toolkit
 
-See [Free-First Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT.md) for cost guardrails, recommended free-first workflows, project-specific validation rules, and evidence standards. The guide does not require paid APIs, subscriptions, cloud GPUs, or automatic model downloads.
+See [existing-tool-first Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT.md) for cost guardrails, recommended existing-tool-first workflows, project-specific validation rules, and evidence standards. The guide does not require paid APIs, subscriptions, cloud GPUs, or automatic model downloads.
 
-See [Marketing, SEO and Sales Playbook](docs/MARKETING_SEO_SALES_PLAYBOOK.md) for a free-first product page, evidence-led messaging, customer discovery, search visibility, and outreach guidance. No marketing subscription or ad spend is required.
+See [Marketing, SEO and Sales Playbook](docs/MARKETING_SEO_SALES_PLAYBOOK.md) for a existing-tool-first product page, evidence-led messaging, customer discovery, search visibility, and outreach guidance. No marketing subscription or ad spend is required.
 
-See [Free-First Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for curated tools, local model options, testing/security helpers, SEO resources, cost cautions, and project-specific evidence boundaries.
+See [existing-tool-first Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for curated tools, local model options, testing/security helpers, SEO resources, cost cautions, and project-specific evidence boundaries.
 
-**Recommended technology stack:** [PUI89 Free-First Technology Stack](docs/PUI89_FREE_FIRST_TECH_STACK.md) — stable, local-first tools; dependencies and costs reviewed before adoption.
+**Recommended technology stack:** [PUI89 existing-tool-first Technology Stack](docs/PUI89_FREE_FIRST_TECH_STACK.md) — stable, local-first tools; dependencies and costs reviewed before adoption.
 
 ## Engineering maturity level — 27 October 2026
 
@@ -828,14 +841,14 @@ See [Free-First Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for c
 
 **Capability boundary:** proposed architecture, synthetic tests and software checks do not prove validated real-world performance. Physical operation remains unvalidated until supported by separate, documented evidence.
 
-## Free-first engineering resources
+## existing-tool-first engineering resources
 
-See the [PUI89 Free-First Engineering Resource Roadmap](docs/PUI89_FREE_RESOURCE_ROADMAP.md) for approved-first tools, adoption gates, licence/cost checks and project-specific next steps. The default is to reuse existing Python and GitHub automation; optional packages and model weights are not installed or downloaded automatically.
+See the [PUI89 existing-tool-first Engineering Resource Roadmap](docs/PUI89_FREE_RESOURCE_ROADMAP.md) for approved-first tools, adoption gates, licence/cost checks and project-specific next steps. The default is to reuse existing Python and GitHub automation; optional packages and model weights are not installed or downloaded automatically.
 
 
 ## Quality, tolerance and cost gates
 
-See [Quality, Tolerance, Performance, Safety and Cost Gates](docs/QUALITY_TOLERANCE_PERFORMANCE_COST_GATES.md) for measurable acceptance criteria, fault-injection scenarios, human/animal safety requirements and free-first engineering constraints. This is a proposed test plan, not a claim of validated performance or certification.
+See [Quality, Tolerance, Performance, Safety and Cost Gates](docs/QUALITY_TOLERANCE_PERFORMANCE_COST_GATES.md) for measurable acceptance criteria, fault-injection scenarios, human/animal safety requirements and existing-tool-first engineering constraints. This is a proposed test plan, not a claim of validated performance or certification.
 
 ## Shared PUI89 AI Safety Contract
 
@@ -932,7 +945,7 @@ This repository now includes real Hugging Face checkpoint adapters in [`pui89_mo
 
 - **OWLv2:** `google/owlv2-base-patch16-ensemble` for text-conditioned object proposals.
 - **Intel DPT-Hybrid:** `Intel/dpt-hybrid-midas` for relative scene depth where appropriate; not calibrated distance or physical depth.
-- **Zero-cost default:** no packages or model weights are installed/downloaded automatically; CPU-only inference, local cache only by default, no hosted inference API or cloud GPU.
+- **cost-governed default:** no packages or model weights are installed/downloaded automatically; CPU-only inference, local cache only by default, no hosted inference API or cloud GPU.
 - **Evidence status:** adapter code is added; model inference and project-specific accuracy are NOT YET TESTED. Outputs remain uncertain observations for human review, never actuator commands.
 
 - **Robotics VLA research (arm manipulation only):** [LeRobot SmolVLA adapter](pui89_models/smolvla.py) · [integration notes](docs/HUGGING_FACE_MODEL_INTEGRATION.md). Requires task-specific data/fine-tuning and simulation; no hardware control.
