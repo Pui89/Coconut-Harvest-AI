@@ -1,6 +1,6 @@
 # Coconut Harvest AI — Shared AI Core adoption
 
-**Implementation status:** project-side Python adapters and contract tests are proposed in PR review.  
+**Implementation status:** project-side Python adapters and contract tests passed the Coconut Lightweight Core Tests workflow in PR review. The changes remain unmerged until reviewed.  
 **Contract version:** `0.1.0-draft`  
 **Pinned schema source:** [PUI89 Shared AI Core schemas at commit `2d9eeb465e6ab571e7391ef6b78b72d4007ba7e5`](https://github.com/Pui89/Pui89.github.io/tree/2d9eeb465e6ab571e7391ef6b78b72d4007ba7e5/schemas/pui89)
 
@@ -23,7 +23,9 @@
 
 ## Verification
 
-Run the existing lightweight core workflow, or locally run:
+<https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420> — Coconut Lightweight Core Tests completed successfully, including the new contract adapter tests. The machine-readable integration register records this run as evidence.
+
+For a local rerun, use:
 
 ```bash
 python -m unittest discover -s tests -p "test_pui89_shared_contracts.py" -v
