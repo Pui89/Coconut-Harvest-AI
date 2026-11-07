@@ -5,47 +5,47 @@
     {
       "id": "observation-contract",
       "name": "Machine-readable Observation contract",
-      "status": "implemented_pending_ci",
-      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py"
+      "status": "verified",
+      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py;https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420"
     },
     {
       "id": "world-state-contract",
       "name": "Machine-readable WorldState contract",
-      "status": "implemented_pending_ci",
-      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py"
+      "status": "verified",
+      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py;https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420"
     },
     {
       "id": "action-proposal-contract",
       "name": "Machine-readable ActionProposal contract",
-      "status": "implemented_pending_ci",
-      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py"
+      "status": "verified",
+      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py;https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420"
     },
     {
       "id": "failure-report-contract",
       "name": "Machine-readable FailureReport contract",
-      "status": "implemented_pending_ci",
-      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py"
+      "status": "verified",
+      "evidence_ref": "pui89_core/contracts.py;tests/test_pui89_shared_contracts.py;https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420"
     },
     {
       "id": "uncertainty-abstention",
       "name": "Uncertainty propagation and abstention tests",
-      "status": "implemented_pending_ci",
-      "evidence_ref": "tests/test_pui89_shared_contracts.py;tools/pui89_coconut_contract_adapter.py"
+      "status": "verified",
+      "evidence_ref": "tests/test_pui89_shared_contracts.py;tools/pui89_coconut_contract_adapter.py;https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420"
     },
     {
       "id": "provenance-safety",
       "name": "Evidence provenance and safety-gate integration",
-      "status": "implemented_pending_ci",
-      "evidence_ref": "tools/pui89_coconut_contract_adapter.py;tests/test_pui89_shared_contracts.py"
+      "status": "verified",
+      "evidence_ref": "tools/pui89_coconut_contract_adapter.py;tests/test_pui89_shared_contracts.py;https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/42401538420"
     }
   ],
-  "verification_rule": "Set status to verified only after the adapter implementation and reproducible passing test evidence are linked. Draft-schema compatibility is not full JSON Schema validation, a released package, detector validation or physical safety validation.",
+  "verification_rule": "Verified means the named project-side implementation and tests passed in the linked reproducible CI run. It does not mean full JSON Schema meta-validation, a released shared package, cross-project adapter integration, detector validation or physical safety validation.",
   "schema_source": {
     "version": "0.1.0-draft",
     "repository": "Pui89/Pui89.github.io",
     "commit": "2d9eeb465e6ab571e7391ef6b78b72d4007ba7e5",
     "runtime_fetch": false,
     "adapter_path": "pui89_core/contracts.py",
-    "status": "pinned_draft_adapter_pending_ci"
+    "status": "pinned_draft_adapter_tests_passed"
   }
 }
