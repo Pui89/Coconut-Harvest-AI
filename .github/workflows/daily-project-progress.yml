@@ -1,35 +1,59 @@
-name: Daily evidence-led project progress
+name: PUI89 project intelligence reviews
 
 on:
   schedule:
+    # Daily 23:40 Bangkok
     - cron: "40 16 * * *"
+    # Weekly Sunday 23:50 Bangkok
+    - cron: "50 16 * * 0"
+    # Monthly, first day 23:55 Bangkok
+    - cron: "55 16 1 * *"
+    # Yearly, 1 January 00:05 Bangkok
+    - cron: "5 17 31 12 *"
   workflow_dispatch:
+    inputs:
+      cadence:
+        description: Review cycle
+        required: true
+        type: choice
+        options:
+          - daily
+          - weekly
+          - monthly
+          - yearly
+          - manual
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: daily-project-progress
+  group: pui89-project-intelligence
   cancel-in-progress: false
 
 jobs:
-  refresh-readme:
+  project-review:
     runs-on: ubuntu-latest
+    env:
+      PUI89_CADENCE: ${{ github.event_name == 'workflow_dispatch' && inputs.cadence || (github.event.schedule == '40 16 * * *' && 'daily') || (github.event.schedule == '50 16 * * 0' && 'weekly') || (github.event.schedule == '55 16 1 * *' && 'monthly') || (github.event.schedule == '5 17 31 12 *' && 'yearly') || 'manual' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Refresh progress date and graph
-        run: python tools/update_project_progress.py
+      - name: Validate and generate project intelligence reports
+        run: |
+          python -m py_compile tools/update_project_progress.py
+          python tools/update_project_progress.py
       - name: Open or update protected-branch review
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: automation/daily-project-progress
+          branch: automation/project-intelligence-reports
           delete-branch: true
-          title: "chore: refresh daily project progress date"
-          commit-message: "chore: refresh daily project progress date"
+          title: "chore: ${{ env.PUI89_CADENCE }} PUI89 project intelligence review"
+          commit-message: "chore: refresh ${{ env.PUI89_CADENCE }} project intelligence report"
           body: |
-            Automated daily refresh of the evidence-led README progress panel.
-            Scores are calculated from the reviewed evidence credits in docs/project-progress.json.
-            The scheduled job updates the review date and graph only; it does not inflate scores.
+            Automated PUI89 project intelligence report.
+            Includes evidence coverage, a coverage-derived confidence proxy, Shared AI Core evidence links,
+            limited repository risk checks, monthly score history and the next evidence milestone.
+            The workflow does not increase evidence credits or bypass protected branches.
+            Review and merge this PR under the repository's existing branch protection rules.
