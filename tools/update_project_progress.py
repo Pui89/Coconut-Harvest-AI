@@ -31,7 +31,7 @@ def main():
         colour, label = "🔴", "Early foundation stage"
     filled = round(pct / 5)
     bar = "🟦" * filled + "⬜" * (20 - filled)
-    rows = "\\n".join(f"| {g} | {c}/{w} | {'🟩' * c}{'⬜' * (w-c)} |" for g, c, w in zip(GATES, credits, WEIGHTS))
+    rows = "\n".join(f"| {g} | {c}/{w} | {'🟩' * c}{'⬜' * (w-c)} |" for g, c, w in zip(GATES, credits, WEIGHTS))
     section = f"""{START}
 ## Daily project progress
 
@@ -57,7 +57,7 @@ This is an evidence-weighted commercial-readiness estimate, not a code-completio
         after = text.split(END, 1)[1]
         text = before + section + after
     else:
-        text = text.rstrip() + "\\n\\n" + section + "\\n"
+        text = text.rstrip() + "\n\n" + section + "\n"
     README.write_text(text, encoding="utf-8")
 
 if __name__ == "__main__":
