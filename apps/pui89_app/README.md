@@ -168,3 +168,26 @@ python -m apps.pui89_app.vision_to_workflow \
 This uses synthetic example data and an identity transform only for software smoke testing. It is not real camera calibration, a detector result or a field measurement. The report simulates approach/tool/retract steps but always states that no actuator command was sent.
 
 For real inference, use the local-only detector pipeline and provide a validated camera-to-robot-base transform plus independent uncertainty, tracking, obstacle-clearance and reachability evidence. Missing or invalid evidence should cause safe hold, not guessed coordinates.
+
+
+## Local operator inspection records
+
+The interactive Streamlit demo also includes a **Local operator inspection records** section. It can create and reopen inspections, import JPG/PNG/WebP images into a local workspace, record human maturity assessments and optional normalized bounding boxes, preserve assessment revisions, and export a JSON report.
+
+By default, records are stored under:
+
+```text
+~/.pui89/coconut-inspections/
+```
+
+To choose another local workspace, set `PUI89_COCONUT_WORKSPACE` before starting Streamlit. The image bytes are copied into the selected workspace and checked against their SHA-256 digest when read. The app does not upload these images or call a hosted AI service.
+
+The default rights status is `unverified`. A selected rights status is only recorded metadata; it is not independent legal verification or permission to train. Keep private farm records outside Git and use suitable local access controls and backups.
+
+Run the focused record tests from the repository root:
+
+```powershell
+python -m unittest apps.pui89_app.test_inspection_records -v
+```
+
+This is an early human-led recordkeeping workflow. It does not automatically classify image pixels, validate maturity accuracy, provide a calibrated model, or authorize robot actions. The existing offline drawing annotator is still a separate tool; optional bounding-box coordinates in this screen are entered manually.

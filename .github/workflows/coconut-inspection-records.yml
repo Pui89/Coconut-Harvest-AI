@@ -1,0 +1,47 @@
+name: Coconut Inspection Records Tests
+
+on:
+  pull_request:
+    paths:
+      - "apps/pui89_app/inspection_records.py"
+      - "apps/pui89_app/test_inspection_records.py"
+      - "apps/pui89_app/web_demo.py"
+      - "apps/pui89_app/web_demo.py"
+      - "docs/COCONUT_INSPECTION_RECORDS_V1.md"
+      - ".github/workflows/coconut-inspection-records.yml"
+  push:
+    paths:
+      - "apps/pui89_app/inspection_records.py"
+      - "apps/pui89_app/test_inspection_records.py"
+      - "apps/pui89_app/web_demo.py"
+      - "docs/COCONUT_INSPECTION_RECORDS_V1.md"
+      - ".github/workflows/coconut-inspection-records.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-inspection-records-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  inspection-records:
+    name: Local inspection record regression tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install existing image-decoding dependency
+        run: python -m pip install "Pillow>=9.0"
+
+      - name: Run focused inspection record tests
+        env:
+          PYTHONPATH: .
+        run: python -m unittest apps.pui89_app.test_inspection_records -v

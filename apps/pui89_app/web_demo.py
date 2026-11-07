@@ -377,3 +377,216 @@ st.caption(
     "Real-world use requires a validated detector, calibrated sensors, independent safety checks, "
     "and supervised testing."
 )
+
+
+# Local-first operator inspection records. This workflow is separate from the
+# illustrative candidate demo above and stores data only in the local workspace.
+st.divider()
+st.header("5. Operator inspection records")
+st.caption(
+    "Create or reopen a local inspection, preserve imported image evidence, "
+    "record human maturity assessments and export a traceable JSON report. "
+    "This section does not run a maturity detector or control a robot."
+)
+
+from apps.pui89_app.inspection_records import InspectionError, InspectionRecordStore
+
+default_workspace = Path.home() / ".pui89" / "coconut-inspections"
+workspace_path = os.environ.get("PUI89_COCONUT_WORKSPACE", str(default_workspace)).strip()
+try:
+    inspection_store = InspectionRecordStore(workspace_path)
+    st.caption(f"Local workspace: {inspection_store.workspace}")
+    inspection_index = inspection_store.list_inspections()
+
+    with st.expander("Create a new inspection", expanded=not bool(inspection_index)):
+        new_operator = st.text_input("Operator alias", value="operator-01", key="record_new_operator")
+        new_site = st.text_input("Farm/site code (optional)", key="record_new_site")
+        new_notes = st.text_area("Inspection notes (optional)", key="record_new_notes")
+        if st.button("Create inspection record", key="record_create_button"):
+            try:
+                created = inspection_store.create_inspection(
+                    operator_alias=new_operator,
+                    site_code=new_site,
+                    notes=new_notes,
+                )
+                st.session_state["pui89_inspection_selector"] = created["inspection_id"]
+                st.success(f"Created inspection {created['inspection_id']}")
+                st.rerun()
+            except InspectionError as exc:
+                st.error(f"Inspection could not be created: {exc}")
+
+    inspection_index = inspection_store.list_inspections()
+    if inspection_index:
+        inspection_ids = [item["inspection_id"] for item in inspection_index]
+        current_selection = st.session_state.get("pui89_inspection_selector")
+        selected_index = inspection_ids.index(current_selection) if current_selection in inspection_ids else 0
+        selected_inspection_id = st.selectbox(
+            "Open inspection",
+            options=inspection_ids,
+            index=selected_index,
+            key="pui89_inspection_selector",
+        )
+        active_record = inspection_store.get_inspection(selected_inspection_id)
+
+        st.write(
+            f"**Status:** {active_record['status']}  ·  "
+            f"**Images:** {len(active_record['images'])}  ·  "
+            f"**Candidates:** {len(active_record['candidates'])}"
+        )
+        st.caption(
+            f"Operator: {active_record['metadata']['operator_alias']}  ·  "
+            f"Site: {active_record['metadata']['site_code'] or 'not supplied'}"
+        )
+
+        with st.expander("Import an image into this inspection", expanded=not bool(active_record["images"])):
+            record_upload = st.file_uploader(
+                "Select a JPG, PNG or WebP orchard image",
+                type=["jpg", "jpeg", "png", "webp"],
+                key=f"record_upload_{selected_inspection_id}",
+            )
+            source_reference = st.text_input(
+                "Source reference (optional)", key=f"record_source_{selected_inspection_id}"
+            )
+            rights_status = st.selectbox(
+                "Image reuse-rights status",
+                options=["unverified", "pending_review", "cleared", "restricted", "unknown"],
+                index=0,
+                key=f"record_rights_{selected_inspection_id}",
+                help="This is a recorded status only; it does not independently verify legal rights.",
+            )
+            if st.button("Preserve image in local inspection", key=f"record_import_{selected_inspection_id}"):
+                if record_upload is None:
+                    st.error("Select an image first.")
+                else:
+                    try:
+                        imported = inspection_store.import_image(
+                            selected_inspection_id,
+                            record_upload.getvalue(),
+                            filename=record_upload.name,
+                            source_type="user_provided",
+                            source_reference=source_reference,
+                            rights_status=rights_status,
+                        )
+                        st.success(
+                            f"Image stored with SHA-256 {imported['sha256']} "
+                            f"({imported['width']} × {imported['height']})"
+                        )
+                        st.rerun()
+                    except InspectionError as exc:
+                        st.error(f"Image was not imported: {exc}")
+
+        active_record = inspection_store.get_inspection(selected_inspection_id)
+        if active_record["images"]:
+            st.subheader("Evidence images")
+            image_labels = {
+                item["sha256"]: f"{item['original_filename']} · {item['sha256'][:12]}"
+                for item in active_record["images"]
+            }
+            selected_image_hash = st.selectbox(
+                "Image for assessment",
+                options=list(image_labels),
+                format_func=lambda value: image_labels[value],
+                key=f"record_image_{selected_inspection_id}",
+            )
+            selected_image = next(
+                item for item in active_record["images"] if item["sha256"] == selected_image_hash
+            )
+            image_bytes = inspection_store.read_image(selected_inspection_id, selected_image_hash)
+            st.image(
+                image_bytes,
+                caption=f"Preserved source image · SHA-256 {selected_image_hash}",
+                use_container_width=True,
+            )
+
+            with st.form(f"record_annotation_form_{selected_inspection_id}"):
+                st.subheader("Record a human assessment")
+                candidate_id = st.text_input("Candidate ID", value="fruit-01")
+                maturity_label = st.selectbox(
+                    "Maturity assessment",
+                    options=[
+                        "young_green", "developing_green", "mature_green",
+                        "brown_aging", "unknown", "review",
+                    ],
+                    format_func=lambda value: {
+                        "young_green": "Young green",
+                        "developing_green": "Developing green",
+                        "mature_green": "Mature green",
+                        "brown_aging": "Brown / aging",
+                        "unknown": "Unknown",
+                        "review": "Needs review",
+                    }[value],
+                )
+                reviewer_alias = st.text_input(
+                    "Reviewer alias",
+                    value=active_record["metadata"]["operator_alias"],
+                )
+                assessment_reason = st.text_area("Reason / uncertainty notes (optional)")
+                include_bbox = st.checkbox("Add normalized bounding-box coordinates")
+                bbox_values = None
+                if include_bbox:
+                    col_x, col_y, col_w, col_h = st.columns(4)
+                    with col_x:
+                        bbox_x = st.number_input("X", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+                    with col_y:
+                        bbox_y = st.number_input("Y", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+                    with col_w:
+                        bbox_w = st.number_input("Width", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
+                    with col_h:
+                        bbox_h = st.number_input("Height", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
+                    bbox_values = [bbox_x, bbox_y, bbox_w, bbox_h]
+                save_assessment = st.form_submit_button("Save assessment revision")
+            if save_assessment:
+                try:
+                    revision = inspection_store.add_annotation(
+                        selected_inspection_id,
+                        candidate_id=candidate_id,
+                        image_sha256=selected_image_hash,
+                        maturity_label=maturity_label,
+                        reviewer_alias=reviewer_alias,
+                        reason=assessment_reason,
+                        bbox_xywh_normalized=bbox_values,
+                    )
+                    st.success(
+                        f"Saved revision {revision['revision']} for {candidate_id}. "
+                        "Earlier revisions are preserved."
+                    )
+                    st.rerun()
+                except InspectionError as exc:
+                    st.error(f"Assessment was not saved: {exc}")
+
+        active_record = inspection_store.get_inspection(selected_inspection_id)
+        st.subheader("Assessment history")
+        if active_record["candidates"]:
+            for candidate in active_record["candidates"]:
+                latest = candidate["revisions"][-1]
+                with st.expander(
+                    f"{candidate['candidate_id']} · {latest['maturity_label']} · "
+                    f"{len(candidate['revisions'])} revision(s)"
+                ):
+                    st.json(candidate)
+        else:
+            st.info("No candidate assessments have been recorded yet.")
+
+        report = inspection_store.export_report(selected_inspection_id)
+        report_json = json.dumps(report, ensure_ascii=False, indent=2)
+        report_col, save_col = st.columns(2)
+        with report_col:
+            st.download_button(
+                "Download inspection JSON report",
+                data=report_json,
+                file_name=f"{selected_inspection_id}-inspection-report.json",
+                mime="application/json",
+                key=f"record_download_{selected_inspection_id}",
+                use_container_width=True,
+            )
+        with save_col:
+            if st.button("Save report to local workspace", key=f"record_save_{selected_inspection_id}", use_container_width=True):
+                try:
+                    report_path = inspection_store.write_report(selected_inspection_id)
+                    st.success(f"Saved locally: {report_path}")
+                except OSError as exc:
+                    st.error(f"Report could not be saved: {type(exc).__name__}")
+    else:
+        st.info("Create an inspection record to begin.")
+except (InspectionError, OSError) as exc:
+    st.error(f"Local inspection workspace is unavailable: {type(exc).__name__}: {exc}")
