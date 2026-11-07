@@ -330,7 +330,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 
 - **Research case study:** [read the concise problem, current implementation, evidence limits, and proposed evaluation plan](docs/RESEARCH_CASE_STUDY.md).
 - **open-source model strategy:** [review license-first model selection and the reproducible coconut benchmark plan](docs/LICENSE_FIRST_MODEL_STRATEGY.md), including the hosted RT-DETR smoke test and license caveats.
-- **Dataset readiness:** [see the current review-gate snapshot](docs/COCONUT_DATASET_READINESS.md): 34 candidate records reviewed, none approved for training yet, with an explicit no-cost annotation next step.
+- **Dataset readiness:** [see the current review-gate snapshot](docs/COCONUT_DATASET_READINESS.md): 34 candidate records reviewed, none approved for training yet, with an explicit annotation next step.
 - **One-command local preflight:** [read-only dataset preflight tool](tools/run_coconut_dataset_preflight.py) combines geometry checks and the rights/review promotion gate; source-byte checking is optional and never auto-approves training.
 - **Windows shortcut:** run `.\scripts\run_coconut_preflight.ps1` from the repository root to generate `reports/coconut-preflight-report.json`; optional `-Image0032 "C:\path\to\0032_Coconut_in_Coconut_Tree.jpg"` adds the read-only source-byte check. No packages/models are installed or downloaded, and no approval fields are changed.
 - **One-click Windows CMD shortcut:** double-click `RUN_COCONUT_PREFLIGHT.bat` from the repository root. It checks for required files, runs the same read-only geometry/ledger preflight, and saves `reports/coconut-dataset-preflight-report.json`. If this copy is missing newer helper files or ledgers, it stops with a clear message. No package installation, model download, upload, annotation edit, or automatic training approval occurs. `BLOCKED` or `INCOMPLETE` is an honest expected outcome until outstanding human/source checks are complete.
@@ -354,7 +354,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 - **Important:** annotation quality and image reuse rights still need human review. Do not use the archived first-pass labels as training data; see [the review batch notes](data/review_batch_2026-10-18/README.md).
 
 - **Commercial path:** [commercialisation roadmap](docs/COMMERCIALISATION_ROADMAP.md) — proposed first customer problem, software-first MVP, discovery questions, evidence gates, and a staged path toward robotics.
-- **Customer discovery:** [orchard interview guide](docs/ORCHARD_CUSTOMER_DISCOVERY.md) — a 15-minute, no-cost interview script and evidence/consent rules to test whether the problem is real before building more.
+- **Customer discovery:** [orchard interview guide](docs/ORCHARD_CUSTOMER_DISCOVERY.md) — a 15-minute, interview script and evidence/consent rules to test whether the problem is real before building more.
 
 ## Strategic partnerships, funding and collaboration
 
@@ -481,7 +481,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 - **Real-image review workflow:** prepares a local manual-review sample and annotation sheet; it is not automatic detection.
 - **Annotation overlay review tool:** a local OpenCV script renders existing boxes over original images for human QA; it does not certify annotations or detect fruit.
 - **Robot concept and architecture:** outlines possible perception, target review, planning, and future hardware integration.
-- **Cost-conscious development:** prioritizes local tools and open-source workflows, with no paid API required for the rule-based agent.
+- **Resource-conscious development:** prioritizes local tools and open-source workflows.
 
 ## How the system is intended to work
 
@@ -744,7 +744,7 @@ This project adopts a small, cost-controlled toolchain rather than adding multip
 - **Agent workflow:** use the existing rule-based decision-support agent first. Add LangGraph or another agent framework only if a concrete multi-step requirement cannot be handled cleanly with current code.
 - **Retrieval:** use repository documentation and ordinary local search first; consider FAISS/Chroma only if a measured retrieval need appears.
 
-**Cost and evidence guardrails:** no paid API, hosted inference, cloud GPU, subscription, or model download is required by this plan. Ask before introducing any cost. Review each model/weight licence separately. Do not begin detector training until image rights, annotations, independent review, and leakage-safe splits pass the existing data gates. CI passing is not detector or physical-robot validation.
+**Evidence and resource guardrails:** Use local-first workflows where feasible; review external services and model downloads before adoption. Review each model/weight licence separately. Do not begin detector training until image rights, annotations, independent review, and leakage-safe splits pass the existing data gates. CI passing is not detector or physical-robot validation.
 
 
 ## AI robot upgrade roadmap — evidence-first
@@ -797,7 +797,7 @@ Run `python tools/free_first_audit.py` from the repository root to create a loca
 
 ## local-first startup toolkit
 
-See [local-first Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT.md) for cost guardrails, recommended local-first workflows, project-specific validation rules, and evidence standards. The guide does not require paid APIs, subscriptions, cloud GPUs, or automatic model downloads.
+See [local-first Product and Engineering Toolkit](docs/FREE_FIRST_STARTUP_TOOLKIT.md) for resource-adoption checks, recommended local-first workflows, project-specific validation rules, and evidence standards. The guide does not require paid APIs, subscriptions, cloud GPUs, or automatic model downloads.
 
 See [Marketing, SEO and Sales Playbook](docs/MARKETING_SEO_SALES_PLAYBOOK.md) for a local-first product page, evidence-led messaging, customer discovery, search visibility, and outreach guidance. No marketing subscription or ad spend is required.
 
@@ -823,7 +823,7 @@ See [local-first Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for 
 - Run the existing local verification and relevant test suites; record the exact command, environment, commit and result.
 - Add or strengthen repeatable tests for uncertain inputs, failure cases and safe-stop / human-review behavior.
 - Report only measured results. A passing syntax scan or synthetic test is evidence for that software path only—not real-world detection accuracy or robot capability.
-- Keep the workflow local-first: no paid API, cloud GPU, automatic model download or recurring-cost service by default.
+- Keep the workflow local-first: external integrations require prior review.
 
 **Capability boundary:** proposed architecture, synthetic tests and software checks do not prove validated real-world performance. Physical operation remains unvalidated until supported by separate, documented evidence.
 
@@ -943,4 +943,4 @@ This project follows the shared [PUI89 Efficient Engineering Standard](https://g
 
 **Project focus:** Measure image-pipeline RAM, CPU, startup and inference latency; track model/application footprint; later measure energy per inspection task on real hardware. Preserve detector accuracy, four-class maturity evaluation, dataset provenance and leakage-safe splits.
 
-Track relevant RAM, CPU/GPU, latency, storage and network measurements using documented workloads and comparable environments. Record power (W/Wh), battery runtime and temperature only when suitable physical instruments and hardware are available. No paid APIs, subscriptions, cloud GPU, metered services, purchases or model downloads are authorised. Efficiency changes must preserve accuracy, safety, evidence integrity, privacy and security. Unmeasured physical performance must be labelled **not measured**.
+Track relevant RAM, CPU/GPU, latency, storage and network measurements using documented workloads and comparable environments. Record power (W/Wh), battery runtime and temperature only when suitable physical instruments and hardware are available. External services, datasets and model downloads require explicit review before adoption. Efficiency changes must preserve accuracy, safety, evidence integrity, privacy and security. Unmeasured physical performance must be labelled **not measured**.
