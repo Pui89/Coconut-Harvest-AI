@@ -64,6 +64,14 @@ class InspectionRecordStoreTests(unittest.TestCase):
         self.assertEqual(image["sha256"], hashlib.sha256(payload).hexdigest())
         self.assertEqual(image["integrity"], "sha256_recorded_and_image_decoded")
 
+    def test_read_image_rechecks_stored_hash(self):
+        payload, image = self._add_image()
+        self.assertEqual(self.store.read_image(self.record["inspection_id"], image["sha256"]), payload)
+        stored = self.store._record_path(self.record["inspection_id"]).parent / image["stored_path"]
+        stored.write_bytes(b"tampered")
+        with self.assertRaisesRegex(InspectionError, "STORED_IMAGE_HASH_MISMATCH"):
+            self.store.read_image(self.record["inspection_id"], image["sha256"])
+
     def test_duplicate_image_is_not_duplicated(self):
         _, first = self._add_image()
         second = self.store.import_image(self.record["inspection_id"], _png_bytes(), filename="copy.png")
