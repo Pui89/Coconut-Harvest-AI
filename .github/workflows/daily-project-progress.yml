@@ -44,7 +44,7 @@ jobs:
           python -m py_compile tools/update_project_progress.py
           python tools/update_project_progress.py
       - name: Open or update protected-branch review
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: automation/project-intelligence-reports
