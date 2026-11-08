@@ -7,8 +7,10 @@ on:
       - "tools/pui89_coconut_adapter.py"
       - "tools/pui89_project_adapter_common.py"
       - "tools/pui89_coconut_model_adapter.py"
+      - "tools/pui89_shared_core_v01.py"
       - "tests/test_pui89_coconut_adapter.py"
       - "tests/test_pui89_coconut_model_adapter.py"
+      - "tests/test_pui89_shared_core_v01.py"
       - ".github/workflows/pui89-coconut-adapter.yml"
   pull_request:
     paths:
@@ -17,18 +19,33 @@ on:
       - "tools/pui89_coconut_adapter.py"
       - "tools/pui89_project_adapter_common.py"
       - "tools/pui89_coconut_model_adapter.py"
+      - "tools/pui89_shared_core_v01.py"
       - "tests/test_pui89_coconut_adapter.py"
       - "tests/test_pui89_coconut_model_adapter.py"
+      - "tests/test_pui89_shared_core_v01.py"
       - ".github/workflows/pui89-coconut-adapter.yml"
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: coconut-adapter-checks-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   coconut-adapter-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out Coconut project
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check out pinned Shared AI Core schemas
+        uses: actions/checkout@v4
+        with:
+          repository: Pui89/PUI89-Shared-AI-Core
+          ref: e762f38f1e34ddf2ce9e22e12605bc08aa493ff9
+          path: shared-ai-core
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -40,3 +57,8 @@ jobs:
         env:
           PYTHONPATH: tools
         run: python -m unittest discover -s tests -p "test_pui89_coconut_model_adapter.py" -v
+      - name: Check Coconut mapping against pinned Shared AI Core v0.1
+        env:
+          PYTHONPATH: tools
+          PUI89_SHARED_CORE_DIR: shared-ai-core
+        run: python -m unittest discover -s tests -p "test_pui89_shared_core_v01.py" -v
