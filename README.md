@@ -1050,3 +1050,23 @@ Scores are awarded only through a dated review with a defined scope, version/com
 
 This score is separate from any commercial-readiness estimate and is not certification, safety approval or an investment rating.
 <!-- PUI89_PROJECT_STRENGTH_SCORECARD:END -->
+
+## Materials & Hardware — Research Plan
+
+**Status: proposed architecture and sourcing research only.** No physical harvesting robot is claimed as built, purchased, integrated or validated.
+
+| Subsystem | Candidate materials / hardware | Purpose and checks before selection |
+|---|---|---|
+| Frame and mobile base | Structural steel or aluminium alloy, corrosion-resistant fasteners, guarded joints | Verify load cases, fatigue, stability, corrosion, weld quality and serviceability |
+| Mobility | Farm-rated wheels/tracks, geared motors, motor drivers, encoders and mechanical brakes | Verify terrain, slope, traction, torque, braking, ingress protection and emergency stop |
+| Manipulator | Aluminium/steel links, bearings, geared actuators or hydraulic/pneumatic options | Verify reach, payload, stiffness, backlash, pinch/crush hazards and safe stopping |
+| Harvest tool | Replaceable guarded cutter, position/force sensing and mechanical retention | Verify cutting force, blade containment, drop zone and maintenance safety |
+| Fruit handling | Basket/capture net, padded contact surfaces, load sensor and controlled lowering mechanism | Verify rated load, impact energy, entanglement and failure recovery |
+| Perception | RGB camera, optional depth sensor, illumination and protected mounts | Verify sunlight/rain performance, field of view, calibration and provenance |
+| Position and motion | GNSS where available, IMU, wheel encoders and limit switches | Verify accuracy, drift, timestamping and safe response to sensor disagreement |
+| Power and protection | Battery with BMS, fuses, contactor, isolated DC-DC converters and sealed enclosure | Verify voltage/current budget, thermal design, short-circuit protection and ingress |
+| Compute and control | Local edge computer, microcontroller and isolated motor-control layer | Verify compute budget, watchdogs, network-loss response and independent emergency stop |
+
+Select materials using measured strength, stiffness, fatigue, corrosion exposure, mass, repairability and verified supplier data. Food-contact surfaces require separate suitability and cleaning review. Software perception and simulation can precede hardware purchases; physical reach, cutting, capture, stability and safe operation require qualified engineering and staged tests. The 0–30 m reach remains a research target, not a demonstrated capability.
+
+**Procurement rule:** research only. No purchase, subscription, supplier contact or paid service without explicit approval. Verify exact model, datasheet, seller, stock, licence, price, shipping, warranty and applicable standards before selection.
