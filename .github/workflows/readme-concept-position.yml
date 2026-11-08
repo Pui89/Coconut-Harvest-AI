@@ -1,0 +1,72 @@
+name: README concept illustration position
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+      - ".github/workflows/readme-concept-position.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "README.md"
+      - ".github/workflows/readme-concept-position.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: readme-concept-position-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-position:
+    name: Verify concept illustration stays below README title
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Validate pinned illustration block
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+
+          path = Path("README.md")
+          if not path.is_file():
+              sys.exit("FAIL: README.md was not found.")
+
+          lines = path.read_text(encoding="utf-8-sig").splitlines()
+          start = "<!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->"
+          end = "<!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:END -->"
+
+          if lines.count(start) != 1:
+              sys.exit(f"FAIL: expected exactly one start marker; found {lines.count(start)}.")
+          if lines.count(end) != 1:
+              sys.exit(f"FAIL: expected exactly one end marker; found {lines.count(end)}.")
+
+          nonempty = [i for i, line in enumerate(lines) if line.strip()]
+          if not nonempty:
+              sys.exit("FAIL: README.md is empty.")
+
+          title_index = nonempty[0]
+          if not lines[title_index].lstrip().startswith("# "):
+              sys.exit("FAIL: the first non-empty README line must be the project title heading.")
+
+          start_index = lines.index(start)
+          end_index = lines.index(end)
+          if end_index <= start_index:
+              sys.exit("FAIL: end marker must appear after the start marker.")
+
+          if start_index != title_index + 2:
+              sys.exit("FAIL: the illustration block must begin immediately below the title, with one blank line.")
+
+          block = lines[start_index + 1:end_index]
+          if not any(line.lstrip().startswith("![") for line in block):
+              sys.exit("FAIL: no Markdown image with descriptive alt text was found inside the pinned block.")
+
+          print("PASS: one marked concept illustration block is directly below the README title.")
+          print("PASS: the block contains a Markdown image with alt text.")
+          PY
