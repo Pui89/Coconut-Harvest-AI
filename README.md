@@ -1,5 +1,10 @@
 # Coconut Harvest AI
 
+
+## Public privacy boundary
+
+This public README is limited to the project overview, approved concept material and evidence that can be shared openly. Do not publish API keys, passwords, private tokens, Wi-Fi or internal network settings, private camera footage, personal or precise location data, detailed security configurations, unreleased engineering specifications, or confidential commercial plans. Keep sensitive material in an appropriately access-controlled private location. If a credential may have been exposed, revoke it; removing it from the latest commit does not remove it from Git history.
+
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->
 ![Coconut Harvest AI conceptual harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
@@ -145,40 +150,6 @@ The [Product Quality and Safety Roadmap](docs/PRODUCT_QUALITY_AND_SAFETY_ROADMAP
 
 > **Important status boundary:** The four maturity classes and 0–30 m range describe the intended system design, not validated capabilities. The repository currently contains software, dataset-review and synthetic-evaluation foundations; it does not demonstrate a trained, reliable all-stage coconut detector or a physical robot harvesting at any height. No field-harvest success is claimed.
 
-## Real palm height: dataset, labels, training and test plan
-
-**Current status:** the repository does not yet contain a verified, height-labelled coconut-palm dataset covering 0–30 m. The photograph above is a real reference image, but it has no independently verified tree-height measurement recorded here. Do not infer height from appearance or use it as a height-labelled training/test example.
-
-### Research starting points (check terms before reuse)
-
-- [Coconut tree crown — Mendeley Data](https://data.mendeley.com/datasets/w4t73tvrf8/1): described as 400 RGB coconut-crown images and lists CC BY 4.0. The published description does not establish a measured 0–30 m height label for every image. Verify the files, licence, attribution and metadata before adding any image to this repository.
-- [Coconut-cluster detection research (open-access article)](https://pmc.ncbi.nlm.nih.gov/articles/PMC9737954/): describes 900 crown images collected from palms reported to be approximately 8–20 m tall. That reported range is study context, not a verified per-image height label. Check the dataset's separate access and reuse terms before reuse.
-- [CC BY-SA-licensed example of a tall coconut palm](https://commons.wikimedia.org/wiki/File:A_coconut_palm_tree.jpg): useful for visual context and annotation practice only; the source page does not provide a measured height, so it must not be labelled as a particular metre value.
-
-### Proposed height strata
-
-| Height band | Label status | Intended use |
-|---|---|---|
-| 0–5 m | Collect measured examples | Early controlled experiments |
-| >5–10 m | Collect measured examples | Scale and viewpoint variation |
-| >10–15 m | Collect measured examples | Taller-canopy generalisation |
-| >15–20 m | Collect measured examples | High-canopy detection challenges |
-| >20–25 m | Collect measured examples | Very tall palm evaluation |
-| >25–30 m | Collect measured examples | Long-term target evaluation |
-
-These are collection targets, not evidence that any band is currently populated. Record a height value, measurement method, measurement date, uncertainty, source/tree ID, camera distance and viewpoint where available. If the height is unknown, use height_m = null and height_status = unverified; never guess from image pixels alone.
-
-### Annotation and leakage-safe evaluation rules
-
-1. Keep fruit bounding boxes and maturity labels separate from palm-height metadata. Height is a tree/scene attribute, not a fifth fruit class.
-2. Record image provenance, licence, original file hash, tree ID or source/session ID, height evidence and reviewer status.
-3. Keep AI-proposed annotations marked as drafts until human review and independent review are documented.
-4. Split train/validation/test by tree, orchard, capture session or source group—not by near-duplicate frames—so images of the same palm cannot leak across splits.
-5. Report fruit-detection metrics separately for each adequately sampled, height-verified band, plus overall precision, recall, F1/mAP and latency. State sample counts and uncertainty; do not report a band result when there are insufficient eligible examples.
-6. Height-stratified image testing evaluates visual generalisation only. It does not prove a robot can reach, cut, capture, lower fruit or operate safely at that height. Those require separate staged physical tests and risk controls.
-
-**Gate:** no 0–30 m coverage claim until each reported band has traceable, licensed examples, verified height metadata, reviewed labels, tree/source-separated splits and reproducible results. The 0–30 m range remains a long-term design target, not a validated capability.
-
 ## Real coconut-palm photograph
 
 ![Real coconut palm with visible coconuts, photographed in Sri Lanka](https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Coconut_in_Coconut_Tree.jpg/960px-Coconut_in_Coconut_Tree.jpg)
@@ -197,24 +168,6 @@ The intended workflow lets an operator choose a harvest target and asks the syst
 A **mixed-stage bunch is a scene condition, not a maturity class**. Classify visible fruits individually where possible; do not assume every fruit in a bunch is at the same stage.
 
 **Uncertain, hidden, damaged, occluded, or unsafe targets are not a fifth harvest category.** They are rejection / review conditions: mark them unknown, request human review, or stop. Never cut when target identity, reach, stability, clearance, tool readiness, or the required approval is uncertain.
-
-## Height target: 0–30 m
-
-The product vision is to support harvesting across palms from **0 m to 30 m**, including the full 0–30 m range as an engineering challenge. This is a **long-term design target, not a proven reach specification**. The repository does not yet verify safe access, positioning, cutting, catching, lowering, or recovery at any particular height. Height capability must be validated in staged tests and reported only for the tested configuration and conditions.
-
-Proposed staged validation: ground-level/controlled bench trials first; then measured low-height tests; then progressively higher, secured tests only after the previous safety and performance gates pass. Do not imply that simulation or a concept illustration proves real-world reach.
-
-## Proposed harvesting arm and coconut-catching basket
-
-The robot concept includes a **jointed telescopic harvesting arm** and a **fruit-catching / collection basket**. They are proposed engineering components, not a built or validated mechanism.
-
-- **Arm and positioning:** a telescopic mast supports a multi-joint arm for aiming the tool toward an individually selected coconut bunch. Reach planning must account for measured target position, arm load, chassis stability, wind, tree movement, obstacles and the full robot/tool envelope.
-- **Perception at the tool:** a camera/depth-sensor concept near the end effector would help estimate the target and confirm alignment. Sensor readings and maturity predictions must carry uncertainty; unclear or occluded targets go to human review.
-- **Guarded cutting and capture:** a guarded cutter/gripper concept would only be considered after target identity, clearance, stability, tool state and operator approval pass their checks. No cut should be attempted when any required input is missing, stale, conflicting or uncertain.
-- **Basket and controlled lowering:** a receiving basket is intended to retain harvested fruit and reduce uncontrolled drops. A real design still needs a separately engineered and tested transfer/lowering path, load limits, retention, impact protection and a way to prevent fruit or tools from falling.
-- **Height boundary:** the 0–30 m palm range is a long-term design challenge, not a demonstrated arm length or safe operating envelope. The illustration is not to scale and does not prove reach, cutting, capture or operation at any height.
-
-**Current status:** concept only. No physical arm, basket, cutter, lowering mechanism or autonomous harvest has been validated by this repository. Software and synthetic tests cannot establish mechanical feasibility or field safety.
 
 ## Intended harvesting workflow
 
@@ -787,14 +740,6 @@ This roadmap prioritizes improvements that can be built and checked locally befo
 
 No automatic cutting command from a vision score alone. A harvest action requires a reviewed target, valid geometry, safety-gate approval and a recoverable stop path. Keep the workflow local-first and local-first; The roadmap prioritises local execution.
 
-## Vision-language and action-planning architecture
-
-**Planned next layer — not yet a connected model:** a vision-language model (VLM) may summarize image context; an action-planning LLM may propose structured high-level steps. The existing detector/classifier, geometry checks and autonomy supervisor remain separate.
-
-- Design and safety contract: [Physical AI Stack](docs/PHYSICAL_AI_STACK.md)
-- Model-agnostic input/output validation: [llm_interfaces.py](pui89_autonomy/llm_interfaces.py)
-- The scaffold uses only the Python standard library. It does not download models, call paid APIs, run image inference, or control hardware.
-
 ## Development roadmap
 
 Track the five shared local-first development tasks in [docs/DEVELOPMENT_ROADMAP.md](docs/DEVELOPMENT_ROADMAP.md). Coconut priority: complete source/license/hash review and annotation geometry checks before training; then establish a leakage-safe local vision baseline. Dataset quality and baseline metrics are not marked complete until recorded evidence is available.
@@ -1051,22 +996,3 @@ Scores are awarded only through a dated review with a defined scope, version/com
 This score is separate from any commercial-readiness estimate and is not certification, safety approval or an investment rating.
 <!-- PUI89_PROJECT_STRENGTH_SCORECARD:END -->
 
-## Materials & Hardware — Research Plan
-
-**Status: proposed architecture and sourcing research only.** No physical harvesting robot is claimed as built, purchased, integrated or validated.
-
-| Subsystem | Candidate materials / hardware | Purpose and checks before selection |
-|---|---|---|
-| Frame and mobile base | Structural steel or aluminium alloy, corrosion-resistant fasteners, guarded joints | Verify load cases, fatigue, stability, corrosion, weld quality and serviceability |
-| Mobility | Farm-rated wheels/tracks, geared motors, motor drivers, encoders and mechanical brakes | Verify terrain, slope, traction, torque, braking, ingress protection and emergency stop |
-| Manipulator | Aluminium/steel links, bearings, geared actuators or hydraulic/pneumatic options | Verify reach, payload, stiffness, backlash, pinch/crush hazards and safe stopping |
-| Harvest tool | Replaceable guarded cutter, position/force sensing and mechanical retention | Verify cutting force, blade containment, drop zone and maintenance safety |
-| Fruit handling | Basket/capture net, padded contact surfaces, load sensor and controlled lowering mechanism | Verify rated load, impact energy, entanglement and failure recovery |
-| Perception | RGB camera, optional depth sensor, illumination and protected mounts | Verify sunlight/rain performance, field of view, calibration and provenance |
-| Position and motion | GNSS where available, IMU, wheel encoders and limit switches | Verify accuracy, drift, timestamping and safe response to sensor disagreement |
-| Power and protection | Battery with BMS, fuses, contactor, isolated DC-DC converters and sealed enclosure | Verify voltage/current budget, thermal design, short-circuit protection and ingress |
-| Compute and control | Local edge computer, microcontroller and isolated motor-control layer | Verify compute budget, watchdogs, network-loss response and independent emergency stop |
-
-Select materials using measured strength, stiffness, fatigue, corrosion exposure, mass, repairability and verified supplier data. Food-contact surfaces require separate suitability and cleaning review. Software perception and simulation can precede hardware purchases; physical reach, cutting, capture, stability and safe operation require qualified engineering and staged tests. The 0–30 m reach remains a research target, not a demonstrated capability.
-
-**Procurement rule:** research only. No purchase, subscription, supplier contact or paid service without explicit approval. Verify exact model, datasheet, seller, stock, licence, price, shipping, warranty and applicable standards before selection.
