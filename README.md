@@ -1,5 +1,11 @@
 # Coconut Harvest AI
 
+<!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->
+![Coconut Harvest AI conceptual harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
+
+*Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The maturity classes and 0–30 m range are design goals; detection, reach, stability, cutting and safe operation remain unvalidated.*
+<!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:END -->
+
 ## Open-source-first engineering
 
 PUI89 prioritises open-source software, transparent licensing, reproducible workflows and evidence-led collaboration. Model weights, datasets, hosted services and hardware are assessed separately for provenance, licence terms, security, data handling, resource requirements and intended use. Public availability alone does not establish permission for reuse or commercial deployment.
@@ -264,9 +270,7 @@ Current gaps, recent technology directions, open-source-first adoption gates, an
 - **Evidence boundary:** CI success is software evidence only. Coconut detection, maturity classification, 3D targeting, harvest reach, cutting, capture and real-orchard operation remain unvalidated unless separately measured.
 
 
-![Conceptual coconut harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
-
-*Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The four target maturity classes and 0–30 m range are intended design goals; detection accuracy, maturity classification, reach, stability, cutting, fruit retention, safe lowering, and real-orchard operation remain unvalidated.*
+nceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The four target maturity classes and 0–30 m range are intended design goals; detection accuracy, maturity classification, reach, stability, cutting, fruit retention, safe lowering, and real-orchard operation remain unvalidated.*
 
 ## Optional local Hugging Face vision experiment
 
