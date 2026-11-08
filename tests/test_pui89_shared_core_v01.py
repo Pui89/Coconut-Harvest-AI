@@ -50,7 +50,8 @@ class CoconutSharedCoreV01Tests(unittest.TestCase):
             build_coconut_v01_records(record)
 
     def test_rejects_timezone_missing(self):
-        record = self.make_record(timestamp="2026-10-31T00:00:00")
+        record = self.make_record()
+        record["evidence"]["timestamp"] = "2026-10-31T00:00:00"
         with self.assertRaises(ValueError):
             build_coconut_v01_records(record)
 
