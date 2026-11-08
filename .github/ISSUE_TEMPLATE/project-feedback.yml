@@ -1,0 +1,53 @@
+name: PUI89 Project Feedback
+description: Submit structured, public feedback about the current Coconut Harvest AI project.
+title: "PUI89 Project Feedback: Coconut Harvest AI"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <!-- PUI89_PROJECT_FEEDBACK_V1 -->
+        Thank you for reviewing this project. Submissions are public GitHub issues and may be counted in the PUI89 community feedback dashboard. Do not include personal, confidential, or sensitive information.
+
+        This is feedback about a project in development, not a verified customer review or product endorsement.
+  - type: dropdown
+    id: rating
+    attributes:
+      label: Overall feedback score (1-5)
+      description: Rate the current project's clarity, usefulness, and evidence. This is not a customer satisfaction rating.
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area reviewed
+      options:
+        - Documentation
+        - Software and tests
+        - Research and evidence
+        - Concept and requirements
+        - Safety and governance
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reviewed
+    attributes:
+      label: What did you review?
+      description: Identify the README, documentation, code, test, or project concept you reviewed.
+      placeholder: I reviewed...
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: What should be improved?
+      description: Share a concrete suggestion or explain what is working well.
+      placeholder: A useful improvement would be...
+    validations:
+      required: true
