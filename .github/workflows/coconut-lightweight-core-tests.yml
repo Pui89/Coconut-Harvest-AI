@@ -6,7 +6,9 @@ on:
       - "pui89_core/**"
       - "pui89_autonomy/**"
       - "tools/pui89_world_state.py"
+      - "tools/pui89_coconut_contract_adapter.py"
       - "tests/test_pui89_core_contracts.py"
+      - "tests/test_pui89_shared_contracts.py"
       - "tests/test_pui89_world_state.py"
       - "tests/test_world_state.py"
       - ".github/workflows/coconut-lightweight-core-tests.yml"
@@ -15,7 +17,9 @@ on:
       - "pui89_core/**"
       - "pui89_autonomy/**"
       - "tools/pui89_world_state.py"
+      - "tools/pui89_coconut_contract_adapter.py"
       - "tests/test_pui89_core_contracts.py"
+      - "tests/test_pui89_shared_contracts.py"
       - "tests/test_pui89_world_state.py"
       - "tests/test_world_state.py"
       - ".github/workflows/coconut-lightweight-core-tests.yml"
@@ -35,7 +39,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -48,5 +52,6 @@ jobs:
         run: |
           python -m pytest -q \
             tests/test_pui89_core_contracts.py \
+            tests/test_pui89_shared_contracts.py \
             tests/test_pui89_world_state.py \
             tests/test_world_state.py
