@@ -72,7 +72,7 @@ jobs:
               "",
               "A BLOCKED/INCOMPLETE dataset is an expected review state, not a CI execution failure. Fix execution errors; resolve data blockers through documented human review."
           ]
-          rendered = "\\n".join(summary) + "\\n"
+          rendered = "\n".join(summary) + "\n"
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as stream:
               stream.write(rendered)
           print(rendered)
