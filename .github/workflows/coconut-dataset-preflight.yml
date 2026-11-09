@@ -1,0 +1,79 @@
+name: Coconut Dataset Preflight
+
+on:
+  pull_request:
+    paths:
+      - "data/review_batch_2026-10-18/**"
+      - "data/review_batch_2026-10-22/**"
+      - "tools/audit_coconut_annotations.py"
+      - "tools/coconut_dataset_promotion_gate.py"
+      - "tools/record_coconut_source_hash.py"
+      - "tools/run_coconut_dataset_preflight.py"
+      - ".github/workflows/coconut-dataset-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-dataset-preflight-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  read-only-preflight:
+    name: Read-only rights, ledger and geometry preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run fail-closed dataset preflight
+        shell: bash
+        run: |
+          set +e
+          python tools/run_coconut_dataset_preflight.py \
+            --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json \
+            --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv \
+            --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv \
+            --output coconut-dataset-preflight-report.json
+          result=$?
+          set -e
+
+          if [ "$result" -gt 1 ]; then
+            echo "::error::Preflight could not execute (exit $result)."
+            exit "$result"
+          fi
+
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report = json.loads(Path("coconut-dataset-preflight-report.json").read_text(encoding="utf-8"))
+          status = report.get("overall_status", "UNKNOWN")
+          geometry = report.get("geometry", {})
+          gate = report.get("promotion_gate", {})
+          source = report.get("candidate_0032_source_fingerprint", {})
+          summary = [
+              "## Coconut dataset preflight",
+              f"- **Overall:** {status}",
+              f"- **Candidate records:** {gate.get('candidate_count', 'NOT REPORTED')}",
+              f"- **Eligible for training:** {gate.get('eligible_count', 'NOT REPORTED')}",
+              f"- **Geometry:** {geometry.get('status', 'UNKNOWN')} ({geometry.get('geometry_error_count', 'NOT REPORTED')} errors)",
+              f"- **Candidate 0032 source bytes:** {source.get('status', 'NOT_CHECKED')}",
+              "- **Human visual QA:** NOT CHECKED BY AUTOMATION",
+              "- **Training approval:** never changed by this workflow",
+              "",
+              "A BLOCKED/INCOMPLETE dataset is an expected review state, not a CI execution failure. Fix execution errors; resolve data blockers through documented human review."
+          ]
+          rendered = "\\n".join(summary) + "\\n"
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as stream:
+              stream.write(rendered)
+          print(rendered)
+          PY
