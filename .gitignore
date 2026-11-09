@@ -1,0 +1,26 @@
+# PUI89 security baseline: local-only settings and credentials
+# Never commit local AI assistant permission state or command history.
+.claude/settings.local.json
+.claude/*.local.json
+
+# Local environment files (keep documented examples only).
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Private keys, certificates, and keystores.
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local credential stores and secret directories.
+secrets/
+credentials/
+.aws/credentials
+.azure/
+.config/gcloud/
+.ssh/
