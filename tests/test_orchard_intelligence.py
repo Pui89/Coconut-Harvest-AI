@@ -45,6 +45,13 @@ class HeightBandTests(unittest.TestCase):
             )
             self.assertEqual(result["height_status"], "invalid_measurement")
 
+    def test_malformed_method_and_evidence_do_not_crash(self):
+        result = height_band(
+            8, status="verified", method=[], evidence_ref=123
+        )
+        self.assertEqual(result["height_band"], "UNKNOWN")
+        self.assertEqual(result["height_status"], "review_required")
+
 
 class FruitEvidenceTests(unittest.TestCase):
     def valid(self, **updates):
@@ -86,6 +93,15 @@ class FruitEvidenceTests(unittest.TestCase):
         self.assertIn("unsupported_or_missing_maturity_class", result["errors"])
         self.assertIn("invalid_normalized_bbox", result["errors"])
         self.assertFalse(result["harvest_authorized"])
+
+    def test_unhashable_metadata_is_reported_not_crashed(self):
+        result = validate_fruit_observation(self.valid(
+            maturity_class=[], source_kind=[], review_status=[]
+        ))
+        self.assertIn("unsupported_or_missing_maturity_class", result["errors"])
+        self.assertIn("unsupported_source_kind", result["errors"])
+        self.assertIn("invalid_review_status", result["errors"])
+        self.assertEqual(result["maturity_class"], "unknown")
 
     def test_report_keeps_unknown_tree_height_unknown(self):
         report = build_orchard_report(
