@@ -635,6 +635,7 @@ See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). The optional s
 - [Validation matrix](docs/VALIDATION_MATRIX.md)
 - [Complete-system blueprint](docs/COMPLETE_SYSTEM_BLUEPRINT.md)
 - [Coconut-stage roadmap](docs/COCONUT_STAGE_ROADMAP.md)
+- [Orchard stage and tree-height intelligence engine v0.1](docs/ORCHARD_STAGE_HEIGHT_INTELLIGENCE_V0.1.md)
 - [0–30 m tree-height feasibility plan](docs/TREE_HEIGHT_FEASIBILITY_0-30M.md)
 - [Candidate image triage](docs/CANDIDATE_IMAGE_TRIAGE_2026-10-20.md)
 - [Evaluation benchmark](docs/EVALUATION_BENCHMARK.md)
