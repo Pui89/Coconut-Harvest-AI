@@ -82,9 +82,15 @@ class FruitEvidenceTests(unittest.TestCase):
         )
         self.assertEqual(result["disposition"], "synthetic_only")
 
-    def test_uncertain_stage_is_preserved(self):
-        result = validate_fruit_observation(self.valid(maturity_class="uncertain"))
-        self.assertEqual(result["maturity_class"], "uncertain")
+    def test_yellow_is_the_third_of_four_requested_stages(self):
+        result = validate_fruit_observation(self.valid(maturity_class="yellow"))
+        self.assertEqual(result["maturity_class"], "yellow")
+        self.assertEqual(result["errors"], [])
+
+    def test_unknown_stage_is_not_forced_into_a_class(self):
+        result = validate_fruit_observation(self.valid(maturity_class="unknown"))
+        self.assertEqual(result["maturity_class"], "unknown")
+        self.assertIn("unsupported_or_missing_maturity_class", result["errors"])
 
     def test_invalid_box_and_class_are_rejected(self):
         result = validate_fruit_observation(
