@@ -22,7 +22,7 @@ The repository already contains an offline browser annotator and a YOLO conversi
 From the repository root:
 
 ```bash
-python -m unittest tests.test_orchard_intelligence -v
+python -m unittest discover -s tests -p test_orchard_intelligence.py -v
 ```
 
 No dependencies, model weights, hosted API, GPU, or network access are required.
