@@ -1,47 +1,49 @@
 # PUI89 Coconut Intelligence — Product Alpha
 
-**Release target:** Local-first inspection workspace alpha.  
-**Status:** Implemented software increment; not yet independently tested, field validated, or commercially released.
+**Status:** Expanded internal alpha. Automated tests cover the record service; the Streamlit interface still requires a manual walkthrough. No customer pilot, field validation, commercial release, or model-accuracy claim is made.
 
-## Operator workflow
-1. Create an inspection using a JPEG, PNG or WebP photo (maximum 10 MB).
-2. Record the source and confirm authority to use/store the image.
-3. Keep the original image in a local workspace and verify its SHA-256 on export.
-4. Record site code, operator alias and notes.
-5. Add fruit annotations with normalised bounding boxes and one of four visual appearance classes, or UNKNOWN / NEEDS REVIEW.
-6. Append annotations as new revisions; previous events remain in the local JSONL audit history.
-7. Export a JSON report with provenance, annotation history, integrity result and limitations.
+## Current operator workflow
+1. Create a batch of up to 10 JPEG, PNG or WebP images (10 MB each; 50 MB batch total).
+2. Record source/provenance and confirm authority to use and store every selected image.
+3. Preserve original image bytes locally with SHA-256 hashes and a shared batch identifier.
+4. Review deterministic image-screening indicators: image dimensions, grayscale brightness, contrast, approximate clipping and edge-strength proxy.
+5. Record human visibility and occlusion review as append-only revisions.
+6. Adjust a normalised bounding box and preview it over the unchanged image before saving a human annotation.
+7. Use four visual appearance labels or UNKNOWN / NEEDS REVIEW.
+8. Export a JSON report, bilingual English/Thai Markdown report, or verified annotation manifest.
 
 ## Run locally
 Use an existing Python environment where Streamlit and Pillow are already available. Do not install packages without reviewing costs, licence and hardware.
 
 ~~~bash
 streamlit run apps/pui89_app/inspection_app.py
-~~~
-
-Default workspace: ~/.pui89/coconut-inspections
-
-Set PUI89_COCONUT_WORKSPACE to choose another local folder. Keep this workspace outside Git and back it up independently.
-
-## Boundaries
-- No automatic image classification is performed.
-- Labels are human-entered visual annotations, not botanical maturity certification.
-- Bounding boxes are manually entered coordinates; interactive drawing is not included in this alpha.
-- No yield, height, reachability, harvest-readiness or robot-safety claim.
-- No physical actuator commands.
-- Images stay local; no automatic cloud upload or hosted inference.
-
-## Test
-~~~bash
 python -m unittest apps.pui89_app.test_inspection_workspace -v
 ~~~
 
-Tests use synthetic bytes only and do not establish image-decoder correctness or field performance.
+Default workspace: ~/.pui89/coconut-inspections. Set PUI89_COCONUT_WORKSPACE to choose another local folder. Keep this workspace outside Git and back it up independently.
 
-## Before an external pilot
-- Run unit tests and manual usability walkthrough.
-- Verify upload limits and backup/restore on target computer.
-- Review privacy and retention terms with each pilot partner.
-- Use images with documented rights and consent where required.
-- Add interactive box drawing and multi-reviewer adjudication based on operator feedback.
-- Keep classifier disabled until real, rights-cleared, independently split data and evaluation results exist.
+## Image-quality indicators: important limits
+- Brightness, contrast, clipping and edge strength are deterministic screening heuristics, not a validated quality score, focus detector, visibility classifier or training-eligibility decision.
+- Human visibility/occlusion review is recorded separately from machine-computed indicators.
+- A green/clear indicator does not prove that a photo is suitable for model training.
+
+## Annotation and dataset governance
+- The bounding-box UI provides coordinate sliders and an image overlay preview; it is not drag-and-drop drawing.
+- The annotation manifest includes hashes, site/batch grouping, labels and boxes. It does not include image bytes.
+- Training is NOT APPROVED BY DEFAULT. Human labels need adjudication.
+- Split by orchard/site, tree, capture session and near-duplicate group before model evaluation. Do not randomly split correlated images across train/validation/test.
+- No automatic train/validation/test split or model performance is claimed.
+
+## Boundaries
+- No automatic maturity classification is performed by this workspace.
+- Labels are human-entered visual annotations, not botanical maturity certification.
+- No yield, height, reachability, harvest-readiness or robot-safety claim.
+- No physical actuator commands, hosted inference or automatic cloud upload.
+- The product alpha is not a validated customer product.
+
+## Verification and next gates
+- CI unit tests use synthetic bytes; they do not test real image decoding, the Streamlit UI or field performance.
+- Manually walk through multiple photos, quality review, box preview, reports and manifest export on the target computer.
+- Verify local backup and full restore before collecting sensitive farm data.
+- Use rights-cleared photos and document consent/privacy/retention with pilot partners.
+- Only enable model training after a reviewed, rights-cleared dataset and group-separated independent evaluation are ready.
