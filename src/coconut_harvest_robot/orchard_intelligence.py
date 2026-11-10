@@ -47,7 +47,12 @@ def height_band(height_m: Any, *, status: str, method: str,
     }
     if status != "verified":
         return result
-    if method not in ALLOWED_HEIGHT_METHODS or not evidence_ref or not evidence_ref.strip():
+    if (
+        not isinstance(method, str)
+        or method not in ALLOWED_HEIGHT_METHODS
+        or not isinstance(evidence_ref, str)
+        or not evidence_ref.strip()
+    ):
         result["height_status"] = "review_required"
         return result
     if not _finite_number(height_m) or height_m < 0:
@@ -80,9 +85,11 @@ def validate_fruit_observation(record: Mapping[str, Any]) -> dict[str, Any]:
         errors.append("missing_fruit_id")
     if not isinstance(image_id, str) or not image_id.strip():
         errors.append("missing_image_id")
-    if maturity not in MATURITY_CLASSES:
+    if not isinstance(maturity, str) or maturity not in MATURITY_CLASSES:
         errors.append("unsupported_or_missing_maturity_class")
-    if source_kind not in {"human_annotation", "model_prediction", "synthetic_test"}:
+    if not isinstance(source_kind, str) or source_kind not in {
+        "human_annotation", "model_prediction", "synthetic_test"
+    }:
         errors.append("unsupported_source_kind")
     if not _finite_number(confidence) or not 0.0 <= confidence <= 1.0:
         errors.append("invalid_class_confidence")
@@ -95,7 +102,7 @@ def validate_fruit_observation(record: Mapping[str, Any]) -> dict[str, Any]:
         errors.append("invalid_normalized_bbox")
 
     review = record.get("review_status", "pending")
-    if review not in {"pending", "reviewed", "rejected"}:
+    if not isinstance(review, str) or review not in {"pending", "reviewed", "rejected"}:
         errors.append("invalid_review_status")
     if source_kind == "model_prediction" and review != "reviewed":
         disposition = "human_review_required"
@@ -112,7 +119,7 @@ def validate_fruit_observation(record: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "fruit_id": fruit_id if isinstance(fruit_id, str) else None,
         "image_id": image_id if isinstance(image_id, str) else None,
-        "maturity_class": maturity if maturity in MATURITY_CLASSES else "unknown",
+        "maturity_class": maturity if isinstance(maturity, str) and maturity in MATURITY_CLASSES else "unknown",
         "source_kind": source_kind if isinstance(source_kind, str) else "unknown",
         "class_confidence": float(confidence) if _finite_number(confidence) else None,
         "bbox_xyxy_normalized": list(bbox) if isinstance(bbox, (list, tuple)) else None,
