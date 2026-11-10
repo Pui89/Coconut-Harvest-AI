@@ -996,4 +996,19 @@ Scores are awarded only through a dated review with a defined scope, version/com
 
 This score is separate from any commercial-readiness estimate and is not certification, safety approval or an investment rating.
 <!-- PUI89_PROJECT_STRENGTH_SCORECARD:END -->
+<!-- PUI89_OPTIONAL_VYRIONVISION_RESOURCE:START -->
 
+
+## Optional computer-vision inspection resource
+
+[PUI89 external-tool reference: Vyrion Vision](https://www.vyrionvision.cloud/) is listed as an optional third-party resource for learning about YOLO model structure, layer graphs, feature maps and computer-vision experiments.
+
+- **Free access:** the provider currently advertises a free tier. Credit allowances and feature availability may change; check the provider's live plan and terms before use.
+- **Zero-cost boundary:** do not purchase credits, start a paid subscription, enable auto-refill or enter payment details for PUI89 work. Prefer documented browser-side/on-device functions that explicitly show zero-credit usage.
+- **Data boundary:** use public, non-sensitive sample images only. Do not upload PUI89 proprietary model weights, private datasets, personal data, operational footage, credentials or confidential material.
+- **Evidence boundary:** platform demonstrations, advertised speed/accuracy figures and visualisations are not PUI89 benchmark results. Record model version, dataset, hardware, runtime mode, settings and reproducible measurements before making performance claims.
+- **Dependency boundary:** this is an optional external service, not a required PUI89 dependency. Core code, tests, model provenance and evaluation records must remain independently usable.
+
+Vyrion Vision is independently operated by its provider. PUI89 does not own, control, certify or endorse the service, and its privacy, security, licensing and commercial-use terms must be reviewed independently.
+
+<!-- PUI89_OPTIONAL_VYRIONVISION_RESOURCE:END -->
