@@ -11,7 +11,7 @@ import math
 from typing import Any, Mapping
 
 MATURITY_CLASSES = frozenset({
-    "young_green", "mature_green", "brown_aging", "uncertain"
+    "young_green", "mature_green", "yellow", "brown_aging"
 })
 HEIGHT_BANDS = (
     (0.0, 5.0, "H1_0_5m"),
