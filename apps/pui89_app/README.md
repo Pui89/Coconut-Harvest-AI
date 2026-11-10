@@ -191,3 +191,36 @@ python -m unittest apps.pui89_app.test_inspection_records -v
 ```
 
 This is an early human-led recordkeeping workflow. It does not automatically classify image pixels, validate maturity accuracy, provide a calibrated model, or authorize robot actions. The existing offline drawing annotator is still a separate tool; optional bounding-box coordinates in this screen are entered manually.
+
+
+## PUI89 Coconut Intelligence — inspection product alpha
+
+A separate local-first workflow is now available for creating inspection records, preserving original images with SHA-256 hashes, recording image provenance, adding human fruit annotations with normalised bounding boxes, preserving append-only revision events, and exporting JSON reports.
+
+Run it using an existing environment with Streamlit and Pillow already available:
+
+~~~bash
+streamlit run apps/pui89_app/inspection_app.py
+~~~
+
+The default workspace is outside the repository at `~/.pui89/coconut-inspections`. Set `PUI89_COCONUT_WORKSPACE` to choose another local folder. Images are not automatically uploaded. The app does not automatically classify images and does not control a robot.
+
+Run dependency-free workspace tests:
+
+~~~bash
+python -m unittest apps.pui89_app.test_inspection_workspace -v
+~~~
+
+See [Product Alpha guide](../../docs/PUI89_COCONUT_INTELLIGENCE_PRODUCT_ALPHA.md). This is an internal alpha increment, not yet a validated customer product.
+
+
+## Expanded Coconut Intelligence inspection alpha
+
+For the separate local-first operator workflow (multi-image batches, heuristic image-quality screening, human visibility/occlusion review, coordinate-based box preview, bilingual reports and annotation manifest), use:
+
+```bash
+streamlit run apps/pui89_app/inspection_app.py
+python -m unittest apps.pui89_app.test_inspection_workspace -v
+```
+
+This app uses Streamlit and Pillow already present in the environment; it does not install them. It stores photos locally, does not automatically classify maturity, and does not control a robot. Quality indicators are heuristics only. The manifest is not approved for training by default. See [the alpha guide](../../docs/PUI89_COCONUT_INTELLIGENCE_PRODUCT_ALPHA.md).

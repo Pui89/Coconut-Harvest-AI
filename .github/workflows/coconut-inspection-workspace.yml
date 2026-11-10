@@ -1,0 +1,29 @@
+name: Coconut Inspection Workspace Tests
+on:
+  push:
+    paths:
+      - "apps/pui89_app/inspection_workspace.py"
+      - "apps/pui89_app/test_inspection_workspace.py"
+      - ".github/workflows/coconut-inspection-workspace.yml"
+  pull_request:
+    paths:
+      - "apps/pui89_app/inspection_workspace.py"
+      - "apps/pui89_app/test_inspection_workspace.py"
+      - ".github/workflows/coconut-inspection-workspace.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: coconut-inspection-workspace-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v5.6.0
+        with:
+          python-version: "3.12"
+      - name: Run dependency-free inspection workspace tests
+        run: python -m unittest apps.pui89_app.test_inspection_workspace -v
