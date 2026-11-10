@@ -4,7 +4,7 @@
 
 This increment adds a standard-library-only evidence intake engine that combines two workstreams:
 
-1. **Four-stage fruit intelligence:** validates supplied per-fruit records for `young_green`, `mature_green`, `brown_aging`, and `uncertain`; validates normalized bounding boxes; preserves source type, confidence and review status; requires human review for model predictions; keeps synthetic fixtures explicitly synthetic.
+1. **Four-stage fruit intelligence:** validates supplied per-fruit records for the four requested stages: `young_green`, `mature_green`, `yellow`, and `brown_aging`; `unknown`/invalid remains an abstention state, not a fifth maturity class; validates normalized bounding boxes; preserves source type, confidence and review status; requires human review for model predictions; keeps synthetic fixtures explicitly synthetic.
 2. **Tall-palm intelligence:** maps a measured tree height into one of six planning bands from 0 to 30 m, but only when the measurement is marked `verified`, has an allowed method and has an evidence reference. Unverified, missing or invalid measurements remain `UNKNOWN`; values above 30 m remain `OUT_OF_RANGE`.
 
 ## What is not implemented
