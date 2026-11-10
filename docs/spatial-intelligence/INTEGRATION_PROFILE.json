@@ -1,0 +1,38 @@
+{
+  "profile_version": "0.1.0",
+  "project_id": "coconut-harvest-ai",
+  "project_name": "Coconut Harvest AI",
+  "integration_status": "profile_added_runtime_integration_pending",
+  "shared_core": {
+    "repository": "Pui89/PUI89-Shared-AI-Core",
+    "pull_request": "https://github.com/Pui89/PUI89-Shared-AI-Core/pull/26",
+    "release_status": "draft_not_merged"
+  },
+  "intended_use": "Advisory palm, trunk, crown and target-relative geometry for later manipulation research.",
+  "recommended_modalities": [
+    "rgb",
+    "lidar",
+    "depth"
+  ],
+  "planned_spatial_tasks": [
+    "Palm trunk/crown and cluster-relative geometry",
+    "Distance and coordinate-frame checks for synthetic arm reach fixtures",
+    "Geometry evidence kept separate from maturity classification"
+  ],
+  "limitations_and_safety_boundaries": [
+    "LiDAR geometry does not classify coconut maturity.",
+    "No grasp, cut, worker-clearance or arm trajectory safety is established.",
+    "No harvesting robot hardware or field performance is claimed."
+  ],
+  "common_gates": [
+    "usable evidence quality",
+    "valid calibration status before sensor fusion",
+    "matching coordinate frames",
+    "timestamp synchronization within a validated project-specific tolerance",
+    "uncertainty and sensor-health assessment",
+    "human review required",
+    "execution_authorized=false"
+  ],
+  "evidence_status": "No real sensor integration, model accuracy, field validation, hardware safety or certification is claimed.",
+  "cost_policy": "standard-library-first; no paid APIs, subscriptions, cloud GPU, automatic model downloads or additional sensor purchases"
+}
