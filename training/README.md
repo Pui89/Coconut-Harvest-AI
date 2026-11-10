@@ -253,3 +253,27 @@ python training/audit_experiment_report.py --manifest "reports\coconut-test-v1-m
 ~~~
 
 The audit exits with code 0 only when the test-report status/split, nonempty metrics, dataset YAML checksum, and checkpoint checksum are consistent. It exits non-zero if required evidence is missing or does not match. Run the evaluator after the checksum fields were added; older reports must be regenerated. This is a provenance consistency check, not proof of correct annotations, legal image reuse, independent data, or real-world performance. Review generated JSON files before sharing because they can contain local paths and machine details.
+
+
+## PUI89 four-class appearance model v0.1
+
+A separate CPU-first classifier is available for **human-cropped individual coconut images**. It is trained from scratch using a small standard-library multinomial logistic-regression implementation and global RGB histogram/mean/std features. It is an appearance baseline, not a fruit detector, botanical maturity test, or harvest-readiness model.
+
+See [PUI89 Coconut Maturity Model v0.1](../docs/PUI89_COCONUT_MATURITY_MODEL_V0.1.md).
+
+Expected input layout is \`train/<class>/\` with all four class folders: \`young\`, \`mature_green\`, \`yellow\`, and \`brown_aging\`. Keep \`validation/\` and \`test/\` separate and grouped by tree/orchard/source/session. The trainer reads only \`train/\`.
+
+Run the model unit tests in an existing environment with pytest:
+
+~~~powershell
+python -m pytest tests/test_coconut_maturity_model.py -q
+~~~
+
+Train only after the dataset rights and human-review gates pass, and only if Pillow is already installed:
+
+~~~powershell
+python training/train_maturity_classifier.py --dataset-root C:\\datasets\\coconut-maturity --output C:\\models\\pui89-coconut-maturity-v0.1.json
+python training/predict_maturity.py --model C:\\models\\pui89-coconut-maturity-v0.1.json --image C:\\datasets\\reviewed-crops\\example.jpg
+~~~
+
+The prediction reports uncalibrated probabilities and always requires human confirmation. It never authorizes harvest. Current repository evidence still records zero approved real-image training candidates; therefore no real-image model training or accuracy measurement is claimed.
