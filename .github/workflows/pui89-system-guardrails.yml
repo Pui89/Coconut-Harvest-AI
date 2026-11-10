@@ -22,7 +22,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check out source without persisting credentials
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Set up Python
