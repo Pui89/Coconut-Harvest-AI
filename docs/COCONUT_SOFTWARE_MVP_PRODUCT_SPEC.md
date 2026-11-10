@@ -1,7 +1,7 @@
 # Coconut Harvest AI — Software MVP Product Specification
 
 **Version:** 1.0  
-**Status:** proposed build specification; not an implemented product, validated detector, customer pilot, or commercial release.  
+**Status:** product specification with a local-first inspection workspace alpha implemented on a feature branch; not yet independently tested, field validated, a customer pilot, or a commercial release.  
 **Product strategy:** deliver a useful, bounded software product before attempting to commercialise a physical harvesting robot.
 
 ## 1. Product decision
