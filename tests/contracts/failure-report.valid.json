@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1.0",
+  "failure_id": "coconut-synthetic-failure-001",
+  "occurred_at": "2026-11-11T00:00:00Z",
+  "system_or_component": "synthetic-coconut-observation-adapter",
+  "severity": "unknown",
+  "summary": "Synthetic fixture describing missing source evidence.",
+  "observed_result": "The expected source evidence is unavailable.",
+  "expected_result": "A source-attributed observation should be available for review.",
+  "evidence_refs": ["coconut-synthetic-observation-001"],
+  "suspected_causes": ["Synthetic test condition only."],
+  "response_status": "open",
+  "corrective_actions": ["Request valid source evidence before further assessment."]
+}
