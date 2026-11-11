@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1.0",
+  "passport_id": "coconut-synthetic-evidence-passport-001",
+  "created_at": "2026-11-11T00:00:00Z",
+  "project_id": "coconut-harvest-ai",
+  "subject_ref": "synthetic-palm-001",
+  "conclusion": {
+    "statement": "Coconut maturity cannot be determined from the supplied synthetic fixture.",
+    "status": "unknown"
+  },
+  "evidence": {
+    "supporting_refs": ["coconut-synthetic-observation-001"],
+    "conflicting_refs": [],
+    "missing_items": ["A real, permissioned source image and independent review."],
+    "provenance_status": "unknown"
+  },
+  "uncertainty": {
+    "description": "No real observation or model output is available.",
+    "assessment_method": "Evidence availability check only.",
+    "calibration_status": "not_assessed"
+  },
+  "safety": {
+    "gate_status": "not_evaluated",
+    "risk_level": "unknown",
+    "gate_notes": "No harvest or physical action is authorised."
+  },
+  "human_review": {
+    "review_required": true,
+    "status": "not_reviewed"
+  },
+  "verification": {
+    "status": "not_tested",
+    "evidence_refs": [],
+    "verification_scope": "Synthetic contract-fixture structure only."
+  },
+  "execution_authorized": false
+}
