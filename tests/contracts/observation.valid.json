@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.1.0",
+  "observation_id": "coconut-synthetic-observation-001",
+  "observed_at": "2026-11-11T00:00:00Z",
+  "source": {
+    "source_id": "synthetic-fixture-001",
+    "source_type": "simulation",
+    "device_or_system": "PUI89 Coconut synthetic contract fixture"
+  },
+  "modality": "rgb",
+  "payload": {
+    "description": "Synthetic coconut palm observation; not a real image or sensor measurement.",
+    "maturity_label": "unknown"
+  },
+  "quality": {
+    "status": "unknown",
+    "notes": "Synthetic fixture only. No model or sensor inference is represented."
+  },
+  "provenance": {
+    "recorded_at": "2026-11-11T00:00:00Z",
+    "dataset_or_file": "synthetic-fixture-only"
+  }
+}

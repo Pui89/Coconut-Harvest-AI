@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.1.0",
+  "state_id": "coconut-synthetic-world-state-001",
+  "updated_at": "2026-11-11T00:00:00Z",
+  "valid_until": "2026-11-11T00:05:00Z",
+  "evidence_refs": ["coconut-synthetic-observation-001"],
+  "entities": [
+    {
+      "entity_id": "synthetic-palm-001",
+      "category": "coconut_palm",
+      "state": {
+        "maturity": "unknown",
+        "harvestability": "not_assessed"
+      },
+      "evidence_refs": ["coconut-synthetic-observation-001"]
+    }
+  ],
+  "unknowns": [
+    "Actual fruit maturity has not been observed or verified.",
+    "Worker, animal, and equipment safety conditions are not assessed."
+  ],
+  "conflicts": [],
+  "notes": "Synthetic contract fixture; not a real orchard world state."
+}

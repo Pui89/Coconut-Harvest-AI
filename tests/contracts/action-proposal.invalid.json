@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.1.0",
+  "proposal_id": "invalid-physical-action-001",
+  "created_at": "2026-11-11T00:00:00Z",
+  "objective": "Invalid fixture attempting to authorise physical action.",
+  "actions": [],
+  "authority": {
+    "mode": "advisory_only",
+    "human_approval_required": true,
+    "execution_authorized": true
+  }
+}

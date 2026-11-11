@@ -1,0 +1,20 @@
+{
+  "manifest_version": "0.2.0",
+  "project_id": "coconut-harvest-ai",
+  "adapter_version": "0.1.0",
+  "core_contract_version": "0.1.0",
+  "contract_fixtures": {
+    "observation": ["tests/contracts/observation.valid.json"],
+    "world_state": ["tests/contracts/world-state.valid.json"],
+    "action_proposal": ["tests/contracts/action-proposal.valid.json"],
+    "failure_report": ["tests/contracts/failure-report.valid.json"],
+    "evidence_passport": ["tests/contracts/evidence-passport.valid.json"]
+  },
+  "negative_fixtures": {
+    "observation": ["tests/contracts/observation.invalid.json"],
+    "world_state": ["tests/contracts/world-state.invalid.json"],
+    "action_proposal": ["tests/contracts/action-proposal.invalid.json"],
+    "failure_report": ["tests/contracts/failure-report.invalid.json"],
+    "evidence_passport": ["tests/contracts/evidence-passport.invalid.json"]
+  }
+}
