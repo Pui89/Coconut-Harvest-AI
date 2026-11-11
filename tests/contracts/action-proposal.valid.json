@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "proposal_id": "coconut-synthetic-review-proposal-001",
+  "created_at": "2026-11-11T00:00:00Z",
+  "objective": "Request human review of a synthetic coconut observation.",
+  "world_state_ref": "coconut-synthetic-world-state-001",
+  "actions": [
+    {
+      "action_id": "request-review-001",
+      "description": "Ask a qualified human reviewer to inspect the source evidence.",
+      "risk_level": "unknown",
+      "preconditions": [
+        "Review the original evidence and its provenance.",
+        "Do not treat the synthetic maturity label as sensor truth."
+      ],
+      "expected_effect": "A reviewer records a verified, rejected, or unresolved assessment.",
+      "hazards": [
+        "An incorrect maturity assessment could lead to an unsuitable harvest decision."
+      ],
+      "evidence_refs": ["coconut-synthetic-observation-001"]
+    }
+  ],
+  "authority": {
+    "mode": "advisory_only",
+    "human_approval_required": true,
+    "execution_authorized": false
+  },
+  "uncertainties": [
+    "No real sensor input or model output is present.",
+    "Worker and animal safety conditions have not been assessed."
+  ]
+}
