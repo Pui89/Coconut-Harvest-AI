@@ -22,7 +22,7 @@ class CoconutModelAdapterTests(unittest.TestCase):
         for label in ("young_green", "mature_green", "yellow", "brown_aging"):
             with self.subTest(label=label):
                 q=request(); q["mock_observation"]["candidate_maturity_label"]=label
-                self.assertEqual(adapt_coconut_mock(q)["observation"]["candidate_maturity_label"], label)
+                self.assertEqual(adapt_coconut_mock(q)["observations"][0]["candidate_maturity_label"], label)
     def test_legacy_developing_label_is_rejected(self):
         q=request(); q["mock_observation"]["candidate_maturity_label"]="developing"
         with self.assertRaises(ValueError): adapt_coconut_mock(q)
