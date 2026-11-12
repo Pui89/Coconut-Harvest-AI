@@ -88,7 +88,7 @@ class InspectionRecordStoreTests(unittest.TestCase):
 
     def test_all_four_maturity_labels_and_unknown_review_are_supported(self):
         self.assertEqual(MATURITY_LABELS, {
-            "young_green", "developing_green", "mature_green",
+            "young_green", "mature_green", "yellow",
             "brown_aging", "unknown", "review",
         })
 
@@ -97,7 +97,7 @@ class InspectionRecordStoreTests(unittest.TestCase):
         inspection_id = self.record["inspection_id"]
         first = self.store.add_annotation(
             inspection_id, candidate_id="fruit-01", image_sha256=image["sha256"],
-            maturity_label="developing_green", reviewer_alias="reviewer-A",
+            maturity_label="yellow", reviewer_alias="reviewer-A",
             reason="Partly obscured", bbox_xywh_normalized=[0.1, 0.2, 0.3, 0.4],
         )
         second = self.store.add_annotation(
@@ -108,6 +108,7 @@ class InspectionRecordStoreTests(unittest.TestCase):
         record = self.store.get_inspection(inspection_id)
         revisions = record["candidates"][0]["revisions"]
         self.assertEqual(len(revisions), 2)
+        self.assertEqual(revisions[0]["maturity_label"], "yellow")
         self.assertEqual(revisions[0]["revision_id"], first["revision_id"])
         self.assertEqual(second["supersedes"], first["revision_id"])
         report = self.store.export_report(inspection_id)
