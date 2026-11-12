@@ -992,13 +992,13 @@ See [the project-specific spatial integration profile](docs/spatial-intelligence
 ## Evidence-backed project review status
 
 **Project:** Coconut Harvest AI  
-**Completed evidence-backed reviews: 0** — no qualifying completed review is currently recorded in the shared PUI89 review register.
+**README snapshot (13 November 2026): 0 completed evidence-backed reviews.** This snapshot is not auto-synchronised; the live [PUI89 portfolio review register](https://pui89.github.io/#evidence-backed-project-reviews) is the source of truth.
 
 This is a review-record count, not a statement that development or testing has not occurred. Engineering work, CI runs, test results and simulation evidence may support a review, but do not automatically count as a completed review.
 
 A review is counted only when its record includes all required fields: **completed status, review date, defined scope, reviewer role, outcome, and at least one supporting evidence reference**. Drafts, ratings, stars, page views and comments are excluded.
 
-The portfolio-wide count is published on the [PUI89 website](https://pui89.github.io/#evidence-backed-project-reviews). Counts change only when a qualifying record is added to the shared register.
+The portfolio-wide count is published on the [PUI89 website](https://pui89.github.io/#evidence-backed-project-reviews). Refresh this README snapshot when the shared register changes.
 
 **สถานะการทบทวนโครงการที่มีหลักฐาน**  
 **จำนวนการทบทวนที่เสร็จสมบูรณ์: 0** — ยังไม่มีบันทึกการทบทวนที่ผ่านเกณฑ์สำหรับโครงการนี้ในทะเบียนกลาง PUI89
