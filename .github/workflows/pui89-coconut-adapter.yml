@@ -46,7 +46,7 @@ jobs:
           ref: e762f38f1e34ddf2ce9e22e12605bc08aa493ff9
           path: shared-ai-core
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Run existing shared adapter tests
