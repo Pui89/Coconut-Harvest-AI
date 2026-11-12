@@ -9,7 +9,8 @@ The standard Python module `apps/pui89_app/inspection_records.py` provides:
 - local inspection creation, listing and reopening;
 - image import into the selected workspace, with supported-format decoding, size/pixel limits and SHA-256 integrity records;
 - image-source metadata and an explicit rights-status field (default: `unverified`);
-- human assessment labels: `young_green`, `developing_green`, `mature_green`, `brown_aging`, `unknown`, and `review`;
+- human assessment labels: the canonical four visual categories `young_green`, `mature_green`, `yellow`, and `brown_aging`, plus `unknown` and `review`;
+- historical `developing_green` values remain readable in existing records but are not accepted for new annotations or silently converted;
 - optional normalized bounding boxes with strict boundary checks;
 - append-only assessment revisions with reviewer alias, timestamp, reason and confidence origin;
 - JSON report generation with current assessments, revision history, evidence counts and limitations.
@@ -41,7 +42,7 @@ store.add_annotation(
     inspection["inspection_id"],
     candidate_id="fruit-01",
     image_sha256=image["sha256"],
-    maturity_label="developing_green",
+    maturity_label="yellow",
     reviewer_alias="reviewer-01",
     reason="Human visual assessment",
     bbox_xywh_normalized=[0.1, 0.2, 0.3, 0.4],
