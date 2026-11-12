@@ -5,7 +5,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 SCHEMA_VERSION = "pui89.coconut-inspection.v1"
-LABELS = ("young", "developing_green", "mature_green", "brown_aging", "unknown_needs_review")
+LABELS = ("young_green", "mature_green", "yellow", "brown_aging", "unknown_needs_review")
+# Historical event logs remain readable; these values are not offered for new annotations.
+LEGACY_LABELS = ("young", "developing_green")
 MAX_IMAGE_BYTES = 10 * 1024 * 1024
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 SAFE_ID = re.compile(r"^[a-f0-9]{32}$")
