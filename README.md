@@ -434,7 +434,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 **How they connect:** the application may recommend a candidate and a plan; a future robot would still need independently validated localization, reachability, hardware interlocks, human approval, and verified fruit collection. A software recommendation must never directly authorize a physical cut.
 
 
-> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Four project-facing visual categories are planned: young green, mature green, yellow, and brown/aging. Existing software label schemas are not yet fully aligned with this visual taxonomy. Mixed-stage bunches are a scene condition, not a maturity class. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
+> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. The four canonical project-facing visual categories are young green, mature green, yellow, and brown/aging. Human-led inspection tools and shared adapters use these labels for new records; historical `developing_green` / `developing` values remain unchanged and require human reassessment. Mixed-stage bunches are a scene condition, not a maturity class. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
 
 ## What the project includes
 
@@ -831,7 +831,7 @@ This lightweight job explicitly does **not** run the full dependency-backed unit
 
 ## Shared PUI89 adaptive policy adapter — Coconut integration (31 October 2026)
 
-The first project adapter now maps a caller-supplied coconut maturity observation into the shared PUI89 agent-message and evidence format. It recognizes the four declared labels: `young_green`, `developing`, `mature_green` and `brown_aging`. It routes these records through a project-local snapshot of the shared policy orchestrator.
+The first project adapter maps a caller-supplied coconut maturity observation into the shared PUI89 agent-message and evidence format. It accepts the canonical labels: `young_green`, `mature_green`, `yellow` and `brown_aging`. It routes these records through a project-local snapshot of the shared policy orchestrator. This adapter does not inspect images or infer maturity.
 
 - [Coconut adapter](tools/pui89_coconut_adapter.py)
 - [Vendored shared agent contract](tools/pui89_agent_contract.py)
