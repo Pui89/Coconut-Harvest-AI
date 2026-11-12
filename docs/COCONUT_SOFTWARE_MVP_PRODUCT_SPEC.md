@@ -25,7 +25,7 @@ The first discovery activity is to understand the actual inspection workflow and
 1. **Create an inspection:** record an inspection ID, date, operator alias, farm/site code, and optional notes. Avoid unnecessary personal data.
 2. **Add an image:** import a user-authorised image and preserve its file hash and source/provenance fields. Reject unsupported or unreadable files clearly.
 3. **Review image quality:** let the operator mark image quality, visibility, occlusion, and whether fruit can be assessed. Do not infer missing metadata.
-4. **Record fruit candidates:** allow a human operator to add or correct bounding boxes and select one of four project labels: young green, developing green, mature green, or brown/aging. Unknown and needs-review remain valid outcomes.
+4. **Record fruit candidates:** allow a human operator to add or correct bounding boxes and select one of four canonical visual labels: young green, mature green, yellow, or brown/aging. Unknown and needs-review remain valid outcomes. Historical `developing_green` records remain unchanged and require human reassessment before any new canonical label is assigned.
 5. **Record assessment:** store the label, reviewer, review time, confidence as a human-entered or model-supplied value with its origin stated, and reason for uncertainty.
 6. **Generate a report:** export a machine-readable JSON record and a human-readable inspection summary containing the image hash, annotations, review status, limitations, and unresolved items.
 7. **Correct and audit:** preserve revisions and identify who changed a label; do not silently overwrite prior assessments.
