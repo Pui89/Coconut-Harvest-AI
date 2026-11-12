@@ -103,10 +103,13 @@
  <rect x="1085" y="418" width="360" height="82" rx="12" fill="#fff" opacity=".9" stroke="#d1e0df"/>
  <text x="1107" y="449" font-size="20" fill="#24433e" font-weight="700">0–30 m tree range</text>
  <text x="1107" y="476" font-size="15" fill="#526c67">Tree height is not robot reach</text>
- <rect x="1070" y="535" width="455" height="112" rx="12" fill="#fff" opacity=".9" stroke="#d1e0df"/>
- <text x="1092" y="566" font-size="18" fill="#24433e" font-weight="700">All-stage decision support</text>
- <circle cx="1103" cy="590" r="7" fill="#79a942"/><text x="1120" y="596" font-size="15" fill="#405e4c">Young green • mature green</text>
- <circle cx="1103" cy="618" r="7" fill="#875433"/><text x="1120" y="624" font-size="15" fill="#405e4c">Brown/dry • damaged/uncertain</text>
+ <rect x="1070" y="525" width="455" height="175" rx="12" fill="#fff" opacity=".9" stroke="#d1e0df"/>
+ <text x="1092" y="555" font-size="18" fill="#24433e" font-weight="700">Four maturity stages</text>
+ <circle cx="1103" cy="580" r="7" fill="#8ebc43"/><text x="1120" y="586" font-size="15" fill="#405e4c">01 Young green</text>
+ <circle cx="1103" cy="607" r="7" fill="#4f963f"/><text x="1120" y="613" font-size="15" fill="#405e4c">02 Mature green</text>
+ <circle cx="1103" cy="634" r="7" fill="#c8b84c"/><text x="1120" y="640" font-size="15" fill="#405e4c">03 Yellow</text>
+ <circle cx="1103" cy="661" r="7" fill="#875433"/><text x="1120" y="667" font-size="15" fill="#405e4c">04 Brown-aging</text>
+ <text x="1092" y="689" font-size="12" fill="#526c67">Damage / uncertainty are review flags, not maturity stages.</text>
  <rect x="60" y="804" width="1480" height="57" rx="12" fill="#f8fbf7" opacity=".94"/>
  <text x="82" y="828" font-size="15" fill="#3c5550" font-weight="700">CONCEPT ONLY</text>
  <text x="82" y="849" font-size="13" fill="#536963">Concept only. 0–6 m is a first supervised test band; 6–30 m needs specialized, unvalidated access and safety engineering.</text>

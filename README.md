@@ -6,7 +6,7 @@
 This public README is limited to the project overview, approved concept material and evidence that can be shared openly. Do not publish API keys, passwords, private tokens, Wi-Fi or internal network settings, private camera footage, personal or precise location data, detailed security configurations, unreleased engineering specifications, or confidential commercial plans. Keep sensitive material in an appropriately access-controlled private location. If a credential may have been exposed, revoke it; removing it from the latest commit does not remove it from Git history.
 
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->
-![Coconut Harvest AI conceptual harvesting robot design](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
+![Coconut Harvest AI conceptual harvesting robot design showing four coconut maturity stages](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
 *Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The maturity classes and 0–30 m range are design goals; detection, reach, stability, cutting and safe operation remain unvalidated.*
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:END -->
@@ -147,11 +147,13 @@ The [Product Quality and Safety Roadmap](docs/PRODUCT_QUALITY_AND_SAFETY_ROADMAP
 The intended workflow lets an operator choose a harvest target and asks the system to detect, classify, assess, and recommend action for each visible fruit or bunch:
 
 1. **Young green coconuts** — identify fruit intended for young-coconut products, subject to defined maturity and market requirements.
-2. **Developing green coconuts** — recognise fruit that is still developing and normally recommend WAIT / REVIEW unless a defined use-case calls for harvesting.
-3. **Mature green coconuts** — identify fruit assessed as mature for the intended use; colour alone must not determine maturity.
-4. **Brown / dry mature coconuts** — identify brown or aging fruit and assess suitability; exterior appearance alone cannot confirm internal quality.
+2. **Mature green coconuts** — identify fruit assessed as mature for the intended use; green colour alone must not determine maturity.
+3. **Yellow coconuts** — record the visible yellow category as a separate project-facing visual class; appearance alone cannot establish internal quality or intended use.
+4. **Brown / aging coconuts** — identify brown or aging-looking fruit; exterior appearance alone cannot confirm internal dryness or quality.
 
 A **mixed-stage bunch is a scene condition, not a maturity class**. Classify visible fruits individually where possible; do not assume every fruit in a bunch is at the same stage.
+
+**Taxonomy alignment note:** These four names are the project-facing visual categories used by the illustration and website. Some existing software schemas still use `developing` in place of `yellow`; those schemas are not yet aligned and must be reconciled before a dataset or model is described as implementing this four-category taxonomy. The illustration is not model output.
 
 **Uncertain, hidden, damaged, occluded, or unsafe targets are not a fifth harvest category.** They are rejection / review conditions: mark them unknown, request human review, or stop. Never cut when target identity, reach, stability, clearance, tool readiness, or the required approval is uncertain.
 
@@ -432,7 +434,7 @@ The robot concept shows how cameras and optional depth sensors could be combined
 **How they connect:** the application may recommend a candidate and a plan; a future robot would still need independently validated localization, reachability, hardware interlocks, human approval, and verified fruit collection. A software recommendation must never directly authorize a physical cut.
 
 
-> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Four target maturity classes are planned: young green, developing green, mature green, and brown/dry mature. Mixed-stage bunches are a scene condition, not a maturity class. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
+> **Current capability boundary:** this repository contains software prototypes, synthetic-data demonstrations, planning workflows, tests, and engineering concepts. Four project-facing visual categories are planned: young green, mature green, yellow, and brown/aging. Existing software label schemas are not yet fully aligned with this visual taxonomy. Mixed-stage bunches are a scene condition, not a maturity class. Reliable classification, calibrated orchard-wide 3D localization, physical cutting and fruit collection, and operation at any height are not demonstrated capabilities. The 0–30 m range is a long-term design challenge, not a proven robot reach specification.
 
 ## What the project includes
 
@@ -479,7 +481,8 @@ Each visible coconut should be assessed separately, including fruit in mixed-sta
 |---|---|---|
 | Young green | Propose a class only when supported by agreed, validated criteria | Consider only if the operator selected this class and safety checks pass |
 | Mature green | Keep separate from young green; green colour alone does not prove maturity | Require validated maturity criteria and confirmation |
-| Mature brown/dry | Propose a provisional class with evidence and uncertainty | Consider only if selected and all safety checks pass |
+| Yellow | Record as a separate visual category; maturity and suitability still require validated criteria | Human review; no automatic cut |
+| Brown / aging | Propose a provisional visible-appearance class with evidence and uncertainty | Consider only if selected and all safety checks pass |
 | Mixed-stage bunch | Assess each fruit individually | Filter each candidate separately |
 | Occluded, blurry, cropped, or ambiguous fruit | Mark uncertain or request another view | No automatic cut |
 | Damaged or abnormal fruit | Flag for review | Exclude from normal automatic harvesting |
@@ -493,7 +496,7 @@ The intended workflow treats **each visible fruit as a separate candidate**, eve
 
 1. **Capture and inspect the view.** Check image sharpness, lighting, occlusion, and whether the fruit is sufficiently visible. Request another view or mark the candidate uncertain when the image is inadequate.
 2. **Detect and separate candidates.** A future validated vision model should assign a distinct candidate ID and bounding region to each visible coconut. Overlapping fruit must not be assumed to be one fruit or confidently split without evidence.
-3. **Estimate maturity with uncertainty.** Use validated visual and, where available, additional sensor evidence. Colour alone is not enough to reliably distinguish every young, mature-green, brown, or dry coconut.
+3. **Estimate maturity with uncertainty.** Use validated visual and, where available, additional sensor evidence. Colour alone is not enough to reliably distinguish young green, mature green, yellow, and brown/aging coconuts or establish harvest readiness.
 4. **Apply the operator's selection.** Keep candidates that match the requested stage; label non-matching candidates as “not selected.” Keep survey-only mode available when the operator wants inspection without harvesting.
 5. **Check localization and reach.** Verify the candidate's 3D position, tool approach, obstacles, robot stability, and whether the actual mechanism is validated for that height. If any required measurement is missing or outside the verified operating envelope, return **NO CUT**.
 6. **Require approval and safety interlocks.** Before any future physical cutting trial, require explicit human approval and independent hardware safety controls. The software prototype in this repository does not command a real cutter.
