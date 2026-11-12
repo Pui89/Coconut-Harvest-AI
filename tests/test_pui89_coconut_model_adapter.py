@@ -18,6 +18,14 @@ class CoconutModelAdapterTests(unittest.TestCase):
         self.assertFalse(r["adapter"]["inference_performed"])
         self.assertEqual(r["proposed_actions"],[])
         self.assertFalse(r["physical_actuation_permitted"])
+    def test_all_four_canonical_maturity_classes_are_accepted(self):
+        for label in ("young_green", "mature_green", "yellow", "brown_aging"):
+            with self.subTest(label=label):
+                q=request(); q["mock_observation"]["candidate_maturity_label"]=label
+                self.assertEqual(adapt_coconut_mock(q)["observation"]["candidate_maturity_label"], label)
+    def test_legacy_developing_label_is_rejected(self):
+        q=request(); q["mock_observation"]["candidate_maturity_label"]="developing"
+        with self.assertRaises(ValueError): adapt_coconut_mock(q)
     def test_unknown_maturity_rejected(self):
         q=request(); q["mock_observation"]["candidate_maturity_label"]="harvest_ready"
         with self.assertRaises(ValueError): adapt_coconut_mock(q)
