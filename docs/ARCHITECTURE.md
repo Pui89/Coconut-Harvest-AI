@@ -29,7 +29,7 @@ The repository does **not** currently establish a trained, independently evaluat
 | Component | Intended responsibility | Current status |
 |---|---|---|
 | Image/data provenance | Record source, licence review, file hash and review state | Software/documentation tools; each asset still needs individual approval |
-| Maturity taxonomy | Four working labels: young green, developing green, mature green, brown/aging | Project label scheme; annotation quality and class performance not established |
+| Maturity taxonomy | Four canonical visual labels: young green, mature green, yellow, brown/aging | Label schema and human-led annotation tools; annotation quality and class performance not established |
 | Coconut detector | Propose fruit boxes and class scores | No validated detector accuracy claim |
 | Depth/3D perception | Estimate target geometry and distance | Future integration; no calibrated sensor performance claimed |
 | Height metadata | Store measured palm height separately from fruit maturity | Protocol and template; no verified 0–30 m dataset claim |
@@ -38,14 +38,16 @@ The repository does **not** currently establish a trained, independently evaluat
 | Simulation/evidence reports | Exercise software scenarios and validate report integrity | Software tests/CI; simulation does not prove field capability |
 | Human oversight | Review uncertain targets and authorise any future staged test | Required design principle; no autonomous harvesting claim |
 
-## 4. Four maturity labels
+## 4. Four canonical visual labels
 
-- **Young green**
-- **Developing green**
-- **Mature green**
-- **Brown / aging**
+- **Young green** (`young_green`)
+- **Mature green** (`mature_green`)
+- **Yellow** (`yellow`)
+- **Brown / aging** (`brown_aging`)
 
-Colour alone is not sufficient to establish maturity. Cultivar, intended product, lighting, occlusion and field conditions can affect visual appearance. Unknown or obscured fruit must remain unknown/review—not be forced into a class.
+These are project-facing visual categories, not a claim that exterior colour alone establishes physiological maturity, internal quality or harvest readiness. Cultivar, intended product, lighting, occlusion and field conditions can affect appearance. Unknown or obscured fruit must remain unknown/review—not be forced into a class.
+
+Older inspection records may retain `developing_green` or `developing`. They remain historical labels and are not automatically remapped. Reassessment requires a human reviewer and the original image.
 
 A mixed-stage bunch is a scene condition, not a fifth maturity label. Where possible, assess individual visible fruits separately.
 
