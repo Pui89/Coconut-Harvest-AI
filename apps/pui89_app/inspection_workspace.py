@@ -49,7 +49,7 @@ def list_inspections(workspace):
                 result.append(load_inspection(workspace, folder.name))
             except (OSError, ValueError, json.JSONDecodeError):
                 continue
-    return sorted(result, key=lambda item: item["created_at"], reverse=True)
+    return sorted(result, key=lambda item: item.get("created_at", item.get("timestamp", "")), reverse=True)
 
 def create_inspection(workspace, *, image_bytes, image_extension, image_format,
                       image_width, image_height, original_filename,
