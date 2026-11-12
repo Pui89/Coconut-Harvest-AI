@@ -153,7 +153,7 @@ The intended workflow lets an operator choose a harvest target and asks the syst
 
 A **mixed-stage bunch is a scene condition, not a maturity class**. Classify visible fruits individually where possible; do not assume every fruit in a bunch is at the same stage.
 
-**Taxonomy alignment note:** These four names are the project-facing visual categories used by the illustration and website. Some existing software schemas still use `developing` in place of `yellow`; those schemas are not yet aligned and must be reconciled before a dataset or model is described as implementing this four-category taxonomy. The illustration is not model output.
+**Taxonomy alignment note:** These four names are the canonical project-facing visual categories used by the illustration, website, inspection tools and shared adapters. Older saved records may still contain the historical `developing_green` or `developing` label; those values are preserved as legacy history and are not silently converted to `yellow`. The illustration is not model output.
 
 **Uncertain, hidden, damaged, occluded, or unsafe targets are not a fifth harvest category.** They are rejection / review conditions: mark them unknown, request human review, or stop. Never cut when target identity, reach, stability, clearance, tool readiness, or the required approval is uncertain.
 
