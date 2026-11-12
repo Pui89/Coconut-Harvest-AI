@@ -128,6 +128,8 @@ class InspectionRecordStoreTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(InspectionError, "MATURITY_LABEL_INVALID"):
             self.store.add_annotation(**base, maturity_label="ripe", )
+        with self.assertRaisesRegex(InspectionError, "MATURITY_LABEL_INVALID"):
+            self.store.add_annotation(**base, maturity_label="developing_green", )
         with self.assertRaisesRegex(InspectionError, "CONFIDENCE_OUT_OF_RANGE"):
             self.store.add_annotation(**base, maturity_label="unknown", confidence=1.2, confidence_origin="human")
         with self.assertRaisesRegex(InspectionError, "BBOX_OUT_OF_BOUNDS"):
