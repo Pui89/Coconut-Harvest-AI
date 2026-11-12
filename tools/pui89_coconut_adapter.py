@@ -8,7 +8,7 @@ from __future__ import annotations
 from pui89_agent_contract import validate_evidence, validate_message
 
 ALLOWED_MATURITY_LABELS = {
-    "young_green", "developing", "mature_green", "brown_aging",
+    "young_green", "mature_green", "yellow", "brown_aging",
 }
 
 

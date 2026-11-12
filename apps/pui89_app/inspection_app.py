@@ -13,9 +13,13 @@ from apps.pui89_app.inspection_workspace import (
 DEFAULT_WORKSPACE = Path.home() / ".pui89" / "coconut-inspections"
 WORKSPACE = Path(os.environ.get("PUI89_COCONUT_WORKSPACE", str(DEFAULT_WORKSPACE))).expanduser()
 LABEL_NAMES = {
-    "young": "Young green / อ่อน", "developing_green": "Developing green / กำลังพัฒนา",
-    "mature_green": "Mature green / แก่เขียว", "brown_aging": "Brown / aging / น้ำตาล-แก่จัด",
-    "unknown_needs_review": "Unknown — needs review / ไม่แน่ใจ"
+    "young_green": "Young green / อ่อน",
+    "mature_green": "Mature green / แก่เขียว",
+    "yellow": "Yellow / เหลือง",
+    "brown_aging": "Brown / aging / น้ำตาล-แก่จัด",
+    "unknown_needs_review": "Unknown — needs review / ไม่แน่ใจ",
+    "young": "Legacy label: young (review taxonomy)",
+    "developing_green": "Legacy label: developing green (review taxonomy)",
 }
 
 def inspect_image_quality(image):

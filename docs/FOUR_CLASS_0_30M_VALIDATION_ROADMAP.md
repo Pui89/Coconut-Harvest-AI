@@ -6,10 +6,12 @@
 
 These are four **proposed operational maturity classes**, not universal biological stages. Real maturity depends on cultivar, age, intended use, and orchard conditions; colour alone is not a reliable maturity measurement.
 
-1. **Young green** — visually young fruit intended for young-coconut products, subject to an operator-defined harvest specification.
-2. **Developing green** — fruit still developing; normally recommend WAIT / REVIEW unless a defined use-case explicitly calls for harvest.
-3. **Mature green** — green fruit assessed against a validated maturity specification for the intended market.
-4. **Brown / dry mature** — brown or aging fruit assessed against a validated specification; exterior appearance cannot confirm internal quality.
+1. **Young green** (`young_green`) — visually young fruit intended for young-coconut products, subject to an operator-defined harvest specification.
+2. **Mature green** (`mature_green`) — green fruit assessed against a validated maturity specification for the intended market.
+3. **Yellow** (`yellow`) — a separate visible appearance category; the colour alone does not establish maturity or harvest suitability.
+4. **Brown / aging** (`brown_aging`) — brown or aging-looking fruit assessed against a validated specification; exterior appearance cannot confirm internal quality.
+
+Older records may retain the historical `developing_green` / `developing` label. Preserve those records; do not automatically map them to yellow. Human reassessment against the original image is required.
 
 A **mixed-stage bunch is a scene condition**, not a fifth maturity class. The system should classify visible fruits individually where possible, preserve uncertainty, and avoid assigning one maturity label to an entire mixed bunch without evidence.
 

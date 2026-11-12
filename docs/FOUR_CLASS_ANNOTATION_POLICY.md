@@ -10,12 +10,14 @@ Use consistent labels for visible coconut fruit in the Coconut Harvest AI datase
 
 | ID | Label | Visual guidance | Annotation rule |
 |---|---|---|---|
-| C1 | Young green | Clearly young-looking, green fruit consistent with the project's young-coconut target | Use only when the visible evidence supports this category and the project label guide has been followed |
-| C2 | Developing green | Green fruit that appears to be still developing and does not clearly meet the project's mature-green criteria | If C1 versus C2 cannot be judged reliably from the image, mark uncertain rather than guessing |
-| C3 | Mature green | Green fruit judged visually consistent with mature-green harvest intent | Do not infer maturity from green colour or size alone; use contextual evidence only when it is documented and allowed by the annotation protocol |
-| C4 | Brown / dry mature | Brown or aging-looking fruit consistent with the project's brown/dry-mature target | Exterior colour does not confirm internal dryness or quality; annotate only the visible appearance class |
+| C1 | Young green (`young_green`) | Clearly young-looking, green fruit consistent with the project's young-coconut target | Use only when the visible evidence supports this category and the project label guide has been followed |
+| C2 | Mature green (`mature_green`) | Green fruit judged visually consistent with mature-green harvest intent | Do not infer maturity from green colour or size alone; use documented contextual evidence only |
+| C3 | Yellow (`yellow`) | Fruit with a visibly yellow exterior appearance under the project's image conditions | Record visible appearance only; yellow colour alone does not prove physiological maturity or harvest suitability |
+| C4 | Brown / aging (`brown_aging`) | Brown or aging-looking fruit consistent with the project's brown/aging appearance category | Exterior colour does not confirm internal dryness or quality; annotate only the visible appearance class |
 
-These are **project-operational visual classes**. Cultivar, growing conditions, use case, lighting and camera colour response can change appearance. The label guide should be reviewed by a knowledgeable coconut grower or agronomist before the labels are treated as reliable maturity ground truth.
+These are **project-operational visual classes**, not universal botanical maturity stages. Cultivar, growing conditions, use case, lighting and camera colour response can change appearance. The label guide should be reviewed by a knowledgeable coconut grower or agronomist before the labels are treated as reliable maturity ground truth.
+
+**Legacy-record handling:** older inspection records may contain `developing_green` or `developing`. Preserve those original values and their revision history. Do not silently convert them to `yellow` or another current class. A reviewer must reassess the original image before creating a new canonical annotation.
 
 ## Separate labels from scene and safety conditions
 

@@ -23,6 +23,15 @@ class CoconutAdapterTests(unittest.TestCase):
         self.assertEqual(record["message"]["claims"][0]["value"], "mature_green")
         self.assertEqual(record["evidence"]["evidence_kind"], "synthetic")
 
+    def test_accepts_all_four_canonical_maturity_classes(self):
+        for label in ("young_green", "mature_green", "yellow", "brown_aging"):
+            with self.subTest(label=label):
+                self.assertEqual(self.make_record(maturity_label=label)["message"]["claims"][0]["value"], label)
+
+    def test_rejects_legacy_developing_label(self):
+        with self.assertRaises(ValueError):
+            self.make_record(maturity_label="developing")
+
     def test_rejects_unknown_maturity_class(self):
         with self.assertRaises(ValueError):
             self.make_record(maturity_label="ripe")

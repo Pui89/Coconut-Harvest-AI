@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 from pui89_project_adapter_common import build_review_envelope
 
-MATURITY_LABELS = {"young_green", "developing", "mature_green", "brown_aging"}
+MATURITY_LABELS = {"young_green", "mature_green", "yellow", "brown_aging"}
 
 def adapt_coconut_mock(request: Any) -> dict[str, Any]:
     if not isinstance(request, dict):

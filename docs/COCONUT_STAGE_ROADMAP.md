@@ -8,7 +8,7 @@ Develop a low-cost, local-first coconut perception system that can identify diff
 
 ## Proposed visual label set
 
-Use these as proposed annotation labels. Have an experienced coconut grower define the local criteria before treating labels as biological maturity ground truth.
+The canonical visual taxonomy used by the README, website and inspection tools is: `young_green`, `mature_green`, `yellow`, and `brown_aging`. The planning agent below uses separate task-selection states (for example `mature_brown_or_dry`) rather than the exact visual-class IDs. These action states must not be confused with the four visual labels. Yellow is currently a visual-review category only; it is not included in the planning agent harvest allow-list until agronomic criteria and safe handling are defined. Have an experienced coconut grower define local criteria before treating any visual label as biological maturity ground truth.
 
 | Label | Meaning | Default harvest behaviour |
 |---|---|---|

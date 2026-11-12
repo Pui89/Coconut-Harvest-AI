@@ -2,7 +2,7 @@
 
 **Status:** mock-only; model inference is disabled.
 
-The adapter is `tools/pui89_coconut_model_adapter.py`. It accepts only caller-supplied synthetic fixture observations and validates one of four candidate labels: `young_green`, `developing`, `mature_green`, or `brown_aging`.
+The adapter is `tools/pui89_coconut_model_adapter.py`. It accepts only caller-supplied synthetic fixture observations and validates the four canonical visual labels: `young_green`, `mature_green`, `yellow`, and `brown_aging`. Legacy `developing` fixtures are rejected; historical records are not rewritten.
 
 Each accepted fixture is returned as an unverified candidate maturity cue for human review. The adapter does not inspect images, run a detector, establish harvest readiness, or authorize climbing, cutting, capture or robot movement.
 

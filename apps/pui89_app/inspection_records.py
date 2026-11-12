@@ -22,12 +22,15 @@ from PIL import Image, UnidentifiedImageError
 SCHEMA_VERSION = "pui89-coconut-inspection-v1"
 MATURITY_LABELS = {
     "young_green",
-    "developing_green",
     "mature_green",
+    "yellow",
     "brown_aging",
     "unknown",
     "review",
 }
+# Kept for reading and displaying pre-taxonomy-alignment records only.
+# New annotations must use MATURITY_LABELS; legacy values are never auto-remapped.
+LEGACY_MATURITY_LABELS = {"developing_green"}
 CONFIDENCE_ORIGINS = {"human", "model", "not_provided"}
 SUPPORTED_FORMATS = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp"}
 MAX_IMAGE_BYTES = 20 * 1024 * 1024

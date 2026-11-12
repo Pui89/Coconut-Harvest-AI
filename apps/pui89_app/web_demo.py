@@ -79,6 +79,7 @@ with right:
         options=[
             "young_green",
             "mature_green",
+            "yellow",
             "mature_brown_or_dry",
             "uncertain_stage",
             "damaged_or_abnormal",
@@ -88,6 +89,7 @@ with right:
         format_func=lambda stage: {
             "young_green": "Young green",
             "mature_green": "Mature green",
+            "yellow": "Yellow — visual category; review only",
             "mature_brown_or_dry": "Mature brown/dry",
             "uncertain_stage": "Uncertain — review required",
             "damaged_or_abnormal": "Damaged/abnormal — review required",
@@ -229,7 +231,7 @@ if st.button("Analyse candidate", type="primary", use_container_width=True):
         allowed_stages = set(selected_stages or []) if harvest_mode == "selected_combination" else mode_stage_map.get(harvest_mode, set())
         if harvest_mode == "survey_only":
             reasons.append("SURVEY_ONLY_NO_HARVEST")
-        elif candidate_stage in {"uncertain_stage", "damaged_or_abnormal", "occluded_or_partial", "flower_or_infant"}:
+        elif candidate_stage in {"yellow", "uncertain_stage", "damaged_or_abnormal", "occluded_or_partial", "flower_or_infant"}:
             reasons.append("STAGE_REQUIRES_HUMAN_REVIEW_OR_PROTECTION")
         elif candidate_stage not in allowed_stages:
             reasons.append("STAGE_NOT_SELECTED_FOR_THIS_HARVEST_TASK")
@@ -504,13 +506,13 @@ try:
                 maturity_label = st.selectbox(
                     "Maturity assessment",
                     options=[
-                        "young_green", "developing_green", "mature_green",
+                        "young_green", "mature_green", "yellow",
                         "brown_aging", "unknown", "review",
                     ],
                     format_func=lambda value: {
                         "young_green": "Young green",
-                        "developing_green": "Developing green",
                         "mature_green": "Mature green",
+                        "yellow": "Yellow",
                         "brown_aging": "Brown / aging",
                         "unknown": "Unknown",
                         "review": "Needs review",

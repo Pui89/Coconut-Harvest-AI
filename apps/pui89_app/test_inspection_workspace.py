@@ -44,13 +44,21 @@ class InspectionWorkspaceTests(unittest.TestCase):
     def test_invalid_box_and_duplicate_id_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             r=create(tmp)
-            args=dict(candidate_id="fruit-01", label="young", reviewer_alias="r", x1=.7, y1=.2, x2=.1, y2=.9)
+            args=dict(candidate_id="fruit-01", label="young_green", reviewer_alias="r", x1=.7, y1=.2, x2=.1, y2=.9)
             with self.assertRaisesRegex(InspectionError, "bounding box"):
                 add_annotation(tmp, r["inspection_id"], **args)
             args.update(x1=.1, x2=.8)
             add_annotation(tmp, r["inspection_id"], **args)
             with self.assertRaisesRegex(InspectionError, "already exists"):
                 add_annotation(tmp, r["inspection_id"], **args)
+
+    def test_legacy_developing_label_is_not_accepted_for_new_annotations(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            r=create(tmp)
+            with self.assertRaisesRegex(InspectionError, "unsupported maturity label"):
+                add_annotation(tmp, r["inspection_id"], candidate_id="fruit-legacy",
+                    label="developing_green", reviewer_alias="reviewer",
+                    x1=.1, y1=.1, x2=.9, y2=.9)
 
     def test_unknown_is_needs_review(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -91,10 +99,11 @@ class InspectionWorkspaceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             r=create(tmp, batch_id="orchard-session-01")
             add_annotation(tmp, r["inspection_id"], candidate_id="fruit-01",
-                label="developing_green", reviewer_alias="reviewer", x1=.1, y1=.2, x2=.8, y2=.9)
+                label="yellow", reviewer_alias="reviewer", x1=.1, y1=.2, x2=.8, y2=.9)
             manifest=export_annotation_manifest(tmp)
             self.assertEqual(manifest["annotation_count"], 1)
             self.assertEqual(manifest["records"][0]["batch_id"], "orchard-session-01")
+            self.assertEqual(manifest["records"][0]["label"], "yellow")
             self.assertEqual(manifest["training_use"], "NOT_APPROVED_BY_DEFAULT")
             self.assertIn("Do not randomly split", manifest["split_policy"])
 
