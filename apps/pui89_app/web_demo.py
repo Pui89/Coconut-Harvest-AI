@@ -504,13 +504,13 @@ try:
                 maturity_label = st.selectbox(
                     "Maturity assessment",
                     options=[
-                        "young_green", "developing_green", "mature_green",
+                        "young_green", "mature_green", "yellow",
                         "brown_aging", "unknown", "review",
                     ],
                     format_func=lambda value: {
                         "young_green": "Young green",
-                        "developing_green": "Developing green",
                         "mature_green": "Mature green",
+                        "yellow": "Yellow",
                         "brown_aging": "Brown / aging",
                         "unknown": "Unknown",
                         "review": "Needs review",
