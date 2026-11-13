@@ -1,0 +1,53 @@
+name: Feature or field-research task
+description: Propose a bounded improvement to Coconut Harvest AI.
+title: "[FEATURE] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Keep proposals evidence-led. Do not present simulation or design targets as field-validated capability."
+  - type: input
+    id: area
+    attributes:
+      label: Product area
+      placeholder: e.g. four-class maturity, detection, tracking, harvest mission, operator review
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and intended value
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Smallest useful change
+      description: Describe the proposed software, dataset, experiment, or workflow change.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and validation plan
+      description: Image licensing, provenance, labels, split strategy, metrics, human review, and acceptance criteria.
+    validations:
+      required: false
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks, dependencies, and cost
+      description: Include false detections, maturity confusion, field conditions, hardware, privacy, and licensing.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Scope checks
+      options:
+        - label: No unlicensed images or private farm data are included.
+          required: true
+        - label: No paid service or unapproved download/installation is required.
+          required: true
+        - label: No unvalidated field-performance claim is made.
+          required: true
