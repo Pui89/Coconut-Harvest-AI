@@ -31,6 +31,11 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 
 ## Development stage
 
+**Stage:** Stage 2 of 5 — Software prototype and evaluation preparation
+**ขั้นการพัฒนา:** Software prototype
+
+**Shared framework:** [PUI89 Development Stage Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_DEVELOPMENT_STAGE_STANDARD.md)
+
 **Current stage:** Software & evaluation-preparation prototype  
 **ขั้นการพัฒนา:** ต้นแบบซอฟต์แวร์และการเตรียมประเมินผล
 
@@ -783,27 +788,10 @@ See [local-first Resource Catalogue](docs/FREE_FIRST_RESOURCE_CATALOGUE.md) for 
 
 **Recommended technology stack:** [PUI89 local-first Technology Stack](docs/PUI89_FREE_FIRST_TECH_STACK.md) — stable, local-first tools; dependencies and resource requirements reviewed before adoption.
 
-## Engineering maturity level — 27 October 2026
+## Shared five-stage development framework
 
-**Current evidence-based level: Level 2 — software/workflow prototype.** This is an engineering-maturity assessment, not a certification or claim of operational readiness.
+**Current classification:** Stage 2 of 5 — Software prototype and evaluation preparation. This replaces the former six-level engineering-maturity ladder. Stage advancement requires the evidence defined in the [PUI89 Development Stage Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_DEVELOPMENT_STAGE_STANDARD.md); it is not a commercial-readiness score or certification.
 
-| Level | Definition | Status |
-|---|---|---|
-| 1 — Concept | Requirements and architecture defined | Achieved |
-| 2 — Software prototype | Initial software, interfaces or evaluation scaffolding exist | **Current overall level** |
-| 3 — Automated testing | Repeatable tests pass and failures are reported for the relevant project workflows | Next target; verify the latest complete test run before claiming this level |
-| 4 — Validated simulation | Reproducible simulation results and measured performance are documented | Not yet established for the complete system |
-| 5 — Controlled hardware validation | Physical tests demonstrate bounded capabilities | Not validated |
-| 6 — Operational readiness | Safety, reliability and deployment requirements are independently demonstrated | Not established |
-
-### Next milestone: Level 3
-
-- Run the existing local verification and relevant test suites; record the exact command, environment, commit and result.
-- Add or strengthen repeatable tests for uncertain inputs, failure cases and safe-stop / human-review behavior.
-- Report only measured results. A passing syntax scan or synthetic test is evidence for that software path only—not real-world detection accuracy or robot capability.
-- Keep the workflow local-first: external integrations require prior review.
-
-**Capability boundary:** proposed architecture, synthetic tests and software checks do not prove validated real-world performance. Physical operation remains unvalidated until supported by separate, documented evidence.
 
 ## local-first engineering resources
 
@@ -957,7 +945,7 @@ A scan or passing test is evidence only for the checks actually run; it does not
 | Engineering Strength / ความแข็งแกร่งทางวิศวกรรม | Verified technical capability and system integration / ความสามารถทางเทคนิคและการเชื่อมต่อระบบที่ตรวจสอบได้ | Not yet assessed / ยังไม่ได้ประเมิน |
 | Evidence Confidence / ความเชื่อมั่นของหลักฐาน | Evidence traceability, reproducibility and validation quality / การตรวจสอบย้อนกลับ การทำซ้ำ และคุณภาพการตรวจสอบ | Not yet assessed / ยังไม่ได้ประเมิน |
 | Implementation Level / ระดับการพัฒนาที่ดำเนินการแล้ว | Work actually implemented, separated from proposed work / งานที่พัฒนาแล้วจริง แยกจากงานที่เป็นข้อเสนอ | Not yet assessed / ยังไม่ได้ประเมิน |
-| Project Maturity / ความสมบูรณ์ของโครงการ | Evidence-based development stage, from concept to operational demonstration / ระยะการพัฒนาที่อ้างอิงหลักฐาน ตั้งแต่แนวคิดถึงการสาธิตการใช้งานจริง | Formal stage assessment pending / รอการประเมินระดับอย่างเป็นทางการ |
+| Development Stage / ขั้นการพัฒนา | Evidence-based development stage, from concept to operational demonstration / ระยะการพัฒนาที่อ้างอิงหลักฐาน ตั้งแต่แนวคิดถึงการสาธิตการใช้งานจริง | Formal stage assessment pending / รอการประเมินระดับอย่างเป็นทางการ |
 
 These four indicators are separate from the weighted 100-point score below. No score, percentage or maturity stage is assigned until a dated evidence-backed review is completed.
 
