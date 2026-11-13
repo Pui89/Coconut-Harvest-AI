@@ -32,7 +32,7 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 ## Development stage
 
 **Stage:** Stage 2 of 5 — Software prototype and evaluation preparation
-**ขั้นการพัฒนา:** Software prototype
+**ระยะการพัฒนา:** ต้นแบบซอฟต์แวร์และการเตรียมประเมินผล
 
 **Shared framework:** [PUI89 Development Stage Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_DEVELOPMENT_STAGE_STANDARD.md)
 
