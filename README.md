@@ -29,6 +29,24 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 > 
 > **Validation boundary:** A trained detector with held-out real-image accuracy and a working physical harvesting robot are not established.
 
+## Perception & Task Intelligence (PTI)
+
+**Role in this product:** turn orchard observations into traceable, human-reviewed coconut maturity and harvest assessments. PTI is the shared PUI89 perception-and-task framework; this section defines the intended product workflow, not a claim that every capability is implemented or field-validated.
+
+**Priority perception tasks**
+- Check image quality, visibility, blur, lighting, occlusion and source provenance before analysis.
+- Detect visible coconut bunches and, where image evidence supports it, individual coconuts.
+- Classify the four project maturity classes: young green, mature green, yellow and brown.
+- Estimate visible counts only when fruit visibility and image geometry support a defensible result; otherwise mark the count uncertain.
+- Track a tree or bunch across dated observations only when identity can be maintained reliably.
+- Record confidence, uncertainty, missing evidence and human corrections with each assessment.
+
+**Task flow:** OBSERVE → PERCEIVE → ASSESS → DECIDE → RESPOND → LEARN FROM EVIDENCE. Outputs are harvest-assessment suggestions and evidence records for human review; they do not directly authorise cutting, lifting or robot movement.
+
+**First evidence gate:** permission-cleared orchard images, documented four-class labelling guidance, annotation QA and leakage-safe held-out data. Report per-class precision, recall, F1, confusion matrix, sample counts, failure cases and measured CPU/RAM/runtime conditions. Keep the detector and physical harvesting gates closed until their separate evidence requirements are met.
+
+**Not established:** validated maturity accuracy, reliable 0–30 m perception, yield prediction, field performance or autonomous harvesting. See the [shared PTI specification](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/perception/PUI89_PERCEPTION_TASK_INTELLIGENCE_V1.0.md) (maintainer repository access required).
+
 ## Development stage
 
 **Current stage:** Software & evaluation-preparation prototype  
