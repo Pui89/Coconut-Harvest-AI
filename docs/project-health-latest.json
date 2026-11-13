@@ -1,0 +1,57 @@
+{
+  "project": "Coconut Harvest AI",
+  "review_date": "2026-11-14",
+  "review_timezone": "Asia/Bangkok",
+  "cadence": "daily",
+  "progress_percent": 50,
+  "evidence_score": 50,
+  "evidence_possible": 100,
+  "evidence_coverage_percent": 88,
+  "evidence_confidence_proxy": "High",
+  "shared_ai_core_integration_percent": 100,
+  "shared_ai_core_verified_items": 6,
+  "shared_ai_core_total_items": 6,
+  "next_milestone": "Add traceable, reproducible evidence for: Integrated product prototype.",
+  "security_review": {
+    "secret_pattern_findings": [],
+    "dependency_manifests": [
+      "apps/pui89_app/requirements.txt",
+      "pyproject.toml",
+      "requirements.txt"
+    ],
+    "workflow_files": [
+      ".github/workflows/coconut-dataset-evidence-audit.yml",
+      ".github/workflows/coconut-dataset-preflight.yml",
+      ".github/workflows/coconut-inspection-records.yml",
+      ".github/workflows/coconut-inspection-workspace.yml",
+      ".github/workflows/coconut-lightweight-core-tests.yml",
+      ".github/workflows/coconut-simulation-evaluation.yml",
+      ".github/workflows/daily-project-progress.yml",
+      ".github/workflows/pui89-automated-verification.yml",
+      ".github/workflows/pui89-automation.yml",
+      ".github/workflows/pui89-coconut-adapter.yml",
+      ".github/workflows/pui89-free-checks.yml",
+      ".github/workflows/pui89-health-gate.yml",
+      ".github/workflows/pui89-pitfall-checks.yml",
+      ".github/workflows/pui89-portfolio-monitor.yml",
+      ".github/workflows/pui89-resilience.yml",
+      ".github/workflows/pui89-security-audit.yml",
+      ".github/workflows/pui89-shared-intelligence-contract.yml",
+      ".github/workflows/pui89-shared-interface-smoke.yml",
+      ".github/workflows/pui89-simulation-benchmark.yml",
+      ".github/workflows/pui89-system-guardrails.yml",
+      ".github/workflows/pui89-three-layer-security.yml",
+      ".github/workflows/security.yml",
+      ".github/workflows/tests.yml",
+      ".github/workflows/water-resilience.yml"
+    ],
+    "license_file_present": true,
+    "security_policy_present": true,
+    "scope": "Limited high-confidence text-pattern and file-presence checks; not a full secret scanner, dependency vulnerability audit, licence opinion, branch-ruleset audit or penetration test."
+  },
+  "limitations": [
+    "Confidence is a coverage-derived proxy, not statistical confidence.",
+    "Static checks do not replace security alerts, dependency audits, human licence review, threat modelling or penetration testing.",
+    "Scores do not increase with elapsed time; evidence credits require deliberate review."
+  ]
+}
