@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a reproducible Coconut Harvest AI defect.
+title: "[BUG] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Do not upload private farm records, personal data, credentials, or unlicensed images. Use synthetic or properly licensed/redacted evidence."
+  - type: input
+    id: area
+    attributes:
+      label: Product area
+      description: e.g. image intake, annotation, maturity classification, harvest planning, safety gate
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, expected behavior, and actual behavior?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Reproduction and evidence
+      description: Steps, synthetic sample or licensed image reference, dataset/version provenance, and test links. Do not attach unlicensed images.
+    validations:
+      required: false
+  - type: textarea
+    id: impact
+    attributes:
+      label: Field and safety impact
+      description: Could this cause a wrong maturity class, unsafe harvest proposal, data loss, or misleading result?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I have checked image/data licensing and provenance.
+          required: true
+        - label: I have removed personal, private, and sensitive information.
+          required: true
