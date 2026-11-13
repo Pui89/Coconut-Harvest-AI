@@ -1,6 +1,9 @@
 """Tests for the Coconut-to-Shared-AI-Core advisory adapter."""
+import sys
 import unittest
+from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from pui89_coconut_shared_core_adapter import build_shared_core_records
 
 
@@ -20,24 +23,15 @@ def sample_request():
 
 def sample_orchard_report():
     return {
-        "tree": {
-            "height_m": None,
-            "height_band": "UNKNOWN",
-            "height_status": "unverified",
-        },
+        "tree": {"height_m": None, "height_band": "UNKNOWN", "height_status": "unverified"},
         "fruit_count": 1,
         "maturity_counts": {"mature_green": 1},
         "fruit_observations": [{
-            "fruit_id": "fruit-001",
-            "image_id": "image-fixture-001",
-            "maturity_class": "mature_green",
-            "source_kind": "synthetic_test",
-            "class_confidence": None,
-            "bbox_xyxy_normalized": [0.1, 0.2, 0.5, 0.8],
-            "review_status": "pending",
-            "disposition": "synthetic_only",
-            "errors": [],
-            "harvest_authorized": False,
+            "fruit_id": "fruit-001", "image_id": "image-fixture-001",
+            "maturity_class": "mature_green", "source_kind": "synthetic_test",
+            "class_confidence": None, "bbox_xyxy_normalized": [0.1, 0.2, 0.5, 0.8],
+            "review_status": "pending", "disposition": "synthetic_only",
+            "errors": [], "harvest_authorized": False,
         }],
         "decision_boundary": {
             "image_classification_performed": False,
@@ -48,7 +42,7 @@ def sample_orchard_report():
 
 
 class CoconutSharedCoreAdapterTests(unittest.TestCase):
-    def test_builds_all_five_contracts_without_actuation(self):
+    def test_builds_four_base_contracts_without_actuation(self):
         result = build_shared_core_records(sample_request(), sample_orchard_report())
         self.assertEqual(result["observation"]["schema_version"], "0.1.0")
         self.assertEqual(result["world_state"]["schema_version"], "0.1.0")
@@ -63,10 +57,8 @@ class CoconutSharedCoreAdapterTests(unittest.TestCase):
 
     def test_emits_failure_report_only_for_explicit_failure_event(self):
         event = {
-            "failure_id": "failure-001",
-            "occurred_at": "2026-11-13T10:00:00Z",
-            "system_or_component": "synthetic fixture parser",
-            "severity": "low",
+            "failure_id": "failure-001", "occurred_at": "2026-11-13T10:00:00Z",
+            "system_or_component": "synthetic fixture parser", "severity": "low",
             "summary": "Synthetic test failure event",
             "observed_result": "Fixture intentionally marked invalid",
         }
