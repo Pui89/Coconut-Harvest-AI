@@ -29,6 +29,10 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 > 
 > **Validation boundary:** A trained detector with held-out real-image accuracy and a working physical harvesting robot are not established.
 
+## Hardware & Materials Sourcing
+
+PUI89 uses a traceable sourcing workflow for materials, mechanical parts, sensors, compute, power and control components. See the [bilingual Hardware & Materials Sourcing guide](https://pui89.github.io/materials.html) for the process covering exact manufacturer/model identification, Thailand and international supplier discovery, country-of-origin evidence, dated pricing and availability, lead times, shipping, compatibility checks and verification gates. Product-specific candidates are added only when supported by evidence; research candidates are not purchases or validated hardware.
+
 ## Perception & Task Intelligence (PTI)
 
 **Role in this product:** turn orchard observations into traceable, human-reviewed coconut maturity and harvest assessments. PTI is the shared PUI89 perception-and-task framework; this section defines the intended product workflow, not a claim that every capability is implemented or field-validated.
