@@ -35,6 +35,8 @@ PUI89 uses a traceable sourcing workflow for materials, mechanical parts, sensor
 
 ### Prototype materials & cost snapshot
 
+**Evidence register:** [Coconut BOM & Cost Register v1.0](docs/COCONUT_BOM_COST_REGISTER_V1.0.md) — item-level identities, origin, supplier, dated price, landed-cost and approval evidence. Unknowns remain unpriced; the planning allowance below is not a verified quotation.
+
 **Planning allowance for one research prototype: ฿13,500–59,000.** This is a preliminary estimate from the [PUI89 project-specific BOM](https://pui89.github.io/materials.html#project-boms), not a supplier quotation or verified current market price.
 
 Start with a controlled vision bench for the four maturity classes; harvesting mechanics are a later phase.
