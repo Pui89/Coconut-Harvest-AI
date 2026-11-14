@@ -33,6 +33,27 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 
 PUI89 uses a traceable sourcing workflow for materials, mechanical parts, sensors, compute, power and control components. See the [bilingual Hardware & Materials Sourcing guide](https://pui89.github.io/materials.html) for the process covering exact manufacturer/model identification, Thailand and international supplier discovery, country-of-origin evidence, dated pricing and availability, lead times, shipping, compatibility checks and verification gates. Product-specific candidates are added only when supported by evidence; research candidates are not purchases or validated hardware.
 
+### Prototype materials & cost snapshot
+
+**Planning allowance for one research prototype: ฿13,500–59,000.** This is a preliminary estimate from the [PUI89 project-specific BOM](https://pui89.github.io/materials.html#project-boms), not a supplier quotation or verified current market price.
+
+Start with a controlled vision bench for the four maturity classes; harvesting mechanics are a later phase.
+
+| Main item | Prototype quantity | Purpose |
+|---|---:|---|
+| Industrial RGB camera | 1 | Image capture |
+| Compatible lens | 1 | Field of view / working distance |
+| Diffuse LED lights | 2 | Controlled illumination |
+| Adjustable stand + calibration chart | 1 each | Repeatable capture and colour checks |
+| Mounts, cables and fixtures | 1 set | Bench integration |
+| Compute | 1 shared | Reuse an existing computer first |
+
+**Special engineering / purchase gate:** Use licensed images and human-verified labels; control lighting and camera distance. Keep young green, mature green, yellow and brown classes distinct. A gripper, reach mechanism and orchard robot are later engineering stages and are not included in this vision-bench estimate.
+
+**Shared engineering bench (tracked separately):** approximately ฿16,500–46,000 if the existing development computer is reused. This is a portfolio-level allowance for reusable compute, one RGB-D camera, bench power supply/multimeter, two microcontroller boards and reusable tools/wiring/adapters; it is not added to each project total. Allocate each shared item once, not once per product.
+
+**Cost status:** exact manufacturer/model, manufacturing origin, supplier, stock, lead time and dated prices remain to be verified. Freight, insurance, duty, VAT, brokerage, local delivery, custom fabrication labour and certification are not priced here; calculate Thai landed cost only from dated quotations. Quantities are for one prototype; no purchase or supplier commitment is authorised. Software-first work can continue with available computing and appropriately licensed open-source tools before hardware procurement.
+
 ## Four-stage real-image dataset
 
 The [PUI89 four-stage image source register](docs/COCONUT_FOUR_STAGE_IMAGE_SOURCE_REGISTER.md) documents the operational classes, research basis, Wikimedia Commons source candidates, attribution/licence checks and approval workflow. It distinguishes biological maturity from visible husk colour. **No new images are imported or training-approved by the source register.**
