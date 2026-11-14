@@ -1045,3 +1045,29 @@ This project adopts the proposed PUI89 Engineering Intelligence approach: AI ass
 **AI engineering methods to evaluate:** RGB/multimodal detection and segmentation, tracking across observations, depth/pose estimation where calibrated, orchard mapping, uncertainty-aware yield/count estimation, task sequencing, energy-aware motion planning, and digital-twin/robotics simulation.
 
 **Evidence gates:** licensed real orchard data and annotation QA → held-out perception evaluation → geometry and reach simulation → independent mechanical/electrical hazard review → supervised prototype testing. Software, simulation and physical evidence must be reported separately. All physical capabilities remain unvalidated until tested.
+
+## Global-by-Design Product Requirement
+
+**Strategic target:** every PUI89 product is designed for potential international use and lawful purchase, not only for the Thai market. This is a development and market-readiness target; it does **not** mean the product is currently manufactured, orderable, shipped worldwide, certified, or approved in every country.
+
+### Requirements for global usability and purchasing
+- **International usability:** design clear workflows, accessible interfaces, metric and local-unit support where relevant, time-zone/date/number formatting, and language-ready UI/documentation. English is the initial shared documentation language; additional languages are added according to user and market evidence.
+- **Regional configuration:** make country, region, voltage/frequency, radio bands, network connectivity, environmental conditions, plugs/connectors, and local operating constraints explicit where applicable. Never assume one configuration fits every market.
+- **Compliance before sale:** identify destination-country laws, product classification, safety, EMC/radio, electrical, battery transport, privacy, cybersecurity, accessibility, import/export, labelling and sector-specific requirements. Use qualified local review and accredited testing where required. Standards references are design inputs, not certification claims.
+- **Purchasing transparency:** future buyer information must state exact model/configuration, included items, exclusions, intended use, limitations, warranty, maintenance, support, software/data terms, taxes, shipping, import duties, delivery region and return process. Publish a price only when supported by a dated quote or approved live price source.
+- **Global supply and service:** qualify suppliers in multiple regions where practical; document manufacturer and country of manufacture, authorised distributors, spare parts, repair routes, lead times, end-of-life notices and regional support. Do not imply worldwide shipping or service until confirmed.
+- **Open-source and commercial rights:** separate open-source software from hardware, model weights, datasets, trademarks and third-party components. Verify each licence and commercial-use right individually.
+- **Privacy and security:** minimise collected data, document retention and data location, provide secure update and vulnerability-handling processes, and review applicable privacy laws before deployment.
+- **Human safety and local operating limits:** preserve product-specific human oversight and safety boundaries. AI advisory software must not be described as autonomous physical control unless separately engineered, tested and legally approved.
+
+### Release gates
+1. **Global design-ready:** requirements, user groups, languages, regions and operating environments documented.
+2. **Market research verified:** target-market demand, alternatives, price evidence and channel assumptions documented.
+3. **Compliance mapped:** destination-market obligations identified; gaps and required tests recorded.
+4. **Prototype validated:** reproducible technical, usability, reliability and safety evidence exists for the stated conditions.
+5. **Commercially orderable:** exact configuration, verified price, production capacity, warranty, logistics, returns and support are confirmed.
+6. **Region released:** all required local approvals, labels, documentation, import arrangements and service readiness are complete for that region.
+
+**Current status:** global readiness is a portfolio-wide design target. Each product must report its actual gate and evidence separately. No product is to be described as globally available or purchasable until the relevant commercial and regional release gates are met.
+
+**Shared standard:** [PUI89 Global Product Readiness Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/product/PUI89_GLOBAL_PRODUCT_READINESS_STANDARD_V1.0.md).
