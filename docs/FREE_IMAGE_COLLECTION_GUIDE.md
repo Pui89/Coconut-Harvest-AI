@@ -2,6 +2,10 @@
 
 No personal photos are required to begin. This script queries Wikimedia Commons and downloads only images whose declared licence is CC0, Public Domain, CC BY, or CC BY-SA; it excludes licences marked non-commercial or no-derivatives. The script stores the file-page URL, author/credit, licence, and source query in `provenance.csv`.
 
+## Four-stage maturity sources
+
+Before collecting candidates, review the [PUI89 four-stage image source register](COCONUT_FOUR_STAGE_IMAGE_SOURCE_REGISTER.md). It lists research references and Commons file-page candidates with displayed licences, while clearly marking which images are only colour/cultivar references and which require agronomy review. Do not assign maturity labels automatically from search terms or husk colour.
+
 ## Run locally
 
 ~~~powershell
