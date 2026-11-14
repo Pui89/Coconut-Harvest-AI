@@ -1025,3 +1025,19 @@ The portfolio-wide count is published on the [PUI89 website](https://pui89.githu
 
 จะนับเมื่อมีสถานะเสร็จสมบูรณ์ วันที่ ขอบเขต บทบาทผู้ทบทวน ผลการทบทวน และหลักฐานอ้างอิงอย่างน้อยหนึ่งรายการครบถ้วนเท่านั้น รายการร่าง คะแนน ดาว ยอดเข้าชม และความคิดเห็นจะไม่นับ
 <!-- PUI89_EVIDENCE_BACKED_REVIEW:END -->
+
+## AI Engineering Intelligence & Physical Product Design
+
+This project adopts the proposed PUI89 Engineering Intelligence approach: AI assists with requirements analysis, geometry-aware perception, workflow planning, simulation planning and evidence review. It does not replace agricultural, mechanical, electrical or safety engineering.
+
+**Product-specific design priorities**
+- **Orchard digital context:** represent tree rows, trunk/canopy geometry, bunch locations, access paths, slope, ground condition and operator exclusion zones when supported by measured inputs.
+- **Harvest quality engineering:** connect the four maturity classes to human-approved harvest criteria; preserve uncertain, occluded or mixed-maturity cases for review rather than forcing a class.
+- **Reach and stability study:** evaluate reach envelope, centre of mass, overturning margin, ground pressure, arm loads and recovery states in simulation before any physical design decision. The 0–30 m range remains an unvalidated design challenge, not a capability.
+- **Selective handling:** study compliant gripping, fruit/bunch contact, cutting loads, drop protection, collection capacity and jam recovery; no autonomous cutting or actuation is authorised by this AI layer.
+- **Environmental design:** assess rain, dust, heat, humidity, corrosion, wash-down exposure and ingress protection as separate engineering requirements with appropriate test methods.
+- **Human workflow:** provide worker-aware exclusion zones, clear status, manual override concepts and traceable harvest recommendations.
+
+**AI engineering methods to evaluate:** RGB/multimodal detection and segmentation, tracking across observations, depth/pose estimation where calibrated, orchard mapping, uncertainty-aware yield/count estimation, task sequencing, energy-aware motion planning, and digital-twin/robotics simulation.
+
+**Evidence gates:** licensed real orchard data and annotation QA → held-out perception evaluation → geometry and reach simulation → independent mechanical/electrical hazard review → supervised prototype testing. Software, simulation and physical evidence must be reported separately. All physical capabilities remain unvalidated until tested.
