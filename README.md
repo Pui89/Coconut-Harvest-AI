@@ -1142,3 +1142,27 @@ This project adopts the proposed PUI89 Engineering Intelligence approach: AI ass
 **Generally excluded:** engineering labour, research salaries, facilities, taxes/VAT, import duties, shipping unless stated in a supplier quotation, certification/regulatory approvals, production tooling, mass production, long-term maintenance and contingency. Project-specific exclusions: any major custom manufacturing or certification not specified in the prototype scope.
 
 **Lower-cost development path:** continue software-first development, open-source tools and simulation before purchasing physical hardware. Shared AI Core software and reusable development equipment may reduce duplicated costs; savings are not yet quantified. No purchase or installation is authorised by this estimate.
+
+
+### Prototype hardware, materials and component budget breakdown
+
+**Planning scope:** one engineering prototype; total planning range remains **฿80,000–฿250,000 THB**. The following subsystem allowances are preliminary engineering estimates, not supplier quotes. Individual ranges are not a promise of purchase price and must be reconciled against exact selected parts and written quotations before procurement.
+
+| Subsystem / component type | Qty per prototype | Material / specification and function | Indicative allowance (THB) |
+|---|---:|---|---:|
+| Vision compute + storage | 1 set | CPU-first edge computer or existing development PC; RAM/storage sized by measured RGB workload | ฿15,000–฿45,000 |
+| RGB camera + lens | 1 | Industrial/USB/GigE RGB camera; lens selected from working distance and field of view | ฿8,000–฿25,000 |
+| Depth/range sensing | 1 optional shared module | RGB-D or range sensor only if height/depth measurement is needed and interface is supported | ฿0–฿25,000 |
+| Lighting + imaging enclosure | 1 set | Diffused LED lighting, glare control, weather hood for controlled outdoor capture | ฿5,000–฿18,000 |
+| Mast, tripod, mounts + frame | 1 set | Aluminium extrusion, stainless fasteners, adjustable camera mast and guarded bench frame | ฿8,000–฿25,000 |
+| Prototype end-effector / mock manipulator | 1 test assembly | Guarded low-force gripper or mock-up for bench evaluation; not an orchard-ready harvesting arm | ฿12,000–฿45,000 |
+| Power, control, wiring + protection | 1 set | Regulated DC supply, fuse, emergency isolation, MCU interface, cable management | ฿7,000–฿22,000 |
+| Fabrication, calibration + integration allowance | 1 lot | Assembly, alignment, calibration fixtures and controlled bench validation | ฿25,000–฿70,000 |
+
+**Material families:** aluminium alloy or stainless-steel structural members where suitable; engineering polymer covers; corrosion-resistant fasteners; rated cables/connectors; protective enclosures; and product-specific seals, guards or vibration isolation. Exact alloy/grade, IP rating, load rating and country of manufacture remain unselected until engineering calculations and supplier evidence are available.
+
+**Shared hardware accounting:** Shared AI Core software is not a product BOM. Reusable development computers, cameras or bench instruments must be listed as shared assets and allocated once; do not duplicate their full purchase cost across all seven products. Product-specific mounts, wiring, protection and integration remain in each product allowance.
+
+**Sourcing controls:** prefer non-Chinese-origin candidates only when the exact manufacturing origin is evidenced. Record legal manufacturer, brand, exact model/part number, manufacturing country, evidence URL/document, authorised supplier, dated price/currency, stock, MOQ, lead time, warranty and landed-cost assumptions. Brand headquarters or seller location is not proof of manufacturing origin. Unknown origin = **UNVERIFIED**.
+
+**Prototype boundary:** the allowance is for a controlled engineering prototype, not a certified commercial product or production-ready system. It excludes labour, research salaries, facilities, VAT/tax, import duties, freight/insurance unless explicitly quoted, certification, production tooling, mass production, maintenance and contingency. No purchase, download, installation or supplier commitment is authorised by this documentation.
