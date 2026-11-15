@@ -1155,9 +1155,9 @@ This project adopts the proposed PUI89 Engineering Intelligence approach: AI ass
 | Depth/range sensing | 1 optional shared module | RGB-D or range sensor only if height/depth measurement is needed and interface is supported | ฿0–฿25,000 |
 | Lighting + imaging enclosure | 1 set | Diffused LED lighting, glare control, weather hood for controlled outdoor capture | ฿5,000–฿18,000 |
 | Mast, tripod, mounts + frame | 1 set | Aluminium extrusion, stainless fasteners, adjustable camera mast and guarded bench frame | ฿8,000–฿25,000 |
-| Prototype end-effector / mock manipulator | 1 test assembly | Guarded low-force gripper or mock-up for bench evaluation; not an orchard-ready harvesting arm | ฿12,000–฿45,000 |
+| Prototype end-effector / mock manipulator | 1 test assembly | Guarded low-force gripper or mock-up for bench evaluation; not an orchard-ready harvesting arm | ฿12,000–฿40,000 |
 | Power, control, wiring + protection | 1 set | Regulated DC supply, fuse, emergency isolation, MCU interface, cable management | ฿7,000–฿22,000 |
-| Fabrication, calibration + integration allowance | 1 lot | Assembly, alignment, calibration fixtures and controlled bench validation | ฿25,000–฿70,000 |
+| Fabrication, calibration + integration allowance | 1 lot | Assembly, alignment, calibration fixtures and controlled bench validation | ฿25,000–฿50,000 |
 
 **Material families:** aluminium alloy or stainless-steel structural members where suitable; engineering polymer covers; corrosion-resistant fasteners; rated cables/connectors; protective enclosures; and product-specific seals, guards or vibration isolation. Exact alloy/grade, IP rating, load rating and country of manufacture remain unselected until engineering calculations and supplier evidence are available.
 
