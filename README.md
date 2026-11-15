@@ -60,6 +60,69 @@ Start with a controlled vision bench for the four maturity classes; harvesting m
 
 The [PUI89 four-stage image source register](docs/COCONUT_FOUR_STAGE_IMAGE_SOURCE_REGISTER.md) documents the operational classes, research basis, Wikimedia Commons source candidates, attribution/licence checks and approval workflow. It distinguishes biological maturity from visible husk colour. **No new images are imported or training-approved by the source register.**
 
+## Software Prototype v0.1 — Local-First Coconut Maturity Assessment
+
+**Product direction:** build and verify the software workflow before buying or building harvesting hardware. Version 0.1 is an image-based decision-support prototype for a human reviewer; it is not an autonomous harvesting system.
+
+### Intended v0.1 workflow
+
+1. **Image input:** accept a locally supplied image and validate file readability, format and basic metadata.
+2. **Image quality:** flag blur, poor exposure, low resolution, occlusion and other conditions that may make assessment unreliable.
+3. **Four-class assessment:** use the project's documented labels — young green, mature green, yellow and brown. Visible husk colour is an observation, not by itself proof of biological maturity.
+4. **Uncertainty handling:** expose confidence and uncertainty; abstain or request human review when evidence is weak, conflicting or out of scope. Do not force a class.
+5. **Human review:** allow an authorised reviewer to confirm or correct an assessment and record the reason.
+6. **Evidence record:** retain the image reference, source/provenance, timestamp, software/model version, output, uncertainty and human correction in a reproducible record.
+
+### Software requirements
+
+- Python, CPU-first and designed for low-resource local execution.
+- Prefer open-source dependencies after checking licence, provenance, security and resource requirements.
+- Use existing development equipment first; no hardware purchase is required for this software milestone.
+- Synthetic fixtures may test input handling, validation and report structure only. They are not training data and cannot establish recognition accuracy.
+- Do not download datasets or model weights, install packages, use paid APIs, or send private images to hosted services without explicit approval.
+- Keep model predictions advisory. No cutting, gripping, robot movement or other physical actuation is authorised by this software.
+
+### Proposed implementation layout
+
+```text
+docs/
+  PRODUCT_REQUIREMENTS_V0.1.md
+  DATASET_LABELING_GUIDE.md
+  VALIDATION_PROTOCOL.md
+src/
+  coconut_ai/
+    image_input.py
+    image_quality.py
+    maturity.py
+    uncertainty.py
+    human_review.py
+    evidence.py
+tests/
+  test_image_input.py
+  test_maturity.py
+  test_uncertainty.py
+examples/
+  synthetic/
+```
+
+This is a proposed layout, not a statement that these files or features are already implemented.
+
+### Acceptance gates
+
+| Gate | Acceptance evidence | Status |
+|---|---|---|
+| G1 — Image input | Readable local image, validated format/metadata, clear error handling | Planned |
+| G2 — Image quality | Repeatable quality flags and rejection/abstention for unsuitable images | Planned |
+| G3 — Label schema | Four classes documented with human labelling guidance | Schema defined; annotation QA pending |
+| G4 — Uncertainty | Confidence/uncertainty output and safe abstention behavior covered by tests | Planned |
+| G5 — Human review & evidence | Reviewer confirmation/correction and traceable evidence record | Planned |
+| G6 — Real-image dataset | Permission-cleared images, verified licences/provenance, expert labels and annotation QA | Pending |
+| G7 — Model evaluation | Leakage-safe held-out test set; per-class precision, recall and F1; confusion matrix; sample counts; failure cases; measured CPU/RAM/runtime | Not run |
+
+**Release rule:** G1–G5 are software engineering goals. G6 must be satisfied before training or claiming real-image performance; G7 must be completed before reporting model accuracy. A passing software test, synthetic example or simulation does not prove field accuracy or harvesting capability.
+
+**Immediate next step:** complete the dataset rights and labelling protocol, then implement the local image-input and evidence-record foundation on a feature branch. Keep the training and hardware-purchase gates closed until their separate evidence and approval requirements are met.
+
 ## Perception & Task Intelligence (PTI)
 
 **Role in this product:** turn orchard observations into traceable, human-reviewed coconut maturity and harvest assessments. PTI is the shared PUI89 perception-and-task framework; this section defines the intended product workflow, not a claim that every capability is implemented or field-validated.
