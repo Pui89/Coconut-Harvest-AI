@@ -92,3 +92,23 @@ The five live Wikimedia Commons file pages were opened and their visible metadat
 Source pages: [WMC-01](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg), [WMC-02](https://commons.wikimedia.org/wiki/File:Mature_Coconut_Palm_with_Coconuts_%28Cocos_nucifera%29.jpg), [WMC-03](https://commons.wikimedia.org/wiki/File:Coconut_Yellow_Gourigatram.jpg), [WMC-04](https://commons.wikimedia.org/wiki/File:Coconut_Yellow.JPG), [WMC-05](https://commons.wikimedia.org/wiki/File:The_fruit_of_coconut.jpg).
 
 **Still not verified:** actual local file bytes and SHA-256, full-resolution image suitability for annotation, image-level maturity labels, duplicate/leakage status, independent rights approval for intended downstream use, and training/test eligibility. No images were downloaded in this review.
+
+
+## Preview-level visual inspection — 17 November 2026
+
+Two public Wikimedia Commons previews were visually inspected in-browser. This is a preview-level suitability screen only; it does not establish full-resolution annotation quality, exact file integrity, rights approval, or maturity labels.
+
+| Record | Visible observations | Preliminary suitability decision |
+|---|---|---|
+| WMC-01 — Coconut in Coconut Tree.jpg | The 960 × 640 preview shows several green-looking coconuts attached near the crown. Multiple fruit are visible, but fronds, branches, and neighbouring fruit create partial occlusion and overlap. | Retain as an attached-canopy detection candidate. Fruit instances appear identifiable at preview scale, but native-resolution boundary/box QA is still required. |
+| WMC-02 — Mature Coconut Palm with Coconuts.jpg | The accessible 250 × 333 preview shows a close cluster of green to yellow-green fruits around the trunk. Several fruit silhouettes are distinguishable, with overlap and partial obstruction. The larger preview request timed out during this review. | Retain as a high-priority attached-canopy candidate, but do not approve annotation from the small preview. Inspect the 500 px or original image before drawing boxes. |
+
+### Label and task restrictions
+
+- The source caption for WMC-02 says the fruit are fully grown and ready for harvest; this is source-provided context, not independent agronomic ground truth.
+- Neither preview supports assigning `young_green`, `mature_green`, `yellow`, or `brown` biological maturity labels. Keep `biological_maturity_label=unknown` and `training_approved=false`.
+- Visible husk colour may be noted descriptively, but must not be used as a substitute for maturity verification.
+- These two images are canopy-context candidates. They do not establish the complete four-class dataset coverage and are not a validated test set.
+- No image files were downloaded, modified, committed, annotated, or used for model training in this review.
+
+**Next gate:** inspect the original-resolution files after explicit acquisition approval; record exact byte size and SHA-256; then perform human box annotation and independent QA before any evaluation split.
