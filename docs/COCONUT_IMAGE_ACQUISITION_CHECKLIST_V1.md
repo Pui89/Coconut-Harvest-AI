@@ -60,3 +60,25 @@ Download attempts through the available file-transfer path failed. Therefore no 
 - Independent annotation QA: not started.
 - Training/evaluation approval: false.
 - No image bytes were committed to the repository and no model was trained.
+
+## 6. Higher-resolution preview review — 17 November 2026
+
+The Commons preview renditions were opened at 1,280 px (WMC-01) and 1,920 px (WMC-02). These are higher-resolution browser previews, not locally acquired original files.
+
+### WMC-01 — 1,280 px preview
+- The crown contains multiple visible fruits distributed across the central and side regions.
+- Fronds, stalks, and adjacent fruit obscure portions of several coconuts; some boundaries are difficult to separate.
+- Strong highlights and bright background openings produce substantial illumination variation.
+- **Assessment:** retain as a canopy-detection and occlusion-stress candidate. For annotation, mark only visually supported visible fruit extents and record occlusion/truncation; do not infer hidden boundaries.
+
+### WMC-02 — 1,920 px preview
+- A compact cluster of green to yellow-green fruits is more clearly resolved than in the smaller preview.
+- Several fruits touch or overlap, with partial occlusion near the cluster edges and by the trunk/plant structure.
+- Individual fruit instances appear usable for a carefully reviewed detection exercise, but close boundaries require annotator agreement and independent QA.
+- **Assessment:** retain as a high-priority canopy-detection candidate. Do not convert the source caption (“ready for harvest”) or husk colour into a biological maturity label.
+
+### Decision after preview review
+- WMC-01: candidate retained; detection annotation pending.
+- WMC-02: high-priority candidate retained; detection annotation pending.
+- Both: biological maturity remains **unknown**; training/evaluation approval remains **false**.
+- Preview review does not satisfy original-byte acquisition, SHA-256, local JPEG decode, or native-file integrity checks. Those gates remain open.
