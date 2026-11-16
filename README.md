@@ -1243,6 +1243,16 @@ Coconut Harvest AI may use an optional voice interface for hands-free, supervise
 
 Voice is an accessibility and workflow interface, not evidence of coconut maturity or a substitute for visual/sensor inspection. Harvesting actions remain bounded by the product safety design and explicit human approval.
 
+**Recommended model candidates for Coconut Harvest AI (not approved or integrated):**
+
+| Model/tool | Role in Coconut Harvest AI | Status |
+|---|---|---|
+| [openai/whisper-small](https://huggingface.co/openai/whisper-small) | Thai/English speech-to-text for supervised task setup; evaluate orchard noise and agricultural vocabulary | PENDING_REVIEW |
+| [hexgrad/Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) | English spoken task/progress reports; Thai TTS is not established | PENDING_REVIEW |
+| [Silero VAD](https://github.com/snakers4/silero-vad) | Speech-segment detection for push-to-talk / bounded voice input | PENDING_REVIEW |
+
+These models do not detect coconut maturity or authorise harvesting. Existing visual/sensor maturity assessment remains a separate PTI function with its own evidence and validation. Thai speech generation remains an open candidate-research task.
+
 **Maturity:** proposed capability only. No interaction model or voice hardware is approved, installed, integrated or validated.
 
 ## World-Class Engineering Standard v1.0
