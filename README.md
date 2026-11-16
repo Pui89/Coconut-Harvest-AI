@@ -60,6 +60,8 @@ Start with a controlled vision bench for the four maturity classes; harvesting m
 
 The [PUI89 four-stage image source register](docs/COCONUT_FOUR_STAGE_IMAGE_SOURCE_REGISTER.md) documents the operational classes, research basis, Wikimedia Commons source candidates, attribution/licence checks and approval workflow. It distinguishes biological maturity from visible husk colour. **No new images are imported or training-approved by the source register.**
 
+**Execution tracker:** [Coconut Real-Image Test Set v1 — Execution Board](docs/COCONUT_REAL_IMAGE_TEST_SET_V1_EXECUTION_BOARD.md) tracks candidate-by-candidate rights review, source-byte verification, independent annotation QA, leakage-safe splitting and the real CPU benchmark. It reuses the existing repository tools and ledgers; the board itself does not approve images, download files or claim new results.
+
 ## Software Prototype v0.1 — Local-First Coconut Maturity Assessment
 
 **Product direction:** build and verify the software workflow before buying or building harvesting hardware. Version 0.1 is an image-based decision-support prototype for a human reviewer; it is not an autonomous harvesting system.
