@@ -1232,6 +1232,19 @@ This project adopts the proposed PUI89 Engineering Intelligence approach: AI ass
 
 **Prototype boundary:** the allowance is for a controlled engineering prototype, not a certified commercial product or production-ready system. It excludes labour, research salaries, facilities, VAT/tax, import duties, freight/insurance unless explicitly quoted, certification, production tooling, mass production, maintenance and contingency. No purchase, download, installation or supplier commitment is authorised by this documentation.
 
+## Shared Interaction Intelligence — Coconut Harvest AI
+
+Coconut Harvest AI may use an optional voice interface for hands-free, supervised agricultural workflows:
+
+- Voice-guided task setup and operator instructions.
+- Spoken progress, equipment-status and harvest-summary reports.
+- Thai/English speech recognition and response after orchard-noise and vocabulary testing.
+- Optional voice activity detection and push-to-talk operation.
+
+Voice is an accessibility and workflow interface, not evidence of coconut maturity or a substitute for visual/sensor inspection. Harvesting actions remain bounded by the product safety design and explicit human approval.
+
+**Maturity:** proposed capability only. No interaction model or voice hardware is approved, installed, integrated or validated.
+
 ## World-Class Engineering Standard v1.0
 
 This product follows the [PUI89 World-Class Engineering Standard v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_WORLD_CLASS_ENGINEERING_STANDARD_V1.0.md), alongside the [PUI89 Simple, Safe & Professional Engineering Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_SIMPLE_SAFE_PROFESSIONAL_STANDARD.md). The shared standard defines requirements traceability, Shared AI Core contracts, PTI evaluation, simulation, safety, hardware provenance, cost engineering, verification and release gates. Product capabilities remain subject to their stated evidence and validation boundaries; this reference does not imply that a gate has been passed.
