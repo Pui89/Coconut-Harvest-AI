@@ -75,3 +75,20 @@ Until then, keep rights, annotation, and training approval states pending/false.
 - Model evaluation performed by this change: **No**.
 
 This is a structured, auditable preparation step only. It does not establish image rights, annotation correctness, four-class coverage, detector performance, or field capability.
+
+
+## Source-page verification snapshot — 17 November 2026
+
+The five live Wikimedia Commons file pages were opened and their visible metadata/licence statements checked on this date. This verifies what the source pages currently display; it is not legal advice, a guarantee of uploader copyright, or a visual annotation review.
+
+| Record | Source-page result | Original dimensions / size | Dataset decision at this stage |
+|---|---|---|---|
+| WMC-01 | Sarmi~Kili; CC BY-SA 4.0; source says own work and describes coconuts on a tree in Northern Province, Sri Lanka. | 5,184 × 3,456; 8.23 MB | Keep as a canopy candidate. Attribution and ShareAlike obligations apply. Human visual/annotation review remains pending. |
+| WMC-02 | Johnnybam; CC BY-SA 4.0; source says own work and caption describes fully grown coconuts ready for harvest. | 3,072 × 4,096; 4.68 MB | Keep as a high-priority canopy candidate. Caption is source metadata, not independent maturity ground truth. Attribution and ShareAlike obligations apply. |
+| WMC-03 | Giri1234; uploader declares worldwide public domain; description says a yellow-coloured variety mainly used as tender coconut. | 1,536 × 2,048; 731 KB | Keep only as a cultivar/colour reference, not evidence of biologically mature yellow fruit. |
+| WMC-04 | Iaminfo; CC BY-SA 3.0 and GFDL 1.2-or-later are offered on the page. | 2,304 × 3,072; 2.14 MB | Keep as a yellow-husk/cultivar reference. Record the chosen licence explicitly before reuse; do not treat colour as maturity. |
+| WMC-05 | Lotadegbemijowa; CC BY-SA 4.0; source description says ripe/plucked coconut. | 4,160 × 3,120; 6.45 MB | Keep only as a harvested/close-up auxiliary reference; not a primary attached-canopy detection example. |
+
+Source pages: [WMC-01](https://commons.wikimedia.org/wiki/File:Coconut_in_Coconut_Tree.jpg), [WMC-02](https://commons.wikimedia.org/wiki/File:Mature_Coconut_Palm_with_Coconuts_%28Cocos_nucifera%29.jpg), [WMC-03](https://commons.wikimedia.org/wiki/File:Coconut_Yellow_Gourigatram.jpg), [WMC-04](https://commons.wikimedia.org/wiki/File:Coconut_Yellow.JPG), [WMC-05](https://commons.wikimedia.org/wiki/File:The_fruit_of_coconut.jpg).
+
+**Still not verified:** actual local file bytes and SHA-256, full-resolution image suitability for annotation, image-level maturity labels, duplicate/leakage status, independent rights approval for intended downstream use, and training/test eligibility. No images were downloaded in this review.
