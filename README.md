@@ -48,16 +48,16 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 > 
 > **Validation boundary:** A trained detector with held-out real-image accuracy and a working physical harvesting robot are not established.
 
-## CPU-only PyTorch baseline
+## CPU-first installation
 
-The default dependency set does not install NVIDIA CUDA or NVIDIA GPU runtime packages. Install the official PyTorch CPU wheel separately, then install the remaining project dependencies:
+Python 3.11 or newer is required. PyTorch is an optional extra because its CPU and accelerator wheels use different package indexes. For the supported CPU-first setup, install the official CPU wheel before installing the project extra:
 
 ```bash
 python -m pip install -r requirements-cpu-torch.txt
-python -m pip install -r requirements.txt
+python -m pip install -e ".[torch]"
 ```
 
-The CPU wheel source is the official PyTorch CPU package index. GPU/CUDA acceleration is intentionally not part of the default installation and requires a separate, licence-reviewed decision. This change does not remove PyTorch usage from the code; it removes automatic GPU/CUDA dependency installation.
+The `torch` extra declares the compatible PyTorch version range; the first command selects the official CPU-only wheel. Do not install the extra by itself if you require a CPU-only environment, because pip may select a non-CPU wheel from its configured package index. NVIDIA CUDA/GPU packages are not part of the default installation. Accelerator support requires a separate, reviewed installation path and is not implied by this CPU baseline.
 
 ## Hardware & Materials Sourcing
 
