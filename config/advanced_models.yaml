@@ -67,7 +67,7 @@ action_models:
 
 integration:
   architecture: >
-    RGB/RGB-D/LiDAR/IMU -> YOLO + SAM3 + tracking -> 3D tree/branch/fruit world model
+    RGB/RGB-D/LiDAR/IMU -> future perception (not selected) + SAM3 + tracking -> 3D tree/branch/fruit world model
     -> Gemma-4-31B-it reasoning -> active perception + future prediction
     -> GR00T N1.7 / FLUX 3 Action candidate actions -> deterministic safety gate
     -> ROS2/Nav2 + MoveIt2/RRT* -> arm/tool controller -> verify harvest -> memory update
