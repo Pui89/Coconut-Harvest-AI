@@ -1,4 +1,4 @@
-"""Bridge local RGB-D proposals into a conservative simulation-only robot workflow.
+"""Bridge supplied candidate proposals into a conservative simulation-only robot workflow.
 
 Camera-frame points are never treated as robot-base points without an explicit,
 validated 4x4 camera-to-robot-base transform. Missing robot evidence fails closed.
@@ -171,7 +171,7 @@ def run_vision_to_simulated_workflow(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--proposal", required=True, help="JSON produced by local_first_pipeline.py")
+    parser.add_argument("--proposal", required=True, help="JSON using the documented proposal schema; no detector is bundled")
     parser.add_argument("--evidence", required=True, help="Robot-frame transform and per-target evidence JSON")
     parser.add_argument("--output", default="coconut_simulated_workflow_report.json")
     parser.add_argument("--human-approved", action="store_true", help="Explicitly approve simulation planning only")
