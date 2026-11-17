@@ -141,7 +141,7 @@ This is a proposed layout, not a statement that these files or features are alre
 
 **First evidence gate:** permission-cleared orchard images, documented four-class labelling guidance, annotation QA and leakage-safe held-out data. Report per-class precision, recall, F1, confusion matrix, sample counts, failure cases and measured CPU/RAM/runtime conditions. Keep the detector and physical harvesting gates closed until their separate evidence requirements are met.
 
-**Not established:** validated maturity accuracy, reliable 0–30 m perception, yield prediction, field performance or autonomous harvesting. See the [shared PTI specification](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/perception/PUI89_PERCEPTION_TASK_INTELLIGENCE_V1.0.md) (maintainer repository access required).
+**Not established:** validated maturity accuracy, reliable 0–30 m perception, yield prediction, field performance or autonomous harvesting. See the [public Shared AI Core overview](https://pui89.github.io/ai-core.htmlperception/PUI89_PERCEPTION_TASK_INTELLIGENCE_V1.0.md) (maintainer repository access required).
 
 ## Six Core Intelligence Groups — Product Allocation
 
@@ -1192,7 +1192,7 @@ This project adopts the proposed PUI89 Engineering Intelligence approach: AI ass
 
 **Current status:** global readiness is a portfolio-wide design target. Each product must report its actual gate and evidence separately. No product is to be described as globally available or purchasable until the relevant commercial and regional release gates are met.
 
-**Shared standard:** [PUI89 Global Product Readiness Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/product/PUI89_GLOBAL_PRODUCT_READINESS_STANDARD_V1.0.md).
+**Shared standard:** [public PUI89 product architecture overview](https://pui89.github.io/ai-core.htmlproduct/PUI89_GLOBAL_PRODUCT_READINESS_STANDARD_V1.0.md).
 
 ---
 
@@ -1266,7 +1266,7 @@ This product follows the [PUI89 World-Class Engineering Standard v1.0](https://g
 
 *Conceptual AI workflow. Classifier accuracy, orchard range and harvesting performance require real-image evaluation and physical validation.*
 
-This diagram follows the [PUI89 Technical Visual Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/PUI89_TECHNICAL_VISUAL_STANDARD_V1.0.md). It explains the proposed product-specific AI workflow and does not imply unverified implementation or physical capability.
+This diagram follows the [public PUI89 technical architecture overview](https://pui89.github.io/ai-core.htmlPUI89_TECHNICAL_VISUAL_STANDARD_V1.0.md). It explains the proposed product-specific AI workflow and does not imply unverified implementation or physical capability.
 
 <!-- PUI89_DAILY_PROGRESS:START -->
 ## PUI89 project intelligence dashboard
