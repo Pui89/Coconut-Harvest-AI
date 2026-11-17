@@ -48,6 +48,17 @@ PUI89 prioritises open-source software, transparent licensing, reproducible work
 > 
 > **Validation boundary:** A trained detector with held-out real-image accuracy and a working physical harvesting robot are not established.
 
+## CPU-only PyTorch baseline
+
+The default dependency set does not install NVIDIA CUDA or NVIDIA GPU runtime packages. Install the official PyTorch CPU wheel separately, then install the remaining project dependencies:
+
+```bash
+python -m pip install -r requirements-cpu-torch.txt
+python -m pip install -r requirements.txt
+```
+
+The CPU wheel source is the official PyTorch CPU package index. GPU/CUDA acceleration is intentionally not part of the default installation and requires a separate, licence-reviewed decision. This change does not remove PyTorch usage from the code; it removes automatic GPU/CUDA dependency installation.
+
 ## Hardware & Materials Sourcing
 
 PUI89 uses a traceable sourcing workflow for materials, mechanical parts, sensors, compute, power and control components. See the [bilingual Hardware & Materials Sourcing guide](https://pui89.github.io/materials.html) for the process covering exact manufacturer/model identification, Thailand and international supplier discovery, country-of-origin evidence, dated pricing and availability, lead times, shipping, compatibility checks and verification gates. Product-specific candidates are added only when supported by evidence; research candidates are not purchases or validated hardware.
