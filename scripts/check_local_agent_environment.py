@@ -59,7 +59,7 @@ def main():
         print("Free disk space  : unable to read automatically")
 
     print("\nOptional packages (not required for the rule-based agent):")
-    for package in ("torch", "transformers", "ultralytics", "smolagents"):
+    for package in ("torch", "transformers", "smolagents"):
         try:
             module = __import__(package)
             version = getattr(module, "__version__", "installed; version unknown")
