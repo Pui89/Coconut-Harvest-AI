@@ -1,6 +1,6 @@
 torch>=2.13.0
 pillow>=13.0.0,<14.0
 numpy>=1.24.0
-transformers>=4.57.0
+transformers>=5.14.0,<6.0.0
 accelerate>=1.10.0
 huggingface-hub>=0.34.0
