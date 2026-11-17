@@ -49,8 +49,6 @@ Check exact version, model-weight and dependency licenses before commercial use.
 - MLflow (Apache-2.0): https://github.com/mlflow/mlflow — experiment tracking and artifacts.
 - OpenSSF Scorecard (Apache-2.0): https://github.com/ossf/scorecard — dependency and repository supply-chain checks.
 
-If using Ultralytics YOLO, explicitly review its AGPL-3.0 and enterprise licensing options before shipping a closed commercial product. Do not assume every checkpoint or dataset has the same terms.
-
 ## Safety and release gates
 
 1. Test planning in simulation before commanding physical actuators.
