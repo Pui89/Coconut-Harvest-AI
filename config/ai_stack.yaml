@@ -5,7 +5,7 @@ perception:
   detector:
     enabled: false
     status: permanently_removed
-    reason: "Ultralytics detector integration retired; no replacement selected"
+    reason: "The previous detector integration has been retired; no replacement selected"
   segmentation:
     framework: sam3
     mode: image_and_video
