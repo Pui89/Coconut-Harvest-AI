@@ -14,9 +14,9 @@
 
 **Key capabilities and design priorities:** Four maturity classes (young green, mature green, yellow and brown); image-quality checks; uncertainty and human review; evidence records for future harvest planning.
 
-**Current development stage:** Level 4 — Tested Prototype (software/evaluation-preparation foundations); real-image detector accuracy and physical harvesting remain unvalidated.
+**Evidence maturity:** **Implemented** — software and evaluation-preparation components are documented in the repository. This label does not establish a validated detector or physical harvesting capability.
 
-**Portfolio readiness:** **50%** — latest dashboard review **16 November 2026, 04:12 (Asia/Bangkok)**. This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance.
+**Evidence reviewed:** 17 November 2026. See the [shared PUI89 development record](https://pui89.github.io/) for current evidence, limitations and the next milestone.
 
 **Evidence boundary:** No validated field detector, 0–30 m perception, or working physical harvesting robot is established.
 
