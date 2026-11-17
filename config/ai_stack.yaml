@@ -3,14 +3,11 @@
 
 perception:
   detector:
-    framework: ultralytics-yolo26
-    model_repo: Ultralytics/YOLO26
-    weights: yolo26n.pt
-    task: detection
-    confidence_threshold: 0.35
-    image_size: 640
-    runtime: ultralytics + huggingface_hub
-    role: fast_coconut_and_tree_visual_proposals
+    status: not_selected
+    runtime: none
+    model: none
+    weights: none
+    reason: detector framework selection is pending independent licence, provenance, CPU-resource and coconut-dataset evaluation
     direct_motor_control: false
   segmentation:
     framework: sam3
