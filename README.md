@@ -1312,3 +1312,11 @@ This is an evidence-weighted readiness estimate, not code completion, product ce
 **Limitations:** This automated check is a first-line repository review, not a complete security audit, licence opinion, dependency vulnerability scan, branch-ruleset verification or physical safety validation. Software tests and simulations do not establish a built, certified or field-tested robot.
 
 <!-- PUI89_DAILY_PROGRESS:END -->
+
+## Quality engineering and evidence
+
+This repository's nine-part quality-engineering adoption record is [PUI89_QUALITY_ENGINEERING_ADOPTION.md](docs/PUI89_QUALITY_ENGINEERING_ADOPTION.md). Product failure scenarios are maintained in [quality/failure-scenarios.json](quality/failure-scenarios.json).
+
+**Current product-specific boundary:** Software verification command: `python -m unittest discover -s tests -p test_pui89_failure_scenarios.py -v`.
+
+**Local scenario-contract check:** `python -m unittest discover -s tests -p test_pui89_failure_scenarios.py -v`. Passing this check verifies the scenario data contract only; it does not prove model performance, end-to-end simulation, physical safety or field validation.
