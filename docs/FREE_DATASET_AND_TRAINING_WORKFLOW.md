@@ -23,7 +23,7 @@ A local Wikimedia Commons collector is now available at [`tools/collect_commons_
 
 ## Free tooling and cost boundary
 
-The code uses local Python packages and local computation. It does not require a hosted inference endpoint, paid notebook, cloud GPU, or subscription. A compatible local base checkpoint is still needed and must be obtained manually after reviewing its licence. Downloading a checkpoint uses internet data and disk space. Ultralytics package/model licensing should be reviewed before commercial distribution.
+The code uses local Python packages and local computation. It does not require a hosted inference endpoint, paid notebook, cloud GPU, or subscription. A compatible local base checkpoint is still needed and must be obtained manually after reviewing its licence. Downloading a checkpoint uses internet data and disk space. Object-detector training is currently paused; no detector framework or checkpoint is selected. Continue with rights-cleared image collection, human annotation and dataset QA.
 
 ## Current evidence status
 
