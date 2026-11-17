@@ -11,8 +11,8 @@ Protect people, animals, assets, data, and project integrity through evidence-le
 2. Flood Rescue AI — flood/disaster rescue-robot concept.
 3. Multimodal Narcotics Screening AI — multimodal screening decision-support and robotic concept.
 4. Homeguard AI Nomad — home/environment monitoring platform and future robot concept.
-5. AI Car — vehicle intelligence and driver-assistance research.
-6. AI Motorcycle — rider-focused vehicle intelligence research.
+5. PUI89 AI Global SUV — separate medium-size, five-door passenger-vehicle intelligence project.
+6. PUI89 AI Step-Through Scooter — separate rider-first, two-wheel step-through scooter project.
 
 ## 1. Physical safety and environmental protection
 Maintain a hazard register for people/animal exposure, pinch/crush/cut/impact, entanglement, falls, collision, instability, environmental exposure, maintenance, transport, and foreseeable misuse. Define the operating domain, exclusions, safe states, emergency-stop/isolation concept, and human authority before implementation. Use simulation and non-actuating prototypes first. Document ingress, dust, vibration, shock, impact, corrosion, UV, temperature, humidity, and structural-load requirements as applicable. Controlled engineering tests are required before claiming physical protection or operational capability.
@@ -54,8 +54,8 @@ Report known/verified, unknown/unobservable, changes, failures/near misses/unsup
 - **Flood Rescue AI:** current, depth, debris, entrapment, capsizing, tether/anchor failure, battery isolation in water, rescuer exposure, communications loss, safe withdrawal. Depth/current capability requires measured evidence.
 - **Multimodal Screening AI:** false positives/negatives, modality disagreement, calibration, dataset bias/provenance, chain of custody, privacy, human review, no autonomous enforcement.
 - **Homeguard AI Nomad:** electrical/fire/water/mold and structural-warning uncertainty, false alarms, privacy, offline operation, safe charging, emergency escalation.
-- **AI Car:** collision exposure, vulnerable road users, vehicle electrical/thermal hazards, occupant privacy, degraded sensing, no direct steering/throttle/brake control.
-- **AI Motorcycle:** rider vulnerability, two-wheel stability/traction context, road-surface contamination, weather/visibility, distraction minimization, no direct steering/throttle/brake control.
+- **PUI89 AI Global SUV:** collision exposure, vulnerable road users, vehicle electrical/thermal hazards, occupant privacy, degraded sensing, no direct steering/throttle/brake control.
+- **PUI89 AI Step-Through Scooter:** rider vulnerability, two-wheel stability/traction context, road-surface contamination, weather/visibility, distraction minimization, no direct steering/throttle/brake control.
 
 ## 12. Implementation gates
 1. **Specify:** requirement, operating domain, hazards, authority boundary, cost review.
