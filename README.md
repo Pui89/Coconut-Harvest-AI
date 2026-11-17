@@ -1312,3 +1312,15 @@ This is an evidence-weighted readiness estimate, not code completion, product ce
 **Limitations:** This automated check is a first-line repository review, not a complete security audit, licence opinion, dependency vulnerability scan, branch-ruleset verification or physical safety validation. Software tests and simulations do not establish a built, certified or field-tested robot.
 
 <!-- PUI89_DAILY_PROGRESS:END -->
+
+## Portfolio consistency and founder-approved requirements
+
+**Coconut Harvest AI**
+
+Software-first evidence priority: establish image-source rights and provenance, human-reviewed labels, leakage-safe train/validation/test splits, then run a reproducible CPU evaluation. Report per-class precision, recall and F1, sample counts, confusion matrix and false-positive/false-negative cases only after a valid held-out test. No dataset is presumed licensed and no real-image accuracy is claimed without a linked report.
+
+**ข้อกำหนดภาษาไทย**
+
+ลำดับงานเน้นซอฟต์แวร์และหลักฐานก่อน: ตรวจสอบสิทธิ์และที่มาของภาพ ทำป้ายกำกับโดยมนุษย์ ตรวจสอบชุดข้อมูลและแยก train/validation/test โดยป้องกันข้อมูลรั่วไหล จากนั้นประเมินบน CPU อย่างทำซ้ำได้ รายงาน Precision, Recall, F1 รายคลาส จำนวนตัวอย่าง Confusion Matrix และกรณีผิดพลาดเมื่อมีผลทดสอบแยกที่เหมาะสมเท่านั้น
+
+**Portfolio boundary:** PUI89 has exactly six active products. Shared AI Core is infrastructure, not a product. Extreme Flood Rescue AI is inactive as a standalone product; preserve historical records but do not present it as an active product.
