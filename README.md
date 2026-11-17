@@ -14,7 +14,7 @@
 
 **Key capabilities and design priorities:** Four maturity classes (young green, mature green, yellow and brown); image-quality checks; uncertainty and human review; evidence records for future harvest planning.
 
-**Current engineering maturity:** Level 4 — Tested Prototype (software/evaluation-preparation foundations only); real-image detector accuracy and physical harvesting remain unvalidated.
+**Engineering maturity:** Software and evaluation-preparation foundation. No approved real-image dataset, held-out detector accuracy or validated physical harvesting system is established.
 
 **Portfolio stage:** Implemented — see the live bilingual PUI89 Development Observatory for the current stage, evidence, blockers and next milestone. This portfolio label does not mean the physical product is implemented or validated.
 
