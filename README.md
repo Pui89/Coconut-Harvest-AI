@@ -16,7 +16,7 @@
 
 **Current development stage:** Level 4 — Tested Prototype (software/evaluation-preparation foundations); real-image detector accuracy and physical harvesting remain unvalidated.
 
-**Portfolio readiness baseline:** **50%** — last recorded baseline dated **7 November 2026**. This is a historical, evidence-based portfolio readiness snapshot, not a live progress feed or a claim of physical product completion. Refresh it only from the dated PUI89 portfolio register.
+**Portfolio readiness:** **50%** — latest dashboard review **16 November 2026, 04:12 (Asia/Bangkok)**. This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance.
 
 **Evidence boundary:** No validated field detector, 0–30 m perception, or working physical harvesting robot is established.
 
