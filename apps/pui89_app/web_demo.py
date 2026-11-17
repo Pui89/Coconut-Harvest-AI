@@ -12,7 +12,6 @@ from pathlib import Path
 
 import streamlit as st
 
-from apps.pui89_app.local_detector import detect_coconuts, load_local_coconut_model
 
 
 @st.cache_resource(show_spinner="Loading trusted local model...")
