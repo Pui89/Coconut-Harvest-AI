@@ -14,9 +14,11 @@
 
 **Key capabilities and design priorities:** Four maturity classes (young green, mature green, yellow and brown); image-quality checks; uncertainty and human review; evidence records for future harvest planning.
 
-**Current development stage:** Level 4 — Tested Prototype (software/evaluation-preparation foundations); real-image detector accuracy and physical harvesting remain unvalidated.
+**Current engineering maturity:** Level 4 — Tested Prototype (software/evaluation-preparation foundations only); real-image detector accuracy and physical harvesting remain unvalidated.
 
-**Portfolio readiness:** **50%** — latest dashboard review **16 November 2026, 04:12 (Asia/Bangkok)**. This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance.
+**Portfolio stage:** Implemented — see the live bilingual PUI89 Development Observatory for the current stage, evidence, blockers and next milestone. This portfolio label does not mean the physical product is implemented or validated.
+
+**Portfolio readiness:** No numeric readiness percentage is published. Current status is reported through evidence-backed maturity stages and explicit blockers; see the live Development Observatory.
 
 **Evidence boundary:** No validated field detector, 0–30 m perception, or working physical harvesting robot is established.
 
@@ -1286,48 +1288,17 @@ This product follows the [PUI89 World-Class Engineering Standard v1.0](https://g
 This diagram follows the [public PUI89 technical architecture overview](https://pui89.github.io/ai-core.htmlPUI89_TECHNICAL_VISUAL_STANDARD_V1.0.md). It explains the proposed product-specific AI workflow and does not imply unverified implementation or physical capability.
 
 <!-- PUI89_DAILY_PROGRESS:START -->
-## PUI89 project intelligence dashboard
+## Current project status
 
-**🟡 50% — Developing evidence stage** · **Evidence score:** 50/100  
-**Evidence coverage:** 88% of readiness gates have non-zero credits · **Coverage-derived confidence:** High  
-**Review:** 16 November 2026 04:12 (Asia/Bangkok) · **Cycle:** Daily  
-**Progress:** 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 50%
+**Portfolio stage:** Implemented — software foundations and evaluation-preparation work are documented. This does not establish a trained or validated real-image detector, orchard deployment, or a working physical harvesting robot.
 
-This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance. Scores do not increase with time. Credits change only after human review of traceable evidence.
+**Real-image evidence gate:** Candidate source rights and provenance, original-file integrity, independent annotation QA and agronomy review remain prerequisites. Candidate images are not treated as approved training data merely because their source pages are publicly viewable.
 
-| Readiness gate | Evidence credit | Visual score |
-|---|---:|---|
-| Purpose & requirements | 10/10 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 |
-| Architecture & engineering | 9/10 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ |
-| Working software baseline | 11/15 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ |
-| Reproducible tests & evaluation | 13/15 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ |
-| Integrated product prototype | 0/15 | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
-| Safety & real-world validation | 2/15 | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
-| Licensing & regulatory readiness | 3/10 | 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ |
-| Release package & support | 2/10 | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ |
-| **Total** | **50/100** | **🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜** |
+**Next milestone:** Complete source-rights and original-file checks, finish independent labels/QA, then freeze a leakage-safe held-out test set. Only after approval should CPU evaluation report per-class precision, recall, F1, sample counts and failure cases.
 
-### Monthly history (latest snapshot per month)
-| Month | Score | Graph |
-|---|---:|---|
-| 2026-11 | 50% | 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
+**Live bilingual status:** [PUI89 Development Observatory](https://pui89.github.io/) · [Coconut Harvest AI — English](https://pui89.github.io/coconut.html) · [Coconut Harvest AI — ภาษาไทย](https://pui89.github.io/coconut-th.html)
 
-### Shared AI Core integration
-**100% verified** (6/6 integration controls). Only controls marked verified with a supporting evidence_ref count. See docs/shared-ai-core-integration.json.
-
-### Security and repository health
-🟢 No high-confidence private-key, GitHub-token or AWS-access-key patterns detected by this limited scan.
-
-- Licence file: present
-- Security policy: present
-- Dependency manifests: 3 detected
-- Workflow files: 24 detected
-- Review details: docs/project-health-latest.json
-
-**Next milestone:** Add traceable, reproducible evidence for: Integrated product prototype.
-
-**Limitations:** This automated check is a first-line repository review, not a complete security audit, licence opinion, dependency vulnerability scan, branch-ruleset verification or physical safety validation. Software tests and simulations do not establish a built, certified or field-tested robot.
-
+**Scoring policy:** Numeric readiness percentages are intentionally omitted until each score can be reproduced from current, traceable evidence and reviewed gates. Portfolio stage labels do not imply physical-product validation.
 <!-- PUI89_DAILY_PROGRESS:END -->
 
 ## Portfolio consistency and founder-approved requirements
