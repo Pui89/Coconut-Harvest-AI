@@ -1,15 +1,32 @@
 # Coconut Harvest AI
 
-
-## Public privacy boundary
-
-This public README is limited to the project overview, approved concept material and evidence that can be shared openly. Do not publish API keys, passwords, private tokens, Wi-Fi or internal network settings, private camera footage, personal or precise location data, detailed security configurations, unreleased engineering specifications, or confidential commercial plans. Keep sensitive material in an appropriately access-controlled private location. If a credential may have been exposed, revoke it; removing it from the latest commit does not remove it from Git history.
-
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->
 ![Coconut Harvest AI conceptual harvesting robot design showing four coconut maturity stages](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
 *Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The maturity classes and 0–30 m range are design goals; detection, reach, stability, cutting and safe operation remain unvalidated.*
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:END -->
+
+## Product at a glance
+
+**Product direction:** Agricultural AI decision support and a proposed robotic harvesting system.
+
+**User value:** Help orchard operators assess visible coconut maturity more consistently and keep human-reviewed harvest decisions traceable.
+
+**Key capabilities and design priorities:** Four maturity classes (young green, mature green, yellow and brown); image-quality checks; uncertainty and human review; evidence records for future harvest planning.
+
+**Current development stage:** Level 4 — Tested Prototype (software/evaluation-preparation foundations); real-image detector accuracy and physical harvesting remain unvalidated.
+
+**Portfolio readiness baseline:** **50%** — last recorded baseline dated **7 November 2026**. This is a historical, evidence-based portfolio readiness snapshot, not a live progress feed or a claim of physical product completion. Refresh it only from the dated PUI89 portfolio register.
+
+**Evidence boundary:** No validated field detector, 0–30 m perception, or working physical harvesting robot is established.
+
+**Project links:** [English website](https://pui89.github.io/coconut.html) · [ภาษาไทย](https://pui89.github.io/coconut-th.html) · [PUI89 portfolio](https://pui89.github.io/)  
+
+---
+## Public privacy boundary
+
+This public README is limited to the project overview, approved concept material and evidence that can be shared openly. Do not publish API keys, passwords, private tokens, Wi-Fi or internal network settings, private camera footage, personal or precise location data, detailed security configurations, unreleased engineering specifications, or confidential commercial plans. Keep sensitive material in an appropriately access-controlled private location. If a credential may have been exposed, revoke it; removing it from the latest commit does not remove it from Git history.
+
 
 ## Open-source-first engineering
 
