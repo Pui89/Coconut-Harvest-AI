@@ -80,8 +80,8 @@ Cross-cutting capabilities: Evidence Integrity; provenance; uncertainty propagat
 | Flood Rescue AI | Multisensor world-state; water/current/terrain simulation; resilient navigation; communications-loss handling; stability modelling; human-authorized proposals only. |
 | Multimodal Screening AI | RGB/approved sensor fusion; provenance/calibration; uncertainty and human review; false-positive/negative benchmarks; privacy/audit trail; no autonomous enforcement. |
 | Homeguard AI Nomad | Heat/water/humidity/smoke/electrical/structural sensor fusion; anomaly/change detection; explainable alerts; offline-first; privacy and false-alarm controls. |
-| PUI89 AI Robot Car | Perception, world-state, agent planning, simulation, predictive maintenance, cybersecurity and human override; no unvalidated road deployment. |
-| PUI89 AI Robot Motorcycle | Rider-centric perception, stability/hazard simulation, fault detection, battery/electrical protection and human override; no unvalidated road deployment. |
+| PUI89 AI Global SUV | Perception, world-state, agent planning, simulation, predictive maintenance, cybersecurity and human override; no unvalidated road deployment. |
+| PUI89 AI Step-Through Scooter | Rider-centric perception, stability/hazard simulation, fault detection, battery/electrical protection and human override; no unvalidated road deployment. |
 
 ## 9. Evidence and release gates
 Documentation is not proof of implementation. For each capability record code/config path, test/benchmark and version, command/environment, expected/actual result, evidence/log reference, limitations, unresolved risks, reviewer and date.
