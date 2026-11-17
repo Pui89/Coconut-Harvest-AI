@@ -1,15 +1,32 @@
 # Coconut Harvest AI
 
-
-## Public privacy boundary
-
-This public README is limited to the project overview, approved concept material and evidence that can be shared openly. Do not publish API keys, passwords, private tokens, Wi-Fi or internal network settings, private camera footage, personal or precise location data, detailed security configurations, unreleased engineering specifications, or confidential commercial plans. Keep sensitive material in an appropriately access-controlled private location. If a credential may have been exposed, revoke it; removing it from the latest commit does not remove it from Git history.
-
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->
 ![Coconut Harvest AI conceptual harvesting robot design showing four coconut maturity stages](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
 *Conceptual design illustration — not a photograph of a built robot and not evidence of a successful harvest. The maturity classes and 0–30 m range are design goals; detection, reach, stability, cutting and safe operation remain unvalidated.*
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:END -->
+
+## Product at a glance
+
+**Product direction:** Agricultural AI decision support and a proposed robotic harvesting system.
+
+**User value:** Help orchard operators assess visible coconut maturity more consistently and keep human-reviewed harvest decisions traceable.
+
+**Key capabilities and design priorities:** Four maturity classes (young green, mature green, yellow and brown); image-quality checks; uncertainty and human review; evidence records for future harvest planning.
+
+**Current development stage:** Level 4 — Tested Prototype (software/evaluation-preparation foundations); real-image detector accuracy and physical harvesting remain unvalidated.
+
+**Portfolio readiness:** **50%** — latest dashboard review **16 November 2026, 04:12 (Asia/Bangkok)**. This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance.
+
+**Evidence boundary:** No validated field detector, 0–30 m perception, or working physical harvesting robot is established.
+
+**Project links:** [English website](https://pui89.github.io/coconut.html) · [ภาษาไทย](https://pui89.github.io/coconut-th.html) · [PUI89 portfolio](https://pui89.github.io/)  
+
+---
+## Public privacy boundary
+
+This public README is limited to the project overview, approved concept material and evidence that can be shared openly. Do not publish API keys, passwords, private tokens, Wi-Fi or internal network settings, private camera footage, personal or precise location data, detailed security configurations, unreleased engineering specifications, or confidential commercial plans. Keep sensitive material in an appropriately access-controlled private location. If a credential may have been exposed, revoke it; removing it from the latest commit does not remove it from Git history.
+
 
 ## Open-source-first engineering
 
@@ -141,7 +158,7 @@ This is a proposed layout, not a statement that these files or features are alre
 
 **First evidence gate:** permission-cleared orchard images, documented four-class labelling guidance, annotation QA and leakage-safe held-out data. Report per-class precision, recall, F1, confusion matrix, sample counts, failure cases and measured CPU/RAM/runtime conditions. Keep the detector and physical harvesting gates closed until their separate evidence requirements are met.
 
-**Not established:** validated maturity accuracy, reliable 0–30 m perception, yield prediction, field performance or autonomous harvesting. See the [shared PTI specification](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/perception/PUI89_PERCEPTION_TASK_INTELLIGENCE_V1.0.md) (maintainer repository access required).
+**Not established:** validated maturity accuracy, reliable 0–30 m perception, yield prediction, field performance or autonomous harvesting. See the [public Shared AI Core overview](https://pui89.github.io/ai-core.htmlperception/PUI89_PERCEPTION_TASK_INTELLIGENCE_V1.0.md) (maintainer repository access required).
 
 ## Six Core Intelligence Groups — Product Allocation
 
@@ -1192,7 +1209,7 @@ This project adopts the proposed PUI89 Engineering Intelligence approach: AI ass
 
 **Current status:** global readiness is a portfolio-wide design target. Each product must report its actual gate and evidence separately. No product is to be described as globally available or purchasable until the relevant commercial and regional release gates are met.
 
-**Shared standard:** [PUI89 Global Product Readiness Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/product/PUI89_GLOBAL_PRODUCT_READINESS_STANDARD_V1.0.md).
+**Shared standard:** [public PUI89 product architecture overview](https://pui89.github.io/ai-core.htmlproduct/PUI89_GLOBAL_PRODUCT_READINESS_STANDARD_V1.0.md).
 
 ---
 
@@ -1266,7 +1283,7 @@ This product follows the [PUI89 World-Class Engineering Standard v1.0](https://g
 
 *Conceptual AI workflow. Classifier accuracy, orchard range and harvesting performance require real-image evaluation and physical validation.*
 
-This diagram follows the [PUI89 Technical Visual Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/PUI89_TECHNICAL_VISUAL_STANDARD_V1.0.md). It explains the proposed product-specific AI workflow and does not imply unverified implementation or physical capability.
+This diagram follows the [public PUI89 technical architecture overview](https://pui89.github.io/ai-core.htmlPUI89_TECHNICAL_VISUAL_STANDARD_V1.0.md). It explains the proposed product-specific AI workflow and does not imply unverified implementation or physical capability.
 
 <!-- PUI89_DAILY_PROGRESS:START -->
 ## PUI89 project intelligence dashboard
@@ -1312,3 +1329,15 @@ This is an evidence-weighted readiness estimate, not code completion, product ce
 **Limitations:** This automated check is a first-line repository review, not a complete security audit, licence opinion, dependency vulnerability scan, branch-ruleset verification or physical safety validation. Software tests and simulations do not establish a built, certified or field-tested robot.
 
 <!-- PUI89_DAILY_PROGRESS:END -->
+
+## Portfolio consistency and founder-approved requirements
+
+**Coconut Harvest AI**
+
+Software-first evidence priority: establish image-source rights and provenance, human-reviewed labels, leakage-safe train/validation/test splits, then run a reproducible CPU evaluation. Report per-class precision, recall and F1, sample counts, confusion matrix and false-positive/false-negative cases only after a valid held-out test. No dataset is presumed licensed and no real-image accuracy is claimed without a linked report.
+
+**ข้อกำหนดภาษาไทย**
+
+ลำดับงานเน้นซอฟต์แวร์และหลักฐานก่อน: ตรวจสอบสิทธิ์และที่มาของภาพ ทำป้ายกำกับโดยมนุษย์ ตรวจสอบชุดข้อมูลและแยก train/validation/test โดยป้องกันข้อมูลรั่วไหล จากนั้นประเมินบน CPU อย่างทำซ้ำได้ รายงาน Precision, Recall, F1 รายคลาส จำนวนตัวอย่าง Confusion Matrix และกรณีผิดพลาดเมื่อมีผลทดสอบแยกที่เหมาะสมเท่านั้น
+
+**Portfolio boundary:** PUI89 has exactly six active products. Shared AI Core is infrastructure, not a product. Extreme Flood Rescue AI is inactive as a standalone product; preserve historical records but do not present it as an active product.
