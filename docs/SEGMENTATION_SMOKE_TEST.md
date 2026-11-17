@@ -13,7 +13,7 @@ This optional smoke test checks whether the SAM 3 text-prompt image-segmentation
 
 ## 1. Create and activate a virtual environment
 
-Use Python 3.11 or 3.12 for the first compatibility attempt, if available.
+Use Python 3.11 or newer. PyTorch 2.15 and later no longer publish Python 3.10 wheels.
 
 Windows PowerShell:
 
@@ -26,7 +26,7 @@ python -m pip install --upgrade pip
 Install a PyTorch build suitable for your computer from the official PyTorch install selector, then install the compatible Transformers version and Pillow:
 
 ```powershell
-python -m pip install "transformers>=5.0.0" pillow
+python -m pip install "torch>=2.15.0" "transformers>=5.10.1" pillow
 ```
 
 If the installed Transformers release does not expose SAM 3 through AutoProcessor/AutoModel, stop and check the current official Hugging Face SAM 3 model card rather than installing random forks.
