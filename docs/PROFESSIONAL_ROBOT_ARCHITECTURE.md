@@ -1,6 +1,6 @@
 # Professional Autonomous Coconut Harvesting Architecture
 
-Sensors → calibration + synchronization → sensor health → YOLO26 perception → segmentation/tracking → 3D/4D orchard world model → ripeness + harvestability evidence → Gemma 4 31B IT reasoning → deterministic planning → human/policy review → deterministic safety gate → ROS 2 / MoveIt 2 boundary → validated controller → harvest verification → telemetry.
+Sensors → calibration + synchronization → sensor health → future validated perception (not implemented) → segmentation/tracking → 3D/4D orchard world model → ripeness + harvestability evidence → reasoning → deterministic planning → human/policy review → deterministic safety gate → ROS 2 / MoveIt 2 boundary → validated controller → harvest verification → telemetry.
 
 ## Control boundary
 

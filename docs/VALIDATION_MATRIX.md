@@ -9,11 +9,11 @@ The latest main-branch CI run [39276683425](https://github.com/Pui89/Coconut-Har
 | Capability | Repository evidence | Current status | What is still required |
 |---|---|---|---|
 | Local application and workflow orchestration | `apps/pui89_app/`, `demo_end_to_end.py` | Prototype code and tests exist; latest CI passed | Inspect generated audit reports and test the intended local deployment |
-| Detection adapter and IoU tracking baseline | `local_detector.py`, `iou_tracker.py` | Integration interfaces/baseline exist | Independent labelled orchard test set; precision, recall, mAP, latency and failure examples |
+| Image detector | Previous integration files removed | **Disabled; no detector selected** | Separate approved architecture, licence/security review, implementation and held-out orchard validation |
 | RGB-D localisation | `rgbd_localization.py` | Localisation interface exists | Camera/depth calibration and error measured against reference positions |
 | Harvest-target eligibility and safety gate | `robot_workflow.py`, `src/coconut_harvest_robot/safety_gate.py` | Software preflight checks exist; malformed numeric inputs fail closed; latest CI passed | Hardware-specific risk analysis and independent safety review |
 | Dataset intake and annotation | `training/`, `tools/`, `scripts/prepare_real_image_review.py` | Local workflow tools exist; replacement candidates are not yet approved data | Actual images collected, rights reviewed, boxes human-verified, group leakage audit passed |
-| Training and test evaluation | `training/train_detector.py`, `training/evaluate_detector.py` | Reproducible local scripts exist; no trained result asserted here | Licensed local checkpoint + complete dataset; train and evaluate on frozen held-out test set |
+| Detector training and evaluation | Previous model-specific scripts removed | **Disabled** | Separate approval and a complete evidence-backed implementation before reactivation |
 | Simulation | Simulated workflow and demo tests | Software simulation path exists | Full robot model, sensor simulation, collision and recovery scenarios with recorded evidence |
 | Physical harvesting | No evidence of completed hardware harvest in this repository status | **Not validated** | Robot arm, cutter, interlocks, calibration, supervised dry runs, safety review and measured trials |
 

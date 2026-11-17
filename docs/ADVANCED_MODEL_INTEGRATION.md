@@ -43,7 +43,7 @@ Gemma is **advisory only**. It never sends motor, cutter, gripper, or arm comman
 RGB / RGB-D / LiDAR / IMU
         |
         v
-YOLO + SAM3 + tracking
+Future perception (not selected) + SAM3 + tracking
         |
         v
 3D tree / branch / fruit world model

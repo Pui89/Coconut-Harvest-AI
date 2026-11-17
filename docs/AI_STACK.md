@@ -10,7 +10,7 @@ SEE -> UNDERSTAND -> LOCATE -> PREDICT -> PLAN -> SAFETY CHECK -> ACT -> VERIFY 
 
 | Layer | Recommended open-source component | Role |
 |---|---|---|
-| Fast detection | YOLO family | Real-time coconut, person, animal and obstacle detection |
+| Fast detection | Not selected — disabled | No active detector implementation or model is selected |
 | Segmentation | SAM 3 | Instance/semantic segmentation and video tracking |
 | Vision reasoning | Gemma 4 31B IT | Image/video understanding, spatial reasoning and task interpretation |
 | 3D geometry | Open3D + RGB-D/LiDAR | Point clouds, 3D localization and semantic maps |
@@ -87,7 +87,7 @@ Use simulation-first development where practical:
 
 1. Build the orchard digital twin.
 2. Generate RGB, depth, segmentation and pose data.
-3. Train/fine-tune perception models.
+3. Reconsider perception models only after separate approval and dataset/licence/security gates pass.
 4. Apply domain randomization.
 5. Train/evaluate action policies from demonstrations.
 6. Validate safety constraints.
@@ -101,7 +101,7 @@ Do not commit model weights or private datasets to this repository. Store datase
 Suggested node boundaries:
 - camera_node
 - lidar_node
-- yolo_detector
+- perception_adapter (disabled; no detector selected)
 - sam_segmenter
 - gemma_vlm
 - world_model

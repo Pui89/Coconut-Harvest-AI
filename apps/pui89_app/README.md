@@ -83,62 +83,6 @@ Example JSON:
 python -m unittest discover -s apps/pui89_app -p 'test_*.py' -v
 ```
 
-## Optional local coconut detector
-
-The demo can run a compatible, user-supplied Ultralytics `.pt` detector locally on CPU or a compatible NVIDIA GPU. The model is cached by Streamlit after loading, and the interface offers `auto`, `cuda`, or `cpu` plus 384/512/640 input sizes. `auto` selects CUDA when PyTorch reports it available and otherwise uses CPU. Smaller inputs may run faster but can reduce detection quality; compare settings on the same labelled held-out set. The reported inference time excludes cached model loading and is not a model-performance benchmark by itself. The app does **not** automatically download weights, contact a hosted inference API, or send robot commands.
-
-Install the optional dependencies:
-
-```bash
-python -m pip install -r apps/pui89_app/requirements-detector.txt
-```
-
-Configure the path to an existing, trusted model file before starting the app.
-
-**Windows Command Prompt**
-```bat
-set "PUI89_COCONUT_MODEL_PATH=C:\path\to\your\trusted-coconut-model.pt"
-streamlit run apps/pui89_app/web_demo.py
-```
-
-**PowerShell**
-```powershell
-$env:PUI89_COCONUT_MODEL_PATH = "C:\path\to\your\trusted-coconut-model.pt"
-streamlit run apps/pui89_app/web_demo.py
-```
-
-The adapter checks that the model file exists locally and that its labels include a class named `coconut` or `coconuts`. It will not silently substitute a generic pretrained model. PyTorch `.pt` weights may use pickle-based serialization: only load files from sources you trust. The model licence must permit your intended use.
-
-If you do not have a trained, licensed coconut model, leave this feature unconfigured. The app's manual-evidence demo remains available. A model running successfully is not proof of accuracy; evaluate predictions on a frozen, labelled test set using [the detection evaluation protocol](../../docs/DETECTION_EVALUATION_PROTOCOL.md).
-
-## Validate a local labelled dataset
-
-Before reporting detector accuracy, validate the structure of a local YOLO-format dataset. Expected layout:
-
-```text
-dataset/
-  images/{train,val,test}/
-  labels/{train,val,test}/
-```
-
-Each label row must contain `class_id x_center y_center width height`, with normalized coordinates. For a one-class coconut dataset:
-
-```bash
-python -m apps.pui89_app.validate_coconut_dataset --root "C:/data/coconut-dataset" --classes 1 --output coconut_dataset_validation.json
-```
-
-The validator checks matching image/label files, class IDs, normalized coordinates, box bounds and empty-label examples. It creates a JSON report locally and exits with a non-zero code if errors are found. Change `--root` to your dataset folder. It does not upload files, assess annotation quality, check train/test leakage, or measure model accuracy. Keep the test split held out until final evaluation.
-
-## Benchmark local detector latency
-
-After installing the optional detector dependencies and configuring a trusted coconut-trained model, benchmark one local image across 384, 512 and 640 pixel inputs:
-
-```bash
-python -m apps.pui89_app.benchmark_local_detector --model "C:/models/coconut.pt" --image "C:/data/orchard-test.jpg" --device auto --repeats 10 --warmup 2 --output coconut_latency_benchmark.json
-```
-
-Replace both example paths with files already on your computer. The script does not download weights or upload images. It reports median, mean and p95 latency with model loading excluded, and saves a JSON report. Start with one image, close other GPU-heavy applications, and repeat under comparable conditions. This measures latency only: detection counts do not establish accuracy. Choose a resolution only after evaluating the same settings on a labelled held-out image set. The benchmark has not been run on your laptop until you execute it locally.
-
 ## End-to-end robot task simulation in the app
 
 The Streamlit UI also includes an optional **End-to-end robot task simulation** panel. It accepts explicitly supplied target evidence (position, uncertainty, track age, timestamp age, clearance, reachability and confidence), applies conservative gates, requires explicit approval before emitting a simulated approach/tool/retract sequence, and lets you download a JSON report.
@@ -167,7 +111,7 @@ python -m apps.pui89_app.vision_to_workflow \
 
 This uses synthetic example data and an identity transform only for software smoke testing. It is not real camera calibration, a detector result or a field measurement. The report simulates approach/tool/retract steps but always states that no actuator command was sent.
 
-For real inference, use the local-only detector pipeline and provide a validated camera-to-robot-base transform plus independent uncertainty, tracking, obstacle-clearance and reachability evidence. Missing or invalid evidence should cause safe hold, not guessed coordinates.
+Detector inference and model-training integrations have been retired. This smoke test remains a synthetic software workflow only; it does not infer objects from images. Any future detector must undergo a separate architecture, licensing, security and validation review before reintroduction.
 
 
 ## Local operator inspection records

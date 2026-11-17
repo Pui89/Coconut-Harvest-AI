@@ -147,7 +147,7 @@ This is a proposed layout, not a statement that these files or features are alre
 
 PUI89 uses six shared intelligence groups across its six active products. This product allocation is a target architecture and capability map; it does not claim that every model, sensor, integration or physical function is implemented or validated.
 
-- Vision Intelligence — image/video understanding, detection, classification, segmentation, tracking, depth and spatial cues.
+- Vision Intelligence — planned image/video understanding, classification, segmentation, tracking, depth and spatial cues; automatic coconut detection is currently disabled.
 - Audio Intelligence — speech recognition, sound/event perception, speaker diarisation where justified, audio-visual association, acoustic diagnostics and speech response.
 - Multimodal Intelligence — context-aware fusion of vision, audio, text, video and authorised sensor/time-series data with provenance and uncertainty.
 - Robotics Intelligence — robot/environment understanding, localisation, navigation, motion planning and manipulation where the product has suitable hardware.
@@ -182,7 +182,7 @@ PUI89 uses six shared intelligence groups across its six active products. This p
 
 **Limitations:** Real-image accuracy, a trained field detector, harvesting hardware and worker/animal safety are not validated.
 
-**Next milestone:** Complete dataset-rights review, then run a reproducible held-out detector benchmark.
+**Next milestone:** Complete dataset-rights review and human annotation QA. Model-based detector training and inference are currently retired.
 
 
 ## Project website QR codes
@@ -204,7 +204,7 @@ PUI89 uses six shared intelligence groups across its six active products. This p
 | Dataset and model | Real-image rights, provenance, annotation quality and held-out detector performance are not yet fully established. No validated detector accuracy is claimed. |
 | Physical product | Four maturity categories, selective harvesting, arm/cutter/basket and 0–30 m reach remain design/research targets. No working harvesting robot or field-harvest capability is demonstrated. |
 
-**Next product gate:** complete image-by-image source/licence and attribution review, real-file hash and annotation QA, leakage-safe dataset splits, then evaluate a defined detector on an independently held-out labelled set. Publish per-class precision/recall/F1, sample counts, thresholds, failure cases and runtime before advancing to hardware feasibility.
+**Next product gate:** complete image-by-image source/licence and attribution review, real-file hash and annotation QA, and leakage-safe dataset splits. Any future detector evaluation requires a separate approved implementation and held-out test evidence.
 
 **Product discipline:** keep the training gate closed until data evidence is complete; distinguish software tests, model measurements, simulation and physical validation. No paid API, cloud GPU, automatic model download or physical robot actuation is part of this update.
 
@@ -253,7 +253,7 @@ These results verify the audit tooling and defined software scenarios only. They
 | Four maturity classes and 0–30 m reach | Design targets; no validated full-range detector or physical harvesting robot demonstrated | **Concept / research target** |
 | Arm, cutter, basket and harvest verification | Design and software planning only | **Physical capability not validated** |
 
-**Next gate:** complete source/licence review, manifest and annotation QA on the real dataset, prevent source/tree/session leakage, then run an actual detector on a held-out set and publish precision/recall/F1 with thresholds, counts and failure cases. Do not claim mAP from the single-threshold evaluator.
+**Next gate:** complete source/licence review, manifest and annotation QA on the real dataset, and prevent source/tree/session leakage. Detector training/evaluation remains disabled until separately approved.
 
 ## Shared PUI89 AI Core — verification update (28 October 2026)
 
@@ -399,7 +399,7 @@ A small, dependency-light Python module accepts explicit fault reports, suggests
 - **Verified CI:** the latest commit's agent unit tests, Coconut AI regression tests, Python tests, main CI workflow, and GitHub Pages build/deployment all completed successfully. [Latest agent-test run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39733576754) · [Latest main CI run](https://github.com/Pui89/Coconut-Harvest-AI/actions/runs/39733576516).
 - **Dataset gate:** 34 candidate records are in the current review snapshot; 0 are approved for training. Candidate source permissions, annotation correctness, and independent QA must be checked before training or performance claims.
 - **Implemented:** local annotation/evaluation utilities, source-provenance workflow, structural dataset audit, rule-based safety decision support, and regression tests.
-- **Next milestone:** run the candidate-fetch and dataset-audit commands, manually review suitable images, create human-checked annotations and a held-out test split, then publish actual detector metrics. The existing tiny baseline is not evidence of a trained coconut detector.
+- **Next milestone:** complete image-rights review, human annotation and dataset provenance. Any future detector requires separate approval and a new architecture, licence, security and validation review.
 - **Limits:** CI success verifies software checks only; it does not demonstrate detector accuracy, GPU performance, robot-arm operation, or field harvesting.
 
 
@@ -439,7 +439,7 @@ Orchard image / sensor measurements → rule-based safety checks → harvest rec
 
 > **Product quality standard:** [benchmark protocol and fair comparison criteria](docs/PRODUCT_BENCHMARK_STANDARD.md). This defines what we need to measure; it does not claim market-leading performance.
 
-> **Next research milestone — real detector evidence:** review image rights, annotate a small set of distinct orchard images, freeze a held-out test split, run an existing compatible local coconut detector, and publish its actual predictions plus precision/recall/F1 and latency. The current two-image baseline remains at precision 0 and recall 0 at IoU ≥ 0.50 until a new run is completed. [Follow the operator checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md). Do not treat example CSV rows, reference photographs, or latency-only results as accuracy evidence.
+> **Next research milestone — image evidence:** review image rights, annotate distinct orchard images, freeze a group-separated dataset and complete human QA. No detector is currently selected or enabled; do not claim model predictions or accuracy.
 
 
 ## Run the project unit tests
@@ -466,7 +466,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 
 - **What works now:** [run the local planning prototype](#run-the-local-prototype), inspect the synthetic workflow, and review the annotation/evaluation tools.
 - **What the evidence says:** [read the measured baseline](#current-evaluation-evidence), including the two-image HSV smoke test, where precision and recall were both 0 at IoU ≥ 0.50.
-- **What comes next:** [follow the real-image benchmark checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md) to establish image rights, review labels, run an existing compatible detector, and record reproducible results.
+- **What comes next:** [follow the image evidence review checklist](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md) to establish image rights, human-review labels and dataset provenance. Detector inference is currently disabled.
 - **What is not yet proven:** a reliable trained coconut detector, generalisation across orchards, maturity classification, calibrated 3D targeting, or a physical robot harvesting coconuts.
 
 **For a fair assessment:** automated tests demonstrate software behaviour; concept images explain the intended design; only reproducible held-out experiments establish model performance. This repository keeps those evidence types separate.
@@ -477,7 +477,7 @@ A dedicated [GitHub Actions workflow](https://github.com/Pui89/Coconut-Harvest-A
 - **Annotate real coconut images (Windows):** [step-by-step offline annotation quick start](docs/WINDOWS_COCONUT_ANNOTATION_QUICKSTART.md). This avoids the common error of launching `tools\\coconut_annotator.html` from the wrong folder.
 
 - **Run the demo app:** double-click [`RUN_COCONUT_APP.bat`](RUN_COCONUT_APP.bat). It requires Python and the app dependencies to be installed first.
-- **Run a local detector latency benchmark:** double-click [`RUN_COCONUT_DETECTOR_BENCHMARK.bat`](RUN_COCONUT_DETECTOR_BENCHMARK.bat), then enter paths to an existing compatible coconut-trained `.pt` model and a permitted local test image. It checks imports but installs/downloads nothing. It measures latency only—not detection accuracy—and cannot run until you already have suitable model weights.
+- **Detector status:** model-based detector inference, training and evaluation have been retired. No detector is selected. The app continues to support manual image inspection and supplied-evidence simulation only.
 - **Label orchard images offline:** double-click [`OPEN_COCONUT_ANNOTATOR.bat`](OPEN_COCONUT_ANNOTATOR.bat). Select image files from your computer, draw boxes around visible coconuts, and export the annotation JSON. Images are processed in your browser and are not uploaded by this tool.
 - **Important:** annotation quality and image reuse rights still need human review. Do not use the archived first-pass labels as training data; see [the review batch notes](data/review_batch_2026-10-18/README.md).
 
@@ -517,7 +517,7 @@ Please describe the agricultural problem, the relevant operating context, the co
 - **Fair model comparison:** added [`tools/compare_coconut_detectors.py`](tools/compare_coconut_detectors.py), regression tests, and a [comparison protocol](docs/FAIR_DETECTOR_COMPARISON.md). It ranks supplied prediction exports against the same reviewed ground truth and thresholds; it does not run models or claim better AI performance.
 - **Reproducible detector evaluation:** added [`tools/evaluate_coconut_detections.py`](tools/evaluate_coconut_detections.py), unit tests, and a [CSV protocol](docs/REPRODUCIBLE_DETECTION_EVALUATION.md) for evaluating externally produced detector boxes. This tool does not run a model, and no new AI performance result is claimed.
 - **Dataset split-leakage audit:** added [`tools/audit_dataset_split_leakage.py`](tools/audit_dataset_split_leakage.py), tests, and a [manifest guide](docs/DATASET_SPLIT_LEAKAGE_AUDIT.md). It checks recorded SHA-256 values and source-group IDs across splits; it does not compute file hashes or claim improved detector performance.
-- **First real-image benchmark checklist:** added [the end-to-end manual workflow](docs/FIRST_REAL_IMAGE_BENCHMARK_CHECKLIST.md), linking rights review, human annotations, geometry checks, split-leakage audit, and actual detector predictions. It explicitly stops short of claiming results until real inference is run.
+- **First real-image evidence checklist:** documents rights review, human annotations, geometry checks and split-leakage audit. It does not run a model or produce predictions.
 - **Actual image-hash verification:** added [a local SHA-256 verifier](tools/verify_image_manifest_hashes.py), tests, and a [usage guide](docs/VERIFY_IMAGE_MANIFEST_HASHES.md). Unlike the manifest-only audit, it computes hashes from files on disk and flags exact-byte duplicates across splits; it does not detect resized or near-duplicate images.
 
 
@@ -757,11 +757,11 @@ python -m pytest
 
 These commands exercise the repository's software workflow and tests. Check the dependency and environment notes before installing optional packages. The demo uses synthetic or supplied evidence; it does not establish real-image detection accuracy or authorize physical robot control.
 
-The focused [coconut proposal safety regression tests](tests/test_coconut_safety_pipeline.py) check unknown-depth rejection, camera-frame localization, and that human approval never authorizes actuator commands. The local RGB-D bridge also rejects different RGB/depth image dimensions; this does not replace validation of sensor alignment and calibration. See the [local detector and RGB-D workflow](training/README.md).
+The simulation workflow and safety gate continue to operate on explicitly supplied evidence. The former model-backed RGB-D detector bridge has been retired; see [current detector status](training/README.md).
 
 ### Manual real-image review
 
-See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). The optional script can download two reference photographs from Wikimedia Commons and prepare a local review CSV plus source/licence notes. Review each source's licence and attribution requirements before reuse. This workflow is manual review, not automatic detection.
+See [Real Image Test Workflow](docs/REAL_IMAGE_TEST_WORKFLOW.md). Image collection and manual review are separate from detector inference; no model-based detection is currently enabled.
 
 ## Development roadmap
 
@@ -818,7 +818,7 @@ A local, standard-library-only agent module is available in [`agents/project_age
 The GitHub Actions workflow runs on relevant changes, manual dispatch, and a weekly schedule. Each test run writes test counts to the workflow summary; inspect the run logs if a report is missing.
 
 **Next automated milestones**
-1. Keep the test suite and dataset-structure/YOLO-label checks reproducible on supported Python versions.
+1. Keep the test suite and dataset-structure/annotation checks reproducible on supported Python versions.
 2. Add safe checks for dataset-manifest provenance, SHA-256 integrity, exact duplicate files, and source-group leakage before any training run.
 3. Generate a human-review queue for missing rights evidence, uncertain labels, and annotation QA; automation must never mark image rights or annotations as approved.
 4. When a lawful, human-reviewed dataset is ready, run a repeatable baseline and publish measured metrics with the exact data split and environment.
@@ -843,7 +843,7 @@ python scripts\pui89_project_health_check.py
 
 The checker verifies repository structure, scans Python source syntax, discovers test files, and prints a JSON report. It does not install packages, download models, use APIs, or call cloud services. To run tests, explicitly use `--run-tests`; pytest is run only if already installed.
 
-**Project focus:** real-image dataset provenance, annotation integrity, detector evaluation, harvest-agent rules and explicit no-actuator safety boundary.
+**Project focus:** real-image dataset provenance, annotation integrity, manual inspection, harvest-agent rules and explicit no-actuator safety boundary.
 
 **Focused regression tests:** [Harvest planning safety regression tests](tests/test_harvest_planning_safety.py). Checks missing 3D position, unconfirmed reachability, invalid confidence, occlusion, maturity-stage filtering, survey-only behavior, and configured range limits.
 
@@ -854,7 +854,7 @@ The checker verifies repository structure, scans Python source syntax, discovers
 
 ## Local image input
 
-The existing Streamlit app can display an uploaded image. Image display does not itself perform AI detection; image analysis requires a compatible local coconut model and separate validation. This project does not include a live webcam workflow.
+The existing Streamlit app can display an uploaded image. Image display does not perform AI detection; the model-backed detector path has been retired. This project does not include a live webcam workflow.
 
 
 ## Autonomous systems (software-level supervisor)
@@ -1063,7 +1063,7 @@ This repository now includes real Hugging Face checkpoint adapters in [`pui89_mo
 
 This project follows the adopted [PUI89 World-Class Engineering Standard v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_WORLD_CLASS_ENGINEERING_STANDARD_V1.0.md) as its portfolio-wide engineering framework.
 
-**Project focus:** Measure image-pipeline RAM, CPU, startup and inference latency; track model/application footprint; later measure energy per inspection task on real hardware. Preserve detector accuracy, four-class maturity evaluation, dataset provenance and leakage-safe splits.
+**Project focus:** Measure the manual inspection workflow's RAM, CPU, startup and application footprint. Preserve dataset provenance, human QA and leakage-safe splits; detector inference is retired.
 
 Track relevant RAM, CPU/GPU, latency, storage and network measurements using documented workloads and comparable environments. Record power (W/Wh), battery runtime and temperature only when suitable physical instruments and hardware are available. External services, datasets and model downloads require explicit review before adoption. Efficiency changes must preserve accuracy, safety, evidence integrity, privacy and security. Unmeasured physical performance must be labelled **not measured**.
 

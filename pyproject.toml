@@ -15,7 +15,6 @@ dependencies = [
   "transformers>=4.57.0",
   "accelerate>=1.10.0",
   "huggingface-hub>=0.34.0",
-  "ultralytics>=8.4.0",
   "PyYAML>=6.0",
 ]
 

@@ -158,7 +158,7 @@ def main() -> int:
             "platform": platform.platform(),
             "packages": {
                 name: package_version(name)
-                for name in ("ultralytics", "torch", "torchvision", "PyYAML", "Pillow", "numpy")
+                for name in ("torch", "torchvision", "PyYAML", "Pillow", "numpy")
             },
             "torch": torch_info,
         },

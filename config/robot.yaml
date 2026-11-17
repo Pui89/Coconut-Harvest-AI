@@ -24,7 +24,7 @@ sensors:
 
 compute:
   edge_gpu: true
-  perception: [yolo, sam3]
+  perception: [sam3]\n  detector_enabled: false\n  detector_status: retired
   reasoning: [gemma-4-31b-it]
   action_candidates: [groot, flux-3-action-base, smolvla]
   future_prediction: [v-jepa2]

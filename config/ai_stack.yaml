@@ -3,15 +3,9 @@
 
 perception:
   detector:
-    framework: ultralytics-yolo26
-    model_repo: Ultralytics/YOLO26
-    weights: yolo26n.pt
-    task: detection
-    confidence_threshold: 0.35
-    image_size: 640
-    runtime: ultralytics + huggingface_hub
-    role: fast_coconut_and_tree_visual_proposals
-    direct_motor_control: false
+    enabled: false
+    status: permanently_removed
+    reason: "The previous detector integration has been retired; no replacement selected"
   segmentation:
     framework: sam3
     mode: image_and_video
