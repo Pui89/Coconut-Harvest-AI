@@ -23,8 +23,8 @@
 ## Project-specific priorities
 
 - **Coconut Harvest AI:** dataset provenance and licence review; image/hash and split integrity; maturity-label agreement; target-localization metrics; uncertainty/abstention and harvestability proposal tests. Do not claim real-time performance or validated tree-height reach without measurements.
-- **Extreme Flood Rescue AI:** stale/conflicting sensor tests; communication-loss safe-hold; unknown water/current limits; person/animal candidate uncertainty; route and multi-agent toy scenarios. Toy grids are not flood physics, buoyancy, or validated rescue capability.
-- **Multimodal Narcotics Screening AI:** modality-missing tests; sensor provenance and calibration status; uncertainty and abstention; human-review routing; false-positive/false-negative evaluation on a lawfully sourced, documented dataset. Chemical identification remains conceptual unless validated evidence exists.
+
+- **PUI89 Sentinel:** use provenance, modality-quality, uncertainty, abstention and operator-review tests for general inspection; no chemical-identification or enforcement capability is in scope.
 
 ## Cost transparency
 

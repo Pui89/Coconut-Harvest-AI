@@ -22,9 +22,11 @@
     "project": {
       "enum": [
         "coconut-harvest-ai",
-        "flood-rescue-ai",
-        "multimodal-narcotics-screening-ai",
-        "homeguard-ai-nomad"
+        "pui89-sentinel",
+        "ai-home",
+        "ai-nomad",
+        "ai-global-suv",
+        "ai-step-through-scooter"
       ]
     },
     "generated_at": {

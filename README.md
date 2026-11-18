@@ -1023,7 +1023,7 @@ The dataset preflight helper is tools/validate_coconut_dataset.py; its preflight
 
 ## PUI89 master roadmap and next validation gates
 
-See the [PUI89 Master Roadmap](https://github.com/Pui89/Pui89.github.io/blob/main/PUI89_MASTER_ROADMAP.md) for current status, unfinished work, checks, known issues, the ordered next process and future upgrade levels across all three projects. Project-specific validation boundaries remain documented in [Safety and validation gates](docs/PUI89_SAFETY_AND_VALIDATION_GATES.md).
+See the [PUI89 Master Roadmap](https://github.com/Pui89/Pui89.github.io/blob/main/PUI89_MASTER_ROADMAP.md) for portfolio-wide status, unfinished work, checks, known issues, the ordered next process and future upgrade levels. Project-specific validation boundaries remain documented in [Safety and validation gates](docs/PUI89_SAFETY_AND_VALIDATION_GATES.md).
 
 
 ### Latest simulation evidence (29 October 2026)
@@ -1338,4 +1338,4 @@ Software-first evidence priority: establish image-source rights and provenance, 
 
 ลำดับงานเน้นซอฟต์แวร์และหลักฐานก่อน: ตรวจสอบสิทธิ์และที่มาของภาพ ทำป้ายกำกับโดยมนุษย์ ตรวจสอบชุดข้อมูลและแยก train/validation/test โดยป้องกันข้อมูลรั่วไหล จากนั้นประเมินบน CPU อย่างทำซ้ำได้ รายงาน Precision, Recall, F1 รายคลาส จำนวนตัวอย่าง Confusion Matrix และกรณีผิดพลาดเมื่อมีผลทดสอบแยกที่เหมาะสมเท่านั้น
 
-**Portfolio boundary:** PUI89 has exactly six active products. Shared AI Core is infrastructure, not a product. Extreme Flood Rescue AI is inactive as a standalone product; preserve historical records but do not present it as an active product.
+**Portfolio boundary:** PUI89 has exactly six active products. Shared AI Core is shared infrastructure, not a product.

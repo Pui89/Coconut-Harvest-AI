@@ -23,8 +23,8 @@ The daily and change-triggered `pui89-system-guardrails.yml` workflow blocks pri
 
 ## Project-specific boundaries
 - **Coconut Harvest AI:** no model-generated unrestricted actuator commands. Deterministic checks must validate workspace, obstacles, workers/animals, force, sensor health, and emergency stop. Uncertainty blocks actuation.
-- **Extreme Flood Rescue AI:** no deployment into floodwater based only on model output. Validate depth/current, stability, communications, buoyancy/propulsion, payload, people/animal safety, and operator authorization. Loss of critical evidence triggers safe-stop/return/abort.
-- **Multimodal Narcotics Screening AI:** outputs are screening leads only, never chemical confirmation, proof of a crime, or determination of guilt. Require provenance, calibrated uncertainty, conflict detection, abstention, and qualified human review. Never trigger enforcement or physical action.
+
+- **PUI89 Sentinel:** multimodal inspection outputs are observations for operator review, not proof of a hazard. Require provenance, calibrated uncertainty, conflict detection and abstention; never infer chemical identity or trigger enforcement.
 
 ## Limits
 Automation catches only configured and tested risk classes. It cannot guarantee detection of every future vulnerability, malicious tool, model hallucination, compromised service, licence restriction, or physical hazard. Branch protection, required status checks, mandatory human review, MFA, secret scanning, Dependabot, private vulnerability reporting, and environment protection must also be enabled in GitHub settings where available.

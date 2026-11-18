@@ -1,6 +1,6 @@
 # PUI89 Shared Intelligence Workflow v1.0
 
-Common evidence-first workflow for all four existing PUI89 applications. This standardises reporting and safety gates; it does not claim every sensing, prediction, or robot capability is implemented.
+Common evidence-first workflow for all six active PUI89 products. This standardises reporting and safety gates; it does not claim every sensing, prediction, or robot capability is implemented.
 
 ## Common process
 1. **Perceive** — accept available inputs and record source and timestamp.
@@ -16,9 +16,11 @@ Common evidence-first workflow for all four existing PUI89 applications. This st
 
 ## Project-specific interpretation
 - Coconut Harvest AI: maturity and harvest observations, tree and worker safety, collection plan.
-- Flood Rescue AI: water and terrain state, people/animals/obstacles, route and mission risk.
-- Multimodal Narcotics Screening AI: approved sensor evidence, anomaly review, privacy and human decision authority.
-- Homeguard AI Nomad: indoor environment state, hazard observations, navigation and user-approved assistance.
+- PUI89 Sentinel: multimodal inspection observations, terrain/context uncertainty, anomaly review and operator-supervised evidence capture.
+- PUI89 AI HOME: indoor environment state, hazard observations, privacy and user-approved assistance.
+- PUI89 AI NOMAD: ground mobility, obstacle and stability observations, storage/payload context and user-approved assistance.
+- PUI89 AI Global SUV: road-scene, weather and vehicle-context observations for driver-facing advisories.
+- PUI89 AI Step-Through Scooter: rider-facing road, traction and weather context for advisory warnings.
 
 ## Evidence boundaries
 Stages are `proposed`, `implemented`, `tested`, `simulated`, and `validated`. Passing software tests does not validate a model or field performance. Simulation does not establish real-world safety. A confidence value is not calibrated unless calibration evidence exists.

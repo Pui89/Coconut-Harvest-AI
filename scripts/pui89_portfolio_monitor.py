@@ -16,8 +16,11 @@ from pathlib import Path
 
 REPOSITORIES = (
     "Pui89/Coconut-Harvest-AI",
-    "Pui89/Multimodal-Narcotics-Screening-AI",
-    "Pui89/Homeguard-Ai-Nomad",
+    "Pui89/PUI89-All-Terrain-Inspection-Robot",
+    "Pui89/AI-Home-Safety-Robot",
+    "Pui89/AI-Mobile-Assistant-Robot",
+    "Pui89/PUI89-AI-Global-SUV",
+    "Pui89/AI-Step-Through-Scooter",
 )
 API = "https://api.github.com"
 

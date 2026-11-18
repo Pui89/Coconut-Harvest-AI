@@ -9,7 +9,7 @@ This guide defines the full free/open-source stack as a staged, reviewable integ
 | ROS 2 Jazzy | Modular node/message layer | Open source; LTS support is published through May 2029. Ubuntu 24.04 is the recommended Tier 1 target. | A small optional Python bridge package is added; not built here. |
 | Gazebo Harmonic | Physics/sensor simulation | Open source; check the licenses for individual plugins. Recommended companion for ROS 2 Jazzy on Ubuntu 24.04. | One starter SDF world is added per project; not yet a complete robot simulation. |
 | Nav2 | Localisation, path planning and navigation for suitable mobile bases | Package licences vary: Apache-2.0, BSD-3-Clause and LGPL. Audit each selected package. | Documented next step only. The bridge does not issue Nav2 goals. |
-| ArduPilot SITL | Optional software-in-the-loop autopilot for supported Copter, Plane, Rover and Sub classes | Free under GPLv3-or-later; read source and redistribution obligations. | Candidate for Flood Rescue only. Not installed or connected. |
+| ArduPilot SITL | Optional software-in-the-loop autopilot for supported vehicle classes | Free under GPLv3-or-later; read source and redistribution obligations. | Not selected for any current PUI89 product; evaluate only if a defined vehicle use case requires it. Not installed or connected. |
 | PX4 SITL | Alternative simulated autopilot, especially drone-oriented | Free under BSD-3-Clause; keep notices and licence text when redistributing. | Alternative to ArduPilot; do not integrate both in the first milestone. |
 | SmolVLM-256M-Instruct | Exploratory image description / VLM smoke test | Publisher model card declares Apache-2.0. Main weights file is 513 MB; full repository listing is about 3.54 GB because of additional artifacts. | Offline-only smoke-test script added; no model is downloaded. |
 
@@ -28,11 +28,9 @@ Official references:
 ### Coconut Harvest AI
 Use ROS 2 + Gazebo for a simplified orchard scene first. Nav2 may be added later for a simulated ground base only after a proper robot description, odometry, collision geometry and sensors exist. ArduPilot/PX4 are not needed in the initial orchard milestone. The VLM may describe a rights-cleared image but cannot decide maturity, a safe cutting point, or control a cutter.
 
-### Extreme Flood Rescue AI
-Use ROS 2 + Gazebo for repeatable scenes and then add a single simulated vehicle model. Nav2 is relevant only for a suitable ground/amphibious rover. Choose either ArduPilot SITL or PX4 SITL based on the first vehicle and licence requirements; do not install both at once. The included Gazebo world is dry terrain/obstacles only. The existing 0–15 m values are software scenario metadata, not simulated water pressure, currents, buoyancy or physical depth capability.
+### PUI89 Sentinel
+Use ROS 2 + Gazebo only after the first supervised inspection mission and operating envelope are defined. Start with sensor provenance, terrain/context observations, operator-supervised mapping and safe-stop tests. Hazardous-atmosphere entry requires site-authorised procedures and suitable calibrated instruments; RGB/depth/LiDAR do not certify breathable air. Simulation is not field validation.
 
-### Multimodal Narcotics Screening AI
-Use ROS 2 + Gazebo for an indoor inspection base and mock sensors. Nav2 is a later mobile-base layer. Autopilot systems add no value to the first indoor milestone. SmolVLM output is descriptive free text and does not establish chemical identity, reveal closed-bag contents, or authorize accusation, search, detention, seizure or enforcement.
 
 ## ROS proposal bridge contract
 
@@ -62,6 +60,6 @@ No paid API, paid cloud GPU, subscription or hosted inference is required by thi
 2. Parse/validate the starter SDF worlds and inspect the scene visually in the selected Gazebo version.
 3. Build the ROS bridge only in a separate compatible ROS 2 workspace.
 4. Add one robot model and its collision geometry/odometry/sensors; only then consider Nav2.
-5. For Flood Rescue, choose one autopilot SITL only after the first vehicle model is in place.
+5. For any future vehicle simulation, choose an autopilot SITL only after the product's vehicle model and safety requirements are defined.
 6. Run SmolVLM only when complete local model files already exist and the operator explicitly chooses to run the smoke test.
 7. Record real output and failures. Never label scaffolding as a measured benchmark or validated physical capability.

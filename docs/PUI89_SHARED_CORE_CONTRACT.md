@@ -32,8 +32,8 @@ The tests use only the Python standard library. They do not install packages, do
 ## Project-specific use
 
 - **Coconut Harvest AI:** use confidence and freshness gates before target-localization or harvestability proposals; actual reachability and cutting safety remain separate validation tasks.
-- **Extreme Flood Rescue AI:** treat stale/conflicting water, current, localization, and person/animal observations conservatively; this contract is not flood physics or rescue validation.
-- **Multimodal Narcotics Screening AI:** missing or uncertain modalities should trigger review, never an automatic chemical-identification claim; human review and lawful dataset validation remain necessary.
+
+- **PUI89 Sentinel:** missing or uncertain inspection modalities must trigger abstention or operator review; this contract does not establish hazard identification or field performance.
 
 ## Status
 
