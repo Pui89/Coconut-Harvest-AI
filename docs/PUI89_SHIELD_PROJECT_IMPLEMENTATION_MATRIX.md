@@ -1,46 +1,46 @@
 # PUI89 SHIELD Project Implementation Matrix
 
-**Status legend:** `POLICY_DEFINED` means requirements are documented; `SOFTWARE_REFERENCE` means dependency-free reference logic and tests exist on this development branch; `NOT_CREATED` means the project repository is not present in the connected Pui89 account. None of these statuses establishes physical validation.
+**Status legend:** Repository existence and documented software evidence do not establish physical validation. Each product README is the source for its current implementation and evidence stage.
 
-## Shared requirements for all projects
+## Shared requirements for all six products
 
-- Reuse `WorldState`, `Observation`, `ActionProposal`, and `FailureReport` from the PUI89 Shared AI Core where already available.
-- Preserve evidence provenance, timestamps, uncertainty, conflicting/missing input and calibration status.
-- Use SHIELD warning states: `NORMAL`, `ADVISORY`, `WARNING`, `CRITICAL`, `EMERGENCY`, `UNKNOWN_DEGRADED`.
+- Reuse `WorldState`, `Observation`, `ActionProposal`, and `FailureReport` from PUI89 Shared AI Core where adopted.
+- Preserve evidence provenance, timestamps, uncertainty, missing/conflicting input and calibration status.
+- Use explicit warning states: `NORMAL`, `ADVISORY`, `WARNING`, `CRITICAL`, `EMERGENCY`, and `UNKNOWN_DEGRADED`.
 - Require safety gates and human review for consequential physical-action proposals.
-- Keep AI outputs as proposals; no direct actuator command is introduced by the reference policy.
-- Define project-specific safe states, operating envelopes, hazard thresholds and emergency procedures.
-- Run unit, regression, security, simulation and benchmark checks; retain test configuration and evidence.
+- Keep AI outputs advisory; do not create direct actuator control without separate engineering, validation and authorization.
+- Define product-specific operating envelopes, safe states, hazard thresholds and recovery procedures.
+- Run reproducible unit, contract, regression, security and simulation tests; retain evidence.
 - Physical water/fire/battery/impact/functional safety and cybersecurity claims require suitable independent evidence.
 
-## Project-by-project hazard and response matrix
+## Product-by-product hazard and response matrix
 
-| Project | Principal hazard focus | Safe-state design questions (must be answered and tested per project) | Current repository status |
+| Product | Principal hazard focus | Safe-state design questions | Evidence boundary |
 |---|---|---|---|
-| 01 Coconut Harvest AI | Worker/animal proximity, falling fruit, cutter and arm pinch/jam, dropped loads, tree/terrain stability, rain/moisture, battery and motor heat | Inhibit cutting when the safety envelope is uncertain; prevent uncontrolled arm/load motion; require local emergency stop and human recovery; never assume a sensor alone protects a worker | Existing repository; SHIELD branch prepared |
-| 02 Flood Rescue AI | Water depth/current, capsizing, buoyancy, propulsion and retractable-wheel faults, ingress, battery isolation, tether/load limits, people/animal detection, communications/GPS loss | Define a tested flotation/degraded mode; avoid unsafe thrust or anchoring assumptions; preserve rescue-person safety and manual recovery; do not claim 0–15 m capability without structural and field evidence | Existing repository; SHIELD branch prepared |
-| 03 Multimodal Screening AI | Sensor disagreement, calibration drift, false positives/negatives, adversarial inputs, data provenance, privacy, power/thermal faults | If evidence is incomplete or conflicting, return inconclusive and request qualified human review; never autonomously accuse, enforce, detain or take coercive action | Existing repository; SHIELD branch prepared |
-| 04 Homeguard AI Nomad | Smoke/heat/fire, water leaks, electrical anomalies, stairs/falls, child/pet proximity, pinch points, tampering, privacy and network loss | Stop or park in a project-tested safe location; notify authorized users; preserve privacy; do not claim fire suppression or electrical protection unless actual hardware is installed and validated | Existing repository; SHIELD branch prepared |
-| 05 PUI89 AI Global SUV | Pedestrians/cyclists, collision, braking/steering faults, tire and stability faults, road/weather conditions, battery thermal events, sensor/GPS spoofing, communication loss, driver override | Define an SUV-specific minimal-risk condition; avoid sudden-stop assumptions; maintain driver override and independent braking/steering/battery safeguards; no autonomous road operation before formal validation | [Pui89/PUI89-AI-Global-SUV](https://github.com/Pui89/PUI89-AI-Global-SUV) — separate product repository |
-| 06 PUI89 AI Step-Through Scooter | Rider fall, lean-angle and balance dynamics, traction/wheel slip, braking, road users, blind spots, battery/thermal events, sensor faults, rider override | Prioritize rider stability; never issue unvalidated steering/braking/torque commands; define rider override and independently validated emergency behavior; start with rider-assistance research, not full autonomy | [Pui89/AI-Step-Through-Scooter](https://github.com/Pui89/AI-Step-Through-Scooter) — separate product repository |
+| **Coconut Harvest AI** | Worker/animal proximity, falling fruit, cutter/arm pinch or jam, dropped loads, tree/terrain stability, rain/moisture, battery and motor heat | Inhibit cutting when the safety envelope is uncertain; prevent uncontrolled arm/load motion; require emergency stop and human recovery | Software and evaluation preparation do not establish detector accuracy or physical harvesting capability |
+| **PUI89 Sentinel** | Quadruped gait/fall risk, terrain and obstacle uncertainty, confined-space access, sensor disagreement, communications loss and recovery | Define mission-specific no-go conditions, safe hold, operator-controlled retreat and calibrated atmosphere checks where required | Four-legged inspection concept and requirements; no physical prototype or field capability is claimed |
+| **PUI89 AI HOME** | Indoor fire/smoke, electrical and water hazards, stairs/falls, child/pet proximity, false alarms, privacy and offline operation | Define safe stop/park behaviour, reliable escalation, privacy limits and safe charging | Indoor assistance concept/software; no validated home-safety performance is claimed |
+| **PUI89 AI NOMAD** | Four-wheel stability, tip-over, obstacle contact, motor/pinch hazards, payload restraint, battery/thermal faults and communications loss | Define payload limits, stability checks, safe stop and user-controlled recovery | Ground-based mobile assistant concept; physical mobility and payload performance remain unvalidated |
+| **PUI89 AI Global SUV** | Collision exposure, vulnerable road users, road/weather/water uncertainty, driver distraction and vehicle electrical/thermal hazards | Keep advice separate from vehicle control; preserve driver authority and independent vehicle safety systems | SUV design and software concept; no vehicle integration, road test or certification is claimed |
+| **PUI89 AI Step-Through Scooter** | Rider stability, traction, braking context, road users, weather/visibility and road-water uncertainty | Prioritize rider control; unknown water/road conditions must not be presented as safe; no autonomous steering, throttle or braking | Step-through scooter concept; no functioning scooter, rider trial or road certification is claimed |
 
 ## Minimum validation layers
 
 1. **Contract/unit tests:** schemas, missing/stale/conflicting inputs, warning-state precedence, evidence references and human-approval flags.
 2. **Software integration tests:** sensor adapters, stale-message rejection, logging, privacy and permission boundaries.
-3. **Simulation:** project-specific hazard scenarios with fixed seeds, model/version capture, expected outcomes and repeatable metrics.
+3. **Simulation:** product-specific hazard scenarios with fixed seeds, model/version capture, expected outcomes and repeatable metrics.
 4. **Component bench tests:** only when suitable equipment and safe facilities exist; document calibration and test limits.
 5. **Assembled-system / field validation:** separate approval, hazard analysis, competent supervision and appropriate independent assessment.
 
 ## Shared benchmark record
 
-For every scenario, record: scenario ID, project, hazard, initial state, injected fault, expected warning, expected safe-state proposal, actual result, false alarm/missed hazard, latency, evidence references, software/configuration version, random seed (if simulated), limitations and reviewer.
+For every scenario, record: scenario ID, product, hazard, initial state, injected fault, expected warning, expected safe-state proposal, actual result, false alarm/missed hazard, latency, evidence references, software/configuration version, random seed (if simulated), limitations and reviewer.
 
-Do not combine simulation success with physical validation. Do not invent thresholds. Thresholds must come from the project hazard analysis, component specifications and appropriate standards.
+Do not combine simulation success with physical validation. Do not invent thresholds. Thresholds must come from the product hazard analysis, component specifications and appropriate standards.
 
 ## Next implementation actions
 
-- Keep the common warning policy and contract tests in sync across the existing repositories until a separately governed shared-core package is established.
-- Add project-specific scenario tests before enabling any physical response.
-- Review existing repository workflows and security checks; avoid duplicate paid scans or new services.
-- Create the Car and Motorcycle repositories only when repository creation is explicitly available/authorized; apply this standard from their first commit.
+- Keep common warning policies and contract tests aligned across the six product repositories.
+- Add product-specific scenario tests before enabling any physical response.
+- Review existing workflows and security checks; avoid duplicate paid scans or new services.
+- Preserve human authority, open-source-first technology governance and evidence-led release gates.
