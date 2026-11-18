@@ -56,8 +56,6 @@ Report known/verified, unknown/unobservable, changes, failures/near misses/unsup
 - **PUI89 AI NOMAD:** four-wheel stability, tip-over, obstacle contact, motor/pinch hazards, payload restraint, battery/thermal faults, communications loss and safe stopping.
 - **PUI89 AI Global SUV:** collision exposure, vulnerable road users, road/weather/water uncertainty, driver distraction, vehicle electrical/thermal hazards and driver override; no direct steering/throttle/brake control.
 - **PUI89 AI Step-Through Scooter:** rider stability, traction, braking context, road users, weather/visibility, road-water uncertainty and rider override; no direct steering/throttle/brake control.
-- **PUI89 AI Global SUV:** collision exposure, vulnerable road users, vehicle electrical/thermal hazards, occupant privacy, degraded sensing, no direct steering/throttle/brake control.
-- **PUI89 AI Step-Through Scooter:** rider vulnerability, two-wheel stability/traction context, road-surface contamination, weather/visibility, distraction minimization, no direct steering/throttle/brake control.
 
 ## 12. Implementation gates
 1. **Specify:** requirement, operating domain, hazards, authority boundary, cost review.
