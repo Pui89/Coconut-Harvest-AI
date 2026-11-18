@@ -33,7 +33,7 @@ Contracts must be versioned. Missing or conflicting evidence must never be silen
 
 ## Project-specific boundaries
 - Coconut: dataset provenance/licence, annotation quality, leakage-resistant splits, maturity/localization evaluation, abstention and worker/animal safety.
-- Flood Rescue: degraded sensors, communication loss, safe-hold proposals, route/scenario metrics; toy simulation is not flood-physics or rescue validation.
+
 - Multimodal Screening: sensor provenance/calibration, missing or disagreeing modalities, error-rate reporting and authorised human review; RGB alone cannot establish chemical identity.
 - Homeguard: stale/missing/uncalibrated inputs, baseline drift, evidence integrity and human-reviewed hazard escalation; software reports are not certified alarms or structural assessments.
 - Future products (including AI Motorcycle) inherit these contracts before product-specific autonomy is added.
