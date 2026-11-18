@@ -45,8 +45,8 @@ At minimum, regression tests should cover:
 ## 5. Project-specific extensions
 
 - **Coconut Harvest AI:** maturity-stage uncertainty, cutting/capture hazards, drop zone, and worker/animal separation.
-- **Extreme Flood Rescue AI:** water/environment uncertainty, victim-location confidence, communication degradation, and simulation-only depth scenarios.
-- **Multimodal Narcotics Screening AI:** sensor provenance, modality disagreement, chain of custody, instrument validation, and mandatory qualified human review.
+
+- **PUI89 Sentinel:** multimodal inspection provenance, modality disagreement, uncertainty, abstention, and operator review. No narcotics screening or chemical identification is in scope.
 
 ## 6. Release gate
 
