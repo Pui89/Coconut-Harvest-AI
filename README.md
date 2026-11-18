@@ -24,6 +24,58 @@
 
 ## Product at a glance
 
+
+## Latest Product Capability Baseline — 18 November 2026
+
+**Capability lifecycle:** Perceive → Understand → Predict → Decide → Act. The following is the product-specific target capability map. Shared AI Core provides reusable foundations; each product selects sensors and functions appropriate to its mission.
+
+### Perception and sensory intelligence
+
+- RGB vision for palms, bunches and individual fruit; four visible maturity groups: young green, mature green, yellow and brown.
+
+- Image-quality and occlusion checks; visible defect and anomaly cues; size/shape estimation where calibrated.
+
+- Optional depth/3D, spatial mapping and distance estimation after calibration.
+
+- Tactile/force, grip, slip and vibration sensing for future gripper research; environmental sensing for orchard context.
+
+### Understanding, prediction and decision support
+
+- Orchard and fruit context, uncertainty-aware maturity assessment, traceable harvest recommendations and human correction.
+
+- Temporal tracking of observed fruit/plant changes; predictive harvest-window research only after longitudinal labelled data exists.
+
+- Task and reach planning for a proposed stationary arm/gripper workflow; simulation and digital-twin scenarios before physical work.
+
+### Physical intelligence and reliability
+
+- Future supervised robotic grasp/cut workflow with independent mechanical limits, guarded tooling, emergency stop and human authority.
+
+- Sensor health, calibration/freshness checks, fault reporting, safe hold and evidence records.
+
+- CPU-first edge inference and resource-aware model sizing; graceful abstention when images or sensor evidence are insufficient.
+
+### ภาษาไทย — ความสามารถและแนวทางพัฒนา
+
+- วิเคราะห์ภาพ RGB เพื่อระบุต้นมะพร้าว ทะลาย และผลมะพร้าว พร้อมจำแนก 4 กลุ่มสี/ระยะที่มองเห็นได้: เขียวอ่อน เขียวแก่ เหลือง และน้ำตาล
+
+- ตรวจคุณภาพภาพ การบดบัง ความผิดปกติที่มองเห็น ขนาดและรูปร่างเมื่อผ่านการปรับเทียบ
+
+- รองรับแนวทางใช้ Depth/3D และการทำแผนที่เชิงพื้นที่เมื่อมีอุปกรณ์และการปรับเทียบที่เหมาะสม
+
+- ศึกษาเซนเซอร์สัมผัส แรงจับ การลื่น การสั่น และสภาพแวดล้อมสำหรับระบบจับผลในอนาคต
+
+- วิเคราะห์ความไม่แน่นอน ติดตามการเปลี่ยนแปลง และจัดทำข้อเสนอช่วงเวลาเก็บเกี่ยวให้มนุษย์ตรวจสอบ
+
+- วางแผนงานแขนกลและ gripper ผ่าน simulation/digital twin ก่อนการสร้างจริง
+
+- ออกแบบระบบตรวจสุขภาพเซนเซอร์ การแจ้งข้อผิดพลาด safe hold และบันทึกหลักฐาน
+
+- เน้นประมวลผลบน CPU/Edge และงดสรุปผลเมื่อภาพหรือข้อมูลไม่เพียงพอ
+
+**Evidence boundary / ขอบเขตหลักฐาน:** These are product capabilities and engineering directions at mixed maturity. They do not establish a validated orchard detector, approved training dataset, 0–30 m perception, autonomous cutting, tree climbing, or a physical harvesting robot. 0–30 m remains a research challenge. / รายการนี้เป็นขอบเขตความสามารถและแนวทางวิศวกรรมที่มีระดับความพร้อมต่างกัน ไม่ใช่หลักฐานว่ามีระบบตรวจจับที่ผ่านการทดสอบในสวน ชุดข้อมูลที่อนุมัติ การรับรู้ระยะ 0–30 เมตร การตัดอัตโนมัติ การปีนต้นไม้ หรือหุ่นยนต์เก็บเกี่ยวจริง
+
+
 **Product direction:** Agricultural AI decision support and a proposed robotic harvesting system.
 
 **User value:** Help orchard operators assess visible coconut maturity more consistently and keep human-reviewed harvest decisions traceable.
