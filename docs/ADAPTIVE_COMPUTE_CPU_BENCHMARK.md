@@ -26,7 +26,7 @@ Use multiple sizes and thresholds. Keep the raw JSON with the commit, machine de
 - It is **not** an AI inference, perception, robotics, or neuromorphic benchmark.
 - The threshold is a hand-set rule, not a learned or novel policy.
 - It does not measure energy, accelerator utilization, safety, model accuracy, or hard real-time guarantees.
-- A microbenchmark result alone is not evidence that an adaptive policy will help Coconut Harvest AI, Flood Rescue AI, or Multimodal Narcotics Screening AI.
+- A microbenchmark result alone is not evidence that an adaptive policy will improve any of PUI89's six products; product-specific workloads and measured outcomes are required.
 
 ## Research progression
 
