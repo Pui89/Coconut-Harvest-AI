@@ -30,8 +30,8 @@ This is a resource and adoption plan, not a claim that every tool is installed o
 ## Project-specific next steps
 
 - **Coconut Harvest AI:** source/licence/hash audit; tree/source/session-separated dataset splits; maturity-class baseline and per-class metrics; then camera/geometry simulation.
-- **Extreme Flood Rescue AI:** scenario tests for visibility, flow assumptions, loss of GPS/comms, sensor faults, energy limits and safe stopping; 0–15 m values remain simulation parameters.
-- **Multimodal Narcotics Screening AI:** test missing/conflicting modalities, calibration and time alignment, low confidence, corrupted inputs, audit trail and human review. An image or model score does not prove chemical identity.
+
+- **PUI89 Sentinel:** use provenance, modality-quality, uncertainty, abstention and operator-review tests for general inspection; no chemical-identification or enforcement capability is in scope.
 
 ## Rules before adding any model or dependency
 
