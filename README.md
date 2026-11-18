@@ -1,5 +1,21 @@
 # Coconut Harvest AI
 
+## Product and AI system update — 18 November 2026
+
+**Public product summary (EN):** Coconut Harvest AI combines local-first computer vision and human-reviewed harvest decision support with a proposed future robotic harvesting system. The intended assessment uses four visible maturity groups: young green, mature green, yellow and brown. Its workflow checks image quality and provenance, assesses visible fruit, records uncertainty, and prepares a traceable recommendation for a human reviewer.
+
+**เทคโนโลยีและประโยชน์ (TH):** ใช้ Computer Vision วิเคราะห์ภาพมะพร้าว ตรวจคุณภาพภาพและแหล่งที่มา จำแนกเป้าหมาย 4 กลุ่ม บันทึกความไม่แน่นอน และจัดทำรายงานให้เกษตรกรตรวจสอบก่อนวางแผนเก็บเกี่ยว ช่วยให้การสำรวจสวนและการตัดสินใจมีข้อมูลประกอบที่ตรวจสอบย้อนหลังได้
+
+**AI technology direction:** RGB vision; optional depth/3D sensing after calibration; CPU-first edge processing; dataset provenance and annotation QA; leakage-safe train/validation/test partitions; reproducible per-class precision, recall, F1, confusion counts and runtime reporting.
+
+**Who it serves:** coconut growers, plantations, agricultural organisations, equipment developers, universities and agricultural researchers.
+
+**Validation boundary:** the dataset approval gate remains controlled. No validated real-orchard detector accuracy, 0–30 m perception, autonomous cutting, physical harvesting robot, or field safety is claimed. The 0–30 m range is a long-term design challenge, not a proven reach specification. Human approval and independent hardware safety gates remain mandatory.
+
+**Project website:** [English](https://pui89.github.io/coconut.html) · [ภาษาไทย](https://pui89.github.io/coconut-th.html) · [PUI89 portfolio](https://pui89.github.io/)
+
+---
+
 <!-- PUI89_PINNED_CONCEPT_ILLUSTRATION:START -->
 ![Coconut Harvest AI conceptual harvesting robot design showing four coconut maturity stages](docs/images/coconut-harvest-realistic-all-stage-concept.svg)
 
