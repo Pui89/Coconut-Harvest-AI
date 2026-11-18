@@ -1,10 +1,13 @@
 # PUI89 Portfolio Monitor
 
-A scheduled, read-only status snapshot for the three public PUI89 project repositories:
+A scheduled, read-only status snapshot for the six active public PUI89 product repositories:
 
-- Coconut Harvest AI
-- Extreme Flood Rescue AI
-- Multimodal Narcotics Screening AI
+- Pui89/Coconut-Harvest-AI
+- Pui89/PUI89-All-Terrain-Inspection-Robot
+- Pui89/AI-Home-Safety-Robot
+- Pui89/AI-Mobile-Assistant-Robot
+- Pui89/PUI89-AI-Global-SUV
+- Pui89/AI-Step-Through-Scooter
 
 ## Operation
 
