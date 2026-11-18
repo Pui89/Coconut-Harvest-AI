@@ -35,13 +35,13 @@ This task list supplements the roadmap above. It is a plan, not evidence that ea
 |---|---|---|---|
 | 1 | Improve autonomy-supervisor tests and common interfaces | Free | Unit tests cover healthy, unsafe, missing, invalid and non-finite inputs; interfaces are documented; commands and results are recorded |
 | 2 | Improve coconut dataset quality and establish a vision baseline | Free, local | Source/license/credit manifest; hashes and duplicate review; corrected annotations; leakage-safe source/tree/session split; precision, recall and per-class results |
-| 3 | Add perception uncertainty and task-planning tests to all three projects | Free, local | Tests cover low confidence, conflicting observations, missing inputs, invalid plans, unapproved actions and safe-hold outcomes |
+| 3 | Add perception uncertainty and task-planning tests across all six active products | Free, local | Tests cover low confidence, conflicting observations, missing inputs, invalid plans, unapproved actions and safe-hold outcomes |
 | 5 | Add multimodal provenance, calibration and human-review workflow | Free, local | Each observation records source/reference, modality, timestamp and model/version; calibration is evaluated on held-out data; uncertain/conflicting cases route to human review |
 
 ### Project-specific priorities
 
 - **Coconut Harvest AI:** complete source/license/hash review and annotation geometry checks before training; then establish a leakage-safe local vision baseline. Dataset quality and baseline metrics remain incomplete until evidence is recorded.
-- **PUI89 Sentinel:** general multimodal inspection evidence, source provenance, modality quality, disagreement, uncertainty, abstention and operator review. No narcotics screening, chemical identification or enforcement capability is in scope.
+- **PUI89 Sentinel:** general multimodal inspection evidence, source provenance, modality quality, disagreement, uncertainty, abstention and operator review. Chemical identification and enforcement are outside Sentinel's product scope.
 
 ### Free local interface tests
 
