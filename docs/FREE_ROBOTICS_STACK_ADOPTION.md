@@ -49,18 +49,20 @@ Licences and file sizes can change; re-check the specific versions/components be
 - Not needed yet: drone autopilot, multiple autopilots, real motor/arm commands, or physical 30 m reach claims.
 - Optional VLM: use SmolVLM for descriptions of a rights-cleared image; compare outputs against human-reviewed labels. It is not a coconut detector or maturity classifier by itself.
 
-### 2. Extreme Flood Rescue AI
-- Now: scenario matrix for people/animals as targets, changing simulated water depth, hazards, stale sensors, communication loss and safe recovery.
-- Next software integration: ROS 2 + Gazebo for simulated robot/sensor interfaces. Nav2 for an appropriate ground/amphibious rover simulation. Only then choose one simulated autopilot: ArduPilot SITL if its GPLv3 obligations suit the intended product, or PX4 SITL for a drone-focused BSD-3-Clause route.
-- Vehicle families to model: multirotor reconnaissance aircraft; fixed-wing/VTOL only if a long-range mission justifies the complexity; unmanned surface boat; ground/amphibious rover. A submersible is a separately engineered future concept, not a feature to assume from a generic autopilot.
-- Evidence limit: a 0–15 m scenario parameter is not real-world vehicle depth, buoyancy, waterproofing, current handling or rescue capacity.
+### 2. PUI89 Sentinel
+- Start with the selected supervised inspection mission, sensor provenance and modality-quality checks.
+- Test terrain/context uncertainty, anomaly cues, operator alerts and safe-stop proposals with synthetic or lawfully sourced data.
+- Validate quadruped mobility separately; do not infer field capability from software or simulation.
 
-### 3. Multimodal Narcotics Screening AI
-- Now: mock sensor topics, input validity checks, UNKNOWN on missing/conflicting/low-confidence signals, audit records and human-review routing.
-- Next software integration: ROS 2 + Gazebo + Nav2 for a simulated indoor inspection robot. Use mock camera/other sensor feeds first; only add X-ray or chemical-sensor interfaces when lawfully obtained, technically valid data and evaluation protocols exist.
-- Not needed: flight or boat autopilot for routine indoor screening.
-- Evidence/safety limit: SmolVLM can describe visible image content but does not establish chemical composition or prove narcotics. No AI output authorises accusation, detention, search, seizure or enforcement.
+### 3. PUI89 AI HOME and AI NOMAD
+- Keep indoor home-assistance requirements separate from NOMAD's ground-based four-wheel mobile-assistant design.
+- Test indoor hazard observations, obstacle/stability awareness, privacy and user-approved assistance.
+- No physical robot or mobility performance is claimed without prototype evidence.
 
+### 4. AI Global SUV and AI Step-Through Scooter
+- Begin with advisory-only road-scene, weather, road-condition and vehicle/rider context.
+- Unknown water depth or road conditions must remain unknown; do not present uncertain conditions as safe.
+- Do not add autonomous steering, throttle or braking.
 ## Staged local adoption gate
 
 1. Complete the repository's Python unit tests and scenario command. Fix regressions before adding dependencies.
