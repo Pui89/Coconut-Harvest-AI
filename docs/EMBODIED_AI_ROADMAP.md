@@ -66,21 +66,12 @@ This roadmap is a selection guide, not a claim that every listed project is inst
 4. Add task-level simulation later for reach, approach, cut, catch and post-harvest verification. The 0–30 m reach remains a design target unless independently tested.
 5. Preserve the distinction between conceptual design, software prototype, simulation and validated physical harvesting.
 
-### Extreme Flood Rescue AI — priority 2
+### PUI89 Sentinel
+1. Define the first supervised inspection mission and its permitted operating environment.
+2. Establish sensor provenance, modality quality, uncertainty and abstention tests.
+3. Validate terrain perception and quadruped mobility separately; no field capability is claimed before physical testing.
 
-1. Define scenario records for water depth, current, visibility, debris, communication loss, and victim state.
-2. Start with scripted perception/navigation tests and safe fallback logic; label simulated conditions explicitly.
-3. Treat ground robot, boat and drone as separate platforms with capability limits, not as one robot that can safely operate at every depth.
-4. Add coordination and degraded-communications tests before complex multi-agent simulation.
-5. Report detection, navigation, time-to-assist and safety outcomes only when a reproducible evaluator exists.
 
-### Multimodal Narcotics Screening AI — priority 3
-
-1. Record which sensor modalities are genuinely available; do not imply chemical detection from RGB images alone.
-2. Add missing-modality, noisy-input, disagreement and low-confidence test cases.
-3. Require abstention/escalation to an authorised human reviewer when evidence is uncertain or modalities conflict.
-4. Evaluate false positives and false negatives per class and modality, using lawful, documented datasets.
-5. Keep screening support distinct from a definitive accusation or enforcement decision.
 
 ## Tool adoption checklist
 
