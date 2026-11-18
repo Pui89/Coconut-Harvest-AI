@@ -96,8 +96,8 @@ class ShieldContractTests(unittest.TestCase):
 
     def test_six_project_matrix_covers_vehicle_projects_and_existing_projects(self):
         matrix = (ROOT / "docs/PUI89_SHIELD_PROJECT_IMPLEMENTATION_MATRIX.md").read_text(encoding="utf-8")
-        for project in ("Coconut Harvest AI", "Flood Rescue AI",
-                        "Multimodal Screening AI", "Homeguard AI Nomad",
+        for project in ("Coconut Harvest AI", "PUI89 Sentinel",
+                        "PUI89 AI HOME", "PUI89 AI NOMAD",
                         "PUI89 AI Global SUV", "PUI89 AI Step-Through Scooter"):
             self.assertIn(project, matrix)
         self.assertIn("https://github.com/Pui89/PUI89-AI-Global-SUV", matrix)
