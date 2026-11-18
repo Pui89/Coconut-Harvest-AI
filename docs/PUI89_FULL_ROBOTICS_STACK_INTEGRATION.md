@@ -28,11 +28,9 @@ Official references:
 ### Coconut Harvest AI
 Use ROS 2 + Gazebo for a simplified orchard scene first. Nav2 may be added later for a simulated ground base only after a proper robot description, odometry, collision geometry and sensors exist. ArduPilot/PX4 are not needed in the initial orchard milestone. The VLM may describe a rights-cleared image but cannot decide maturity, a safe cutting point, or control a cutter.
 
-### Extreme Flood Rescue AI
-Use ROS 2 + Gazebo for repeatable scenes and then add a single simulated vehicle model. Nav2 is relevant only for a suitable ground/amphibious rover. Choose either ArduPilot SITL or PX4 SITL based on the first vehicle and licence requirements; do not install both at once. The included Gazebo world is dry terrain/obstacles only. The existing 0–15 m values are software scenario metadata, not simulated water pressure, currents, buoyancy or physical depth capability.
+### PUI89 Sentinel
+Use ROS 2 + Gazebo only after the first supervised inspection mission and operating envelope are defined. Start with sensor provenance, terrain/context observations, operator-supervised mapping and safe-stop tests. Hazardous-atmosphere entry requires site-authorised procedures and suitable calibrated instruments; RGB/depth/LiDAR do not certify breathable air. Simulation is not field validation.
 
-### Multimodal Narcotics Screening AI
-Use ROS 2 + Gazebo for an indoor inspection base and mock sensors. Nav2 is a later mobile-base layer. Autopilot systems add no value to the first indoor milestone. SmolVLM output is descriptive free text and does not establish chemical identity, reveal closed-bag contents, or authorize accusation, search, detention, seizure or enforcement.
 
 ## ROS proposal bridge contract
 
