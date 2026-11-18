@@ -16,7 +16,7 @@ This contract is mirrored across the three PUI89 AI application repositories to 
 ## Project-specific extensions
 
 - Coconut Harvest: maturity label, target localization, harvestability, tree/obstacle state, and dataset provenance.
-- Extreme Flood Rescue: person/animal candidate, visibility and water-state estimates, navigation confidence, and simulated route outcome.
+
 - Multimodal Screening: modality availability, fused confidence, calibration status, abstention reason, and human-review decision.
 
 ## Execution order
