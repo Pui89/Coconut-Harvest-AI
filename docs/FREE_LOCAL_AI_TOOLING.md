@@ -36,5 +36,4 @@ Only after reviewing the model size and license, download a suitable small model
 ## Project-specific use
 
 - **Coconut Harvest AI:** documentation assistance only until dataset rights, annotations, independent QA, and leakage-safe splits pass the promotion gate.
-- **Flood Rescue AI:** optional help writing simulation scenarios; navigation and safety checks remain deterministic and test-driven.
-- **Multimodal Narcotics Screening AI:** optional help documenting workflows; no model may assert chemical identity or replace mandatory human review.
+- **PUI89 Sentinel:** general multimodal inspection evidence, source provenance, modality quality, disagreement, uncertainty, abstention and operator review. No narcotics screening, chemical identification or enforcement capability is in scope.
