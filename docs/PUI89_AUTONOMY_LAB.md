@@ -43,7 +43,6 @@ Do not connect this lab to physical actuation. Any future simulator integration 
 ## Project-specific interpretation
 
 - Coconut Harvest AI: HARVEST_STEP_SIMULATION_ONLY does not mean the system can identify a safe cut, reach a 30 m tree, or harvest fruit physically.
-- Extreme Flood Rescue AI: water depth values including 15 m are scenario inputs only; they do not establish buoyancy, depth tolerance, or rescue performance.
-- Multimodal Narcotics Screening AI: output is triage for authorized human review, never proof of chemical identity and never authorization to accuse, search, detain, seize, or enforce.
+- **PUI89 Sentinel:** general multimodal inspection evidence, source provenance, modality quality, disagreement, uncertainty, abstention and operator review. No narcotics screening, chemical identification or enforcement capability is in scope.
 
 No paid API, hosted GPU, subscription, model download or package installation is required by Phase 1.
