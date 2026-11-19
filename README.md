@@ -235,10 +235,10 @@ PUI89 uses six shared intelligence groups across its six active products. This p
 
 <table><tr><td align="center"><strong>English website</strong><br><a href="https://pui89.github.io/coconut.html"><img src="https://pui89.github.io/qr/coconut-en.png" width="160" alt="Coconut Harvest AI English website QR code"></a><br><a href="https://pui89.github.io/coconut.html">Open English website</a></td><td align="center"><strong>เว็บไซต์ภาษาไทย</strong><br><a href="https://pui89.github.io/coconut-th.html"><img src="https://pui89.github.io/qr/coconut-th.png" width="160" alt="QR Code เว็บไซต์ภาษาไทย Coconut Harvest AI"></a><br><a href="https://pui89.github.io/coconut-th.html">เปิดเว็บไซต์ภาษาไทย</a></td></tr></table>
 
-## PUI89 development maturity snapshot — 12 November 2026
+## Historical development maturity snapshot — 12 November 2026 (superseded)
 
 **Strategic direction: From AI Projects to AI Products.**  
-**Current maturity: Level 4 — Tested Prototype.** This project has tested software and evaluation-preparation foundations; detector accuracy and physical harvesting remain unvalidated.
+**Evidence status at that snapshot: Implemented — software and evaluation-preparation foundations only.** The former numeric “Level 4 — Tested Prototype” label is retired because it could be confused with a physical product prototype. No detector is selected, no real-image detector accuracy is established, and no physical harvesting robot or field capability is validated. Use the current PUI89 Development Observatory for the latest evidence status and blockers.
 
 
 **Shared platform evidence (separate from project validation):** the PUI89 Shared AI Core main-branch CI reported 187 dependency-free tests passed on 11 November 2026. This platform-level result does not establish this project's model accuracy, physical integration or field performance.
