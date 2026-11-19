@@ -1,5 +1,15 @@
 # Coconut Harvest AI
 
+
+## PUI89 Product Philosophy
+
+> **Build what you wish existed as a user.**  
+> **สร้างสิ่งที่คุณอยากให้มีในฐานะผู้ใช้งาน**
+
+Start with the user, then apply engineering to build products that provide practical value in real life. Start with growers’ real needs: make coconut assessment and harvest planning more informed, traceable and practical in plantation conditions.
+
+หลักการคือเริ่มต้นจากผู้ใช้งาน แล้วจึงใช้วิศวกรรมสร้างผลิตภัณฑ์ที่มีประโยชน์ในชีวิตจริง โดยยึดปัญหาและบริบทการใช้งานจริงเป็นหลัก ไม่เพิ่มเทคโนโลยีหรือกล่าวอ้างความสามารถโดยไม่มีเหตุผลและหลักฐานรองรับ。
+
 ## Product and AI system update — 18 November 2026
 
 **Public product summary (EN):** Coconut Harvest AI combines local-first computer vision and human-reviewed harvest decision support with a proposed future robotic harvesting system. The intended assessment uses four visible maturity groups: young green, mature green, yellow and brown. Its workflow checks image quality and provenance, assesses visible fruit, records uncertainty, and prepares a traceable recommendation for a human reviewer.
