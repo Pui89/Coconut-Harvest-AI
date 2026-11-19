@@ -1466,3 +1466,7 @@ Each record should include, where available: unique incident ID; local date/time
 **ขอบเขตหลักฐานเฉพาะผลิตภัณฑ์:** Harvest observations, fruit/bunch visibility, maturity uncertainty, machine readiness and guarded-work-zone events. A maturity estimate is decision support only and never authorises cutting or machine motion.
 
 **สถานะหลักฐาน:** ข้อกำหนดการออกแบบเท่านั้น การบันทึกภาพ การจัดเก็บ การค้นหาตามวัน/เดือน การเล่นเสียงย้อนหลัง การรักษาหลักฐาน ความเป็นส่วนตัว และการกู้คืนยังเป็น **Unknown / Not Tested** จนกว่าจะพัฒนาและทดสอบกับผลิตภัณฑ์จริง
+
+## Product-specific alert and hazard engineering
+
+The [Coconut Harvest AI Product Hazard Analysis & Alert Rules v1.0](docs/COCONUT_HARVEST_HAZARD_ANALYSIS_AND_ALERT_RULES_V1.0.md) defines proposed product-specific hazard families, alert rules, five-channel policy, task boundaries and verification cases. It is a preliminary engineering specification only; it does not claim installed alert hardware, validated protective controls, completed hazard assessment, physical harvesting capability or executed tests.
