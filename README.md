@@ -1495,3 +1495,8 @@ PUI89's engineering principle for this product is to start with the simplest use
 **สร้างง่าย ซ่อมง่าย และต่อยอดได้** — เริ่มจากระบบที่เล็กที่สุดซึ่งพิสูจน์ประโยชน์ได้จริง ใช้โมดูลที่เข้าใจและเปลี่ยนได้ง่าย มีจุดเชื่อมต่อและขั้นตอนซ่อมบำรุงชัดเจน และเพิ่มความสามารถโดยไม่ต้องออกแบบระบบทั้งหมดใหม่ ต้องแจ้งเมื่ออุปกรณ์ขาดหายหรือขัดข้อง และเข้าสู่สถานะปลอดภัยเฉพาะผลิตภัณฑ์เมื่อกระทบฟังก์ชันสำคัญ สามารถใช้ซอฟต์แวร์หรือส่วนเชื่อมต่อร่วมกันได้เมื่อผ่านการตรวจสอบ แต่ไม่บังคับให้ทุกผลิตภัณฑ์ใช้ฮาร์ดแวร์ กลไก พลังงาน หรือระบบความปลอดภัยแบบเดียวกัน
 
 **มาตรฐานกลาง:** [PUI89 Build, Repair & Grow Design Principle v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_BUILD_REPAIR_GROW_DESIGN_PRINCIPLE_V1.0.md). เป็นข้อกำหนดการออกแบบ ไม่ใช่การยืนยันว่าฮาร์ดแวร์แบบโมดูล ขั้นตอนซ่อม หรือความสามารถของผลิตภัณฑ์ได้พัฒนาและตรวจสอบแล้ว
+
+
+## PUI89 Product Operating Coverage Standard
+
+Follow the [PUI89 Product Operating Coverage Standard v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_PRODUCT_OPERATING_COVERAGE_STANDARD_V1.0.md) for per-unit allocation, appropriate coverage measurements, evidence labels, validation records and public-claim controls. This is a proposed shared requirement, not proof of physical performance. Do not publish numerical area, throughput, range, runtime, accuracy or productivity claims without product-specific test evidence. Product-specific requirements and safety boundaries in this repository remain controlling.
