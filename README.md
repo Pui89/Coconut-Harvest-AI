@@ -1339,3 +1339,74 @@ Software-first evidence priority: establish image-source rights and provenance, 
 ลำดับงานเน้นซอฟต์แวร์และหลักฐานก่อน: ตรวจสอบสิทธิ์และที่มาของภาพ ทำป้ายกำกับโดยมนุษย์ ตรวจสอบชุดข้อมูลและแยก train/validation/test โดยป้องกันข้อมูลรั่วไหล จากนั้นประเมินบน CPU อย่างทำซ้ำได้ รายงาน Precision, Recall, F1 รายคลาส จำนวนตัวอย่าง Confusion Matrix และกรณีผิดพลาดเมื่อมีผลทดสอบแยกที่เหมาะสมเท่านั้น
 
 **Portfolio boundary:** PUI89 has exactly six active products. Shared AI Core is shared infrastructure, not a product.
+
+
+## Everyday Intelligence, Simple Operation & On-Device Alerts
+
+**Design principle:** AI for Everyone. Easy to Use. Safe to Trust. Ready for the Real World.
+
+Coconut Harvest AI follows the PUI89 shared design direction: make everyday life easier through intelligence, not make people learn complicated technology.
+
+- **Simple physical operation:** clear buttons and a safe, bounded start workflow. Basic local use should not require an app, smartphone pairing or internet where technically feasible. Voice is optional.
+- **Multi-Perception Intelligence (MPI):** select mission-appropriate vision, audio, touch/contact, spatial, motion, thermal and environmental sensing. Chemical sensing or material analysis is only for specific validated instruments; these are not universal human-equivalent senses.
+- **On-device text alerts:** a readable physical display is a mandatory design requirement. Show plain-language Information, Warning and Emergency messages, what happened, uncertainty and the next safe step. Keep local alert history. Optional mobile notifications supplement, never replace, device alerts.
+- **Accessibility:** large readable text, clear controls, high contrast, optional audio, plain language and adjustable preferences.
+- **Safety and reliability:** preserve human authority, independent emergency/protective stops, safe hold, fault reporting, uncertainty/abstention and controlled recovery. No silent restart into hazardous action.
+- **Offline-first essentials:** local functions and alerts should continue without internet where technically possible and supported by the final hardware.
+
+- **Harvesting authority:** assessment and harvest recommendations remain human-reviewed; physical cutting or harvesting requires separate engineering and independent safety validation.
+
+**Shared specification:** [PUI89 Everyday Intelligence & Multi-Perception Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/interaction/PUI89_EVERYDAY_INTELLIGENCE_MPI_STANDARD_V1.0.md). These are design requirements, not claims that displays, sensors, offline operation, animal recognition or physical functions are already implemented or validated.
+
+
+## Local Access, Controls & On-Device Information
+
+**No single point of access. No mandatory smartphone. No remote-only operation.**
+
+The product must remain usable for its essential intended functions if a remote is lost, a phone is unavailable, an app is not installed, or internet/cloud connectivity is lost. The primary interface must fit the product; it does not have to be a button on the robot.
+
+- Provide a clear **primary local control** integrated into the robot, operator station or installation, as appropriate.
+- Provide an **independent fallback** that does not rely on the same remote, phone, app, wireless link or cloud service.
+- Put essential status, instructions and warnings on a display or indicators physically associated with the product or its normal operator station.
+- Remotes and mobile apps are optional convenience/secondary interfaces, never the only way to operate, receive critical alerts or safely stop the system.
+- If control or communication is lost, enter a defined safe state and provide a documented local recovery path. Never bypass safety interlocks.
+- Show concise plain-language information: Ready/Not ready, current task, what was detected and confidence, warning and next action, power/health, human-confirmation requests, and completion/fault history.
+- Use Thai/English where implemented, large readable text, clear symbols and optional audio. Do not rely on sound or colour alone.
+
+**Product-specific interface direction**
+- Primary: operator station / machine controls. Fallback: independent local safe-stop and recovery control. Direct information: operator-station display and machine indicators.
+- Example: “Assessment ready — maturity class: yellow. Confidence: medium. Please check the fruit before harvesting.”
+
+These are design requirements and message examples, not claims that the display, controls, sensors or detection capability are already installed or validated.
+
+**Shared standard:** [PUI89 Everyday Intelligence & Multi-Perception Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/interaction/PUI89_EVERYDAY_INTELLIGENCE_MPI_STANDARD_V1.0.md).
+
+
+## No App Required — End-to-End User Experience
+
+**Customer-facing requirement:** Coconut Harvest AI must be usable from initial setup through everyday operation, monitoring, configuration, safe stopping and recovery without requiring the customer to download or install an application on a smartphone, tablet or computer. Essential functions must be available directly through the product or its appropriate local operator station.
+
+- No mandatory smartphone application, application download, account registration or phone pairing for essential local operation.
+- Essential local functions should work without internet access wherever technically feasible.
+- Built-in controls and the appropriate local interface are primary. A remote or mobile app may be an optional convenience, never the sole means of control, critical alert access or recovery.
+- Provide an independent local fallback, a safe state when control/communication is lost, and documented local recovery.
+- Present operating state, warnings, recommended user actions and event history directly on the product or its normal operator station.
+- Product-appropriate interface: local operator station and machine controls.
+
+**Engineering distinction:** Developers and authorized service personnel may use engineering tools for development, diagnostics and maintenance. These tools must not become prerequisites for ordinary customers.
+
+**Evidence boundary:** This is a design requirement, not evidence that the controls, displays, offline behavior or hardware have been implemented, tested or certified.
+
+### ไม่ต้องใช้แอป — ประสบการณ์ใช้งานตั้งแต่ต้นจนจบ
+
+ลูกค้าต้องสามารถตั้งค่า ใช้งาน ตรวจสอบ ปรับการตั้งค่า หยุดอย่างปลอดภัย และกู้คืน Coconut Harvest AI ได้โดยไม่ต้องดาวน์โหลดหรือติดตั้งแอปบนสมาร์ตโฟน แท็บเล็ต หรือคอมพิวเตอร์ ฟังก์ชันที่จำเป็นต้องเข้าถึงได้โดยตรงจากตัวผลิตภัณฑ์หรือสถานีควบคุมในพื้นที่ที่เหมาะสม
+
+- ไม่บังคับใช้แอปมือถือ ดาวน์โหลดแอป ลงทะเบียนบัญชี หรือจับคู่โทรศัพท์สำหรับการใช้งานพื้นฐาน
+- ฟังก์ชันพื้นฐานภายในเครื่องควรทำงานได้โดยไม่พึ่งอินเทอร์เน็ตเมื่อเป็นไปได้ทางเทคนิค
+- ระบบควบคุมที่ติดตั้งมากับผลิตภัณฑ์เป็นช่องทางหลัก รีโมตหรือแอปเป็นเพียงทางเลือกเสริม ไม่ใช่ช่องทางเดียวสำหรับควบคุม รับการแจ้งเตือนสำคัญ หรือกู้คืนระบบ
+- ต้องมีช่องทางสำรองในพื้นที่ สถานะปลอดภัยเมื่อการควบคุมหรือการสื่อสารขัดข้อง และขั้นตอนกู้คืนที่ชัดเจน
+- แสดงสถานะ คำเตือน การดำเนินการที่แนะนำ และประวัติเหตุการณ์บนผลิตภัณฑ์หรือสถานีปฏิบัติงาน
+
+**ข้อแตกต่างด้านวิศวกรรม:** ทีมพัฒนาและเจ้าหน้าที่บริการที่ได้รับอนุญาตยังใช้เครื่องมือทางวิศวกรรมได้ แต่ลูกค้าทั่วไปไม่จำเป็นต้องใช้เครื่องมือเหล่านั้น
+
+**ขอบเขตหลักฐาน:** เป็นข้อกำหนดด้านการออกแบบ ไม่ใช่หลักฐานว่าระบบควบคุม หน้าจอ การทำงานออฟไลน์ หรือฮาร์ดแวร์ได้รับการติดตั้ง ทดสอบ หรือรับรองแล้ว.
