@@ -15,7 +15,7 @@ Advisory palm, trunk, crown and target-relative geometry for later manipulation 
 - No grasp, cut, worker-clearance or arm trajectory safety is established.
 - No harvesting robot hardware or field performance is claimed.
 
-The common software interfaces are under development in [Shared AI Core PR #26](https://github.com/Pui89/PUI89-Shared-AI-Core/pull/26), which is still draft and unmerged. This file documents the intended integration contract only; no runtime import or sensor integration is yet claimed.
+The Spatial Intelligence Engine v0.1 was merged into the private Shared AI Core on 10 November 2026 ([PR #26](https://github.com/Pui89/PUI89-Shared-AI-Core/pull/26)). This file documents the intended integration contract only; no runtime import, live sensor integration or product validation is claimed. The Shared AI Core is private and requires maintainer access.
 
 Before runtime integration, require lawful data provenance, calibration, synchronized timestamps, sensor-health checks, uncertainty handling, synthetic fault tests and human review. No physical actuation is enabled.
 
