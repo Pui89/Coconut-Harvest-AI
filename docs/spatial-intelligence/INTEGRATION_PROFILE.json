@@ -6,7 +6,7 @@
   "shared_core": {
     "repository": "Pui89/PUI89-Shared-AI-Core",
     "pull_request": "https://github.com/Pui89/PUI89-Shared-AI-Core/pull/26",
-    "release_status": "draft_not_merged"
+    "release_status": "merged"
   },
   "intended_use": "Advisory palm, trunk, crown and target-relative geometry for later manipulation research.",
   "recommended_modalities": [
