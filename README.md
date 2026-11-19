@@ -1339,3 +1339,21 @@ Software-first evidence priority: establish image-source rights and provenance, 
 ลำดับงานเน้นซอฟต์แวร์และหลักฐานก่อน: ตรวจสอบสิทธิ์และที่มาของภาพ ทำป้ายกำกับโดยมนุษย์ ตรวจสอบชุดข้อมูลและแยก train/validation/test โดยป้องกันข้อมูลรั่วไหล จากนั้นประเมินบน CPU อย่างทำซ้ำได้ รายงาน Precision, Recall, F1 รายคลาส จำนวนตัวอย่าง Confusion Matrix และกรณีผิดพลาดเมื่อมีผลทดสอบแยกที่เหมาะสมเท่านั้น
 
 **Portfolio boundary:** PUI89 has exactly six active products. Shared AI Core is shared infrastructure, not a product.
+
+
+## Everyday Intelligence, Simple Operation & On-Device Alerts
+
+**Design principle:** AI for Everyone. Easy to Use. Safe to Trust. Ready for the Real World.
+
+Coconut Harvest AI follows the PUI89 shared design direction: make everyday life easier through intelligence, not make people learn complicated technology.
+
+- **Simple physical operation:** clear buttons and a safe, bounded start workflow. Basic local use should not require an app, smartphone pairing or internet where technically feasible. Voice is optional.
+- **Multi-Perception Intelligence (MPI):** select mission-appropriate vision, audio, touch/contact, spatial, motion, thermal and environmental sensing. Chemical sensing or material analysis is only for specific validated instruments; these are not universal human-equivalent senses.
+- **On-device text alerts:** a readable physical display is a mandatory design requirement. Show plain-language Information, Warning and Emergency messages, what happened, uncertainty and the next safe step. Keep local alert history. Optional mobile notifications supplement, never replace, device alerts.
+- **Accessibility:** large readable text, clear controls, high contrast, optional audio, plain language and adjustable preferences.
+- **Safety and reliability:** preserve human authority, independent emergency/protective stops, safe hold, fault reporting, uncertainty/abstention and controlled recovery. No silent restart into hazardous action.
+- **Offline-first essentials:** local functions and alerts should continue without internet where technically possible and supported by the final hardware.
+
+- **Harvesting authority:** assessment and harvest recommendations remain human-reviewed; physical cutting or harvesting requires separate engineering and independent safety validation.
+
+**Shared specification:** [PUI89 Everyday Intelligence & Multi-Perception Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/interaction/PUI89_EVERYDAY_INTELLIGENCE_MPI_STANDARD_V1.0.md). These are design requirements, not claims that displays, sensors, offline operation, animal recognition or physical functions are already implemented or validated.
