@@ -1466,3 +1466,11 @@ Each record should include, where available: unique incident ID; local date/time
 **ขอบเขตหลักฐานเฉพาะผลิตภัณฑ์:** Harvest observations, fruit/bunch visibility, maturity uncertainty, machine readiness and guarded-work-zone events. A maturity estimate is decision support only and never authorises cutting or machine motion.
 
 **สถานะหลักฐาน:** ข้อกำหนดการออกแบบเท่านั้น การบันทึกภาพ การจัดเก็บ การค้นหาตามวัน/เดือน การเล่นเสียงย้อนหลัง การรักษาหลักฐาน ความเป็นส่วนตัว และการกู้คืนยังเป็น **Unknown / Not Tested** จนกว่าจะพัฒนาและทดสอบกับผลิตภัณฑ์จริง
+
+## PUI89 Easy Direct Control Standard v1.0 — Proposed
+
+This product follows the shared [PUI89 Easy Direct Control Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_EASY_DIRECT_CONTROL_STANDARD_V1.0.md). The intended interface uses large, clearly labelled physical controls and an on-device display so users can operate the product without a smartphone or application.
+
+**Proposed product controls:** POWER; START / STOP; MODE selection for coconut image capture, maturity assessment and evidence review; on-device STATUS and ALERT display; and a clearly accessible emergency-stop control wherever physical motion or hazardous actuation is introduced. Mode names and available functions must be validated with users before implementation.
+
+**Operating boundary:** local controls remain primary. Remote monitoring and optional applications may mirror status and alerts but are not required for setup or normal operation. No physical harvesting or cutting action is enabled by this interface specification. Control behaviour remains proposed until implemented and tested.
