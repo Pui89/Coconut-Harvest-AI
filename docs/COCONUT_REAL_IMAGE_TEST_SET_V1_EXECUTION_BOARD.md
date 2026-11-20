@@ -72,3 +72,13 @@ Do not infer biological maturity from colour alone. Record visible husk colour s
 ## Completion definition
 
 Test Set v1 is complete only when its versioned manifest identifies every included original image, rights and provenance are verified, labels have independent human QA, source groups are separated across train/validation/test, the held-out test set is frozen, and a reproducible evaluation has been run using actual detector predictions. Until then, describe it as an **execution-in-progress dataset**, not a validated dataset or working coconut detector.
+
+
+## External research candidates reviewed — 20 November 2026
+
+Two additional public dataset references were assessed without downloading files:
+
+- **EXT-ORCH-01 — Coconut tree crown (Mendeley Data, DOI 10.17632/w4t73tvrf8.1):** 400 RGB plantation canopy images at 512×512, collected in daylight from varied positions/angles/lighting; dataset page states CC BY 4.0 and identifies IIT Kharagpur. Useful for orchard context and camera-viewpoint research, not four-class fruit maturity labels. Candidate only; verify exact rights and inspect image suitability before acquisition.
+- **EXT-MAT-01 — RawRipe (IEEE 9589215 / GitHub):** repository README reports 150 coconut RGB images in two labels (raw 72, ripe 78), image-level classification only. Underlying images are described as sourced from search engines and agricultural sources; image-by-image creator/permission lineage is not established. **HOLD** under PUI89 provenance and rights policy. Do not download or train on it.
+
+These candidates do not change the approved-image count, existing ledgers or candidate statuses. No image bytes were downloaded, imported or labelled. See the source register for detailed evidence and limitations.
