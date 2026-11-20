@@ -25,20 +25,18 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check out pinned PUI89 audit tool
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          repository: Pui89/PUI89-Shared-AI-Core
-          ref: 8de2e24892777b0320582b6405cc3d63355b513a
-          path: .pui89-core
-          persist-credentials: false
+      - name: Clone pinned public PUI89 audit tool
+        run: |
+          git clone --depth 1 --no-tags --single-branch --branch feat/pui89-automation-core-v1 \
+            https://github.com/Pui89/PUI89-Shared-AI-Core.git "$RUNNER_TEMP/pui89-core"
+          test "$(git -C "$RUNNER_TEMP/pui89-core" rev-parse HEAD)" = "f22d9e5e50e56d45bab456750e01c3da6dd75652"
 
       - name: Test the shared audit tool
-        run: python3 -m unittest discover -s .pui89-core/tests -p 'test_pui89_automation_audit.py' -v
+        run: python3 -m unittest discover -s "$RUNNER_TEMP/pui89-core/tests" -p 'test_pui89_automation_audit.py' -v
 
       - name: Run read-only repository audit
         run: |
-          python3 .pui89-core/tools/pui89_automation_audit.py \
+          python3 "$RUNNER_TEMP/pui89-core/tools/pui89_automation_audit.py" \
             --root . \
             --json-out "$RUNNER_TEMP/pui89-repository-audit.json" \
             --summary "$GITHUB_STEP_SUMMARY"
