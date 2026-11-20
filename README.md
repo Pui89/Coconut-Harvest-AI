@@ -103,3 +103,10 @@ Current maturity labels and portfolio scope follow the [PUI89 Portfolio Alignmen
 - Unknown, occluded or out-of-distribution cases must be marked uncertain and referred for human review.
 
 **Capacity evidence status:** Software requirements documented; physical capacities **TBD / not built / not validated**. Only measured results with reproducible test records may be labelled *Tested* or *Verified*.
+
+
+## Physical & Multimodal Sensor Privacy
+
+PUI89 adopts the [Physical & Multimodal Sensor Privacy Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/privacy/PUI89_PHYSICAL_MULTIMODAL_SENSOR_PRIVACY_STANDARD_V1.0.md) as a shared engineering requirement. Any future RGB, depth or thermal imaging camera must have a manual physical cover. The current software-first image-review workflow does not imply a physical camera system exists. User-supplied orchard images remain local unless transfer is explicitly authorised.
+
+**Evidence status:** requirements/specification only. No product-level hardware implementation or verification is claimed by this README section.
