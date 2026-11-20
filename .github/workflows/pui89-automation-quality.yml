@@ -1,0 +1,33 @@
+name: PUI89 Automated Repository Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pui89-quality-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pui89-quality:
+    name: Read-only PUI89 repository audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out product repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Run local PUI89 repository audit
+        run: |
+          python3 .github/scripts/pui89_automation_audit.py \
+            --root . \
+            --json-out "$RUNNER_TEMP/pui89-repository-audit.json" \
+            --summary "$GITHUB_STEP_SUMMARY"
