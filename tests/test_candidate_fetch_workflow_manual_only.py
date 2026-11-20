@@ -6,7 +6,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKFLOW = ROOT / ".github" / "workflows" / "fetch-coconut-candidates.yml"
+WORKFLOW = ROOT / ".github" / "workflows" / "collect-coconut-real-image-batch.yml"
 
 
 class CandidateFetchWorkflowPolicyTests(unittest.TestCase):
