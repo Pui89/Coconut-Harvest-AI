@@ -36,11 +36,11 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check out Coconut project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Check out pinned Shared AI Core schemas
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Pui89/PUI89-Shared-AI-Core
           ref: e762f38f1e34ddf2ce9e22e12605bc08aa493ff9
