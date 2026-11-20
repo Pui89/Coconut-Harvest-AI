@@ -23,6 +23,7 @@ concurrency:
 
 jobs:
   collect-review-batch:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
