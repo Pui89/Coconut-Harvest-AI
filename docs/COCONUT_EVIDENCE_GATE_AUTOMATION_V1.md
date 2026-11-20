@@ -19,7 +19,8 @@ The workflow reuses `tools/run_coconut_dataset_preflight.py` and its existing co
 1. Parse and geometry-check the candidate-0032 draft annotations.
 2. Reconcile the source-rights and candidate-review CSV ledgers.
 3. Count eligible and blocked candidates and report the top recorded blockers.
-4. Report candidate-0032 source-byte verification as `NOT_CHECKED` unless the exact local original image is explicitly supplied to a local run.
+4. Compare the legacy SHA-256 inventory CSV with both ledgers; report missing candidate IDs, duplicate IDs, filename mismatches, and malformed byte/hash metadata.
+5. Report candidate-0032 source-byte verification as `NOT_CHECKED` unless the exact local original image is explicitly supplied to a local run.
 
 ## Expected current result
 
@@ -29,6 +30,7 @@ The current dataset is expected to remain blocked/incomplete: the dated readines
 
 - The workflow is read-only and uses `contents: read`.
 - It does not download or upload source images.
+- Inventory coverage checks validate recorded CSV structure and digest formatting only; they do not verify image bytes.
 - It does not modify CSV ledgers, annotations, hashes, labels, human-QA flags, or training approvals.
 - It does not train a model, calculate detector accuracy, or authorize physical robot operations.
 - It cannot independently establish licence validity or confirm that human visual review actually occurred.
