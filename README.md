@@ -50,3 +50,56 @@ Cross-product architecture, evidence contracts, safety, privacy, security, recov
 Current maturity labels and portfolio scope follow the [PUI89 Portfolio Alignment Register](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_PORTFOLIO_ALIGNMENT_REGISTER_2026-11-18.md) and [Evidence-Based Development Maturity Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_DEVELOPMENT_STAGE_STANDARD.md).
 
 **PUI89 has six active products.** Shared AI Core is infrastructure, not a seventh product. Extreme Flood Rescue AI is archived as a separate historical project.
+
+## Robot Capabilities & Functional Capacity
+
+**Scope boundary:** The current milestone is software-based coconut image assessment and harvest decision support. A physical harvesting robot is a later research direction. The capacities below are requirements to define and validate, not claims of a built machine.
+
+### 1. Physical capacity
+- Define the future platform envelope, complete mass, payload, stability, tool mass and fruit-handling limits after the harvesting mission and mechanical concept are selected.
+- Define gripper/cutter interface, fruit-contact limits, bunch handling and safe release requirements before hardware selection.
+- **Current values:** robot dimensions, mass, payload, tool reach and fruit-handling capacity: **TBD**; no physical robot is established.
+
+### 2. Mobility capacity
+- Define orchard ground conditions, slope, soil bearing, wheel/track choice, turning envelope, ground clearance and access around palm trees.
+- Treat tree climbing, aerial access and operation on unstable ground as out of scope unless separately engineered and validated.
+- **Current values:** speed, slope, clearance, terrain envelope and endurance: **TBD**.
+
+### 3. Perception capacity
+- Assess image quality, lighting, shadows, wind-driven motion, occlusion and camera viewpoint.
+- Detect and count visible coconuts; classify visible appearance into young green, mature green, yellow and brown classes.
+- Distinguish visual colour class from biological maturity and harvest suitability; retain uncertainty and human review.
+- Estimate fruit/bunch location and 3D reachability only when suitable calibrated depth/geometry evidence exists. The 0–30 m range remains a research challenge, not a validated range.
+- **Current validated accuracy and detection range:** not established.
+
+### 4. Computing capacity
+- Prefer local CPU-first assessment and reproducible open-source workflows; evaluate accelerator use only when justified by measured workload.
+- Record model/version, input size, runtime, peak RAM, confidence calibration and failure cases when measured.
+- No cloud GPU, metered API or remote image transfer is required by this specification.
+- **Compute hardware and measured performance:** TBD.
+
+### 5. Power capacity
+- Define battery chemistry, usable energy, peak/continuous power, runtime, charging, protection and thermal limits only when a physical platform is designed.
+- **Battery capacity, runtime and charging time:** TBD; no physical power system is established.
+
+### 6. Communication capacity
+- The software assessment workflow should support local/offline image review and export of approved, traceable results.
+- Any future robot-to-operator link must define range, protocol, loss-of-link behaviour and data permissions.
+- **Radio range and robot connectivity:** TBD; no integrated robot link is established.
+
+### 7. Safety capacity
+- Require operator-supervised harvesting decisions, safe tool states, guarded moving parts, emergency stop and a defined recovery procedure before physical trials.
+- Stop or request human review when fruit position, maturity, reachability, people proximity or sensor health is uncertain.
+- No autonomous cutting, tree climbing or safe harvesting performance is currently claimed.
+
+### 8. Maintenance capacity
+- Define camera/depth-sensor cleaning, calibration checks, tool inspection, wear parts, battery service and diagnostic logs in the future hardware plan.
+- Preserve dataset/model provenance and versioned evaluation records for software maintenance.
+- **Service intervals and replacement procedures:** TBD.
+
+### 9. Operating limits
+- Current scope: software-first image assessment and decision-support foundations.
+- No physical harvesting robot, field mobility, 0–30 m detection/reach, autonomous cutting, crop-yield guarantee or validated field accuracy is established.
+- Unknown, occluded or out-of-distribution cases must be marked uncertain and referred for human review.
+
+**Capacity evidence status:** Software requirements documented; physical capacities **TBD / not built / not validated**. Only measured results with reproducible test records may be labelled *Tested* or *Verified*.
