@@ -77,3 +77,20 @@ Do not put image files into the public repository by default. Keep originals in 
 - New training-approved images: **0**.
 
 **Next action:** review the candidate pages and acquire approved original files in a controlled local batch; then annotate and independently review examples for each class. Do not change existing approval flags or claim a four-class dataset is ready.
+
+
+## 7. External research dataset candidates reviewed on 20 November 2026
+
+These records extend the research shortlist only. They are not imports, approvals, training records or additions to the canonical image-rights ledger. Recheck source revisions and terms before any acquisition.
+
+| Candidate | Source and observed facts | PUI89 relevance | Provenance / rights assessment | Decision |
+|---|---|---|---|---|
+| EXT-ORCH-01 | [Coconut tree crown — Mendeley Data, DOI 10.17632/w4t73tvrf8.1](https://data.mendeley.com/datasets/w4t73tvrf8/1). Contributor Divyanth L G; source page identifies IIT Kharagpur. 400 RGB images, 512×512, taken in a commercial coconut plantation during harvest season, daylight 08:00–17:00, handheld DSLR, varied elevation, angle and frontal/back/scattered lighting. Source page states CC BY 4.0. | Strong candidate for orchard/canopy context, viewpoint, lighting variation and harvesting-environment research. It is **not** described as an individual-fruit maturity dataset and does not establish four-class labels. | Indian institutional affiliation is stated on the dataset page. Licence is stated as CC BY 4.0 on the dataset record; verify the exact version, creator attribution and any third-party content before acquisition. Image-level labels, source-byte hashes and fruit-instance annotations have not been reviewed. | **CANDIDATE_FOUND — rights/source review required before acquisition; context-only until visually assessed.** |
+| EXT-MAT-01 | [RawRipe dataset repository](https://github.com/ai-agriculture-circuits-and-systems/RawRipe), original paper [IEEE 9589215](https://ieeexplore.ieee.org/document/9589215). Repository README reports 150 coconut images: raw 72 (54 train / 18 test) and ripe 78 (58 train / 20 test); RGB classification, two maturity labels, full-image boxes only. The README states the GitHub repository contains structure/conversion scripts and the original dataset is available through IEEE Xplore. | Potential auxiliary raw/ripe coconut classification research only. Two labels cannot be mapped directly to PUI89's four operational classes; full-image boxes are not fruit-instance detection annotations. Not orchard-attached coverage by default. | Paper authorship includes Koteswar Rao Jerripothula, whose IIT Kanpur profile confirms India affiliation. The dataset README describes image collection from search engines and agricultural sources; image-by-image original creators and permissions are not supplied in the summary. The repository states CC BY 4.0, but that alone is not sufficient to clear underlying third-party images. Remaining author affiliations and complete image lineage require verification under PUI89's origin policy. | **HOLD — no download or training use. Resolve all creator/affiliation, image-level provenance and underlying reuse rights first.** |
+
+### Research interpretation
+
+- EXT-ORCH-01 is the strongest next external candidate for orchard scene context, not for maturity classification.
+- EXT-MAT-01 may inform a future two-state auxiliary comparison only if provenance and rights gates pass. Never relabel `raw` / `ripe` as the four PUI89 classes without expert-reviewed source evidence.
+- Neither candidate changes the current approved-image count. Both remain outside the training-approved set until the existing fail-closed ledger and promotion process records all required evidence.
+- No image files were downloaded or imported during this review.
