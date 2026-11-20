@@ -9,7 +9,9 @@ on:
     paths:
       - "data/review_batch_2026-10-18/**"
       - "data/review_batch_2026-10-22/**"
+      - "data/review_batch_2026-10-18/image_sha256_manifest_2026-10-20.csv"
       - "tools/audit_coconut_annotations.py"
+      - "tools/audit_coconut_manifest_coverage.py"
       - "tools/coconut_dataset_promotion_gate.py"
       - "tools/record_coconut_source_hash.py"
       - "tools/run_coconut_dataset_preflight.py"
@@ -62,6 +64,47 @@ jobs:
             exit "$result"
           fi
           echo "preflight_exit=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Run inventory-to-ledger coverage audit
+        id: inventory
+        shell: bash
+        run: |
+          set +e
+          python3 tools/audit_coconut_manifest_coverage.py \
+            --manifest data/review_batch_2026-10-18/image_sha256_manifest_2026-10-20.csv \
+            --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv \
+            --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv \
+            --output "$RUNNER_TEMP/coconut-inventory-coverage.json"
+          result=$?
+          set -e
+          if [ "$result" -gt 1 ]; then
+            echo "Inventory coverage audit execution error (exit $result)." >> "$GITHUB_STEP_SUMMARY"
+            exit "$result"
+          fi
+          echo "coverage_exit=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Publish inventory coverage status
+        env:
+          REPORT_PATH: ${{ runner.temp }}/coconut-inventory-coverage.json
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path(os.environ["REPORT_PATH"]).read_text(encoding="utf-8"))
+          lines = [
+              "",
+              "## Image inventory coverage",
+              f"- Coverage complete: {report.get('coverage_complete')}",
+              f"- Rights-ledger candidates: {report.get('candidate_count_in_rights_ledger')}",
+              f"- Review-ledger candidates: {report.get('candidate_count_in_review_ledger')}",
+              f"- Inventory rows: {report.get('inventory_row_count')}",
+              f"- Missing inventory IDs: {len(report.get('missing_inventory_candidate_ids', []))}",
+              f"- Invalid inventory rows: {len(report.get('invalid_inventory_rows', []))}",
+              "- This checks CSV coverage and digest formatting only; it does not hash local image bytes.",
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+              f.write("\n".join(lines) + "\n")
+          PY
 
       - name: Publish evidence status to job summary
         env:
