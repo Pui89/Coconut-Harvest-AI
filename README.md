@@ -51,6 +51,12 @@ Current maturity labels and portfolio scope follow the [PUI89 Portfolio Alignmen
 
 **PUI89 has six active products.** Shared AI Core is infrastructure, not a seventh product. Extreme Flood Rescue AI is archived as a separate historical project.
 
+## AI Model & Intelligence profile
+
+**Candidate capability profile:** Object Detection and Image Segmentation for coconut/scene localisation; Object Tracking only where temporal continuity is useful; VLM for supervised visual review; Predictive Models for maturity/harvest trends only after representative, rights-cleared dataset validation. SLAM and Sensor Fusion are not assumed requirements for the current software-first milestone.
+
+All nine shared capability families and their definitions, evaluation requirements, provenance/uncertainty rules and safety boundaries are maintained in the [PUI89 Shared AI Core Model Intelligence Framework](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/architecture/PUI89_MODEL_INTELLIGENCE_FRAMEWORK_V1.0.md). This product profile is a **candidate engineering allocation**, not evidence of model installation, runtime integration, benchmark results, field validation or certified performance. Select and enable each capability only after product-specific requirements, approved data, compute/energy budgets and verification gates are satisfied.
+
 ## Robot Capabilities & Functional Capacity
 
 **Scope boundary:** The current milestone is software-based coconut image assessment and harvest decision support. A physical harvesting robot is a later research direction. The capacities below are requirements to define and validate, not claims of a built machine.
