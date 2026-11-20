@@ -1,0 +1,105 @@
+name: Coconut Evidence Gate Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "45 22 * * *" # 05:45 Asia/Bangkok
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/review_batch_2026-10-18/**"
+      - "data/review_batch_2026-10-22/**"
+      - "tools/audit_coconut_annotations.py"
+      - "tools/coconut_dataset_promotion_gate.py"
+      - "tools/record_coconut_source_hash.py"
+      - "tools/run_coconut_dataset_preflight.py"
+      - "docs/COCONUT_REAL_IMAGE_VALIDATION_EXECUTION_GATES.md"
+      - ".github/workflows/coconut-evidence-gate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "data/review_batch_2026-10-18/**"
+      - "data/review_batch_2026-10-22/**"
+      - "tools/audit_coconut_annotations.py"
+      - "tools/coconut_dataset_promotion_gate.py"
+      - "tools/record_coconut_source_hash.py"
+      - "tools/run_coconut_dataset_preflight.py"
+      - "docs/COCONUT_REAL_IMAGE_VALIDATION_EXECUTION_GATES.md"
+      - ".github/workflows/coconut-evidence-gate.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-evidence-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  read-only-evidence-preflight:
+    name: Read-only rights, ledger and geometry preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository without persisted credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Run existing standard-library preflight
+        id: preflight
+        shell: bash
+        run: |
+          set +e
+          python3 tools/run_coconut_dataset_preflight.py \
+            --annotations data/review_batch_2026-10-22/ai_annotation_draft_NOT_FOR_TRAINING.json \
+            --rights-csv data/review_batch_2026-10-18/source_rights_audit_2026-10-19.csv \
+            --review-csv data/review_batch_2026-10-18/candidate_review_2026-10-18.csv \
+            --output "$RUNNER_TEMP/coconut-evidence-preflight.json"
+          result=$?
+          set -e
+          if [ "$result" -gt 1 ]; then
+            echo "Preflight execution error (exit $result)." >> "$GITHUB_STEP_SUMMARY"
+            exit "$result"
+          fi
+          echo "preflight_exit=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Publish evidence status to job summary
+        env:
+          REPORT_PATH: ${{ runner.temp }}/coconut-evidence-preflight.json
+          PREFLIGHT_EXIT: ${{ steps.preflight.outputs.preflight_exit }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path(os.environ["REPORT_PATH"]).read_text(encoding="utf-8"))
+          gate = report["promotion_gate"]
+          geometry = report["geometry"]
+          source = report["candidate_0032_source_fingerprint"]
+          lines = [
+              "# Coconut Harvest AI — Evidence Gate",
+              "",
+              f"**Overall status:** {report['overall_status']}",
+              f"**Candidate records:** {gate.get('candidate_count')}",
+              f"**Eligible for training:** {gate.get('eligible_count')}",
+              f"**Blocked:** {gate.get('blocked_count')}",
+              f"**Annotation geometry:** {geometry.get('status')} "
+              f"({geometry.get('image_count')} image(s), {geometry.get('box_count')} box(es), "
+              f"{geometry.get('geometry_error_count')} geometry error(s))",
+              f"**Candidate 0032 source-byte check:** {source.get('status')}",
+              f"**Human visual QA:** {geometry.get('human_visual_qa')}",
+              "",
+              "## Top recorded blockers",
+          ]
+          for item in (gate.get("top_blockers") or [])[:10]:
+              lines.append(f"- {item['gate']}: {item['affected_candidate_count']} candidate(s)")
+          lines += [
+              "",
+              "## Safety boundary",
+              "- Read-only: no ledger, annotation, source hash, label, or approval flag is modified.",
+              "- No image is downloaded; candidate 0032 local source bytes are not available to this hosted workflow.",
+              "- Geometry checks do not verify fruit boundaries, missed fruit, maturity labels, legal rights, or independent human QA.",
+              "- A successful workflow run means the preflight executed, not that the dataset is approved or ready for training.",
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+              f.write("\n".join(lines) + "\n")
+          PY
