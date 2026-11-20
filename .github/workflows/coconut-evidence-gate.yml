@@ -11,6 +11,12 @@ on:
       - "data/review_batch_2026-10-22/**"
       - "data/review_batch_2026-10-18/image_sha256_manifest_2026-10-20.csv"
       - "tools/audit_coconut_annotations.py"
+      - "tools/audit_dataset_split_leakage.py"
+      - "data/coconut_dataset_split_manifest.csv"
+      - "docs/DATASET_SPLIT_LEAKAGE_AUDIT.md"
+      - "tools/audit_dataset_split_leakage.py"
+      - "data/coconut_dataset_split_manifest.csv"
+      - "docs/DATASET_SPLIT_LEAKAGE_AUDIT.md"
       - "tools/audit_coconut_manifest_coverage.py"
       - "tools/coconut_dataset_promotion_gate.py"
       - "tools/record_coconut_source_hash.py"
@@ -105,6 +111,58 @@ jobs:
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
               f.write("\n".join(lines) + "\n")
           PY
+
+      - name: Run optional group-aware split leakage audit
+        id: split_audit
+        shell: bash
+        run: |
+          manifest="data/coconut_dataset_split_manifest.csv"
+          if [ ! -f "$manifest" ]; then
+            {
+              echo "status=NOT_CONFIGURED"
+              echo "## Dataset split leakage"
+              echo "- Status: NOT_CONFIGURED"
+              echo "- No canonical split manifest exists yet; no split has been invented or generated."
+              echo "- Training remains blocked until real, rights-reviewed and human-reviewed image records are grouped and assigned."
+            } >> "$GITHUB_OUTPUT"
+            {
+              echo ""
+              echo "## Dataset split leakage"
+              echo "- Status: NOT_CONFIGURED"
+              echo "- Expected manifest: `$manifest`"
+              echo "- No synthetic records or split assignments were created."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          set +e
+          python3 tools/audit_dataset_split_leakage.py "$manifest" --output "$RUNNER_TEMP/coconut-split-leakage.json"
+          result=$?
+          set -e
+          if [ "$result" -gt 1 ]; then
+            echo "Split audit execution error (exit $result)." >> "$GITHUB_STEP_SUMMARY"
+            exit "$result"
+          fi
+          REPORT_PATH="$RUNNER_TEMP/coconut-split-leakage.json" AUDIT_EXIT="$result" python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path(os.environ["REPORT_PATH"]).read_text(encoding="utf-8"))
+          lines = [
+              "",
+              "## Dataset split leakage",
+              f"- Status: {'PASS' if report.get('passed') else 'BLOCKED'}",
+              f"- Manifest rows: {report.get('row_count')}",
+              f"- Split counts: {report.get('split_counts')}",
+              f"- Exact-hash cross-split findings: {len(report.get('identical_hash_cross_split_findings', []))}",
+              f"- Group cross-split findings: {len(report.get('group_cross_split_findings', []))}",
+              f"- Structural errors: {len(report.get('errors', []))}",
+              "- This audits declared hashes and curator-assigned group IDs; it does not inspect image bytes unless separately verified locally.",
+              "- Exact hashes do not detect resized or visually similar duplicates; human provenance and rights review remain mandatory.",
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+          echo "status=$([ "$result" -eq 0 ] && echo PASS || echo BLOCKED)" >> "$GITHUB_OUTPUT"
 
       - name: Publish evidence status to job summary
         env:
