@@ -1,0 +1,39 @@
+{
+  "profile_version": "0.1.0",
+  "project_id": "coconut-harvest-ai",
+  "project_name": "Coconut Harvest AI",
+  "integration_status": "profile_documented_runtime_adapter_pending",
+  "shared_core": {
+    "repository": "Pui89/PUI89-Shared-AI-Core",
+    "contract": "anomaly_evidence",
+    "contract_version": "0.1.0",
+    "connection_status": "not_connected"
+  },
+  "intended_modalities": [
+    "rgb"
+  ],
+  "candidate_scope": [
+    "Surface damage and appearance deviations",
+    "Camera/image quality shifts and sensor drift"
+  ],
+  "explicit_non_goals": [
+    "Does not replace the separate four-stage coconut maturity classifier",
+    "Does not certify harvest readiness or authorise cutting/collection"
+  ],
+  "required_gates": [
+    "Verify image rights, provenance, orchard/session split and annotation review",
+    "Check camera health, calibration, image quality, uncertainty and out-of-distribution status",
+    "Human review required; no robot action",
+    "execution_authorized=false",
+    "no paid API, subscription, cloud GPU, model download or new dependency without explicit approval"
+  ],
+  "model_adapters": {
+    "PaDiM": "not_configured",
+    "PatchCore": "not_configured",
+    "EfficientAD": "not_configured"
+  },
+  "model_weights": "not_downloaded",
+  "dataset_status": "no_dataset_authorised_or_loaded_by_this_profile",
+  "evidence_status": "documentation_only; no model accuracy, runtime integration, hardware validation or field safety is claimed",
+  "cost_policy": "zero-cost-first; no external services or downloads"
+}
