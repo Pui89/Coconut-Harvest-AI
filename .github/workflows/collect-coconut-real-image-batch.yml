@@ -1,0 +1,72 @@
+name: Collect Real Coconut Image Evidence Batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: Maximum candidate images to collect (1-100)
+        required: true
+        default: '30'
+        type: string
+      max_mb:
+        description: Maximum source file size in MB (0.1-12)
+        required: true
+        default: '12'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coconut-real-image-batch
+  cancel-in-progress: false
+
+jobs:
+  collect-review-batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate manual inputs
+        env:
+          IMAGE_LIMIT: ${{ inputs.limit }}
+          MAX_MB: ${{ inputs.max_mb }}
+        run: |
+          python - <<'PY'
+          import os
+          limit = int(os.environ['IMAGE_LIMIT'])
+          max_mb = float(os.environ['MAX_MB'])
+          if not 1 <= limit <= 100:
+              raise SystemExit('limit must be between 1 and 100')
+          if not 0.1 <= max_mb <= 12:
+              raise SystemExit('max_mb must be between 0.1 and 12')
+          PY
+      - name: Install existing data-collection dependency
+        run: python -m pip install --disable-pip-version-check -r tools/requirements-data.txt
+      - name: Collect openly licensed candidate images
+        env:
+          IMAGE_LIMIT: ${{ inputs.limit }}
+          MAX_MB: ${{ inputs.max_mb }}
+        run: |
+          python tools/collect_commons_coconuts.py --out data/commons_candidates --limit "$IMAGE_LIMIT" --max-mb "$MAX_MB"
+      - name: Build offline review gallery
+        run: python tools/build_candidate_gallery.py --collection-dir data/commons_candidates
+      - name: Create hashes and human-review template
+        run: python tools/prepare_coconut_review_batch.py --collection-dir data/commons_candidates --output-dir reports/coconut-real-image-batch
+      - name: Upload candidate batch for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: coconut-real-image-review-batch-${{ github.run_number }}
+          path: |
+            data/commons_candidates/images/
+            data/commons_candidates/provenance.csv
+            data/commons_candidates/collection_summary.json
+            data/commons_candidates/review_gallery.html
+            reports/coconut-real-image-batch/
+          if-no-files-found: error
+          retention-days: 7
