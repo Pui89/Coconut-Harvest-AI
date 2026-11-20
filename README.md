@@ -103,3 +103,17 @@ Current maturity labels and portfolio scope follow the [PUI89 Portfolio Alignmen
 - Unknown, occluded or out-of-distribution cases must be marked uncertain and referred for human review.
 
 **Capacity evidence status:** Software requirements documented; physical capacities **TBD / not built / not validated**. Only measured results with reproducible test records may be labelled *Tested* or *Verified*.
+
+
+## Physical & Multimodal Sensor Privacy
+
+PUI89 adopts the [Physical & Multimodal Sensor Privacy Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/privacy/PUI89_PHYSICAL_MULTIMODAL_SENSOR_PRIVACY_STANDARD_V1.0.md) as a shared engineering requirement. Any future RGB, depth or thermal imaging camera must have a manual physical cover. The current software-first image-review workflow does not imply a physical camera system exists. User-supplied orchard images remain local unless transfer is explicitly authorised.
+
+**Evidence status:** requirements/specification only. No product-level hardware implementation or verification is claimed by this README section.
+
+
+## Long-Life Battery & Energy Intelligence
+
+PUI89 adopts the [Long-Life Battery & Energy Intelligence Standard v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/energy/PUI89_LONG_LIFE_BATTERY_ENERGY_INTELLIGENCE_STANDARD_V1.0.md) as a shared engineering requirement. For software-first or operator-device configurations, optimise local inference and display energy. Any future field unit or mobile platform requires a measured energy budget; no battery-powered harvesting robot or runtime is claimed.
+
+Battery runtime, chemistry, capacity, cycle life, charging performance and safety compliance remain **TBD until designed and evidenced**. No unverified runtime or battery-life claim is made. The design must include an energy budget, independent BMS protections, thermal/electrical safety, service strategy and representative runtime validation.
