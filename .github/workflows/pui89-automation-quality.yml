@@ -10,6 +10,35 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: pui89-quality-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pui89-quality:
-    uses: Pui89/PUI89-Shared-AI-Core/.github/workflows/reusable-quality.yml@f22d9e5e50e56d45bab456750e01c3da6dd75652
+    name: Read-only PUI89 repository audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out product repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Check out pinned PUI89 audit tool
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: Pui89/PUI89-Shared-AI-Core
+          ref: 8de2e24892777b0320582b6405cc3d63355b513a
+          path: .pui89-core
+          persist-credentials: false
+
+      - name: Test the shared audit tool
+        run: python3 -m unittest discover -s .pui89-core/tests -p 'test_pui89_automation_audit.py' -v
+
+      - name: Run read-only repository audit
+        run: |
+          python3 .pui89-core/tools/pui89_automation_audit.py \
+            --root . \
+            --json-out "$RUNNER_TEMP/pui89-repository-audit.json" \
+            --summary "$GITHUB_STEP_SUMMARY"
