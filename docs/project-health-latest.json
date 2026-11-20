@@ -1,6 +1,6 @@
 {
   "project": "Coconut Harvest AI",
-  "review_date": "2026-11-16",
+  "review_date": "2026-11-21",
   "review_timezone": "Asia/Bangkok",
   "cadence": "daily",
   "progress_percent": 50,
@@ -22,12 +22,15 @@
     "workflow_files": [
       ".github/workflows/coconut-dataset-evidence-audit.yml",
       ".github/workflows/coconut-dataset-preflight.yml",
+      ".github/workflows/coconut-evidence-gate.yml",
       ".github/workflows/coconut-inspection-records.yml",
       ".github/workflows/coconut-inspection-workspace.yml",
       ".github/workflows/coconut-lightweight-core-tests.yml",
       ".github/workflows/coconut-simulation-evaluation.yml",
+      ".github/workflows/collect-coconut-real-image-batch.yml",
       ".github/workflows/daily-project-progress.yml",
       ".github/workflows/pui89-automated-verification.yml",
+      ".github/workflows/pui89-automation-quality.yml",
       ".github/workflows/pui89-automation.yml",
       ".github/workflows/pui89-coconut-adapter.yml",
       ".github/workflows/pui89-free-checks.yml",
