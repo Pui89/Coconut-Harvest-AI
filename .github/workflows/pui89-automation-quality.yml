@@ -12,4 +12,4 @@ permissions:
 
 jobs:
   pui89-quality:
-    uses: Pui89/PUI89-Shared-AI-Core/.github/workflows/reusable-quality.yml@aa5fef18fb300686d46b30be06dfe87111e637d6
+    uses: Pui89/PUI89-Shared-AI-Core/.github/workflows/reusable-quality.yml@f22d9e5e50e56d45bab456750e01c3da6dd75652
