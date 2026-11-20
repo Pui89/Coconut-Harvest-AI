@@ -7,22 +7,19 @@
 
 ## Screening result
 
-| Preliminary bucket | Count | Meaning |
-|---|---:|---|
-| Priority for human per-fruit review | 7 | Candidates 1–6 and 8; inspect originals at full resolution |
-| Product-reference only | 1 | Candidate 7; cut-open/product imagery, not an on-tree detection sample |
-| Harvest context / tool reference | 12 | Candidates 9–20; potentially useful for operational context, not core fruit-level detection |
-| Orchard context only | 4 | Candidates 25–28; scene context, not individual fruit targets |
-| Exclude from fruit detection | 3 | Candidates 21, 22, 29, 30? See correction below |
-| Historical processing context | 1 | Candidate 24 |
-| Map/location-like image | 1 | Candidate 23 |
-
-> **Count correction:** The CSV is the row-level source of truth. Candidates 21, 22, 29 and 30 are four exclusions; candidate 23 is a separate map/location-like image and is also unsuitable for fruit detection. The buckets therefore total 30 when candidate 23 is included under the map/location exclusion. Do not use the provisional table above as a machine-readable count.
+| Preliminary bucket | Count | Candidate IDs | Meaning |
+|---|---:|---|---|
+| Priority for human per-fruit review | 7 | 1–6, 8 | Inspect original files at full resolution |
+| Product-reference only | 1 | 7 | Cut-open/product imagery, not an on-tree detection sample |
+| Harvest context / tool reference | 12 | 9–20 | Operational context, not core fruit-level detection |
+| Orchard context only | 4 | 25–28 | Scene context, not individual fruit targets |
+| Exclude from fruit detection | 5 | 21–23, 29–30 | Irrelevant, map/location-like, or seedling imagery |
+| Historical processing context | 1 | 24 | Historical plantation/processing context |
 
 ## Important boundaries
 
 - This is a visual triage of the contact sheet only. It does not replace inspection of every original image.
-- A candidate being marked `PRIORITY_REVIEW` does not mean its license has been legally verified or that it is approved for use.
+- A candidate marked `PRIORITY_REVIEW` does not mean its license has been legally verified or that it is approved for reuse.
 - The provenance manifest records license metadata and attribution information, but every file page and applicable license terms still require human rights review.
 - Exterior colour in a photograph cannot establish internal water quality, meat thickness, embryo/haustorium status, seed viability, or suitability for coconut milk, copra, or oil.
 - No maturity class (Young Green, Mature Green, Yellow, Brown) is assigned by this triage.
@@ -39,4 +36,4 @@
 
 ## Status
 
-`PRELIMINARY_VISUAL_TRIAGE_ONLY` — this report does not change the original batch summary: 0 rights-approved, 0 human-reviewed, and 0 training-approved images.
+`PRELIMINARY_VISUAL_TRIAGE_ONLY` — the original batch summary remains unchanged: 0 rights-approved, 0 human-reviewed, and 0 training-approved images.
