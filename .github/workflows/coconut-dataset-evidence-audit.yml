@@ -1,6 +1,8 @@
 name: Coconut Dataset Evidence Audit
 
 on:
+  schedule:
+    - cron: "0 23 * * *" # 06:00 Asia/Bangkok daily
   pull_request:
     paths:
       - "data/**"
