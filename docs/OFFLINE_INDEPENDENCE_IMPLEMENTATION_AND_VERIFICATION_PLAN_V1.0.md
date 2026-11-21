@@ -49,3 +49,19 @@ Do not choose a generic “power off” response. Derive the safe state from the
 
 ## Release gate
 This plan is complete as documentation only when reviewed and approved by the responsible engineering and safety reviewers. Product offline-readiness remains **Not yet demonstrated** until applicable tests pass on the actual product build with retained evidence.
+
+
+## Detailed implementation and release checklist
+
+- Build a product-specific offline capability matrix; identify every hardware, sensor, model, compute, storage and power dependency.
+- Define physical controls, local indicators, STOP/E-stop and reset behaviour; keep these independent from phone/app/network/cloud.
+- Define fault responses for phone absent, app crash, local radio/Wi-Fi/internet/cloud loss, stale data, expired authentication, sensor/model fault, low battery and power loss.
+- Partition safety logic from remote services. Reject expired, duplicated, replayed and out-of-order commands; reconnect only after fresh state synchronisation and deliberate local authorisation.
+- Define bounded local event logging, integrity, retention, storage-full/corrupt response and approved offline export.
+- Supply complete printed User Manual and Quick Start & Safety Guide in-box; QR is supplementary. Test the manual-only workflow.
+- Test OFF-01 through OFF-15 from the product manual on the exact build. Record build, preconditions, steps, expected/actual, evidence, tester/date, defects and disposition. N/A requires approved safety rationale.
+- No offline-ready claim until applicable tests pass and safety/engineering reviewers approve. Documentation and simulation alone do not prove physical performance.
+
+### Product-specific scope
+- **Coconut Harvest AI:** Software-first orchard image assessment; local image review and compatible local inference may work offline. No physical harvesting machine or actuator operation is established.
+- **PUI89 Sentinel:** Quadruped inspection concept; local operator control and physical stop must be independent of remote links. Motion link-loss response must be derived from hazard analysis and prototype-tested.
