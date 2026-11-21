@@ -250,3 +250,63 @@ Do not mark offline-ready until: architecture review is approved; control and fa
 
 ### 10.10 Evidence and status labels
 Use separate labels for **Specified**, **Implemented**, **Tested**, **Validated** and **Released**. Attach test records to each claim. Current repository documentation establishes requirements only unless a specific implementation and test artefact is linked. Never infer implementation from a README or specification.
+
+## 10. Offline-first engineering implementation contract
+
+This is a normative design and test specification, not evidence of implementation or validation.
+
+### 10.1 Independence boundaries
+- Safety controls, emergency stop, protective interlocks and safe shutdown must not depend on a phone, app, Bluetooth, Wi-Fi, internet, DNS, cloud or remote operator.
+- Define a minimum customer workflow that works with the supplied physical controls and printed manual only.
+- Classify every function as **local/offline**, **optional-connected**, or **unavailable**. State sensor, compute, model, storage and power dependencies. Never describe an optional-connected function as offline.
+- Essential local control/perception must not be delegated to cloud services. Remote services cannot override local safety logic.
+
+### 10.2 Physical controls and local indication
+For each product revision, maintain a control inventory: ID, location, function, feedback, misuse protection and failure response. Provide physical STOP and, where hazard analysis requires it, a latching E-stop with deliberate manual reset. Reset must never restart motion or hazardous work. Provide local status/fault indication for power, ready, active, warning, fault, connectivity loss and safe/stop state. Use text/icons and distinguishable signals; do not rely on colour alone.
+
+### 10.3 Local compute, storage and command integrity
+- Partition safety-related control from app/network services.
+- Essential local functions must list their compute, memory, model, sensor and power dependencies.
+- Store bounded local event logs with timestamp source, sequence, severity, build/configuration ID and integrity check. Define retention, export, storage-full and corruption behaviour. Never silently overwrite protected evidence.
+- Reject unauthenticated, expired, duplicated, replayed and out-of-order remote requests.
+- After reconnection, synchronise fresh state and require deliberate operator confirmation before any permitted activity. Never replay a previous motion command.
+- Restart into a defined safe state.
+
+### 10.4 Connectivity fault matrix
+Specify detection, local indication, allowed/prohibited functions, safe response, log event and recovery for: phone absent; app crash; local radio loss; Wi-Fi loss; internet/cloud/DNS outage; expired authentication; stale telemetry; sensor failure; model/runtime unavailable; low battery and power loss. Distinguish loss of PUI89 remote connectivity from faults in the product's own control/safety network.
+
+### 10.5 Printed manual and in-box content
+Every shipped unit includes a complete printed User Manual and a printed Quick Start & Safety Guide in the destination-market language. Essential instructions must be findable using contents, page numbers and index without scanning a QR code. Cover installation, physical controls, normal use, no-phone use, no-Wi-Fi/no-internet use, status indicators, stop/E-stop, connectivity loss, power loss, troubleshooting, manual recovery, maintenance, privacy, service and document revision. QR and short URL are optional supplements only.
+
+### 10.6 Recovery and service
+Provide tiered procedures: user-safe checks; operator stop/isolation; authorised technician diagnostics; manufacturer service. Define what customers must not open, bypass, reset or repair. Provide offline fault-code lookup and approved local log export. Recovery must never defeat guards, interlocks or E-stop.
+
+### 10.7 Mandatory verification matrix
+Run on the exact hardware/software build using safe fixtures and a safety observer where needed. Record preconditions, procedure, expected/actual result, evidence/log, tester, date, defects and disposition.
+
+| ID | Test | Acceptance |
+|---|---|---|
+| OFF-01 | No phone; app absent | Basic-use workflow and local stop remain available; no account blocks use |
+| OFF-02 | Wi-Fi disabled; no internet | All declared offline functions remain usable |
+| OFF-03 | Cloud/DNS unavailable | No safety/basic local workflow depends on service |
+| OFF-04 | App terminated while idle | Local controls/status remain correct; connection loss is indicated |
+| OFF-05 | Remote link lost during task | Hazard-analysis-defined safe response; no unsafe continuation |
+| OFF-06 | Delayed, duplicate, replayed, out-of-order command | Request rejected and logged |
+| OFF-07 | Link restored after loss | No automatic motion/task resume; fresh state and deliberate local re-authorisation |
+| OFF-08 | E-stop with all radios disabled | Stop works independently; reset does not auto-restart |
+| OFF-09 | Low power/power interruption | Safe transition; records consistent; no unexpected restart motion |
+| OFF-10 | Local storage full/corrupt | Safety remains effective; local fault shown; protected evidence not silently destroyed |
+| OFF-11 | Sensor/model/runtime unavailable | Feature reports unavailable/uncertain; no fabricated output |
+| OFF-12 | Printed manual only; no QR/phone | User can locate approved safe-use/recovery instructions |
+| OFF-13 | Local service with no cloud | Authorised technician can retrieve allowed diagnostics and recover |
+| OFF-14 | Reboot after fault/link loss | Defined safe startup; no stale command replay |
+| OFF-15 | Wrong language/revision manual | Packaging check catches mismatch before shipment |
+
+All applicable tests must pass with evidence. N/A requires a documented safety rationale and approval. A checklist or simulation alone does not prove physical performance.
+
+### 10.8 Product-specific offline profile
+Coconut Harvest AI: Software-first orchard image assessment. Offline image review, local inference only when installed and compatible, manual human review and local export may be supported. No physical harvesting robot is established; no cutting or actuator operation is implied.
+PUI89 Sentinel: Quadruped inspection robot concept. Local operator control and physical stop must work without remote links. Link loss during motion requires a hazard-analysis-defined controlled stop/hold; mobility and terrain responses require prototype verification.
+
+### 10.9 Release gate and status
+Offline-ready may be claimed only after architecture/hazard review, control/fault matrices, no-phone/no-network usability, applicable OFF tests, stop-path verification, stale-command/reconnection tests, printed-manual proof and service recovery demonstration pass. Use distinct labels **Specified**, **Implemented**, **Tested**, **Validated**, **Released**. This repository change establishes specifications only; it does not claim hardware implementation or passed tests.
