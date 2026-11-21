@@ -1,5 +1,8 @@
 # Coconut Harvest AI
 
+[English](README.md) · [ภาษาไทย](README.th.md)
+
+
 **Local-first coconut maturity assessment and human-reviewed harvest decision support.**
 
 [English project page](https://pui89.github.io/coconut.html) · [ภาษาไทย](https://pui89.github.io/coconut-th.html) · [PUI89 portfolio](https://pui89.github.io/)
