@@ -165,3 +165,88 @@ Before claiming offline capability, test with no smartphone/app, radios disabled
 
 ### 9.6 Status boundary
 This appendix defines proposed engineering requirements only. Mark each item planned, specified, implemented, tested or validated based on evidence. Do not claim the product is fully offline, fail-safe, certified or commercially ready until its applicable release gates pass.
+
+
+## 10. Engineering implementation contract (normative)
+
+This section converts the offline principles into testable product requirements. It is a design specification, not evidence that hardware or software already implements them.
+
+### 10.1 Independence boundaries
+- **Safety independence:** emergency stop, protective interlocks, braking/steering/propulsion safety and safe shutdown must not depend on a smartphone, app process, Wi-Fi, internet, DNS, cloud service, remote operator or subscription.
+- **Basic-use independence:** define a documented minimum-use case that a customer can complete using supplied physical controls and the printed manual alone.
+- **AI independence:** identify each AI function as (a) local and available offline, (b) optional connected enhancement, or (c) unavailable without a service. Never describe category (b) or (c) as offline capability.
+- **Service independence:** provide an authorised local diagnostic/recovery path and downloadable/printable service instructions. Remote support is optional.
+
+### 10.2 Required control and indication design
+For the exact product revision, create a control inventory with: control ID, physical location, action, operating state, feedback, hold/release behaviour, misuse protection, accessibility, and failure response. Define physical STOP and, where hazard analysis requires it, a latching emergency-stop device with deliberate manual reset. Reset must not itself restart motion or hazardous work. Provide local indication for power, ready, active, warning, fault, connectivity loss and safe/stop state using text/icons plus distinguishable light/sound patterns where appropriate. Do not rely on colour alone.
+
+### 10.3 Local software and data architecture
+- Partition safety-related control from app/remote/network services. Remote software must not have authority to override local safety logic.
+- Keep essential control loops and required perception local. Document processor, memory, storage, model, sensor and power dependencies for each offline function.
+- Store events in a bounded local log with timestamp source, sequence number, event severity, software/configuration version and integrity check. Define retention, full-storage behaviour, export and user privacy.
+- On storage full/corrupt, preserve safety behaviour, surface a local fault and avoid silently overwriting protected evidence.
+- Use monotonic sequence/expiry checks for remote requests. Reject expired, duplicated, replayed, out-of-order or unauthenticated commands. Reconnection must require fresh state synchronisation and explicit operator confirmation before any permitted activity.
+- A restart must initialise to a defined safe state. Never restore a previous motion command as an active command.
+
+### 10.4 Connectivity fault handling
+Detect and distinguish: app crash, phone absent, Bluetooth/local radio loss, Wi-Fi loss, internet loss, cloud/service outage, authentication expiry, stale telemetry, sensor loss, model/runtime unavailable and low-power shutdown. For each fault define detection threshold, local indication, allowed functions, prohibited functions, safe response, recovery steps and event log. Remote loss must not be confused with loss of local sensing or loss of the vehicle's own control network.
+
+### 10.5 Printed documentation and packaging
+Each unit must include a complete printed User Manual and a printed Quick Start & Safety Guide in the destination-market language. The complete manual must cover: unpacking, installation, controls, normal operation, offline operation, no-phone operation, no-Wi-Fi/no-internet operation, safe stop/E-stop, power loss, fault indicators, troubleshooting, manual recovery, cleaning, maintenance, data/privacy, service and revision identification. QR and short URL are optional supplements only. The customer must be able to find the correct procedure from printed page numbers, contents and index without scanning anything.
+
+### 10.6 Recovery and service
+Document a tiered recovery path: user-safe checks; operator stop/isolation; authorised technician diagnostics; manufacturer service. Identify what must never be opened, bypassed, reset or repaired by the customer. Provide offline fault-code lookup, local log export using an approved physical/local method, configuration backup/restore rules and a service record. No recovery procedure may defeat guards, interlocks or emergency stop.
+
+### 10.7 Verification matrix — mandatory evidence
+Run and record each test against a specific hardware/software build. Use safe test fixtures and simulated faults before physical trials. Record setup, preconditions, steps, expected result, actual result, evidence/log reference, tester, date, severity and disposition.
+
+| ID | Test condition | Acceptance criteria |
+|---|---|---|
+| OFF-01 | No smartphone and app not installed | Defined basic-use workflow and local stop remain available; no account prompt blocks operation |
+| OFF-02 | Wi-Fi disabled and no internet route | Offline functions listed in the product capability matrix remain usable |
+| OFF-03 | Cloud/DNS/service unavailable | No safety function or basic local workflow fails because of service dependency |
+| OFF-04 | Remote/app process terminated during idle | Local controls and status remain correct; clear connection indication |
+| OFF-05 | Remote/app link lost during active task | Product enters its hazard-analysis-defined safe response; no unsafe continuation |
+| OFF-06 | Delayed, duplicated, replayed and out-of-order request | All stale/invalid requests are rejected and logged |
+| OFF-07 | Connectivity restored after OFF-05 | No automatic motion/task resume; fresh state sync and deliberate local re-authorisation required |
+| OFF-08 | Emergency stop activated with all radios off | E-stop/required stop path functions independently; reset does not auto-restart |
+| OFF-09 | Power interruption and low-energy threshold | Product transitions safely; protected records remain consistent; no unexpected restart motion |
+| OFF-10 | Local storage full or corrupted | Safety remains effective; local fault is indicated; protected evidence is not silently destroyed |
+| OFF-11 | Required sensor or local AI runtime unavailable | Affected AI feature reports unavailable/uncertain; no fabricated result; safe fallback defined |
+| OFF-12 | Printed manual only; no QR or phone | Representative user can find and complete the approved safe basic-use/recovery procedure |
+| OFF-13 | Local service with no cloud | Authorised technician can retrieve allowed diagnostics and complete approved recovery |
+| OFF-14 | Reboot after network loss/fault | Device starts in defined safe state and does not replay stale commands |
+| OFF-15 | Wrong language/revision/manual supplied | Packaging release check detects mismatch before shipment |
+
+**Pass rule:** all applicable tests must pass with evidence; not applicable tests require a documented product-safety rationale and approval. A checklist, simulation or design review alone does not prove hardware performance. Failed or blocked tests must remain visible with owner and corrective action.
+
+### 10.8 Product-specific offline operating profile
+**Coconut Harvest AI**
+- Software-first orchard image assessment. When deployed on a supported local computer, image review, quality checks, four-class visual assessment and record creation may work offline. This repository does not establish a physical harvesting machine. Do not imply cutting, gripping or field robot operation.
+- Offline capability boundary: Offline image import/review; local model only when installed and compatible; manual human review; local export; no cloud requirement. If model/runtime is unavailable, clearly mark AI assessment unavailable and retain manual review.
+
+**PUI89 Sentinel**
+- All-terrain inspection and exploration quadruped concept. Local operator controls, onboard status and physical emergency stop must remain independent of phone, radio and internet. Remote loss during motion must trigger a validated controlled stop/hold or other hazard-analysis-defined safe response; never assume immediate power removal is safe.
+- Offline capability boundary: Local operator control; onboard mission/status/logging where implemented; local sensor/diagnostic review; physical E-stop; no autonomous resume after link recovery. Mobility, fall recovery and terrain responses require physical prototype testing.
+
+**PUI89 AI HOME**
+- Indoor four-wheel assistant concept. Local user controls and safety sensing must remain available without the app. On loss of remote connectivity, stop or safely hold mobility as determined by occupancy, obstacle and stability state; maintain essential local alerts where hardware supports them.
+- Offline capability boundary: Local interaction, local sensing/alerts and local stop when implemented; no remote movement into occupied or unknown spaces; no autonomous resumption after reconnection; physical stop overrides all software.
+
+**PUI89 AI NOMAD**
+- Outdoor/mobile assistant concept. Local operator control and stop must be independent of remote connectivity. Loss of link during movement requires hazard-analysis-defined controlled stop/hold, obstacle-aware safe state and explicit local restart.
+- Offline capability boundary: Local status, sensing and logs where implemented; location sharing is optional; no unattended remote driving; no movement based on stale route/mission commands; local recovery path required.
+
+**PUI89 AI Global SUV**
+- Vehicle concept with rider/driver-first control. Vehicle steering, throttle, braking, propulsion, lighting and OEM safety functions must remain independent of PUI89 app/cloud. Loss of PUI89 connectivity must not change driver control or trigger unsafe braking/steering/engine actions.
+- Offline capability boundary: Driver-operated vehicle functions remain governed by the validated vehicle platform. PUI89 AI advisory functions may become unavailable with clear local indication. Never remote-start, steer, accelerate, brake, shift or move the vehicle under this standard.
+
+**PUI89 AI Step-Through Scooter**
+- Two-wheel rider-first scooter concept. Rider-operated steering, throttle, braking, propulsion, lighting and OEM safety functions must remain independent of PUI89 app/cloud. Loss of connectivity must not cause unexpected motion or control changes.
+- Offline capability boundary: Rider retains direct control. AI advisory may become unavailable with clear local indication. Never remote throttle, steer, brake, activate ignition/motion or move the scooter under this standard.
+
+### 10.9 Release gates
+Do not mark offline-ready until: architecture review is approved; control and fault matrices are complete; local-only usability test passes; no-phone/no-network verification passes; E-stop/stop path is independently verified where applicable; stale-command and reconnection tests pass; printed manual and packaging proof are checked; service/recovery procedure is demonstrated; open safety defects are closed or formally accepted by authorised safety review.
+
+### 10.10 Evidence and status labels
+Use separate labels for **Specified**, **Implemented**, **Tested**, **Validated** and **Released**. Attach test records to each claim. Current repository documentation establishes requirements only unless a specific implementation and test artefact is linked. Never infer implementation from a README or specification.
