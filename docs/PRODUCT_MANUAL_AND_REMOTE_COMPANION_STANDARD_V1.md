@@ -6,7 +6,7 @@
 
 ## 1. Customer commitment
 
-Every shipped unit must include a clear, product-specific printed quick-start and safety guide in the destination-market language, plus a QR code and short readable URL for the complete digital manual. The printed guide must remain useful without a phone, account, app installation, or internet connection. The complete manual must also be available as a downloadable, versioned offline file.
+Every shipped unit must include both (1) the complete printed, product-specific User Manual and (2) a concise printed Quick Start & Safety Guide in the destination-market language. Both must be readable without a phone, QR scan, account, app, Wi-Fi or internet. The QR code and short readable URL are supplementary routes to the digital manual, updates and support; they must never replace printed instructions. A downloadable, versioned offline PDF/HTML edition is an additional copy.
 
 Do not ship a product with machine-translated safety instructions that have not been reviewed by a competent technical translator and product safety reviewer.
 
@@ -37,7 +37,8 @@ Language priority is a planning decision, not evidence of completed translation 
 ## 3. In-the-box documentation
 
 Every retail/service package must contain:
-- Printed multilingual Quick Start Guide, or a destination-language printed guide with a clear language-selection card.
+- Complete printed User Manual in the destination-market language.
+- Printed Quick Start & Safety Guide in the destination-market language, or a clear language-selection card when multiple editions are packed.
 - Printed safety essentials: intended use, prohibited use, warnings, emergency stop/stop procedure, and local operator responsibilities.
 - QR card and short URL to the official product manual, app instructions, support and current document revision.
 - Product identification and hardware/software revision reference.
