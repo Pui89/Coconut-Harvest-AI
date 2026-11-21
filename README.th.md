@@ -72,3 +72,20 @@ Coconut Harvest AI เป็นโครงการเกษตรที่ใ�
 **PUI89 มีผลิตภัณฑ์ที่ active 6 ผลิตภัณฑ์เท่านั้น** Shared AI Core เป็นโครงสร้างพื้นฐานร่วม ไม่ใช่ผลิตภัณฑ์ลำดับที่ 7
 
 สถานะความพร้อมและการกล่าวอ้างทุกอย่างต้องอ้างอิงหลักฐานที่ตรวจสอบได้ ห้ามนำตัวเลขหรือสมรรถนะที่ยังไม่ได้วัดมาเผยแพร่
+
+
+## Evidence Gate และระดับความพร้อมผลิตภัณฑ์
+
+PUI89 ใช้ระดับความพร้อมแบบเรียงลำดับและมี Evidence Gate: **Proposed → Specified → Implemented → Tested → Validated → Product-Ready** ต้องประเมินผลิตภัณฑ์นี้และความสามารถสำคัญแต่ละรายการเทียบกับ Acceptance Criteria ที่กำหนดไว้ล่วงหน้า ภาพแนวคิด การมีโค้ด CI ผ่าน Demo หรือ Simulation เพียงอย่างเดียว ไม่ได้ยืนยันว่า Validated หรือ Product-Ready
+
+**ผลการประเมินตามมาตรฐาน PUI89 v1.0 ในปัจจุบัน: NOT ASSESSED (ยังไม่ได้ประเมินอย่างเป็นทางการ)** ไม่ได้หมายความว่าไม่มีงานวิศวกรรม แต่หมายถึงยังไม่ได้นำหลักฐานที่มีอยู่มาเทียบกับมาตรฐานอย่างเป็นทางการ
+
+| สถานะสาธารณะ | ข้อมูลปัจจุบัน |
+|---|---|
+| ระดับความพร้อม | NOT YET FORMALLY ASSESSED |
+| สถานะหลักฐาน | NOT ASSESSED |
+| ขอบเขตที่ยืนยันแล้ว | เฉพาะคำกล่าวอ้างที่มีหลักฐานรองรับใน README และเอกสารที่ระบุเวอร์ชัน |
+| Product-Ready | ยังไม่มีหลักฐานยืนยัน |
+| Gate ถัดไป | เชื่อมโยงข้อกำหนด โค้ด และผลทดสอบที่มีอยู่ กำหนด Acceptance Criteria และทบทวนชุดหลักฐาน |
+
+[อ่านมาตรฐาน PUI89 ฉบับภาษาอังกฤษ](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/standards/PUI89_EVIDENCE_BASED_ENGINEERING_PRODUCT_READINESS_STANDARD_V1.0.md) · [ฉบับภาษาไทย](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/standards/PUI89_EVIDENCE_BASED_ENGINEERING_PRODUCT_READINESS_STANDARD_V1.0.th.md)
