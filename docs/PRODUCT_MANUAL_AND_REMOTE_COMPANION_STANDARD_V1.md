@@ -134,3 +134,33 @@ Store each language edition with a stable product/document ID, product revision,
 5. Design and test the in-box printed quick-start/QR card.
 6. Build the shared app shell around manuals, pairing, device status and diagnostics.
 7. Add product-specific remote functions only after the relevant hardware and safety interfaces are validated.
+
+
+## 9. Offline Independence & Connectivity Resilience — Product-Specific Requirements
+
+**Normative reference:** [PUI89 Offline Independence & Connectivity Resilience Standard v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_OFFLINE_INDEPENDENCE_CONNECTIVITY_RESILIENCE_STANDARD_V1.0.md). Apply the shared L0 fully-offline, L1 local-connection, L2 internet-connected and L3 remote-service model. L0 is the baseline; higher connectivity levels are optional.
+
+### 9.1 Offline baseline
+Local image import/capture where supported; image-quality checks; on-device maturity assessment only when the approved model, sensors and compute are installed; human review; local result display and storage. If AI resources are unavailable, preserve manual review/recording and mark automated assessment unavailable. Remote loss must not erase local work. No remote cutting, harvesting or actuator commands.
+
+### 9.2 Required local design
+- Printed Quick Start and Safety Guide accompanies every shipped unit; full manual is supplied in an offline-readable form. QR code and human-readable short URL are supplemental only.
+- Physical local controls, local status/fault indication and the applicable stop/emergency-stop path must not depend on the app, Wi-Fi, internet or cloud.
+- Identify the exact local AI/model/sensor/compute functions that remain available offline. Missing inputs, unavailable models, thermal/compute limits and stale observations must produce an explicit unavailable/unknown state, never a fabricated result.
+- Store relevant records and fault events locally with defined capacity, integrity, retention and export/recovery behaviour.
+- Document low-power, power-loss, restart and local service/recovery procedures. Restart must not replay stale remote commands or automatically resume hazardous work.
+
+### 9.3 Connectivity-loss response
+- Detect local-link, internet, cloud, remote-operator and telemetry-freshness failures separately.
+- Reject delayed, duplicated, expired and out-of-order remote commands. Disable remote command acceptance when link state or data freshness is uncertain.
+- Enter the product-specific safe state defined by hazard analysis. Reconnection must not automatically resume mobility or hazardous activity.
+- The local stop and safety interlocks always override the app. No remote bypass is permitted.
+
+### 9.4 Remote Companion boundary
+Remote Companion is optional. It may expose only product functions implemented and verified for the connected hardware/software revision. No remote actuation that could create a hazardous condition is permitted under this specification. Remote diagnostics/status must be authenticated, encrypted, least-privilege, revocable and auditable.
+
+### 9.5 Verification gates
+Before claiming offline capability, test with no smartphone/app, radios disabled, no internet/cloud, link loss during active tasks, stale/duplicate/delayed commands, reconnection, local emergency stop, low power/power loss, restart, full/corrupt local storage, unavailable sensors/model and manual-only troubleshooting. Record exact build/configuration, procedure, expected/actual result, logs, tester, date and defects. A documented test checklist is not evidence of a passed test.
+
+### 9.6 Status boundary
+This appendix defines proposed engineering requirements only. Mark each item planned, specified, implemented, tested or validated based on evidence. Do not claim the product is fully offline, fail-safe, certified or commercially ready until its applicable release gates pass.
