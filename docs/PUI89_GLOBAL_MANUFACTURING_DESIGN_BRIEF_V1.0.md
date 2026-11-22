@@ -107,3 +107,8 @@ Every unresolved dimension, tolerance, material grade, component model, supplier
 Use four distinct labels: **Proposed**, **Specified**, **Tested**, and **Verified**. A design target is not a measured result. A simulation is not physical validation. A component datasheet is not system qualification. Preserve test failures and engineering evidence in controlled internal records; publish only approved summaries.
 
 **PUI89 objective:** a competent engineer in another country can understand the product, identify every open decision, reproduce the approved configuration, build it using qualified processes, inspect it against explicit criteria and maintain it without relying on undocumented founder knowledge.
+
+
+## Mandatory manufacturing handoff control
+
+This brief must be used together with the [PUI89 Global Manufacturing Handoff System v1.0](PUI89_GLOBAL_MANUFACTURING_HANDOFF_SYSTEM_V1.0.md). That system defines the mandatory part/BOM fields, material and process definitions, interface controls, work instructions, inspection and acceptance records, stop-work/TQ/NCR rules, substitution approval, traceability, factory qualification and release authority. If a required value or acceptance criterion is missing, mark it **TBD / NOT RELEASED**; do not guess or procure/build against an assumption.
