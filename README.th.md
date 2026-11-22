@@ -108,3 +108,7 @@ Coconut Harvest AI เป็นโครงการเกษตรที่ใ�
 - [PUI89 Global Manufacturing Handoff System v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_GLOBAL_MANUFACTURING_HANDOFF_SYSTEM_V1.0.md)
 
 **กฎการผลิต:** ซื้อ ผลิต เปลี่ยนชิ้นส่วน ตรวจสอบ หรืออนุมัติผลิตภัณฑ์ได้เฉพาะตาม configuration, revision, drawing, BOM และ work instruction ที่อนุมัติแล้วเท่านั้น หากข้อมูลขาดหายหรือขัดแย้ง ให้ **หยุดงาน — ห้ามเดา** และเปิด Technical Query (TQ) ชุดแบบฟอร์มการผลิตกลางกำลังตรวจสอบใน [PUI89 website PR #639](https://github.com/Pui89/Pui89.github.io/pull/639) และยังไม่ใช่เอกสารอนุญาตให้ผลิต
+
+## นโยบายเทคโนโลยีพร้อมรับอนาคต
+
+ผลิตภัณฑ์นี้ยึดแนวทางตาม [นโยบายเทคโนโลยีพร้อมรับอนาคตของ PUI89 v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/architecture/PUI89_FUTURE_READY_TECHNOLOGY_POLICY_V1.0.th.md) ซึ่งกำหนดให้ออกแบบอินเทอร์เฟซที่อัปเกรดได้ เลือกเทคโนโลยีจากหลักฐาน ตรวจสอบแหล่งที่มา/ใบอนุญาต ควบคุมทรัพยากรแบบ Local-first ทดสอบความเข้ากันได้ มีระบบสำรองที่ปลอดภัย และควบคุมขอบเขตการส่งมอบ โดยติดตามเทคโนโลยีทุกเดือนและทบทวนสถาปัตยกรรมทุกไตรมาส การเพิ่มลิงก์นี้เป็นการอ้างอิงนโยบาย ไม่ได้ยืนยันว่ามีการสลับโมเดล Hardware Abstraction, Sensor Adapter ระบบติดตามอัตโนมัติ หรือการตรวจสอบผลิตภัณฑ์แล้ว
