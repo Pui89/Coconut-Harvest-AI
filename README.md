@@ -135,3 +135,19 @@ Battery runtime, chemistry, capacity, cycle life, charging performance and safet
 **Product-specific offline baseline:** Local image import/capture where supported; image-quality checks; on-device maturity assessment only when the approved model, sensors and compute are installed; human review; local result display and storage. If AI resources are unavailable, preserve manual review/recording and mark automated assessment unavailable. Remote loss must not erase local work. No remote cutting, harvesting or actuator commands.
 
 These are development requirements, not claims of implemented, tested or validated capability.
+
+
+## Latest engineering progress — 22 November 2026
+
+**Maturity:** Implemented — software and evaluation-preparation foundation. **Evidence status:** PARTIAL. This describes software/documentation only; no physical harvesting capability is established.
+
+**Recent verified repository progress:**
+- Merged multilingual user-manual and remote-companion specification (PR #326).
+- Added offline-first requirements, local-operation boundaries and verification status to the README and engineering documentation.
+- Shared AI Core has added a Coconut multi-view image-intake/ZIP-validation workflow and annotation-quality diagnostics; these are evidence-intake controls, not detector-performance results.
+
+**Not established:** an approved rights-cleared orchard dataset, held-out detector accuracy, field harvesting, a built harvesting robot, or validated 0–30 m perception/reach.
+
+**Next evidence gate:** complete source-rights/provenance review, human annotation and QA, leakage-safe dataset splitting, then execute a reproducible CPU evaluation reporting per-class precision, recall, F1, confusion counts, sample sizes, failure cases, runtime and RAM. Record the exact dataset, code commit, environment and results before making performance claims.
+
+**Last reviewed:** 22 November 2026. See [multilingual manual/remote companion PR #326](https://github.com/Pui89/Coconut-Harvest-AI/pull/326) and [Shared AI Core](https://github.com/Pui89/PUI89-Shared-AI-Core).
