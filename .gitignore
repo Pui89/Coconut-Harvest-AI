@@ -24,3 +24,6 @@ credentials/
 .azure/
 .config/gcloud/
 .ssh/
+
+# Python bytecode cache directories are generated and must not be committed.
+__pycache__/
