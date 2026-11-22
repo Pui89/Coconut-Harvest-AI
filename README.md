@@ -186,3 +186,34 @@ For international engineering, factory and worker handoff, use the controlled PU
 - [PUI89 Global Manufacturing Handoff System v1.0](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_GLOBAL_MANUFACTURING_HANDOFF_SYSTEM_V1.0.md)
 
 **Production rule:** Build, buy, substitute, inspect or release only against the exact approved product configuration, revision, drawing, BOM and work instruction. Missing or conflicting values are **STOP — DO NOT GUESS**; raise a Technical Query (TQ). The shared blank manufacturing templates are being reviewed in [PUI89 website PR #639](https://github.com/Pui89/Pui89.github.io/pull/639) and are not yet production authority.
+
+## Future-Ready Technology Policy
+
+This product follows the portfolio-wide [PUI89 Future-Ready Technology Policy v1.0](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/architecture/PUI89_FUTURE_READY_TECHNOLOGY_POLICY_V1.0.md). The policy requires upgradeable interfaces, evidence-based technology selection, provenance/licence review, local-first resource discipline, compatibility testing, safe fallback and controlled release scope. Technology candidates are reviewed monthly and architecture decisions quarterly. This link records policy adoption intent; it does **not** claim that model switching, hardware abstraction, sensor adapters, automated monitoring or product-level validation are already implemented.
+
+## Product-Specific Technology Upgrade Plan
+
+**Gartner 2026 alignment:** Physical AI, Domain-Specific Language Models, hybrid/AI supercomputing and Digital Provenance. See the [canonical portfolio policy](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/architecture/PUI89_FUTURE_READY_TECHNOLOGY_POLICY_V1.0.md).
+
+| Upgrade area | Planned sequence (not yet a capability claim) |
+|---|---|
+| Vision & multimodal AI | Establish licensed image provenance and a reproducible RGB baseline; benchmark detection, classification and segmentation; evaluate multimodal fusion only when it improves crop decisions. |
+| Orchard 3D / multi-view mapping | Define mapping use cases and coordinate/data contracts; evaluate multi-view/depth mapping after the RGB baseline; retain 3D only when measured value justifies its compute and sensor cost. |
+| Edge AI | Benchmark CPU-first inference, memory, latency, power and thermal behaviour; keep model/runtime replaceable and define a fallback. |
+| Domain knowledge assistant | Consider a bounded crop-domain assistant with cited sources and human review; no unsupported agronomic recommendations. |
+
+**First gate:** data rights/provenance, human-verified labels, reproducible metrics and resource baseline. **Status:** Planned roadmap only.
+
+
+## Long-Term Technology Evolution & Anti-Obsolescence Strategy (2027–2030+)
+
+This forward-looking roadmap extends the current P1–P4 development sequence beyond the 2026 trend baseline. It identifies evaluation horizons, not guaranteed future capabilities or fixed adoption dates. Each technology remains conditional on verified user value, provenance and licensing, target-hardware fit, safety, maintainability and reproducible evidence.
+
+| Horizon | Product evolution focus |
+|---|---|
+| 2027 | Establish replaceable vision/model interfaces, licensed dataset provenance, reproducible RGB baselines and CPU-first edge benchmarks. |
+| 2028 | Evaluate multimodal and multi-view perception, depth/3D orchard mapping and crop-specific small/domain models only where measured field value justifies added sensors and compute. |
+| 2029 | Explore spatial/temporal orchard intelligence, crop-state tracking and evidence-grounded decision support with agronomist review. |
+| 2030+ | Maintain model, sensor and edge-hardware portability; evolve toward precision-orchard workflows without depending on one model vendor or sensor generation. |
+
+**Continuous anti-obsolescence rule:** review technology signals monthly, architecture quarterly and the full roadmap annually; trigger an out-of-cycle review when a critical dependency is unsupported, a security issue emerges, or measured performance/resource limits are breached. Keep a verified baseline, migration and rollback path, compatibility/regression tests and a documented decision for every upgrade. Do not adopt a trend solely because it is new. **Status:** Planned roadmap; no future capability is claimed as implemented or validated.
