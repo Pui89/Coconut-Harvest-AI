@@ -217,3 +217,8 @@ Controlled engineering English is authoritative unless a contract specifies othe
 ## 19. Release principle
 
 A factory may manufacture only the exact product, variant, site, process and revision stated in the release record. **No released value = no assumption. No evidence = no pass. No approval = no change. No traceability = no production release.**
+
+
+## Common production templates
+
+Use the controlled [PUI89 Manufacturing Control Templates v1.0](https://github.com/Pui89/Pui89.github.io/tree/main/docs/manufacturing-templates) for requirements, BOM, drawing, interface, control-plan, test-report, change/non-conformance, worker-training and factory-transfer records. Templates contain field definitions only; they are not completed specifications or approval to manufacture.
