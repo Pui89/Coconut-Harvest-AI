@@ -203,3 +203,17 @@ This product follows the portfolio-wide [PUI89 Future-Ready Technology Policy v1
 | Domain knowledge assistant | Consider a bounded crop-domain assistant with cited sources and human review; no unsupported agronomic recommendations. |
 
 **First gate:** data rights/provenance, human-verified labels, reproducible metrics and resource baseline. **Status:** Planned roadmap only.
+
+
+## Long-Term Technology Evolution & Anti-Obsolescence Strategy (2027–2030+)
+
+This forward-looking roadmap extends the current P1–P4 development sequence beyond the 2026 trend baseline. It identifies evaluation horizons, not guaranteed future capabilities or fixed adoption dates. Each technology remains conditional on verified user value, provenance and licensing, target-hardware fit, safety, maintainability and reproducible evidence.
+
+| Horizon | Product evolution focus |
+|---|---|
+| 2027 | Establish replaceable vision/model interfaces, licensed dataset provenance, reproducible RGB baselines and CPU-first edge benchmarks. |
+| 2028 | Evaluate multimodal and multi-view perception, depth/3D orchard mapping and crop-specific small/domain models only where measured field value justifies added sensors and compute. |
+| 2029 | Explore spatial/temporal orchard intelligence, crop-state tracking and evidence-grounded decision support with agronomist review. |
+| 2030+ | Maintain model, sensor and edge-hardware portability; evolve toward precision-orchard workflows without depending on one model vendor or sensor generation. |
+
+**Continuous anti-obsolescence rule:** review technology signals monthly, architecture quarterly and the full roadmap annually; trigger an out-of-cycle review when a critical dependency is unsupported, a security issue emerges, or measured performance/resource limits are breached. Keep a verified baseline, migration and rollback path, compatibility/regression tests and a documented decision for every upgrade. Do not adopt a trend solely because it is new. **Status:** Planned roadmap; no future capability is claimed as implemented or validated.
