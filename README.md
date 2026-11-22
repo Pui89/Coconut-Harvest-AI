@@ -39,6 +39,29 @@ Coconut Harvest AI is an agricultural computer-vision project that helps orchard
 
 **Next evidence gate:** complete image-rights and provenance review, human annotation and QA, leakage-safe dataset splitting, then run a reproducible CPU evaluation. Report per-class precision, recall, F1, confusion counts, sample sizes, failure cases and measured runtime/RAM only after the evaluation has actually run.
 
+
+## Single-Cut, Mixed-Maturity Coconut Bunch (Proposed)
+
+**Design concept:** one coconut bunch is detached with one cut at its bunch attachment point. That single bunch may contain individual coconuts at different visible maturity stages. The system must assess the whole bunch and classify each visible coconut separately; it must not assume that every fruit in one bunch has the same maturity.
+
+The four proposed visual classes are:
+
+1. **Young Green**
+2. **Mature Green**
+3. **Yellow**
+4. **Brown**
+
+**Intended workflow**
+- Capture real images of complete, naturally mixed-maturity bunches before and after cutting, where safely and lawfully available.
+- Detect or segment individual coconuts within the same bunch, preserve a shared bunch identifier, and assign a per-fruit class, confidence/uncertainty and review status.
+- Produce per-bunch counts for all four classes, including zero counts where a class is absent. Mark occluded, overlapping, damaged or ambiguous fruit for human review.
+- Evaluate candidate open-source models on the same rights-cleared, human-annotated real-image dataset. Compare per-class precision, recall and F1, confusion matrix, instance-count accuracy, missed/duplicate detections, uncertainty handling, inference time and peak RAM. Use leakage-safe train/validation/test splits and report sample sizes and failure cases.
+- Treat a **single cut at the bunch attachment** as a future mechanical design requirement. The bunch must be securely supported/captured and its fall path controlled before any cutting trial. Cutting must remain operator-supervised with guarded tooling, emergency stop and a safe state; AI classification alone must never trigger a cut.
+
+**Variable geometry requirement:** investigate different bunch sizes, shapes, fruit sizes, orientations, stem/peduncle geometry, camera viewpoints, lighting and levels of occlusion. The phrase “all dimensions” is a design objective to test across a defined operating envelope—not a claim that one cutter or model can already handle every possible dimension.
+
+**Evidence status:** proposed design and validation plan only. The user will supply or collect real images for testing. No real-image benchmark, selected best model, mixed-bunch accuracy, universal dimensional capability, one-cut mechanical performance or safe physical harvesting capability is established. Do not publish model rankings or performance numbers until reproducible tests have run.
+
 ## Product documentation
 
 - [Software MVP product specification](docs/COCONUT_SOFTWARE_MVP_PRODUCT_SPEC.md)
