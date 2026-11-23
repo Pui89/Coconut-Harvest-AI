@@ -1,4 +1,4 @@
-"""Fail-closed, dependency-free governance audit for coconut image manifests.
+""""Fail-closed, dependency-free governance audit for coconut image manifests.
 
 This tool checks metadata and split hygiene only. It does not inspect pixels,
 verify licences with a rights holder, judge labels, or measure model accuracy.
@@ -6,7 +6,6 @@ verify licences with a rights holder, judge labels, or measure model accuracy.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 from collections import Counter, defaultdict
@@ -16,6 +15,7 @@ LABELS = {"young", "developing_green", "mature_green", "brown_aging"}
 SPLITS = {"train", "validation", "test"}
 RIGHTS_OK = {"permission_verified", "public_domain_verified", "open_license_verified"}
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+GROUP_FIELDS = ("orchard_id", "tree_id", "capture_session_id", "near_duplicate_group")
 
 
 def audit_manifest(document: object) -> dict:
@@ -33,7 +33,9 @@ def audit_manifest(document: object) -> dict:
 
     seen_ids: set[str] = set()
     seen_hashes: set[str] = set()
-    group_splits: dict[str, set[str]] = defaultdict(set)
+    group_splits: dict[str, dict[str, set[str]]] = {
+        field: defaultdict(set) for field in GROUP_FIELDS
+    }
     class_counts: Counter = Counter()
     approved = 0
 
@@ -58,8 +60,7 @@ def audit_manifest(document: object) -> dict:
         else:
             seen_hashes.add(digest)
 
-        for field in ("source_reference", "license_name", "orchard_id",
-                      "tree_id", "capture_session_id", "near_duplicate_group"):
+        for field in ("source_reference", "license_name", *GROUP_FIELDS):
             if not isinstance(record.get(field), str) or not record[field].strip():
                 errors.append(f"{prefix}: {field} is required.")
 
@@ -71,9 +72,11 @@ def audit_manifest(document: object) -> dict:
         split = record.get("split")
         if split not in SPLITS:
             errors.append(f"{prefix}: split must be train, validation, or test.")
-        group = record.get("near_duplicate_group")
-        if isinstance(group, str) and group.strip() and split in SPLITS:
-            group_splits[group].add(split)
+        else:
+            for field in GROUP_FIELDS:
+                group = record.get(field)
+                if isinstance(group, str) and group.strip():
+                    group_splits[field][group].add(split)
 
         label = record.get("label")
         if label not in LABELS:
@@ -82,14 +85,18 @@ def audit_manifest(document: object) -> dict:
             class_counts[label] += 1
 
         reviewers = record.get("independent_reviewers")
-        if (not isinstance(reviewers, list) or len(set(x for x in reviewers if isinstance(x, str))) < 2):
+        if (not isinstance(reviewers, list) or
+                len(set(x for x in reviewers if isinstance(x, str))) < 2):
             errors.append(f"{prefix}: at least two distinct independent reviewers are required.")
         if record.get("annotation_status") != "adjudicated":
             errors.append(f"{prefix}: annotation_status must be adjudicated.")
 
-    for group, splits in sorted(group_splits.items()):
-        if len(splits) > 1:
-            errors.append(f"near_duplicate_group {group!r} crosses splits: {sorted(splits)}.")
+    for field in GROUP_FIELDS:
+        for group, splits in sorted(group_splits[field].items()):
+            if len(splits) > 1:
+                errors.append(
+                    f"{field} {group!r} crosses splits: {sorted(splits)}."
+                )
 
     if set(class_counts) != LABELS:
         missing = sorted(LABELS - set(class_counts))
