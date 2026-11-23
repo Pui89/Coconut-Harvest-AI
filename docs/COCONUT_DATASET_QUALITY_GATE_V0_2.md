@@ -1,4 +1,4 @@
-# Coconut Dataset Quality Gate v0.2
+# Coconut Dataset Quality Gate v0.3
 
 **Status:** Implemented as a dependency-free metadata audit; not yet run in hosted CI or on a real dataset.
 
@@ -36,7 +36,13 @@ The command uses only Python's standard library. It installs nothing and makes n
 
 ## Leakage controls
 
-All images from the same orchard/site, tree, capture session or near-duplicate family should remain in one split. The current validator enforces the declared `near_duplicate_group`; reviewers must construct that group correctly and ensure orchard/tree/session identifiers are grouped consistently before running the audit. A later revision should validate each grouping dimension independently.
+The validator independently enforces split isolation for each declared grouping dimension:
+- `orchard_id`: images from one orchard/site cannot be distributed across train, validation and test.
+- `tree_id`: images from one tree remain in one split.
+- `capture_session_id`: images from one capture session remain in one split.
+- `near_duplicate_group`: exact/near-duplicate families remain in one split.
+
+This is intentionally conservative. If an orchard/site is too broad to support useful splits, define and justify a different grouping protocol before dataset construction; do not silently weaken the gate. Stable pseudonymous group identifiers must be assigned truthfully. The validator checks declared identifiers and cannot discover incorrectly assigned groups or semantic duplicates by itself.
 
 ## Explicit non-claims
 
