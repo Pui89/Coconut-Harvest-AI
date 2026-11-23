@@ -40,6 +40,21 @@ Coconut Harvest AI is an agricultural computer-vision project that helps orchard
 **Next evidence gate:** complete image-rights and provenance review, human annotation and QA, leakage-safe dataset splitting, then run a reproducible CPU evaluation. Report per-class precision, recall, F1, confusion counts, sample sizes, failure cases and measured runtime/RAM only after the evaluation has actually run.
 
 
+## Latest verified progress — 24 November 2026
+
+Recent work has strengthened the evidence and field-validation foundation. These are documentation and software-governance milestones; they do not establish a trained model or a working harvesting robot.
+
+- **Dataset split isolation:** merged validator and tests check group separation using orchard, tree, capture-session and near-duplicate metadata. This is a leakage-control check, not image-rights, label-quality or model-accuracy verification. See [dataset quality gate](docs/COCONUT_DATASET_QUALITY_GATE_V0_2.md).
+- **Public image-source research:** six candidate sources have been documented, with a separate review of their public archive/export paths. No image archive or image file has been downloaded. See [open dataset source audit](docs/COCONUT_OPEN_DATASET_SOURCE_AUDIT_V1.0.md) and [archive access review](docs/COCONUT_DATASET_ARCHIVE_ACCESS_REVIEW_V1.0.md).
+- **Mendeley coconut tree crown:** the public dataset page describes 400 RGB images at 512 × 512 and declares CC BY 4.0. Its archive has not been retrieved or inspected. A linked research description reports a different image count (900); this discrepancy remains unresolved and the counts must not be combined.
+- **CRipS research candidate:** the paper reports an approximately 500-image RGB orchard dataset, but a public downloadable archive and reuse licence have not been verified. It is not approved for training.
+- **Thailand field discovery:** merged a blank [G0 field evidence register](docs/COCONUT_G0_EVIDENCE_REGISTER.md) for future farm, worker-workflow and processor discovery. It contains no interviews, field measurements or customer validation yet.
+
+**Current evidence boundary:** no approved real-orchard training set, image-level rights approval, completed four-class human annotation, trained/evaluated PUI89 model, held-out accuracy metrics or real-world harvesting validation is established. No downloads were made as part of this update.
+
+**Next gate:** verify source files and licence conditions without bypassing access controls; reconcile the four public visual classes with the internal schema; then complete human annotation/QA and leakage-safe splits before any reproducible CPU evaluation.
+
+
 ## Single-Cut, Mixed-Maturity Coconut Bunch (Proposed)
 
 **Design concept:** one coconut bunch is detached with one cut at its bunch attachment point. That single bunch may contain individual coconuts at different visible maturity stages. The system must assess the whole bunch and classify each visible coconut separately; it must not assume that every fruit in one bunch has the same maturity.
