@@ -11,9 +11,9 @@ def record(sample_id, group, split, label):
         "rights_status": "permission_verified",
         "license_name": "Written permission on file",
         "commercial_use_allowed": True,
-        "orchard_id": "orchard-01",
+        "orchard_id": "orchard-" + sample_id,
         "tree_id": "tree-" + sample_id,
-        "capture_session_id": "session-01",
+        "capture_session_id": "session-" + sample_id,
         "near_duplicate_group": group,
         "split": split,
         "label": label,
@@ -50,11 +50,16 @@ class DatasetGateTests(unittest.TestCase):
         data["records"][1]["sha256"] = data["records"][0]["sha256"]
         self.assertEqual(audit_manifest(data)["status"], "BLOCKED")
 
-    def test_near_duplicate_group_cannot_cross_splits(self):
-        data = complete_manifest()
-        data["records"][3]["near_duplicate_group"] = "g-a"
-        result = audit_manifest(data)
-        self.assertTrue(any("crosses splits" in item for item in result["errors"]))
+    def test_each_grouping_dimension_cannot_cross_splits(self):
+        for field in ("orchard_id", "tree_id", "capture_session_id", "near_duplicate_group"):
+            with self.subTest(field=field):
+                data = complete_manifest()
+                data["records"][2][field] = data["records"][0][field]
+                result = audit_manifest(data)
+                self.assertTrue(
+                    any(field in item and "crosses splits" in item for item in result["errors"]),
+                    msg=result["errors"],
+                )
 
     def test_two_independent_reviewers_required(self):
         data = complete_manifest()
