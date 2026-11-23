@@ -88,6 +88,7 @@ Coconut Harvest AI เป็นโครงการเกษตรที่ใ�
 ## 12. เอกสารและลิงก์โครงการ
 
 - [ข้อกำหนดตลาดและวิศวกรรมเพื่อการลดแรงงาน (เอกสารภาษาอังกฤษ)](docs/COCONUT_LABOUR_REDUCTION_MARKET_REQUIREMENTS.md) — กลุ่มลูกค้า ตลาดเป้าหมาย การสำรวจภาคสนาม ตัวชี้วัด และ Gate การพัฒนา
+- [ทะเบียนหลักฐานภาคสนาม G0 ประเทศไทย](docs/COCONUT_G0_EVIDENCE_REGISTER.md) — แบบฟอร์มเปล่าสำหรับบันทึกสวน โรงงาน การสัมภาษณ์ ค่าฐานการทำงาน KPI และการตรวจสอบหลักฐาน
 
 - [ข้อกำหนดผลิตภัณฑ์ Software MVP](docs/COCONUT_SOFTWARE_MVP_PRODUCT_SPEC.md)
 - [เกณฑ์การดำเนินการตรวจสอบภาพจริง](docs/COCONUT_REAL_IMAGE_VALIDATION_EXECUTION_GATES.md)
