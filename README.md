@@ -65,6 +65,7 @@ The four proposed visual classes are:
 ## Product documentation
 
 - [Labour-reduction market and engineering requirements](docs/COCONUT_LABOUR_REDUCTION_MARKET_REQUIREMENTS.md) — target customers, market-validation priorities, engineering requirements, KPIs and development gates.
+- [G0 Thailand field survey](docs/COCONUT_G0_THAILAND_FIELD_SURVEY.md) — bilingual farm, harvesting-team and coconut-milk processor survey template for collecting a measured manual baseline.
 
 - [Software MVP product specification](docs/COCONUT_SOFTWARE_MVP_PRODUCT_SPEC.md)
 - [Real-image validation execution gates](docs/COCONUT_REAL_IMAGE_VALIDATION_EXECUTION_GATES.md)
