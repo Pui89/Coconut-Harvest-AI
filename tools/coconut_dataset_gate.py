@@ -6,7 +6,6 @@ verify licences with a rights holder, judge labels, or measure model accuracy.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 from collections import Counter, defaultdict
