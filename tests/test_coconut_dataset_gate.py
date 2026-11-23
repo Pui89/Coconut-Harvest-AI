@@ -1,3 +1,4 @@
+import hashlib
 import unittest
 
 from tools.coconut_dataset_gate import audit_manifest
@@ -6,7 +7,7 @@ from tools.coconut_dataset_gate import audit_manifest
 def record(sample_id, group, split, label):
     return {
         "sample_id": sample_id,
-        "sha256": (str(len(sample_id)) + "a" * 63)[:64],
+        "sha256": hashlib.sha256(sample_id.encode("utf-8")).hexdigest(),
         "source_reference": "field-consent-001",
         "rights_status": "permission_verified",
         "license_name": "Written permission on file",
