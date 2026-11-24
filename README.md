@@ -1,5 +1,7 @@
 # Coconut Harvest AI
 
+**ภาษาไทย:** [อ่าน README ภาษาไทย](README.th.md)
+
 ## Product and AI system update — 18 November 2026
 
 **Public product summary (EN):** Coconut Harvest AI combines local-first computer vision and human-reviewed harvest decision support with a proposed future robotic harvesting system. The intended assessment uses four visible maturity groups: young green, mature green, yellow and brown. Its workflow checks image quality and provenance, assesses visible fruit, records uncertainty, and prepares a traceable recommendation for a human reviewer.
