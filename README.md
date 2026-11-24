@@ -93,7 +93,7 @@ Cross-product architecture, evidence contracts, safety, privacy, security, recov
 
 Current maturity labels and portfolio scope follow the [PUI89 Portfolio Alignment Register](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_PORTFOLIO_ALIGNMENT_REGISTER_2026-11-18.md) and [Evidence-Based Development Maturity Standard](https://github.com/Pui89/Pui89.github.io/blob/main/docs/PUI89_DEVELOPMENT_STAGE_STANDARD.md).
 
-**PUI89 has six active products.** Shared AI Core is infrastructure, not a seventh product.
+**PUI89 has five active products.** Shared AI Core is infrastructure, not an additional product.
 
 ## AI Model & Intelligence profile
 
