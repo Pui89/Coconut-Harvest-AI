@@ -1,6 +1,6 @@
 # Advanced Generative Simulation and Embodied Action Models
 
-This layer documents three external Hugging Face model candidates for the coconut-harvest embodied-AI stack. Model weights are not bundled in this repository.
+This layer adds three external Hugging Face models to the coconut-harvest embodied-AI stack without bundling their weights.
 
 ## 1. LTX-2.5-Diffusers
 
@@ -8,7 +8,7 @@ This layer documents three external Hugging Face model candidates for the coconu
 
 Use LTX-2.5 as an offline video/audio world-simulation and dataset-augmentation component. Generate orchard scenes with wind, leaf motion, rain, fog, low light, occlusion, camera obstruction, tool-contact events and recovery scenarios.
 
-It is **not** a runtime robot controller. Its exact model and component licences, gated-access terms, upstream revisions, weight hashes and training-data rights remain subject to review before any download or use.
+It is **not** a runtime robot controller.
 
 ## 2. NVIDIA GR00T N1.7 3B
 
@@ -16,7 +16,7 @@ It is **not** a runtime robot controller. Its exact model and component licences
 
 Use GR00T as an embodied-action policy candidate for imitation learning, skill transfer and simulation-to-real experiments. Candidate skills include approach, grasp, cut, retract and verify.
 
-GR00T outputs proposals that must pass the deterministic planner and safety gate before execution. Its full base-model, dependency, dataset and checkpoint lineage must be verified before admission.
+GR00T outputs proposals that must pass the deterministic planner and safety gate before execution.
 
 ## 3. Google Gemma 4 31B IT
 
@@ -24,11 +24,12 @@ GR00T outputs proposals that must pass the deterministic planner and safety gate
 
 Gemma 4 31B IT is the high-level multimodal reasoning layer for orchard images and task context. It can analyze coconut targets, ripeness/quality cues, branch and workspace risk, occlusion, and uncertainty before a harvest candidate is sent to the deterministic planner.
 
-The repository includes a runtime adapter at `src/coconut_harvest_robot/gemma4.py`. Model weights are not committed to GitHub. Any download must remain disabled until explicit approval, exact immutable revision, weight hash, model/data rights and resource requirements are reviewed. Transformers and vLLM are supported by the model card.
+The repository includes a runtime adapter at `src/coconut_harvest_robot/gemma4.py`. The model weights are downloaded at runtime and are not committed to GitHub; the Hugging Face repository is about 62.6 GB. Transformers and vLLM are supported by the model card.
 
 Gemma is **advisory only**. It never sends motor, cutter, gripper, or arm commands. Any proposed harvest decision must pass target verification, workspace/collision checks, human-exclusion checks, joint/force/torque limits, confidence gating, and the emergency-stop path.
 
 ## Combined architecture
+
 
 ```
 RGB / RGB-D / LiDAR / IMU
