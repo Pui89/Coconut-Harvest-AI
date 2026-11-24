@@ -61,6 +61,5 @@ advanced_models:
     - LTX-2.5-Diffusers
   action_candidates:
     - NVIDIA-GR00T-N1.7-3B
-    - FLUX-3-Action-Base
   direct_motor_control: false
   deterministic_safety_gate: required
