@@ -11,6 +11,16 @@
 
 *Concept illustration only. It is not a built robot or evidence of a successful harvest.*
 
+## Image Evidence & Licensing Standard
+
+**Real-world reference:** use genuine coconut-palm/orchard photographs, harvesting practices, coconut bunches at different visible stages, agricultural cameras/sensors and existing robotic components. References show real crops, environments or third-party technology; they do not prove PUI89 harvesting capability.
+
+**PUI89 concept image:** label every proposed mobile harvester, robotic arm, cutting tool, basket and high-reach mechanism as a PUI89 concept unless a physical prototype and test record exist. Concept renders are not evidence of a working robot.
+
+**Evidence caption:** distinguish *Real-world reference*, *PUI89 concept*, *simulation* and *verified test evidence*. State what is actually visible and what remains untested. Four visual classes (young green, mature green, yellow, brown), mixed-stage selection, cutting, basket collection and the 0–30 m reach ambition must not be presented as validated performance without test evidence.
+
+**Image source & licence:** prefer [Wikimedia Commons](https://commons.wikimedia.org/) and [Pexels](https://www.pexels.com/). Record the original page, creator, asset URL, exact licence, required attribution, access date and modifications. Verify the individual asset's reuse, commercial-use and derivative-work conditions before adding it to the repository.
+
 ## What this product is
 
 Coconut Harvest AI is an agricultural computer-vision project that helps orchard operators review visible coconut maturity and prepare traceable harvest-planning decisions. The first product milestone is software-based image assessment; a physical harvesting robot is a later research direction.
