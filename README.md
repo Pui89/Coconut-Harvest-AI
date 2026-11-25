@@ -235,3 +235,76 @@ This forward-looking roadmap extends the current P1–P4 development sequence be
 | 2030+ | Maintain model, sensor and edge-hardware portability; evolve toward precision-orchard workflows without depending on one model vendor or sensor generation. |
 
 **Continuous anti-obsolescence rule:** review technology signals monthly, architecture quarterly and the full roadmap annually; trigger an out-of-cycle review when a critical dependency is unsupported, a security issue emerges, or measured performance/resource limits are breached. Keep a verified baseline, migration and rollback path, compatibility/regression tests and a documented decision for every upgrade. Do not adopt a trend solely because it is new. **Status:** Planned roadmap; no future capability is claimed as implemented or validated.
+
+
+---
+
+## Academic Research Direction — Q1-Targeted Study (Proposed)
+
+**Research topic:** Multimodal Vision AI for Coconut Maturity and Harvest Readiness  
+**Working manuscript title:** *Temporal, Occlusion-Aware Multimodal Vision for Uncertainty-Calibrated Coconut Maturity Assessment under Orchard Conditions*
+
+**Status:** Proposed academic study for lecturer review. The research gap, novelty, protocol, dataset permissions and hypotheses must be verified before the study is approved. No research result or Q1 publication is claimed.
+
+### 1. Problem and motivation
+
+A single RGB image may not provide enough evidence to distinguish coconut maturity reliably. Fruit overlap, partial visibility, changing illumination, camera distance, cultivar, orchard conditions and differences between visible colour and biological maturity can lead to incorrect decisions. The study will investigate whether multiple observations and complementary visual/geometric information can improve maturity assessment while explicitly identifying uncertain cases.
+
+The four product assessment classes remain **young green, mature green, yellow and brown**. Visible colour must not automatically be treated as biological maturity or harvest suitability; the ground-truth protocol must be defined with an agricultural expert.
+
+### 2. Research gap to verify
+
+- Limited evaluation of maturity classification across independent trees, capture sessions and orchards.
+- Performance degradation from occlusion, mixed-maturity bunches, lighting and viewpoint changes.
+- Insufficient calibration and abstention: models may output a confident class when evidence is weak.
+- Limited evidence connecting image observations with expert-confirmed maturity and harvest suitability.
+
+These are candidate gaps, not established claims of being the first or only study.
+
+### 3. Research questions and hypotheses
+
+- **RQ1:** How does temporal or multi-view evidence affect four-class coconut maturity assessment compared with a single RGB frame?
+- **RQ2:** Does adding available depth/geometric information improve performance under occlusion and variable distance?
+- **RQ3:** Can calibrated uncertainty and selective human review reduce consequential classification errors?
+- **H1:** Temporal/multi-view evidence will improve class-wise performance on held-out trees or orchards compared with a matched single-frame baseline.
+- **H2:** An uncertainty-aware model will improve the risk–coverage trade-off by abstaining on ambiguous or heavily occluded fruit.
+
+Hypotheses must be revised after the literature review and power/precision analysis.
+
+### 4. Proposed hybrid-AI method and workflow
+
+1. **Data quality:** verify image rights, provenance, capture metadata and annotation instructions.
+2. **Fruit localisation:** compare a lightweight specialist detector/instance-segmentation model with a strong contemporary vision baseline.
+3. **Visual representation:** evaluate a conventional CNN or vision transformer; assess a suitable vision foundation model only if its origin, licence and resource fit are verified.
+4. **Temporal/multi-view fusion:** associate observations of the same fruit or bunch where identity can be established; compare single-frame, feature-level and decision-level fusion.
+5. **Optional geometry:** incorporate depth or size/shape cues only where calibrated depth data are genuinely available.
+6. **Decision reliability:** evaluate probability calibration, uncertainty estimation and abstention/human-review thresholds.
+7. **Decision support:** produce per-fruit and per-bunch class counts with provenance and review status. The AI must not autonomously trigger cutting or harvesting.
+
+### 5. Candidate datasets and data collection
+
+- **Essential original data:** permissioned coconut orchard images/video, with tree, bunch, fruit, orchard, date/session, camera, lighting, viewpoint and occlusion metadata.
+- Obtain expert-reviewed labels for the four classes and document how borderline cases are adjudicated. Where biological maturity is claimed, collect an appropriate independent ground-truth measure rather than relying on colour alone.
+- RGB-D fruit datasets such as **AmodalAppleSize RGB-D** may be considered for methodological transfer or geometry experiments; they are not coconut maturity ground truth.
+- Public coconut image sources remain candidates until archive accessibility, licence, provenance and image-level suitability are independently verified. Do not treat a dataset webpage as proof that its files are approved for training.
+
+### 6. Experimental design
+
+- **Baselines:** class-prior/majority baseline; colour/texture features where justified; compact CNN; specialist detector/classifier; contemporary transformer or foundation-feature baseline with matched evaluation conditions.
+- **E1:** single-frame versus temporal/multi-view input.
+- **E2:** RGB-only versus RGB plus calibrated depth/geometric features.
+- **E3:** stratified occlusion, overlap, distance, illumination and mixed-maturity bunch tests.
+- **E4:** calibration and selective prediction; plot risk versus coverage and review workload.
+- **E5:** grouped generalisation to held-out trees, sessions and preferably a separate orchard.
+- **E6:** CPU-first latency, throughput, peak RAM and model-size measurements.
+
+**Primary outcomes:** pre-register macro-F1 or balanced accuracy as the primary endpoint, with per-class precision/recall and confusion matrix.  
+**Secondary outcomes:** instance-count error, calibration (Brier score/reliability diagram and carefully specified ECE), selective risk/coverage, latency, RAM and model size.
+
+### 7. Expected scientific contribution
+
+A reproducible, orchard-aware evaluation protocol and a temporal/occlusion-aware, uncertainty-calibrated coconut maturity method, including explicit human-review behaviour and evidence about when additional modalities help or do not help.
+
+### 8. Validation, ethics and publication gates
+
+Use leakage-resistant splits grouped by tree, bunch, capture session and orchard; keep near-duplicates together and seal the test set. Report annotator agreement, sample counts, confidence intervals, failure cases and negative results. Confirm landowner/worker permissions and image privacy. A Q1 submission requires verified novelty against current literature and independent evidence; Q1 status or acceptance is not guaranteed.
