@@ -11,6 +11,16 @@
 
 *Concept illustration only. It is not a built robot or evidence of a successful harvest.*
 
+## Image Evidence & Licensing Standard
+
+**Real-world reference:** use genuine coconut-palm/orchard photographs, harvesting practices, coconut bunches at different visible stages, agricultural cameras/sensors and existing robotic components. References show real crops, environments or third-party technology; they do not prove PUI89 harvesting capability.
+
+**PUI89 concept image:** label every proposed mobile harvester, robotic arm, cutting tool, basket and high-reach mechanism as a PUI89 concept unless a physical prototype and test record exist. Concept renders are not evidence of a working robot.
+
+**Evidence caption:** distinguish *Real-world reference*, *PUI89 concept*, *simulation* and *verified test evidence*. State what is actually visible and what remains untested. Four visual classes (young green, mature green, yellow, brown), mixed-stage selection, cutting, basket collection and the 0–30 m reach ambition must not be presented as validated performance without test evidence.
+
+**Image source & licence:** prefer [Wikimedia Commons](https://commons.wikimedia.org/) and [Pexels](https://www.pexels.com/). Record the original page, creator, asset URL, exact licence, required attribution, access date and modifications. Verify the individual asset's reuse, commercial-use and derivative-work conditions before adding it to the repository.
+
 ## What this product is
 
 Coconut Harvest AI is an agricultural computer-vision project that helps orchard operators review visible coconut maturity and prepare traceable harvest-planning decisions. The first product milestone is software-based image assessment; a physical harvesting robot is a later research direction.
@@ -39,6 +49,27 @@ Coconut Harvest AI is an agricultural computer-vision project that helps orchard
 
 **Next evidence gate:** complete image-rights and provenance review, human annotation and QA, leakage-safe dataset splitting, then run a reproducible CPU evaluation. Report per-class precision, recall, F1, confusion counts, sample sizes, failure cases and measured runtime/RAM only after the evaluation has actually run.
 
+
+## What we are building now — 25 November 2026
+
+**Current implementation focus: prove the AI vision workflow before building harvesting hardware.** The active milestone remains a local-first software prototype and evidence preparation. We are not currently claiming a trained coconut detector, automatic four-class maturity model, or working robot.
+
+### Current work
+1. **Dataset evidence:** identify candidate coconut image sources and verify file-level provenance, licence/permission and permitted use before accepting images.
+2. **Human-reviewed labels:** define and review the four visible classes — young green, mature green, yellow and brown — while separating visible appearance from biological maturity and harvest suitability.
+3. **Dataset quality:** check annotation geometry, duplicates and leakage-safe splits grouped by orchard/tree/capture session.
+4. **First reproducible AI baseline:** after the data gate passes, evaluate a suitable open-source vision model locally on CPU; publish per-class precision, recall, F1, confusion counts, sample sizes, failure cases, runtime and RAM. Until then, model metrics remain NOT MEASURED.
+5. **Harvest decision support:** keep target-stage selection, uncertainty handling, safety checks and human approval as advisory software. No actuator command or automatic cut is enabled.
+
+### Intended product workflow (future integration)
+Orchard camera/image input → image-quality and provenance checks → coconut/bunch detection → per-fruit four-class assessment → operator selects **Selective Harvest** or **Mixed-Stage Harvest** → location/reach/obstacle and safety checks → human approval → future supported cutting/collection mechanism → outcome and audit record.
+
+A mixed-maturity bunch must be assessed fruit by fruit. The proposed mechanical concept is one controlled cut at the bunch attachment, with the bunch supported before release. Future collection options include a basket or a controlled drop into a verified clear landing area. These are design requirements, not implemented capabilities.
+
+### Robotics research direction
+The longer-term concept is a mobile orchard vehicle with perception sensors, navigation, a robotic arm and a guarded cutting/retention mechanism. The **0–30 m** palm-height range is a long-term research challenge: seeing a bunch, reaching it mechanically and safely harvesting it are separate problems requiring separate evidence. No height range, autonomous cutting, basket handling or field operation is currently validated.
+
+**Immediate next gate:** complete image-rights/provenance review and human annotation QA, freeze leakage-safe dataset splits, then run and publish the first reproducible CPU vision benchmark. Do not advance to physical harvesting trials until a separate mission definition, engineering design, hazard analysis and supervised test plan are approved.
 
 ## Latest verified progress — 24 November 2026
 
