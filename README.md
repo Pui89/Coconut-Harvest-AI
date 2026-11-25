@@ -344,3 +344,37 @@ Use leakage-resistant splits grouped by tree, bunch, capture session and orchard
 
 The [360° Intelligence Profile v1.0](docs/PUI89_360_DEGREE_INTELLIGENCE_PROFILE_V1.0.md) defines multi-view orchard/tree/bunch perception, cross-view fruit association, duplicate-count prevention and human review. **Status: Proposed**; no 360° camera system or field result is established.
 \n\n## Hybrid End-to-End Multimodal AI\n[PUI89 Hybrid End-to-End AI Product Adapter v1.0](docs/architecture/PUI89_HYBRID_END_TO_END_AI_ADAPTER_V1.0.md) — proposed architecture and project-specific adoption plan. E2E benefits require comparative evidence; product boundaries, independent safety and evidence gates remain mandatory.\n
+
+---
+
+## Advanced AI Specializations & Capability Status
+
+This project adopts the shared PUI89 advanced AI specialization framework. The entries below are **candidate capability allocations**, not claims of completed models or validated performance.
+
+| Specialization | Intended product role | Current status |
+|---|---|---|
+| World Models | Product-specific research/application role | SPECIFIED |
+| Imitation Learning (future harvesting-robotics research) | Product-specific research/application role | SPECIFIED |
+| Fault-Tolerant AI | Product-specific research/application role | SPECIFIED |
+
+## Capability maturity status
+
+Use exactly these maturity labels across README, architecture and evidence reports:
+
+| Status | Meaning | Minimum evidence to advance |
+|---|---|---|
+| NOT STARTED | No approved specification or implementation work exists for the capability. | A reviewed scope and owner are recorded before moving to SPECIFIED. |
+| SPECIFIED | Intended behaviour, interfaces, constraints and acceptance criteria are documented. | Versioned design, inputs/outputs, operating envelope, risks and test plan. |
+| IMPLEMENTED | A code or model component exists for the stated bounded scope. | Traceable source revision, dependency/provenance record and reproducible build or execution instructions. |
+| SOFTWARE-TESTED | Automated software tests pass for the declared scope. | Reproducible test report, test environment, cases, failures and limitations. |
+| BENCH-TESTED | Measured against a named benchmark, dataset or simulation protocol. | Pinned inputs/revisions, metrics, baseline, resource measurements, uncertainty and error analysis. |
+| VALIDATED | Evidence supports the capability in its explicitly defined operating environment. | Independent/repeatable validation, safety review, limitations and signed acceptance evidence. |
+
+A status applies only to the named capability, version and operating envelope. Passing a lower stage does not imply a higher one. A successful CI workflow is not AI-performance or physical-system validation.
+
+
+**Development constraints:** Free/open-source-first, local/offline and CPU-first where practical. No paid API, subscription, metered inference, hosted endpoint or paid cloud GPU. All candidate models, tools, datasets and dependencies must pass PUI89's non-Chinese-origin, licence, security and supply-chain review. No download, installation, execution or hardware test without separate explicit approval.
+
+**Safety boundary:** AI outputs are evidence or bounded proposals, not actuator authority. Preserve human oversight, uncertainty, abstention, fault reporting and product-specific safety controls.
+
+**Architecture:** [Advanced AI Specialization Architecture v1.0](docs/architecture/PUI89_ADVANCED_AI_SPECIALIZATION_ARCHITECTURE_V1.0.md) · [Shared AI Core](https://github.com/Pui89/PUI89-Shared-AI-Core) · [Model Intelligence Framework v1.1](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/feature/mif-v1.1-advanced-robotics-free-stack/docs/architecture/PUI89_MODEL_INTELLIGENCE_FRAMEWORK_V1.1.md)
