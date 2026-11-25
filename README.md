@@ -308,3 +308,7 @@ A reproducible, orchard-aware evaluation protocol and a temporal/occlusion-aware
 ### 8. Validation, ethics and publication gates
 
 Use leakage-resistant splits grouped by tree, bunch, capture session and orchard; keep near-duplicates together and seal the test set. Report annotator agreement, sample counts, confidence intervals, failure cases and negative results. Confirm landowner/worker permissions and image privacy. A Q1 submission requires verified novelty against current literature and independent evidence; Q1 status or acceptance is not guaranteed.
+
+## 360° Intelligence
+
+The [360° Intelligence Profile v1.0](docs/PUI89_360_DEGREE_INTELLIGENCE_PROFILE_V1.0.md) defines multi-view orchard/tree/bunch perception, cross-view fruit association, duplicate-count prevention and human review. **Status: Proposed**; no 360° camera system or field result is established.
