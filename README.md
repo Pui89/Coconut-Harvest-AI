@@ -370,3 +370,12 @@ The intended local console is for orchard/session setup, local image or camera-i
 - Use the common POWER OFF → POWER ON/SELF-CHECK → NOT READY/READY → OPERATING → STOPPING → SHUTDOWN lifecycle, with FAULT/RECOVERY handling.
 
 See the [PUI89 Universal Local Console Architecture v1.0 — Draft PR](https://github.com/Pui89/PUI89-Shared-AI-Core/pull/210) for the shared bilingual requirements. This is a proposed design, not evidence of a functioning console.
+
+
+## Simple Local Intelligence for Offline and Uncertain Conditions
+
+**Design requirement — not implemented or field-validated.** Keep essential functions on-device; no mandatory cloud, internet, phone app or remote control. Use energy conservatively: warn at a validated low-power threshold, shed nonessential workloads first, and preserve energy for a safe stop. Do not assume self-charging or unlimited runtime.
+
+Coconut workflow: perform supported image assessment and review locally; retain original images and decision history. LOW POWER should preserve essential records and allow safe manual stop. No autonomous cutting.
+
+When inputs are missing, stale, conflicting or unreliable, show the reason and abstain from the affected action. Use only verified local data and capabilities. If safety, route confidence or energy reserve is insufficient, enter SAFE STOP / NEED HELP rather than guessing. “Offline capable” does not mean guaranteed operation in every remote, wild, underground or deep-field environment.
