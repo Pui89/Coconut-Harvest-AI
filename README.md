@@ -355,3 +355,27 @@ This product follows the [PUI89 Six-Product Environmental, Material & Safety Qua
 **Status: Proposed / Not implemented / Not tested.** Vibration monitoring requires physical sensing hardware plus embedded acquisition and software/AI analysis; it is not AI-only. Candidate hardware: a 3-axis accelerometer/IMU on the frame and, subject to mechanical review, the harvesting head/tool mount or motor/gearbox housing. Analyse imbalance, looseness, wear and impacts; correlate motor current/RPM only if available.
 
 The product console must separately show: **Hardware** (sensor present/type/location/connection/calibration); **Embedded & Signal Processing** (acquisition, RMS/peak/FFT and data quality); **AI/Analytics** (anomaly/trend model and confidence); **Integration** (module mapping and maintenance workflow); and **Overall capability** (Hardware required / AI-Software only / Hardware + AI / Not available). Use explicit Not installed, No live data, Not tested and TBD states. Never fabricate live vibration values or show healthy status without sensor data. Sensor model, range, bandwidth, sampling, mounting, calibration, baseline, thresholds, false alarms and detection latency require evidence. AI diagnosis is advisory; independent safety controls retain stop authority. See the shared [six-product vibration and console framework](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/feature/vibration-detection-console-v1/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.md).
+
+
+## Local Product Console — Proposed
+
+**Status: Proposed / Not implemented / Not tested.** No physical harvesting-machine console, selected display hardware or live console integration is established.
+
+The intended local console is for orchard/session setup, local image or camera-input status, image-quality and provenance checks, four-class maturity-review workflow, uncertainty and human-review queues, and diagnostics when supported hardware exists. The first software milestone may run on a local computer; it does not imply a built harvesting machine.
+
+- Operate locally without requiring a phone application, remote control, cloud account or internet for essential functions.
+- Show measured input status separately from AI estimates, missing/stale data and human-approved decisions.
+- AI remains advisory. It cannot authorize cutting or command a harvesting actuator.
+- Any future mobile/actuated harvesting machine requires independently engineered physical emergency stop, guarding, interlocks and safe-state behaviour. A screen shutdown control is not an emergency stop.
+- Use the common POWER OFF → POWER ON/SELF-CHECK → NOT READY/READY → OPERATING → STOPPING → SHUTDOWN lifecycle, with FAULT/RECOVERY handling.
+
+See the [PUI89 Universal Local Console Architecture v1.0 — Draft PR](https://github.com/Pui89/PUI89-Shared-AI-Core/pull/210) for the shared bilingual requirements. This is a proposed design, not evidence of a functioning console.
+
+
+## Simple Local Intelligence for Offline and Uncertain Conditions
+
+**Design requirement — not implemented or field-validated.** Keep essential functions on-device; no mandatory cloud, internet, phone app or remote control. Use energy conservatively: warn at a validated low-power threshold, shed nonessential workloads first, and preserve energy for a safe stop. Do not assume self-charging or unlimited runtime.
+
+Coconut workflow: perform supported image assessment and review locally; retain original images and decision history. LOW POWER should preserve essential records and allow safe manual stop. No autonomous cutting.
+
+When inputs are missing, stale, conflicting or unreliable, show the reason and abstain from the affected action. Use only verified local data and capabilities. If safety, route confidence or energy reserve is insufficient, enter SAFE STOP / NEED HELP rather than guessing. “Offline capable” does not mean guaranteed operation in every remote, wild, underground or deep-field environment.
