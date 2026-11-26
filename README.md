@@ -344,3 +344,7 @@ Use leakage-resistant splits grouped by tree, bunch, capture session and orchard
 
 The [360° Intelligence Profile v1.0](docs/PUI89_360_DEGREE_INTELLIGENCE_PROFILE_V1.0.md) defines multi-view orchard/tree/bunch perception, cross-view fruit association, duplicate-count prevention and human review. **Status: Proposed**; no 360° camera system or field result is established.
 \n\n## Hybrid End-to-End Multimodal AI\n[PUI89 Hybrid End-to-End AI Product Adapter v1.0](docs/architecture/PUI89_HYBRID_END_TO_END_AI_ADAPTER_V1.0.md) — proposed architecture and project-specific adoption plan. E2E benefits require comparative evidence; product boundaries, independent safety and evidence gates remain mandatory.\n
+
+## Environmental, Material & Safety Qualification
+
+This product follows the [PUI89 Six-Product Environmental, Material & Safety Qualification Framework](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.md). Coconut-specific candidate requirements cover orchard rain/dust, humidity, UV, defined agricultural chemicals, corrosion, optical-window protection, guarded mechanisms and electrical/battery safety. All ratings and material choices are proposed only; no product-level IP rating, fire classification or field durability is claimed.
