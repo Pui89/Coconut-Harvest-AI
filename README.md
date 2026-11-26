@@ -379,3 +379,10 @@ See the [PUI89 Universal Local Console Architecture v1.0 — Draft PR](https://g
 Coconut workflow: perform supported image assessment and review locally; retain original images and decision history. LOW POWER should preserve essential records and allow safe manual stop. No autonomous cutting.
 
 When inputs are missing, stale, conflicting or unreliable, show the reason and abstain from the affected action. Use only verified local data and capabilities. If safety, route confidence or energy reserve is insufficient, enter SAFE STOP / NEED HELP rather than guessing. “Offline capable” does not mean guaranteed operation in every remote, wild, underground or deep-field environment.
+
+
+## Self-Recovery and Camera-Assisted Awareness
+
+**Proposed requirements — not implemented, camera hardware not selected, not field-validated.** A restart returns to a safe software state and repeats self-checks; it never automatically resumes harvesting motion or erases fault history. On a jam, sensor fault or abnormal current, stop cutting/actuation, preserve images and fault logs, diagnose within safe limits, and resume only after the cause is cleared. Suspected short circuit, overheating or physical damage requires hardware isolation and human inspection; never repeatedly power-cycle.
+
+A local camera is intended to capture fruit, canopy and tool-workspace images for assessment and operator review. Camera selection remains TBD; specify field of view, low-light performance, resolution/frame rate, interface, power, mounting, privacy, environmental protection, model and origin before selection. Camera is not the sole safety sensor and cannot verify hidden internal damage.
