@@ -265,3 +265,10 @@ Coconut Harvest AI เป็นโครงการเกษตรที่ใ�
 ## การตรวจสอบคุณสมบัติด้านสภาพแวดล้อม วัสดุ และความปลอดภัย
 
 ผลิตภัณฑ์นี้ใช้ [กรอบ PUI89 Six-Product Environmental, Material & Safety Qualification](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.th.md) ข้อกำหนดเฉพาะ Coconut ครอบคลุมฝน/ฝุ่นในสวน ความชื้น UV สารเคมีเกษตรที่ระบุ การกัดกร่อน การป้องกันหน้าต่างกล้อง กลไกที่มีการ์ด และความปลอดภัยทางไฟฟ้า/แบตเตอรี่ ระดับการป้องกันและวัสดุทั้งหมดเป็นเพียงข้อเสนอ ยังไม่มีการกล่าวอ้างระดับ IP การจำแนกการลามไฟ หรือความทนทานภาคสนามของผลิตภัณฑ์
+
+
+## การตรวจจับแรงสั่นสะเทือนและการแสดงผลบน Console
+
+**สถานะ: Proposed / Not implemented / Not tested.** การตรวจจับแรงสั่นต้องใช้เซนเซอร์จริงร่วมกับ Embedded Acquisition และ Software/AI ไม่ใช่ AI อย่างเดียว Hardware ที่ควรศึกษา: Accelerometer 3 แกน/IMU บนโครง และอาจติดตั้งที่หัวเก็บเกี่ยว/จุดยึดเครื่องมือหรือตัวเรือนมอเตอร์/เกียร์หลังทบทวนทางกล วิเคราะห์ความไม่สมดุล การคลายตัว การสึกและแรงกระแทก เชื่อมกระแสมอเตอร์/RPM เมื่อมีข้อมูลจริง
+
+Console ต้องแยก **Hardware** (มีเซนเซอร์ ชนิด/ตำแหน่ง/การเชื่อมต่อ/Calibration), **Embedded & Signal Processing** (Acquisition, RMS/Peak/FFT และคุณภาพข้อมูล), **AI/Analytics** (โมเดลตรวจจับ/แนวโน้มและ Confidence), **Integration** (จับคู่โมดูลและ Workflow ซ่อม) และ **Overall capability** (Hardware required / AI-Software only / Hardware + AI / Not available) ใช้สถานะ Not installed, No live data, Not tested และ TBD ห้ามสร้างค่าการสั่นสดหรือแสดง Healthy เมื่อไม่มีข้อมูล ต้องมีหลักฐานรุ่นเซนเซอร์ ช่วงวัด Bandwidth Sampling จุดยึด Calibration Baseline Threshold False Alarm และ Detection Latency การวินิจฉัยของ AI เป็นคำแนะนำ ระบบความปลอดภัยอิสระมีอำนาจหยุด ดู [กรอบ Vibration และ Console ทั้ง 6 ผลิตภัณฑ์](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/feature/vibration-detection-console-v1/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.th.md)
