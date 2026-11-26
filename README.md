@@ -344,3 +344,14 @@ Use leakage-resistant splits grouped by tree, bunch, capture session and orchard
 
 The [360° Intelligence Profile v1.0](docs/PUI89_360_DEGREE_INTELLIGENCE_PROFILE_V1.0.md) defines multi-view orchard/tree/bunch perception, cross-view fruit association, duplicate-count prevention and human review. **Status: Proposed**; no 360° camera system or field result is established.
 \n\n## Hybrid End-to-End Multimodal AI\n[PUI89 Hybrid End-to-End AI Product Adapter v1.0](docs/architecture/PUI89_HYBRID_END_TO_END_AI_ADAPTER_V1.0.md) — proposed architecture and project-specific adoption plan. E2E benefits require comparative evidence; product boundaries, independent safety and evidence gates remain mandatory.\n
+
+## Environmental, Material & Safety Qualification
+
+This product follows the [PUI89 Six-Product Environmental, Material & Safety Qualification Framework](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.md). Coconut-specific candidate requirements cover orchard rain/dust, humidity, UV, defined agricultural chemicals, corrosion, optical-window protection, guarded mechanisms and electrical/battery safety. All ratings and material choices are proposed only; no product-level IP rating, fire classification or field durability is claimed.
+
+
+## Vibration Detection & Console Classification
+
+**Status: Proposed / Not implemented / Not tested.** Vibration monitoring requires physical sensing hardware plus embedded acquisition and software/AI analysis; it is not AI-only. Candidate hardware: a 3-axis accelerometer/IMU on the frame and, subject to mechanical review, the harvesting head/tool mount or motor/gearbox housing. Analyse imbalance, looseness, wear and impacts; correlate motor current/RPM only if available.
+
+The product console must separately show: **Hardware** (sensor present/type/location/connection/calibration); **Embedded & Signal Processing** (acquisition, RMS/peak/FFT and data quality); **AI/Analytics** (anomaly/trend model and confidence); **Integration** (module mapping and maintenance workflow); and **Overall capability** (Hardware required / AI-Software only / Hardware + AI / Not available). Use explicit Not installed, No live data, Not tested and TBD states. Never fabricate live vibration values or show healthy status without sensor data. Sensor model, range, bandwidth, sampling, mounting, calibration, baseline, thresholds, false alarms and detection latency require evidence. AI diagnosis is advisory; independent safety controls retain stop authority. See the shared [six-product vibration and console framework](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/feature/vibration-detection-console-v1/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.md).
