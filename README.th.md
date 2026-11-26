@@ -260,3 +260,8 @@ Coconut Harvest AI เป็นโครงการเกษตรที่ใ�
 ## 360° Intelligence
 
 เพิ่มข้อกำหนดการมองหลายมุมรอบต้นมะพร้าวและทะลาย เพื่อช่วยเชื่อมโยงภาพ ตรวจจับผลซ้ำ และประเมินผลมะพร้าวรายลูก โดยต้องมีแหล่งที่มาภาพ การตรวจสอบโดยมนุษย์ และการจัดการส่วนที่ถูกบัง ดู [360° Intelligence Profile v1.0](docs/PUI89_360_DEGREE_INTELLIGENCE_PROFILE_V1.0.md) และ [สถาปัตยกรรมกลาง](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/PUI89_360_DEGREE_INTELLIGENCE_V1.0.md) **สถานะ: Proposed** ยังไม่มีระบบกล้อง 360° หรือผลทดสอบภาคสนามที่ยืนยันแล้ว
+
+
+## การตรวจสอบคุณสมบัติด้านสภาพแวดล้อม วัสดุ และความปลอดภัย
+
+ผลิตภัณฑ์นี้ใช้ [กรอบ PUI89 Six-Product Environmental, Material & Safety Qualification](https://github.com/Pui89/PUI89-Shared-AI-Core/blob/main/docs/standards/PUI89_SIX_PRODUCT_ENVIRONMENTAL_MATERIAL_SAFETY_QUALIFICATION_V1.0.th.md) ข้อกำหนดเฉพาะ Coconut ครอบคลุมฝน/ฝุ่นในสวน ความชื้น UV สารเคมีเกษตรที่ระบุ การกัดกร่อน การป้องกันหน้าต่างกล้อง กลไกที่มีการ์ด และความปลอดภัยทางไฟฟ้า/แบตเตอรี่ ระดับการป้องกันและวัสดุทั้งหมดเป็นเพียงข้อเสนอ ยังไม่มีการกล่าวอ้างระดับ IP การจำแนกการลามไฟ หรือความทนทานภาคสนามของผลิตภัณฑ์
