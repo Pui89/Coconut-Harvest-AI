@@ -379,3 +379,48 @@ See the [PUI89 Universal Local Console Architecture v1.0 — Draft PR](https://g
 Coconut workflow: perform supported image assessment and review locally; retain original images and decision history. LOW POWER should preserve essential records and allow safe manual stop. No autonomous cutting.
 
 When inputs are missing, stale, conflicting or unreliable, show the reason and abstain from the affected action. Use only verified local data and capabilities. If safety, route confidence or energy reserve is insufficient, enter SAFE STOP / NEED HELP rather than guessing. “Offline capable” does not mean guaranteed operation in every remote, wild, underground or deep-field environment.
+
+<!-- PUI89_DAILY_PROGRESS:START -->
+## PUI89 project intelligence dashboard
+
+**🟡 50% — Developing evidence stage** · **Evidence score:** 50/100  
+**Evidence coverage:** 88% of readiness gates have non-zero credits · **Coverage-derived confidence:** High  
+**Review:** 27 November 2026 07:46 (Asia/Bangkok) · **Cycle:** Daily  
+**Progress:** 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 50%
+
+This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance. Scores do not increase with time. Credits change only after human review of traceable evidence.
+
+| Readiness gate | Evidence credit | Visual score |
+|---|---:|---|
+| Purpose & requirements | 10/10 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 |
+| Architecture & engineering | 9/10 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ |
+| Working software baseline | 11/15 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ |
+| Reproducible tests & evaluation | 13/15 | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ |
+| Integrated product prototype | 0/15 | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
+| Safety & real-world validation | 2/15 | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
+| Licensing & regulatory readiness | 3/10 | 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ |
+| Release package & support | 2/10 | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ |
+| **Total** | **50/100** | **🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜** |
+
+### Monthly history (latest snapshot per month)
+| Month | Score | Graph |
+|---|---:|---|
+| 2026-11 | 50% | 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ |
+
+### Shared AI Core integration
+**100% verified** (6/6 integration controls). Only controls marked verified with a supporting evidence_ref count. See docs/shared-ai-core-integration.json.
+
+### Security and repository health
+🟢 No high-confidence private-key, GitHub-token or AWS-access-key patterns detected by this limited scan.
+
+- Licence file: present
+- Security policy: present
+- Dependency manifests: 3 detected
+- Workflow files: 27 detected
+- Review details: docs/project-health-latest.json
+
+**Next milestone:** Add traceable, reproducible evidence for: Integrated product prototype.
+
+**Limitations:** This automated check is a first-line repository review, not a complete security audit, licence opinion, dependency vulnerability scan, branch-ruleset verification or physical safety validation. Software tests and simulations do not establish a built, certified or field-tested robot.
+
+<!-- PUI89_DAILY_PROGRESS:END -->
