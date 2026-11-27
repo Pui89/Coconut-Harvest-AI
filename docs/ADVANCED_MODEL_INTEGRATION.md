@@ -18,14 +18,6 @@ Use GR00T as an embodied-action policy candidate for imitation learning, skill t
 
 GR00T outputs proposals that must pass the deterministic planner and safety gate before execution.
 
-## 3. FLUX 3 Action Base
-
-**Source:** black-forest-labs/flux-3-action-base
-
-FLUX 3 Action Base is treated as an adaptation component for world/action prediction. It can condition on camera frames, robot state and language and produce candidate action chunks together with future video.
-
-Important: this repository is an **action base, not a complete coconut-harvesting policy**. A new embodiment needs its own action head and validation.
-
 ## 4. Google Gemma 4 31B IT
 
 **Source:** google/gemma-4-31B-it — [Hugging Face](https://huggingface.co/google/gemma-4-31B-it)
@@ -56,7 +48,7 @@ Future perception (not selected) + SAM3 + tracking
         +--> future prediction
         |
         v
-GR00T N1.7 / FLUX 3 Action
+GR00T N1.7
 (candidate actions only)
         |
         v
