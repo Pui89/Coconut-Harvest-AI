@@ -424,3 +424,10 @@ This is an evidence-weighted readiness estimate, not code completion, product ce
 **Limitations:** This automated check is a first-line repository review, not a complete security audit, licence opinion, dependency vulnerability scan, branch-ruleset verification or physical safety validation. Software tests and simulations do not establish a built, certified or field-tested robot.
 
 <!-- PUI89_DAILY_PROGRESS:END -->
+
+
+## Portfolio alignment update — 28 November 2026
+
+Coconut Harvest AI is one of the six active PUI89 products. The current first research milestone is a rights-cleared, human-reviewed RGB vision study of four distinct coconut maturity classes: **young green, mature green, yellow and brown**. The 0–30 m range is a design challenge/target only; it is not a validated detection range. No harvesting robot, field performance or model accuracy is claimed without linked test evidence.
+
+Prototype BOM and verified cost are **TBD** until the camera/lens/lighting configuration, compute reuse, exact part numbers, origin evidence and dated supplier quotations are documented. See the [six-product BOM and cost framework](https://github.com/Pui89/PUI89-Research/blob/main/docs/PROTOTYPE_BOM_AND_COST_FRAMEWORK.md).
