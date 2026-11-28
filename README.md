@@ -385,7 +385,7 @@ When inputs are missing, stale, conflicting or unreliable, show the reason and a
 
 **🟡 50% — Developing evidence stage** · **Evidence score:** 50/100  
 **Evidence coverage:** 88% of readiness gates have non-zero credits · **Coverage-derived confidence:** High  
-**Review:** 27 November 2026 07:46 (Asia/Bangkok) · **Cycle:** Daily  
+**Review:** 28 November 2026 07:12 (Asia/Bangkok) · **Cycle:** Daily  
 **Progress:** 🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 50%
 
 This is an evidence-weighted readiness estimate, not code completion, product certification, field validation or commercial performance. Scores do not increase with time. Credits change only after human review of traceable evidence.

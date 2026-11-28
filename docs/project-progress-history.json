@@ -18,5 +18,15 @@
     "evidence_coverage_percent": 88,
     "evidence_confidence_proxy": "High",
     "shared_ai_core_integration_percent": 100
+  },
+  {
+    "date": "2026-11-28",
+    "timestamp": "2026-11-28T07:12:45.538685+07:00",
+    "cadence": "daily",
+    "score": 50,
+    "score_percent": 50,
+    "evidence_coverage_percent": 88,
+    "evidence_confidence_proxy": "High",
+    "shared_ai_core_integration_percent": 100
   }
 ]
